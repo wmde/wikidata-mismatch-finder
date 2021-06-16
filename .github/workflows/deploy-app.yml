@@ -1,0 +1,35 @@
+name: Build and Deploy to Toolforge
+
+on: 
+  push: 
+   branches:
+    - main
+    - gh-actions/**
+
+jobs:
+  build-deploy:
+    name: Ship and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Syncing code to Toolforge
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        source: "./"
+        target: "public_html"
+        rm: true
+    - name: Deploy code
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        script: |
+          become mismatch-finder rm -rf public_html
+          cp -rv public_html ~tools.mismatch-finder/
+          become mismatch-finder take public_html

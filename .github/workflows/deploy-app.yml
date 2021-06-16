@@ -19,8 +19,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "./"
-        target: "public_html"
+        source: "./public"
+        target: "mismatch-finder-repo"
         rm: true
     - name: Deploy code
       uses: appleboy/ssh-action@master
@@ -31,5 +31,5 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           become mismatch-finder rm -rf public_html
-          cp -rv public_html ~tools.mismatch-finder/
+          cp -rv mismatch-finder-repo/public ~tools.mismatch-finder/public_html
           become mismatch-finder take public_html

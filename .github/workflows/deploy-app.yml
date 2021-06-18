@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "./public"
+        source: "./"
         target: "mismatch-finder-repo"
         rm: true
     - name: Deploy code
@@ -31,5 +31,5 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           become mismatch-finder rm -rf public_html
-          cp -rv mismatch-finder-repo/public ~tools.mismatch-finder/public_html
+          cp -rv mismatch-finder-repo/ ~tools.mismatch-finder/public_html
           become mismatch-finder take public_html

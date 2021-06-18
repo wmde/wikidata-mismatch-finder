@@ -42,3 +42,4 @@ jobs:
           become mismatch-finder rm -rf mismatch-finder-repo
           cp -rv mismatch-finder-repo/ ~tools.mismatch-finder/
           become mismatch-finder take mismatch-finder-repo
+          become mismatch-finder cp .env mismatch-finder-repo/

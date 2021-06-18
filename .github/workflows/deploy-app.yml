@@ -12,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      uses: php-actions/composer@v6
+      with:
+        dev: no
+        version: 2
+        php_version: 7.3
+
     - name: Syncing code to Toolforge
       uses: appleboy/scp-action@master
       with:
@@ -19,9 +27,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "./public"
+        source: "./"
         target: "mismatch-finder-repo"
         rm: true
+
     - name: Deploy code
       uses: appleboy/ssh-action@master
       with:
@@ -30,6 +39,7 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          become mismatch-finder rm -rf public_html
-          cp -rv mismatch-finder-repo/public ~tools.mismatch-finder/public_html
-          become mismatch-finder take public_html
+          become mismatch-finder rm -rf mismatch-finder-repo
+          cp -rv mismatch-finder-repo/ ~tools.mismatch-finder/
+          become mismatch-finder take mismatch-finder-repo
+          become mismatch-finder cp .env mismatch-finder-repo/

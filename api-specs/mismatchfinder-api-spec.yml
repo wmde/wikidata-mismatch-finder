@@ -1,0 +1,84 @@
+openapi: '3.0.2'
+info:
+  title: Wikidata Mismatch Finder
+  version: '1.0'
+servers:
+  - url: https://mismatch-finder.toolforge.org/api/v1
+paths:
+  /mismatch:
+    get:
+      tags: ['store']
+      summary: Get mismatches by item ID
+      parameters:
+        - in: query
+          name: ids
+          schema:
+            type: string
+          required: true
+          description: List of item IDs to get mismatches for
+      responses:
+        '200':
+          description: A list of mismatches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOfMismatches'
+
+  /import:
+    get:
+      tags: ['store']
+      summary: Get meta information on mismatch imports.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Meta information on a mismatch import
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportMeta'
+
+          
+
+
+components:
+  schemas:
+    Mismatch:
+      properties:
+        statementGuid:
+          type: string
+        propertyId:
+          type: string
+        wikidataValue:
+          type: string
+        externalValue:
+          type: string
+        externalReference:
+          type: string
+          
+    ListOfMismatches:
+      properties:
+        mismatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mismatch'
+
+    ImportMeta:
+      properties:
+        name:
+          type: string
+        uploader:
+          type: string
+        date:
+          type: string
+        description:
+          type: string
+
+        
+
+
+      

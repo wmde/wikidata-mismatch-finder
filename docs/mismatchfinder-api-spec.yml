@@ -32,7 +32,7 @@ paths:
               - reviewed
               - ...
           required: false
-          description: Date of the import to filter mismatches by
+          description: Status(es) to filter mismatches by
       responses:
         '200':
           description: A list of mismatches, potentially empty if none are found.

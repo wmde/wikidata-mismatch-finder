@@ -18,6 +18,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'wiki_id'
+        'mw_userid'
     ];
 }

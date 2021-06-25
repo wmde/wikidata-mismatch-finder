@@ -27,7 +27,7 @@ class OAuthUserController extends Controller
 
         $user = User::firstOrCreate([
             'username' => $socialiteUser->name,
-            'wiki_id' => $socialiteUser->id
+            'mw_userid' => $socialiteUser->id
         ]);
 
         Auth::login($user, false);

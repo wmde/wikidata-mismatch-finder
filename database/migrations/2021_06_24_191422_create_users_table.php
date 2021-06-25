@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->integer('wiki_id');
+            $table->integer('mw_userid');
             $table->timestamps();
         });
     }

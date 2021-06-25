@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->userName(),
-            'wiki_id' => $this->faker->randomNumber(8, true)
+            'mw_userid' => $this->faker->randomNumber(8, true)
         ];
     }
 }

@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [OAuthUserController::class, 'login']);
-Route::get('/callback', [OAuthUserController::class, 'callback']);
-Route::get('/logout', [OAuthUserController::class, 'logout']);
+Route::get('/login', [OAuthUserController::class, 'login'])
+    ->name('login');
+
+Route::get('/callback', [OAuthUserController::class, 'callback'])
+    ->name('oauth.callback');
+
+Route::get('/logout', [OAuthUserController::class, 'logout'])
+    ->name('logout');

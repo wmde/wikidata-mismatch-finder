@@ -7,6 +7,14 @@
     <title>Mismatch Finder</title>
 </head>
 <body>
+    @auth
+        <p>Beep</p>
+    @endauth
+
+    @guest
+        <p>Boop</p>
+    @endguest
+
     <h1>Wikidata Mismatch Finder</h1>
     <p>Coming soon, to a screen near you...</p>
 </body>

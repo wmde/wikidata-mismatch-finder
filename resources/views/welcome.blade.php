@@ -8,12 +8,10 @@
 </head>
 <body>
     @auth
-        <p>Beep</p>
+        <p>Hello, {{ Auth::user()->username }}! <a href="{{ route('logout') }}">Logout</a></p>
+    @else
+        <p>Hello, Guest! <a href="{{ route('login') }}">Login</a></p>
     @endauth
-
-    @guest
-        <p>Boop</p>
-    @endguest
 
     <h1>Wikidata Mismatch Finder</h1>
     <p>Coming soon, to a screen near you...</p>

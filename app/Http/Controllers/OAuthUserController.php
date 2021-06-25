@@ -9,20 +9,16 @@ use App\Models\User;
 
 class OAuthUserController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest')->only(['login', 'callback']);
         $this->middleware('auth')->only('logout');
     }
 
-    public function login()
-    {
-        return Socialite::driver('mediawiki')
-            ->redirect();
+    public function login() {
+        return Socialite::driver('mediawiki')->redirect();
     }
 
-    public function callback()
-    {
+    public function callback() {
         $socialiteUser = Socialite::driver('mediawiki')->user();
 
         $user = User::firstOrCreate([
@@ -34,15 +30,13 @@ class OAuthUserController extends Controller
         return redirect()->intended('/');
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         $this->guard()->logout();
         $request->session()->invalidate();
         return redirect('/');
     }
 
-    private function guard()
-    {
+    private function guard() {
         return Auth::guard();
     }
 }

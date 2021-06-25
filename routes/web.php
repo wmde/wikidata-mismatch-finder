@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OAuthUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [OAuthUserController::class, 'login']);
+Route::get('/callback', [OAuthUserController::class, 'callback']);
+Route::get('/logout', [OAuthUserController::class, 'logout']);

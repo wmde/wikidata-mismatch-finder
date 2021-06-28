@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OAuthUserController;
+use App\Http\Controllers\ApiTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,7 @@ Route::get('/callback', [OAuthUserController::class, 'callback'])
 
 Route::get('/logout', [OAuthUserController::class, 'logout'])
     ->name('logout');
+
+Route::get('/token', [ApiTokenController::class, 'showToken']);
+Route::get('/createToken', [ApiTokenController::class, 'createToken']);
+Route::get('/revokeToken', [ApiTokenController::class, 'revokeToken']);

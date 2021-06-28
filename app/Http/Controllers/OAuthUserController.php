@@ -31,12 +31,8 @@ class OAuthUserController extends Controller
     }
 
     public function logout(Request $request) {
-        $this->guard()->logout();
+        Auth::guard()->logout();
         $request->session()->invalidate();
         return redirect('/');
-    }
-
-    private function guard() {
-        return Auth::guard();
     }
 }

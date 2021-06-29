@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mediawiki' => [
+        'identifier' => env('MEDIAWIKI_OAUTH_CLIENT_ID'), // oauth client id
+        'secret' => env('MEDIAWIKI_OAUTH_CLIENT_SECRET'), // oauth client secret
+
+        'callback_uri' => env('MEDIAWIKI_OAUTH_CALLBACK_URL'), // redirect url
+        'base_url' => env('MEDIAWIKI_OAUTH_BASE_URL'), // base url of wiki, for example https://meta.wikimedia.org
+    ],
+
 ];

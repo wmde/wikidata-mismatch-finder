@@ -20,7 +20,7 @@ No tokens found, do you want to <a href="/createToken">create</a> one?
             <div id="tokenAbilities">abilities: {{ implode(', ', $token->abilities) }}</div>
             <div id="tokenCreated">created at: {{ $token->created_at }}</div>
             <div id="tokenLastUsed">last used at: {{ $token->last_used_at }}</div>
-            <div id="tokenRevoke"><a href="/revokeToken?id={{$token->id}}">Revoke</a></div>
+            <div id="tokenRevoke"><a href="{{ route('token.revoke', [ 'id' => $token->id ] ) }}">Revoke</a></div>
         </div>
         <hr/>
     @endforeach

@@ -10,7 +10,7 @@
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#oauth)
-- [Troubleshooting <a id="troubleshooting"></a>](#troubleshooting-a-idtroubleshootinga)
+- [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
 - [See also](#see-also)
@@ -205,14 +205,14 @@ League\OAuth1\Client\Credentials\CredentialsException
 Error in retrieving temporary credentials.
 http://localhost/auth/login
 ```
+
 **Possible Explanation:**
 
-After following the steps in the [Working with OAuth section](#working-with-oauth) you might get this error. It means your OAuth Consumer Registration is still being processed and you have to wait for the consumer key and consumer secret to be approved.
-
-This error might be caused as well if you have entered the wrong consumer credentials, or a wrong APP_URL. 
+If, after following the steps in the [Working with OAuth section](#oauth), you are getting this error - this can be due to either misconfigured consumer keys, a wrong app url, or simply an attempt to authorize a consumer that is still pending WMF review.
 
 **Solution:**
-1. Make sure your app key and secret are correctly set to your consumer key and secret in your local `.env` file.
+
+1. Make sure your `MEDIAWIKI_OAUTH_CLIENT_ID` and `MEDIAWIKI_OAUTH_CLIENT_SECRET` are correctly set to your consumer key and secret in your local `.env` file.
 1. Make sure that your `APP_URL` is set correctly to your localhost address and the port your application is running on (if running on a non default port).
 1. Double check to see that the WMF has emailed to approve your localhost OAuth consumer, if they have not responded yet, please wait patiently, as the review process might take a few hours.
 

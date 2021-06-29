@@ -6,13 +6,14 @@
 
 - [Quickstart](#quickstart)
 - [Day to day](#day-to-day)
-    - [Start the application server](#start-the-application-server)
-    - [Stop the application server](#stop-the-application-server)
-    - [Destroy all the things](#destroy-all-the-things)
+  - [Start the application server](#start-the-application-server)
+  - [Stop the application server](#stop-the-application-server)
+  - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#oauth)
-- [Troubleshooting](#troubleshooting)
-    - [Address already in use](#address-already-in-use)
-- [Sources](#sources)
+- [Troubleshooting <a id="troubleshooting"></a>](#troubleshooting-a-idtroubleshootinga)
+  - [Address already in use](#address-already-in-use)
+  - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
+- [See also](#see-also)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -209,7 +210,7 @@ This error might be caused as well if you have entered the wrong consumer creden
 1. Make sure that your `APP_URL` is set correctly to your localhost address and the port your application is running on (if running on a non default port).
 1. Double check to see that the WMF has emailed to approve your localhost OAuth consumer, if they have not responded yet, please wait patiently, as the review process might take a few hours.
 
-## Sources
+## See also <a id="see-also"></a>
 
 [Laravel Sail](https://laravel.com/docs/8.x/sail)
 

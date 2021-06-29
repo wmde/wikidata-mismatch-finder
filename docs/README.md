@@ -9,14 +9,14 @@
     - [Start the application server](#start-the-application-server)
     - [Stop the application server](#stop-the-application-server)
     - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#working-with-oauth)
+- [Working with OAuth](#oauth)
 - [Troubleshooting](#troubleshooting)
     - [Address already in use](#address-already-in-use)
 - [Sources](#sources)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Quickstart
+## Quickstart <a id="quickstart"></a>
 
 1. Clone the repository
 
@@ -66,7 +66,7 @@
     sail artisan key:generate
     ```
 
-## Day to day
+## Day to day <a id="day-to-day"></a>
 
 ### Start the application server
 
@@ -94,7 +94,7 @@ sail down
 sail down --rmi all -v
 ```
 
-## Working with OAuth
+## Working with OAuth <a id="oauth"></a>
 
 In production, this application relies on wikidata.org's OAuth capabilities in order to authorize and identify users. Since it is not ideal to test in the production environment, we recommend creating your own personal OAuth consumer credentials for testing purposes, in order to develop locally.
 
@@ -127,7 +127,7 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 
 1. As soon as you receive the email from the WMF team that your consumer is approved, you may start testing your application by logging in through your local instance's home page.
 
-## Troubleshooting
+## Troubleshooting <a id="troubleshooting"></a>
 
 ### Address already in use
 
@@ -188,10 +188,6 @@ APP_URL=http://localhost:1337
 APP_PORT=1337
 ##...
 ```
-
-
-
-
 
 ### OAuth Error retrieving temporary credentials
 

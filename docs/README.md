@@ -204,7 +204,10 @@ After following the steps in the [Working with OAuth section](#working-with-oaut
 
 This error might be caused as well if you have entered the wrong consumer credentials, or a wrong APP_URL. 
 
-**Solution:**  Wait a few hours and try again.
+**Solution:**
+1. Make sure your app key and secret are correctly set to your consumer key and secret in your local `.env` file.
+1. Make sure that your `APP_URL` is set correctly to your localhost address and the port your application is running on (if running on a non default port).
+1. Double check to see that the WMF has emailed to approve your localhost OAuth consumer, if they have not responded yet, please wait patiently, as the review process might take a few hours.
 
 ## Sources
 

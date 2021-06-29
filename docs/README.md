@@ -137,7 +137,10 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 **Problem:** Sail refuses to start with the following error.
 
 ```
-ERROR: for wikidata-mismatch-finder_mariadb_1  Cannot start service mariadb: driver failed programming external connectivity on endpoint wikidata-mismatch-finder_mariadb_1 (dbd1f278da0a5edb416b7875f224b83d1f2c08feac6e9a31d01d28567b83b4c7): Error starting userland proxy: listen tcp4 0.0.0.0:3306: bind: address already in use
+ERROR: for wikidata-mismatch-finder_mariadb_1
+Cannot start service mariadb: driver failed programming external connectivity on endpoint 
+wikidata-mismatch-finder_mariadb_1 (dbd1f278da0a5edb416b7875f224b83d1f2c08feac6e9a31d01d28567b83b4c7):
+Error starting userland proxy: listen tcp4 0.0.0.0:3306: bind: address already in use
 ```
 
 **Possible Explanation:** This error most probably occurs when you already have a local system-wide instance of MySQL or MariaDB running on the default port `3306`.
@@ -166,7 +169,10 @@ FORWARD_DB_PORT=3308
 **Problem:** Sail refuses to start with the following error.
 
 ```
-ERROR: for wikidata-mismatch-finder_laravel.test_1  Cannot start service laravel.test: driver failed programming external connectivity on endpoint wikidata-mismatch-finder_laravel.test_1 (0fa137072f412614077154ca7927cbb0ca2f3df5474879bb5e8e33f15a1683e3): Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+ERROR: for wikidata-mismatch-finder_laravel.test_1
+Cannot start service laravel.test: driver failed programming external connectivity on endpoint 
+wikidata-mismatch-finder_laravel.test_1 (0fa137072f412614077154ca7927cbb0ca2f3df5474879bb5e8e33f15a1683e3): 
+Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
 ```
 
 **Possible Explanation:** This error most probably occurs when you already have a local web server running on the default port `80`.

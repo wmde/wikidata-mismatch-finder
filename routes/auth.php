@@ -9,8 +9,8 @@ use App\Http\Controllers\OAuthUserController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register routes that involve stateful (non REST API)
-| authentication. These routes are loaded by the RouteServiceProvider within a
-| group which contains the "web" middleware group.
+| authorization and authentication. These routes are loaded by the
+| RouteServiceProvider within a group which contains the "web" middleware group.
 |
 */
 

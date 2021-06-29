@@ -103,7 +103,7 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 
     [OAuth Consumer Registration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose)
 
-1. Fill in the following fields in the form as follows (see [screenshot](img/Screenshot_2021-06-28_at_18-06-22_OAuth_consumer_registration_-_Meta.png) for example):
+1. Fill in the following fields in the form as follows (see [screenshot](gallery/Screenshot_2021-06-28_at_18-06-22_OAuth_consumer_registration_-_Meta.md) for example):
     - **Application name:** Make sure to include ***test*** in the name of the application, so that it is apparent for reviewers in the Wikimedia Foundation (WMF) that your consumer is meant for testing purposes.
     - **OAuth protocol version:** Leave this field as is. This application uses OAuth1.0a.
     - **Application description:** Fill in a description for your application, to make review easier.

@@ -189,6 +189,21 @@ APP_PORT=1337
 ##...
 ```
 
+### OAuth Error retrieving temporary credentials
+
+**Problem:** The local server returns this error on clicking the log in link.
+
+```
+League\OAuth1\Client\Credentials\CredentialsException
+Error in retrieving temporary credentials.
+http://localhost/auth/login
+```
+**Possible Explanation:**
+
+After following the steps in the [Working with OAuth section](#working-with-oauth) you might get this error. It means your OAuth Consumer Registration is still being processed and you have to wait for the consumer key and consumer secret to be approved.
+
+**Solution:**  Wait a few hours and try again.
+
 ## See also
 
 [Laravel Sail](https://laravel.com/docs/8.x/sail)

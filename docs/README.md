@@ -189,7 +189,7 @@ APP_PORT=1337
 ##...
 ```
 
-## Sources
+## See also
 
 [Laravel Sail](https://laravel.com/docs/8.x/sail)
 

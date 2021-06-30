@@ -24,7 +24,7 @@ No token found, do you want to <a href="{{ route('token.create') }}">create</a> 
         </div>
         <hr/>
     @endforeach
-
+<div id="back"><a href="/">home</a></div>
 @endif
 </body>
 </html>

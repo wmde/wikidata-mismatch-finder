@@ -8,6 +8,6 @@
 </head>
 <body>
     <div>Please write down your new token: {{ $newToken }}</div>
-    <a href="/token">I have.</a>
+    <a href="{{ route('token') }}">I have.</a>
 </body>
 </html>

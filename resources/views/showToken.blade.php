@@ -9,7 +9,7 @@
 <body>
 @if(!$tokens || sizeof($tokens) == 0)
 
-No tokens found, do you want to <a href="/createToken">create</a> one? 
+No tokens found, do you want to <a href="{{ route('token.create') }}">create</a> one? 
 
 @else
 

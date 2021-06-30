@@ -16,7 +16,7 @@ class ApiTokenController extends Controller
     public function createToken(Request $request) {
         if( sizeof($request->user()->tokens) > 0 ) {
             // token already exists
-            return redirect( 'token' );
+            return redirect( route('token') );
         }
 
         $token = $request->user()->createToken('apiToken', [ 'store:upload' ] );
@@ -26,6 +26,6 @@ class ApiTokenController extends Controller
     public function revokeToken(Request $request) {
         Auth::user()->tokens()->where('id', $request->id)->delete();
 
-        return redirect('token');
+        return redirect( route('token') );
     }
 }

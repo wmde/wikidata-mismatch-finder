@@ -108,6 +108,7 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
     - **OAuth protocol version:** Leave this field as is. This application uses OAuth1.0a.
     - **Application description:** Fill in a description for your application, to make review easier.
     - **OAuth "callback" URL:** Make sure to fill this in with a ***localhost*** address, with the port you would be running this application on (if not using the default port). This should be identical to the `APP_URL` in your `.env` file.
+    Please also make sure you tick the checkbox next to "Allow consumer to specify a callback in requests and use "callback" URL above as required prefix."
     - **Applicable project:** This field should be set to `wikidatawiki`.
     - **Types of grants being requested:** Make sure to check the first radio button - "User identity verification only, no ability to read pages or act on a user's behalf". This will speed up the review process.
 

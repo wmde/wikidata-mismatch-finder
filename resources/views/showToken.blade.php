@@ -17,7 +17,6 @@ No token found, do you want to <a href="{{ route('token.create') }}">create</a> 
         <div id="token">
             <div id="tokenId">ID: {{ $token->id }}</div>
             <div id="tokenName">name: {{ $token->name }}</div>
-            <div id="tokenAbilities">abilities: {{ implode(', ', $token->abilities) }}</div>
             <div id="tokenCreated">created at: {{ $token->created_at }}</div>
             <div id="tokenLastUsed">last used at: {{ $token->last_used_at }}</div>
             <div id="tokenRevoke"><a href="{{ route('token.revoke', [ 'id' => $token->id ] ) }}">Revoke</a></div>

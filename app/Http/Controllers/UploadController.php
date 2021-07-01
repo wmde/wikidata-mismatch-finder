@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {
@@ -13,19 +12,23 @@ class UploadController extends Controller
     }
 
     public function upload(Request $request) {
-        if(!$request->hasFile('mismatchFile')) {
-            return response( ['success' => False, 'reason' => 'no attached mismatch file found' ], 400);
+        if(!$request->user()->canUpload()) {
+            return response( ['success' => false, 'reason' => 'User has no upload privilege' ], 403);
         }
 
-        $file = $request->file('mismatchFile');
+        $request->validate([
+            'mismatchFile' => [ 'required', 'file', 'max:10000', 'mimes:csv,txt' ]
+        ]);
 
-        if(!$file->isValid()) {
-            return response( ['success' => False, 'reason' => 'validation of attached mismatch file failed' ], 400);
-        }
-
-        $file->storeAs('mismatch-files', 'mimsmatch-upload.' . $request->user()->mw_userid . '.csv');
+        $uploadName = $request->name;
+        $description = $request->description;
+        $filename = date('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
+        $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
         return response( [
+            'uploadName' => $uploadName,
+            'description' => $description,
+            'filename' => $filename,
             'success' => 'true'
         ], 201);
     }

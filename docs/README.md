@@ -10,6 +10,7 @@
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#oauth)
+- [PHP Linting](#phpcs)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -128,6 +129,16 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
     ```
 
 1. As soon as you receive the email from the WMF team that your consumer is approved, you may start testing your application by logging in through your local instance's home page.
+
+## PHP Linting <a id="phpcs"></a>
+
+The application uses `phpcs` to detect code format violations.
+
+To run phpcs: `sail composer run lint`
+
+To fix style errors automatically run: `sail composer run fix` 
+
+Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

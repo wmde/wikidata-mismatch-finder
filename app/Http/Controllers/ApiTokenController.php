@@ -20,7 +20,7 @@ class ApiTokenController extends Controller
             return redirect(route('token'));
         }
 
-        $token = $request->user()->createToken('apiToken', [ 'store:upload' ]);
+        $token = $request->user()->createToken('apiToken');
         return view('newToken', [ 'newToken' => $token->plainTextToken ]);
     }
 

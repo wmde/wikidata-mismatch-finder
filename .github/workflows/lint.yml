@@ -1,0 +1,13 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  phpcs-lint:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: Install dependencies
+          uses: php-actions/composer@v6
+        - name: PHP Lint
+          run: "composer run lint"

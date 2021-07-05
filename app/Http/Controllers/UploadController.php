@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth')->only('upload');
     }
 
-    public function upload(Request $request) {
-        if(!$request->user()->canUpload()) {
-            return response( ['success' => false, 'reason' => 'User has no upload privilege' ], 403);
+    public function upload(Request $request)
+    {
+        if (!$request->user()->canUpload()) {
+            return response(['success' => false, 'reason' => 'User has no upload privilege' ], 403);
         }
 
         $request->validate([
@@ -25,7 +27,7 @@ class UploadController extends Controller
         $filename = date('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
-        return response( [
+        return response([
             'uploadName' => $uploadName,
             'description' => $description,
             'filename' => $filename,

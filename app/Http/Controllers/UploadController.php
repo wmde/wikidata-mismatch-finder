@@ -19,7 +19,7 @@ class UploadController extends Controller
         }
 
         $request->validate([
-            'mismatchFile' => [ 'required', 'file', 'max:10000', 'mimes:csv,txt' ]
+            'mismatchFile' => [ 'required', 'file', 'max:' . env('UPLOAD_SIZE_LIMIT'), 'mimes:csv,txt' ]
         ]);
 
         $uploadName = $request->name;

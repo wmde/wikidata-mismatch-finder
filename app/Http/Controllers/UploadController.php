@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UploadUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -9,8 +10,15 @@ class UploadController extends Controller
 {
     public function upload(Request $request)
     {
-        if (!$request->user()->canUpload()) {
-            return response(['success' => false, 'reason' => 'User has no upload privilege' ], 403);
+        if (!UploadUser::firstWhere('username', $request->user()->username)) {
+            return response(
+                [
+                    'success' => false,
+                    'reason' => 'User has no upload privilege',
+                    'user' => $request->user()->username
+                ],
+                403
+            );
         }
 
         $request->validate([

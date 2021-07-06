@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->only('upload');
-    }
-
     public function upload(Request $request)
     {
         if (!$request->user()->canUpload()) {

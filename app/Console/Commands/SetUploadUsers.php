@@ -13,14 +13,15 @@ class SetUploadUsers extends Command
      *
      * @var string
      */
-    protected $signature = 'uploadUsers:set {allowList}';
+    protected $signature = 'uploadUsers:set 
+                            {allowlist : Allow list as newline separated txt file, placed in storage/app/allowlist/}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Set the list of users who are allowed to upload mismatch files by providing a txt file;';
+    protected $description = 'Set the list of users who are allowed to upload mismatch files.';
 
     /**
      * Create a new command instance.
@@ -39,7 +40,7 @@ class SetUploadUsers extends Command
      */
     public function handle()
     {
-        $allowlistFile = 'allowlist/' . $this->argument('allowList');
+        $allowlistFile = 'allowlist/' . $this->argument('allowlist');
         echo "Trying to read allow list from storage/app/" . $allowlistFile . "\n";
 
         if (!Storage::disk('local')->exists($allowlistFile)) {

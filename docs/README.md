@@ -11,6 +11,7 @@
   - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#oauth)
 - [PHP Linting](#phpcs)
+- [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -139,6 +140,48 @@ To run phpcs: `sail composer run lint`
 To fix style errors automatically run: `sail composer run fix` 
 
 Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
+
+## Testing <a id="testing"></a>
+
+The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services. Typically, you will want to use a separate database for testing purposes, which is set up in the `docker-compose.yml` as a `mariadb_testing` container.
+
+In order to make use of the testing database, you will need to copy your `.env` file to `.env.testing` with modified database settings that use `mariadb_testing` instead of the `mariadb` container as `DB_HOST`:
+```
+DB_CONNECTION=mysql
+DB_HOST=mariadb_testing
+DB_PORT=3306
+DB_DATABASE=mismatch_finder
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+
+Start your dev environment and generate a new application key for your `.env.testing` file:
+
+```
+$ sail up -d
+Creating network "wikidata-mismatch-finder_sail" with driver "bridge"
+Creating wikidata-mismatch-finder_mariadb_testing_1 ... done
+Creating wikidata-mismatch-finder_mariadb_1         ... done
+Creating wikidata-mismatch-finder_laravel.test_1    ... done
+$ sail artisan key:generate --env=testing
+Application key set successfully.
+```
+
+Now you are ready to run, modify and create both unit and feature tests:
+
+```
+$ sail artisan test
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ example
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ example
+
+  Tests:  2 passed
+  Time:   0.16s
+```
+
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

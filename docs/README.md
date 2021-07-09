@@ -143,31 +143,17 @@ Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which
 
 ## Testing <a id="testing"></a>
 
-The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services. Typically, you will want to use a separate database for testing purposes, which is set up in the `docker-compose.yml` as a `mariadb_testing` container.
-
-In order to make use of the testing database, you will need to copy your `.env` file to `.env.testing` with modified database settings that use `mariadb_testing` instead of the `mariadb` container as `DB_HOST`:
+The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services. Mismatch finder uses an in-memory SQLite database for testing, so that the feature tests will leave your mariadb instance untouched. You can find the config settings for sqlite in `phpunit.xml`:
 ```
-DB_CONNECTION=mysql
-DB_HOST=mariadb_testing
-DB_PORT=3306
-DB_DATABASE=mismatch_finder
-DB_USERNAME=sail
-DB_PASSWORD=password
+    <php>
+        [...]
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+        [...]
+    </php>
 ```
 
-Start your dev environment and generate a new application key for your `.env.testing` file:
-
-```
-$ sail up -d
-Creating network "wikidata-mismatch-finder_sail" with driver "bridge"
-Creating wikidata-mismatch-finder_mariadb_testing_1 ... done
-Creating wikidata-mismatch-finder_mariadb_1         ... done
-Creating wikidata-mismatch-finder_laravel.test_1    ... done
-$ sail artisan key:generate --env=testing
-Application key set successfully.
-```
-
-Now you are ready to run, modify and create both unit and feature tests:
+Simply run `# sail artisan test` to start both unit and integration tests:
 
 ```
 $ sail artisan test

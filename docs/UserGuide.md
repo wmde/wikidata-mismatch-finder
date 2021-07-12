@@ -3,9 +3,9 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Logging in <a id="login"></a>](#logging-in-a-idlogina)
-- [Obtaining an API token <a id="apiToken"></a>](#obtaining-an-api-token-a-idapitokena)
-- [Accessing the API <a id="apiAccess"></a>](#accessing-the-api-a-idapiaccessa)
+- [Logging in](#login)
+- [Obtaining an API token](#apiToken)
+- [Accessing the API](#apiAccess)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -20,4 +20,3 @@ Once you have logged in and have started to use the Mismatch Finder web interfac
 ## Accessing the API <a id="apiAccess"></a>
 
 To access the API, include your personalised API token as `Bearer <token>` string in the `Authorization:` header field.
-

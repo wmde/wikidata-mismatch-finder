@@ -55,7 +55,7 @@ class SetUploadUsers extends Command
 
         foreach ($lines as $line) {
             $uploaderName = trim($line);
-            if ( $uploaderName !== '') {
+            if ($uploaderName !== '') {
                 UploadUser::create(["username" => $uploaderName]);
             }
         }

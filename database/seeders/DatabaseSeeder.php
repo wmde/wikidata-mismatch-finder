@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
 
     private function seedUsers(int $amount): void
     {
-        if ($amount < 1) { return; }
+        if ($amount < 1) {
+            return;
+        }
 
         // Create random Users
         User::factory($amount)->create();

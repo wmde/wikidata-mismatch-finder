@@ -14,6 +14,7 @@ class UploadController extends Controller
         Gate::authorize('upload-import');
 
         $request->validate([
+            // TODO: Discourage using env directly in code, it should be received from config instead
             'mismatchFile' => [ 'required', 'file', 'max:' . env('UPLOAD_SIZE_LIMIT'), 'mimes:csv,txt' ]
         ]);
 

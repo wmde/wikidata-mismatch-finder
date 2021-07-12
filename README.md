@@ -5,6 +5,10 @@ A tool to review mismatches between Wikidata and External Databases
 ## User Guide
 
  * See the [User Guide](docs/UserGuide.md) for instructions on how to use Wikidata Mismatch Finder.
+ 
+## Administration Guide
+
+ * See the [Administration Guide](docs/AdminGuide.md) for instructions on how to run administration tasks.
 
 ## Local Development
 
@@ -13,9 +17,3 @@ A tool to review mismatches between Wikidata and External Databases
 * Stop the application server with `sail down`
 * Make sure to setup a local testing oauth consumer by following [these instructions](docs/README.md#oauth)
 * If you encounter any issues, see the [troubleshooting section](docs/README.md#troubleshooting).
-
-## User Guide
- * See the [User Guide](docs/UserGuide.md) for instructions on how to use Wikidata Mismatch Finder.
-
-## Administration Guide
- * See the [Administration Guide](docs/AdminGuide.md) for instructions on how to run administration tasks.

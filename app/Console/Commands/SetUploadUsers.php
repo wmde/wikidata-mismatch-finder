@@ -13,7 +13,7 @@ class SetUploadUsers extends Command
      *
      * @var string
      */
-    protected $signature = 'uploadUsers:set 
+    protected $signature = 'uploadUsers:set
                             {allowlist : Allow list as newline separated txt file, placed in storage/app/allowlist/}';
 
     /**
@@ -50,16 +50,18 @@ class SetUploadUsers extends Command
 
         UploadUser::truncate();
 
-        // read file from local disc, split by newline and filter out empty lines
-        $lines = array_filter(
-            explode("\n", Storage::disk('local')->get($allowlistFile))
-        );
-        foreach ($lines as $uploadUser) {
-            UploadUser::create(["username" => $uploadUser]);
+        // Read file from local disc, split by newline.
+        $lines = explode("\n", Storage::disk('local')->get($allowlistFile));
+
+        foreach ($lines as $line) {
+            $uploaderName = trim($line);
+            if ( $uploaderName !== '') {
+                UploadUser::create(["username" => $uploaderName]);
+            }
         }
 
         echo "Successfully imported " . count($lines) . " upload users.\n";
-        
+
         return 0;
     }
 }

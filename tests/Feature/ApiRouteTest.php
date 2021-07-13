@@ -8,6 +8,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\UploadUser;
 
 class ApiRouteTest extends TestCase
 {
@@ -60,9 +62,6 @@ class ApiRouteTest extends TestCase
             ]);
     }
 
-    // TODO: re-work after merging of
-    // https://github.com/wmde/wikidata-mismatch-finder/pull/12
-
     /**
      * Test the /api/upload route
      *
@@ -73,13 +72,13 @@ class ApiRouteTest extends TestCase
     {
         $this->travelTo(now()); // freezes time to ensure correct filenames
 
-        $user = User::factory()->create();
+        $user = $this->createFakeUploader();
 
         Storage::fake('local');
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
         Sanctum::actingAs($user);
-        
+
         $response = $this->post('/api/upload', ['mismatchFile' => $file]);
 
         $response->assertStatus(201);
@@ -99,7 +98,7 @@ class ApiRouteTest extends TestCase
     // phpcs:ignore
     public function test_upload_file_not_bigger_10Mb()
     {
-        $user = User::factory()->create();
+        $user = $this->createFakeUploader();
 
         Storage::fake('mismatchFiles');
         $sizeInKilobytes = 12000; //maximum file size is 10000
@@ -111,5 +110,15 @@ class ApiRouteTest extends TestCase
         $response = $this->post('/api/upload', ['mismatchFile' => $file]);
 
         $response->assertStatus(302);
+    }
+
+    private function createFakeUploader(): Model
+    {
+        $user = User::factory()->createOne();
+        UploadUser::factory()->createOne([
+            'username' => $user->getAttribute('username')
+        ]);
+
+        return $user;
     }
 }

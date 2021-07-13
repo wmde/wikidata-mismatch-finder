@@ -19,7 +19,7 @@ class ShowUploadUsersTest extends TestCase
         $this->artisan('uploadUsers:show')
             ->expectsTable(
                 ['ID', 'Username'],
-                $uploaders->map->only('id', 'username')
+                $uploaders->map->only('id', 'username')->toArray()
             )
             ->assertExitCode(0);
     }

@@ -23,7 +23,7 @@ class SetUploadUsersTest extends TestCase
         $this->artisan('uploadUsers:set', ['allowlist' => $filename])
             ->expectsOutput(__('admin.uploaders:reading', ['file' => $filename]))
             ->doesntExpectOutput(__('admin.uploaders:not_found'))
-            ->expectsOutput(__('admin.uploaders:success', ['count' => '4']))
+            ->expectsOutput(__('admin.uploaders:success', ['count' => 4]))
             ->assertExitCode(0);
     }
 

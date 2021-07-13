@@ -26,6 +26,6 @@ class User extends Authenticatable
     public function canUpload() : bool
     {
         //TODO replace this with proper allow list
-        return mt_rand(0, 1);
+        return 1;
     }
 }

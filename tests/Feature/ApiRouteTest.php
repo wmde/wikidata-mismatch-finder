@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Laravel\Sanctum\Sanctum;
 
 class ApiRouteTest extends TestCase
 {
@@ -45,8 +46,9 @@ class ApiRouteTest extends TestCase
     public function test_user_returns_user_data()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)
-                        ->get('/api/user');
+
+        Sanctum::actingAs($user);
+        $response = $this->get('/api/user');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -58,7 +60,7 @@ class ApiRouteTest extends TestCase
             ]);
     }
 
-    // TODO: re-work after merging of 
+    // TODO: re-work after merging of
     // https://github.com/wmde/wikidata-mismatch-finder/pull/12
 
     /**
@@ -69,12 +71,15 @@ class ApiRouteTest extends TestCase
     // phpcs:ignore
     public function test_upload_file()
     {
+
         $user = User::factory()->create();
 
         Storage::fake('mismatchFiles');
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
-        $response = $this->actingAs($user)->post('/api/upload', ['mismatchFile' => $file]);
+        Sanctum::actingAs($user);
+        
+        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
 
         $response->assertStatus(201);
     }
@@ -90,11 +95,13 @@ class ApiRouteTest extends TestCase
         $user = User::factory()->create();
 
         Storage::fake('mismatchFiles');
-        $sizeInKilobytes = 12000;
+        $sizeInKilobytes = 12000; //maximum file size is 10000
 
         $file = UploadedFile::fake()->create('mismatchFile.csv', $sizeInKilobytes);
 
-        $response = $this->actingAs($user)->post('/api/upload', ['mismatchFile' => $file]);
+        Sanctum::actingAs($user);
+
+        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
 
         $response->assertStatus(302);
     }

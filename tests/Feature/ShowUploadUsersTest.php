@@ -10,12 +10,9 @@ use App\Models\UploadUser;
 class ShowUploadUsersTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_shows_upload_users_table()
+
+    // phpcs:ignore
+    public function test_shows_upload_users_table(): void
     {
         $uploaders = UploadUser::factory(5)->create();
 

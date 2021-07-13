@@ -11,6 +11,7 @@ class SetUploadUsersTest extends TestCase
 {
     use RefreshDatabase;
 
+    // phpcs:ignore
     public function test_sets_upload_users_list()
     {
         $filename = 'uploaders.txt';
@@ -26,6 +27,7 @@ class SetUploadUsersTest extends TestCase
             ->assertExitCode(0);
     }
 
+    // phpcs:ignore
     public function test_fails_on_not_found()
     {
         $filename = 'nonexistant.txt';

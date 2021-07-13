@@ -90,6 +90,19 @@ class ApiRouteTest extends TestCase
         $this->travelBack(); // resumes the clock
     }
 
+    public function test_unauthorized_upload()
+    {
+        $user = User::factory()->create();
+
+        $file = UploadedFile::fake()->create('mismatchFile.csv');
+
+        Sanctum::actingAs($user);
+
+        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
+
+        $response->assertStatus(403);
+    }
+
     /**
      * Test the /api/upload route
      *

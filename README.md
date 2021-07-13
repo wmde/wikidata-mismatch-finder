@@ -2,6 +2,10 @@
 
 A tool to review mismatches between Wikidata and External Databases
 
+## User Guide
+
+ * See the [User Guide](docs/UserGuide.md) for instructions on how to use Wikidata Mismatch Finder.
+
 ## Local Development
 
 * Follow [these instructions](docs/README.md#quickstart) to setup your local environment.

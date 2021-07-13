@@ -35,6 +35,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'allowlist' => [
+            'driver' => 'local',
+            'root' => storage_path('app/allowlist'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

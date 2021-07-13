@@ -40,27 +40,29 @@ class SetUploadUsers extends Command
      */
     public function handle()
     {
-        $allowlistFile = 'allowlist/' . $this->argument('allowlist');
-        echo "Trying to read allow list from storage/app/" . $allowlistFile . "\n";
+        $filename = $this->argument('allowlist');
+        $this->line(__('admin.uploaders:reading', ['file' => $filename]));
 
-        if (!Storage::disk('local')->exists($allowlistFile)) {
-            echo "File not found\n";
+        if (!Storage::disk('allowlist')->exists($filename)) {
+            $this->error(__('admin.uploaders:not_found'));
             return 1;
         }
 
         UploadUser::truncate();
 
         // Read file from local disc, split by newline.
-        $lines = explode("\n", Storage::disk('local')->get($allowlistFile));
+        $lines = explode("\n", Storage::disk('allowlist')->get($filename));
+        $count = 0;
 
         foreach ($lines as $line) {
-            $uploaderName = trim($line);
-            if ($uploaderName !== '') {
-                UploadUser::create(["username" => $uploaderName]);
+            $uploader = trim($line);
+            if ($uploader !== '') {
+                $count++;
+                UploadUser::create(["username" => $uploader]);
             }
         }
 
-        echo "Successfully imported " . count($lines) . " upload users.\n";
+        $this->info(__('admin.uploaders:success', ['count' => $count]));
 
         return 0;
     }

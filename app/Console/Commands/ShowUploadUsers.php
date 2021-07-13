@@ -38,10 +38,11 @@ class ShowUploadUsers extends Command
      */
     public function handle()
     {
-        foreach (UploadUser::all() as $uploadUser) {
-            echo $uploadUser->username . "\n";
-        }
-        
+        $this->table(
+            ['ID', 'Username'],
+            UploadUser::all(['id', 'username'])->toArray()
+        );
+
         return 0;
     }
 }

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         // Seed 5 users
         $this->seedUsers(5);
 
-        // Seeds 1 uploader
+        // Seeds 1 uploader only once
         $this->seedUploader();
     }
 

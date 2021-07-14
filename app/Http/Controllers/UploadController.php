@@ -11,12 +11,23 @@ class UploadController extends Controller
 {
     public function upload(Request $request)
     {
+        // TODO: Consider using a FormRequest class for aytho and validation
         Gate::authorize('upload-import');
 
-        // TODO: Test and ensure validation messages are sent out
+        /**
+         * TODO: Test and ensure validation messages are sent out
+         *
+         * | Validation Rule | M | A |
+         * |-----------------|---|---|
+         * | Large file      | p |   |
+         * | Wrong file type | p |   |
+         * | Missing file    | p |   |
+         * | Missing name    | p |   |
+         */
+
         $request->validate([
-            // TODO: Add rules for ALL required fields
-            'mismatchFile' => [ 'required', 'file', 'size:' . config('filesystems.uploads.max_size'), 'mimes:csv,txt' ]
+            'name' => ['required'],
+            'mismatchFile' => [ 'required', 'file', 'max:' . config('filesystems.uploads.max_size'), 'mimes:csv,txt' ]
         ]);
 
         $uploadName = $request->name;

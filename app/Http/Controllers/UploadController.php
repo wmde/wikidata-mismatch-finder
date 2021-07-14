@@ -13,7 +13,9 @@ class UploadController extends Controller
     {
         Gate::authorize('upload-import');
 
+        // TODO: Test and ensure validation messages are sent out
         $request->validate([
+            // TODO: Add rules for ALL required fields
             'mismatchFile' => [ 'required', 'file', 'size:' . config('filesystems.uploads.max_size'), 'mimes:csv,txt' ]
         ]);
 

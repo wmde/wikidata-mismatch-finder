@@ -19,5 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// TODO: Rename route to /import, in order to keep in line with our specs
 Route::middleware('auth:sanctum')->post('/upload', [UploadController::class, 'upload'])
     ->name('upload');

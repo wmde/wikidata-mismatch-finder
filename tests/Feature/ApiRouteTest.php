@@ -71,10 +71,11 @@ class ApiRouteTest extends TestCase
     // phpcs:ignore
     public function test_upload_file()
     {
+        $this->travelTo(now()); // freezes time to ensure correct filenames
 
         $user = User::factory()->create();
 
-        Storage::fake('mismatchFiles');
+        Storage::fake('local');
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
         Sanctum::actingAs($user);
@@ -82,6 +83,12 @@ class ApiRouteTest extends TestCase
         $response = $this->post('/api/upload', ['mismatchFile' => $file]);
 
         $response->assertStatus(201);
+
+        $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $user->getAttribute('mw_userid') . '.csv';
+
+        Storage::disk('local')->assertExists('mismatch-files/' . $filename);
+
+        $this->travelBack(); // resumes the clock
     }
 
     /**

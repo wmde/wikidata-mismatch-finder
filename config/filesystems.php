@@ -75,4 +75,17 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Upload Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure various aspects relating to file uploads.
+    |
+    */
+
+    'uploads' => [
+        'max_size' => env('UPLOAD_SIZE_LIMIT', 10000), // 10000KB = 10MB
+    ],
+
 ];

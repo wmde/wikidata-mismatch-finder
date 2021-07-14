@@ -120,11 +120,10 @@ components:
                 schema:
                   type: object
                   properties:
-                    code:
-                      type: string
                     message:
                      type: string
                   required: [ code, message ]
+
     NotFound:
         description: The specified resource was not found
         content:

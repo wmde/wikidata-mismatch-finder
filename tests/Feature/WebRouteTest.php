@@ -13,7 +13,6 @@ class WebRouteTest extends TestCase
      *
      *  @return void
      */
-    // phpcs:ignore
     public function test_welcome_route()
     {
         $response = $this->get('/');

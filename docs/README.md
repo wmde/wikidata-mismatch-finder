@@ -11,6 +11,7 @@
   - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#oauth)
 - [PHP Linting](#phpcs)
+- [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -139,6 +140,34 @@ To run phpcs: `sail composer run lint`
 To fix style errors automatically run: `sail composer run fix` 
 
 Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
+
+## Testing <a id="testing"></a>
+
+The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services. Mismatch finder uses an in-memory SQLite database for testing, so that the feature tests will leave your mariadb instance untouched. You can find the config settings for sqlite in `phpunit.xml`:
+```
+    <php>
+        [...]
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+        [...]
+    </php>
+```
+
+Simply run `# sail artisan test` to start both unit and integration tests:
+
+```
+$ sail artisan test
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ example
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ example
+
+  Tests:  2 passed
+  Time:   0.16s
+```
+
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

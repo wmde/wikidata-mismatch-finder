@@ -19,7 +19,7 @@ class UploadController extends Controller
 
         $uploadName = $request->name;
         $description = $request->description;
-        $filename = date('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
+        $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
         return response([

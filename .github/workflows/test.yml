@@ -1,0 +1,17 @@
+name: Test
+
+on: [push]
+env: 
+  APP_KEY: ${{ secrets.TESTING_KEY }}
+
+jobs:
+  feature-test:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: Install dependencies
+          uses: php-actions/composer@v6
+        - name: phpunit
+          uses: php-actions/phpunit@v3
+          with: 
+            php_version: 7.3

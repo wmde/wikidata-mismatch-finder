@@ -167,6 +167,13 @@ components:
                   required: [ code, message ]
 
   schemas:
+    User:
+      properties:
+        username:
+          type: string
+        mw_userid:
+          type: string
+
     Mismatch:
       properties:
         statementGuid:
@@ -189,16 +196,23 @@ components:
 
     ImportMeta:
       properties:
-        name:
-          type: string
-        uploader:
-          type: string
-        date:
-          type: string
         description:
           type: string
         status:
           type: string
+          enum:
+            - pending
+            - failed
+            - completed
+        best_before:
+          type: string
+          format: date
+        created:
+          type: string
+          format: date
+        uploader:
+          type: object
+          $ref: '#/components/schemas/User'
 
     ListOfImportMeta:
       properties:

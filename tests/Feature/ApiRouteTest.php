@@ -18,6 +18,11 @@ class ApiRouteTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * @var Model|null
+     */
+    private $fakeUploader = null;
+
+    /**
      * Test non authenticated api/user route
      *
      *  @return void
@@ -68,9 +73,7 @@ class ApiRouteTest extends TestCase
      */
     public function test_post_import_upload_file()
     {
-
-
-        $user = $this->createFakeUploader();
+        $user = $this->getFakeUploader();
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
         Storage::fake('local');
@@ -113,7 +116,7 @@ class ApiRouteTest extends TestCase
     {
         $maxSize = config('filesystems.uploads.max_size');
         $sizeInKilobytes = $maxSize + 10;
-        $user = $this->createFakeUploader();
+        $user = $this->getFakeUploader();
         $file = UploadedFile::fake()->create('mismatchFile.csv', $sizeInKilobytes);
 
         Storage::fake('local');
@@ -138,7 +141,7 @@ class ApiRouteTest extends TestCase
      */
     public function test_import_wrong_file_format()
     {
-        $user = $this->createFakeUploader();
+        $user = $this->getFakeUploader();
         $file = UploadedFile::fake()->create('mismatchFile.xls');
 
         Storage::fake('local');
@@ -163,7 +166,7 @@ class ApiRouteTest extends TestCase
      */
     public function test_import_missing_file()
     {
-        $user = $this->createFakeUploader();
+        $user = $this->getFakeUploader();
 
         Sanctum::actingAs($user);
 
@@ -176,14 +179,13 @@ class ApiRouteTest extends TestCase
             ]);
     }
 
-    private function createFakeUploader(): Model
+    private function getFakeUploader(): Model
     {
-        $user = User::factory()->createOne();
-        UploadUser::factory()->createOne([
-            'username' => $user->getAttribute('username')
-        ]);
+        if (!$this->fakeUploader) {
+            $this->fakeUploader = User::factory()->uploader()->create();
+        }
 
-        return $user;
+        return $this->fakeUploader;
     }
 
     private function makePostImportApiRequest(array $payload = []): TestResponse

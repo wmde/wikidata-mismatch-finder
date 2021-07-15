@@ -2,14 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UploadUser;
+use App\Models\ImportMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 
 class ImportController extends Controller
 {
-    public function upload(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         // TODO: Consider using a FormRequest class for auth and validation
         Gate::authorize('upload-import');
@@ -34,5 +50,16 @@ class ImportController extends Controller
             'filename' => $filename,
             'success' => 'true'
         ], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\ImportMeta  $importMeta
+     * @return \Illuminate\Http\Response
+     */
+    public function show(ImportMeta $importMeta)
+    {
+        //
     }
 }

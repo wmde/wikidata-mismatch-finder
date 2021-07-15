@@ -43,3 +43,5 @@ jobs:
           cp -rv mismatch-finder-repo/ ~tools.mismatch-finder/
           become mismatch-finder take mismatch-finder-repo
           become mismatch-finder cp .env mismatch-finder-repo/
+          become mismatch-finder mkdir -p mismatch-finder-repo/storage/app/allowlist
+          become mismatch-finder cp uploaders.txt mismatch-finder-repo/storage/app/allowlist/

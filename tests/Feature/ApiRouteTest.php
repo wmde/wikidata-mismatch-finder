@@ -13,7 +13,6 @@ use App\Models\UploadUser;
 
 class ApiRouteTest extends TestCase
 {
-    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
     use RefreshDatabase;
 
@@ -44,7 +43,6 @@ class ApiRouteTest extends TestCase
      *
      *  @return void
      */
-    // phpcs:ignore
     public function test_user_returns_user_data()
     {
         $user = User::factory()->create();
@@ -67,7 +65,6 @@ class ApiRouteTest extends TestCase
      *
      *  @return void
      */
-    // phpcs:ignore
     public function test_upload_file()
     {
         $this->travelTo(now()); // freezes time to ensure correct filenames
@@ -108,7 +105,6 @@ class ApiRouteTest extends TestCase
      *
      *  @return void
      */
-    // phpcs:ignore
     public function test_upload_file_not_bigger_10Mb()
     {
         $user = $this->createFakeUploader();

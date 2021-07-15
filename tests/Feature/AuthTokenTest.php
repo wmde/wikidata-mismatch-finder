@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class AuthTokenTest extends TestCase
 {
-    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
     use RefreshDatabase;
 
@@ -38,7 +37,6 @@ class AuthTokenTest extends TestCase
      *
      *  @return void
      */
-    // phpcs:ignore
     public function test_token_returnsShowToken()
     {
         $user = User::factory()->create();

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UploadUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class UploadController extends Controller
 {
     public function upload(Request $request)
     {
-        if (!$request->user()->canUpload()) {
-            return response(['success' => false, 'reason' => 'User has no upload privilege' ], 403);
-        }
+        Gate::authorize('upload-import');
 
         $request->validate([
             'mismatchFile' => [ 'required', 'file', 'max:' . env('UPLOAD_SIZE_LIMIT'), 'mimes:csv,txt' ]

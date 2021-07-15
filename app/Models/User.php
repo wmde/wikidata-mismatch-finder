@@ -22,10 +22,4 @@ class User extends Authenticatable
         'username',
         'mw_userid'
     ];
-
-    public function canUpload() : bool
-    {
-        //TODO replace this with proper allow list
-        return 1;
-    }
 }

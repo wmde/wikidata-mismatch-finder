@@ -29,7 +29,8 @@ class ImportController extends Controller
             'mismatchFile' => [
                 'required',
                 'file',
-                'max:' . config('filesystems.uploads.max_size'), 'mimes:csv,txt'
+                'max:' . config('filesystems.uploads.max_size'),
+                'mimes:csv,txt'
             ]
         ]);
 

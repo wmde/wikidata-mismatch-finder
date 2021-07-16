@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UploadUser;
 use Illuminate\Http\Testing\File;
 use Illuminate\Testing\TestResponse;
+use App\Http\Controllers\ImportController;
 
 class ApiRouteTest extends TestCase
 {
     use RefreshDatabase;
+
+    private const USER_ROUTE = 'api/user';
+    private const IMPORTS_ROUTE = 'api/' . ImportController::RESOURCE_NAME;
 
     /**
      * @var Model|null
@@ -29,7 +33,7 @@ class ApiRouteTest extends TestCase
      */
     public function test_non_authenticated_api_user_will_redirect()
     {
-        $response = $this->get('/api/user');
+        $response = $this->get(self::USER_ROUTE);
         $response->assertStatus(302);
     }
 
@@ -44,7 +48,7 @@ class ApiRouteTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/user');
+        $response = $this->get(self::USER_ROUTE);
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'username',
@@ -62,7 +66,7 @@ class ApiRouteTest extends TestCase
      */
     public function test_get_import_wrong_method()
     {
-        $response = $this->get('/api/import');
+        $response = $this->get(self::IMPORTS_ROUTE);
         $response->assertStatus(405);
     }
 
@@ -192,6 +196,6 @@ class ApiRouteTest extends TestCase
     {
         return $this->withHeaders([
             'Accept' => 'application/json'
-        ])->post('/api/import', $payload);
+        ])->post(self::IMPORTS_ROUTE, $payload);
     }
 }

@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Gate;
 
 class ImportController extends Controller
 {
+    /** @var string */
+    public const RESOURCE_NAME = 'imports';
+
+     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      *

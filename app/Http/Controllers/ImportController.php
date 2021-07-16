@@ -19,13 +19,11 @@ class ImportController extends Controller
          *
          * | Validation Rule | M | A |
          * |-----------------|---|---|
-         * | Large file      | p |   |
+         * | Large file      | p | p |
          * | Wrong file type | p |   |
          * | Missing file    | p |   |
-         * | Missing name    | p |   |
          */
         $request->validate([
-            'name' => ['required'],
             'mismatchFile' => [
                 'required',
                 'file',

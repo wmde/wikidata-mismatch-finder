@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ImportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

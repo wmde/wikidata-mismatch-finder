@@ -13,7 +13,6 @@ use App\Models\UploadUser;
 
 class ApiRouteTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /**
@@ -21,21 +20,10 @@ class ApiRouteTest extends TestCase
      *
      *  @return void
      */
-    public function test_nonAuthenticated_api_user_willRedirect()
+    public function test_non_authenticated_api_user_will_redirect()
     {
         $response = $this->get('/api/user');
         $response->assertStatus(302);
-    }
-
-    /**
-     * Test the /api/upload route's get method
-     *
-     *  @return void
-     */
-    public function test_get_upload_wrongMethod()
-    {
-        $response = $this->get('/api/upload');
-        $response->assertStatus(405);
     }
 
     /**
@@ -61,11 +49,22 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test the /api/upload route
+     * Test the /api/import route's GET method
      *
      *  @return void
      */
-    public function test_upload_file()
+    public function test_get_import_wrong_method()
+    {
+        $response = $this->get('/api/import');
+        $response->assertStatus(405);
+    }
+
+    /**
+     * Test the /api/import route' POST method
+     *
+     *  @return void
+     */
+    public function test_post_import_upload_file()
     {
         $this->travelTo(now()); // freezes time to ensure correct filenames
 
@@ -76,7 +75,7 @@ class ApiRouteTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
+        $response = $this->post('/api/import', ['mismatchFile' => $file]);
 
         $response->assertStatus(201);
 
@@ -87,7 +86,12 @@ class ApiRouteTest extends TestCase
         $this->travelBack(); // resumes the clock
     }
 
-    public function test_unauthorized_upload()
+     /**
+     * Test unauthorized POST /api/import
+     *
+     *  @return void
+     */
+    public function test_unauthorized_import()
     {
         $user = User::factory()->create();
 
@@ -95,13 +99,13 @@ class ApiRouteTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
+        $response = $this->post('/api/import', ['mismatchFile' => $file]);
 
         $response->assertStatus(403);
     }
 
     /**
-     * Test the /api/upload route
+     * Test invalid file size in /api/upload
      *
      *  @return void
      */
@@ -109,14 +113,14 @@ class ApiRouteTest extends TestCase
     {
         $user = $this->createFakeUploader();
 
-        Storage::fake('mismatchFiles');
-        $sizeInKilobytes = 12000; //maximum file size is 10000
+        Storage::fake('local');
+        $sizeInKilobytes = config('filesystems.uploads.max_size') + 10;
 
         $file = UploadedFile::fake()->create('mismatchFile.csv', $sizeInKilobytes);
 
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/upload', ['mismatchFile' => $file]);
+        $response = $this->post('/api/import', ['mismatchFile' => $file]);
 
         $response->assertStatus(302);
     }

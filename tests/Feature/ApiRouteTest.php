@@ -105,11 +105,11 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test invalid file size in /api/upload
+     * Test invalid file size in /api/import
      *
      *  @return void
      */
-    public function test_upload_file_too_big()
+    public function test_import_file_too_big()
     {
         $maxSize = config('filesystems.uploads.max_size');
         $sizeInKilobytes = $maxSize + 10;
@@ -123,13 +123,56 @@ class ApiRouteTest extends TestCase
 
         $response
             ->assertStatus(422)
-            ->assertJson([
-                'errors' => [
-                    'mismatchFile' => [__('validation.max.file', [
-                        'attribute' => 'mismatch file',
-                        'max' => $maxSize
-                    ])]
-                ]
+            ->assertJsonPath('errors.mismatchFile', [
+                __('validation.max.file', [
+                    'attribute' => 'mismatch file',
+                    'max' => $maxSize
+                ])
+            ]);
+    }
+
+     /**
+     * Test invalid file format in /api/import
+     *
+     *  @return void
+     */
+    public function test_import_wrong_file_format()
+    {
+        $user = $this->createFakeUploader();
+        $file = UploadedFile::fake()->create('mismatchFile.xls');
+
+        Storage::fake('local');
+        Sanctum::actingAs($user);
+
+        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonPath('errors.mismatchFile', [
+                __('validation.mimes', [
+                    'attribute' => 'mismatch file',
+                    'values' => 'csv, txt'
+                ])
+            ]);
+    }
+
+    /**
+     * Test missing file field in /api/import
+     *
+     *  @return void
+     */
+    public function test_import_missing_file()
+    {
+        $user = $this->createFakeUploader();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->makePostImportApiRequest();
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonPath('errors.mismatchFile', [
+                __('validation.required', ['attribute' => 'mismatch file'])
             ]);
     }
 
@@ -143,7 +186,7 @@ class ApiRouteTest extends TestCase
         return $user;
     }
 
-    private function makePostImportApiRequest( array $payload ): TestResponse
+    private function makePostImportApiRequest(array $payload = []): TestResponse
     {
         return $this->withHeaders([
             'Accept' => 'application/json'

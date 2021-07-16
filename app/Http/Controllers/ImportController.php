@@ -14,15 +14,6 @@ class ImportController extends Controller
         // TODO: Consider using a FormRequest class for auth and validation
         Gate::authorize('upload-import');
 
-        /**
-         * TODO: Test and ensure validation messages are sent out
-         *
-         * | Validation Rule | M | A |
-         * |-----------------|---|---|
-         * | Large file      | p | p |
-         * | Wrong file type | p |   |
-         * | Missing file    | p |   |
-         */
         $request->validate([
             'mismatchFile' => [
                 'required',

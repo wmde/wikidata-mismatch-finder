@@ -10,6 +10,8 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UploadUser;
+use Illuminate\Http\Testing\File;
+use Illuminate\Testing\TestResponse;
 
 class ApiRouteTest extends TestCase
 {
@@ -36,8 +38,8 @@ class ApiRouteTest extends TestCase
         $user = User::factory()->create();
 
         Sanctum::actingAs($user);
-        $response = $this->get('/api/user');
 
+        $response = $this->get('/api/user');
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'username',
@@ -66,20 +68,19 @@ class ApiRouteTest extends TestCase
      */
     public function test_post_import_upload_file()
     {
-        $this->travelTo(now()); // freezes time to ensure correct filenames
+
 
         $user = $this->createFakeUploader();
-
-        Storage::fake('local');
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
+        Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/import', ['mismatchFile' => $file]);
-
-        $response->assertStatus(201);
-
+        $this->travelTo(now()); // freezes time to ensure correct filenames
         $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $user->getAttribute('mw_userid') . '.csv';
+
+        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
+        $response->assertStatus(201);
 
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
 
@@ -94,12 +95,11 @@ class ApiRouteTest extends TestCase
     public function test_unauthorized_import()
     {
         $user = User::factory()->create();
-
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/import', ['mismatchFile' => $file]);
+        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
 
         $response->assertStatus(403);
     }
@@ -109,20 +109,28 @@ class ApiRouteTest extends TestCase
      *
      *  @return void
      */
-    public function test_upload_file_not_bigger_10Mb()
+    public function test_upload_file_too_big()
     {
+        $maxSize = config('filesystems.uploads.max_size');
+        $sizeInKilobytes = $maxSize + 10;
         $user = $this->createFakeUploader();
-
-        Storage::fake('local');
-        $sizeInKilobytes = config('filesystems.uploads.max_size') + 10;
-
         $file = UploadedFile::fake()->create('mismatchFile.csv', $sizeInKilobytes);
 
+        Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->post('/api/import', ['mismatchFile' => $file]);
+        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
 
-        $response->assertStatus(302);
+        $response
+            ->assertStatus(422)
+            ->assertJson([
+                'errors' => [
+                    'mismatchFile' => [__('validation.max.file', [
+                        'attribute' => 'mismatch file',
+                        'max' => $maxSize
+                    ])]
+                ]
+            ]);
     }
 
     private function createFakeUploader(): Model
@@ -133,5 +141,12 @@ class ApiRouteTest extends TestCase
         ]);
 
         return $user;
+    }
+
+    private function makePostImportApiRequest( array $payload ): TestResponse
+    {
+        return $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->post('/api/import', $payload);
     }
 }

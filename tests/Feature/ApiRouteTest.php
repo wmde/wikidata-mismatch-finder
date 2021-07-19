@@ -88,7 +88,16 @@ class ApiRouteTest extends TestCase
         $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $user->getAttribute('mw_userid') . '.csv';
 
         $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
-        $response->assertStatus(201);
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'id',
+                'description',
+                'best_before',
+                'created',
+                'uploader' => [
+                    'username'
+                ]
+            ]);
 
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
 

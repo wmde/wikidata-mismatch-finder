@@ -6,6 +6,8 @@ use App\Models\ImportMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Resources\ImportMetaResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class ImportController extends Controller
 {
@@ -36,9 +38,8 @@ class ImportController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResource
     {
         // TODO: Consider using a FormRequest class for auth and validation
         Gate::authorize('upload-import');
@@ -66,12 +67,14 @@ class ImportController extends Controller
         $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
-        return response([
-            'uploadName' => $uploadName,
-            'description' => $description,
-            'filename' => $filename,
-            'success' => 'true'
-        ], 201);
+        $meta = ImportMeta::make([
+            'description' => $request->description,
+            'best_before' => $request->bestBefore
+        ])->user()->associate($request->user());
+
+        $meta->save();
+
+        return new ImportMetaResource($meta);
     }
 
     /**

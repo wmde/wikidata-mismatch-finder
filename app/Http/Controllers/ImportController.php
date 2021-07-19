@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ImportMetaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Jobs\ImportCSV;
 
 class ImportController extends Controller
 {
@@ -69,6 +70,8 @@ class ImportController extends Controller
         ])->user()->associate($request->user());
 
         $meta->save();
+
+        ImportCSV::dispatch($meta);
 
         return new ImportMetaResource($meta);
     }

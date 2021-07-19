@@ -53,8 +53,11 @@ class ImportController extends Controller
             ]
         ]);
 
-        // TODO: Replace with strtr()
-        $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
+        $filename = strtr(config('imports.upload.filename_template'), [
+            ':datetime' => now()->format('Ymd_His'),
+            ':userid' => $request->user()->mw_userid
+        ]);
+
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
         $expires = $request->expires ?? now()->add(6, 'months')->toDateString();

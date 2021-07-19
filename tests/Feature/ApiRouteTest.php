@@ -83,7 +83,10 @@ class ApiRouteTest extends TestCase
         Sanctum::actingAs($user);
 
         $this->travelTo(now()); // freezes time to ensure correct filenames
-        $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $user->getAttribute('mw_userid') . '.csv';
+        $filename = strtr(config('imports.upload.filename_template'), [
+            ':datetime' => now()->format('Ymd_His'),
+            ':userid' => $user->getAttribute('mw_userid')
+        ]);
 
         $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
         $response->assertCreated()

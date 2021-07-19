@@ -6,6 +6,10 @@
  * Various configurations relating to imports
  */
 return [
+    'upload' => [
+        'filename_template' => ':datetime-mismatch-upload.:userid.csv'
+    ],
+
     'description' => [
         'max_length' => env('IMPORTS_DESCRIPTION_MAX', 350)
     ],

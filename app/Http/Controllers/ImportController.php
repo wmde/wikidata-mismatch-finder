@@ -80,11 +80,10 @@ class ImportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ImportMeta  $importMeta
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\ImportMeta  $import
      */
-    public function show(ImportMeta $importMeta)
+    public function show(ImportMeta $import): JsonResource
     {
-        //
+        return new ImportMetaResource($import);
     }
 }

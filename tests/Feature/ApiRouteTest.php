@@ -14,6 +14,9 @@ use Illuminate\Http\Testing\File;
 use Illuminate\Testing\TestResponse;
 use App\Http\Controllers\ImportController;
 use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\ImportMeta;
+use App\Http\Resources\ImportMetaResource;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class ApiRouteTest extends TestCase
 {
@@ -94,9 +97,7 @@ class ApiRouteTest extends TestCase
                 'description',
                 'best_before',
                 'created',
-                'uploader' => [
-                    'username'
-                ]
+                'uploader' => ['username']
             ]);
 
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
@@ -244,6 +245,31 @@ class ApiRouteTest extends TestCase
             ]);
     }
 
+    /**
+     * Test expired best before field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_get_single_import()
+    {
+        $user = $this->getFakeUploader();
+        $import = ImportMeta::factory()->for($user)->create();
+
+        $response = $this->getJson(self::IMPORTS_ROUTE . '/' . $import->id);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'id' => $import->id,
+                'status' => $import->status,
+                'best_before' => $import->best_before,
+                'created' => $import->created_at->toJSON(),
+                'uploader' => [
+                    'username' => $import->user->username
+                ]
+            ]);
+    }
+
     private function getFakeUploader(): Model
     {
         if (!$this->fakeUploader) {
@@ -255,8 +281,6 @@ class ApiRouteTest extends TestCase
 
     private function makePostImportApiRequest(array $payload = []): TestResponse
     {
-        return $this->withHeaders([
-            'Accept' => 'application/json'
-        ])->post(self::IMPORTS_ROUTE, $payload);
+        return $this->postJson(self::IMPORTS_ROUTE, $payload);
     }
 }

@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource(ImportController::RESOURCE_NAME, ImportController::class)
-    ->only(['store']);
+    ->only(['store', 'show']);

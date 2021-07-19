@@ -21,5 +21,9 @@ class ImportMetaResource extends JsonResource
             'best_before' => $this->best_before,
             'created' => $this->created_at,
             'uploader' => new UserResource($this->user),
+            'links' => [
+                'self' => route('imports.show', $this)
+            ]
+        ];
     }
 }

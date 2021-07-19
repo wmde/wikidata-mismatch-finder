@@ -98,6 +98,9 @@ class ApiRouteTest extends TestCase
                 'uploader' => ['username']
             ]);
 
+        $this->assertDatabaseHas('import_meta', [
+            'filename' => $filename
+        ]);
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
 
         $this->travelBack(); // resumes the clock

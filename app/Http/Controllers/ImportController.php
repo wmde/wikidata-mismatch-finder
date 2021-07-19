@@ -63,6 +63,7 @@ class ImportController extends Controller
         $expires = $request->expires ?? now()->add(6, 'months')->toDateString();
 
         $meta = ImportMeta::make([
+            'filename' => $filename,
             'description' => $request->description,
             'expires' => $expires
         ])->user()->associate($request->user());

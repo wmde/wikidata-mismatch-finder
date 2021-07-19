@@ -30,7 +30,8 @@ class ImportMetaFactory extends Factory
                 'failed',
                 'completed'
             ]),
-            'expires' => $this->faker->dateTimeBetween('+1 day', '+6 months')->format('Y-m-d')
+            'expires' => $this->faker->dateTimeBetween('+1 day', '+6 months')->format('Y-m-d'),
+            'filename' => 'test_file.csv'
         ];
     }
 }

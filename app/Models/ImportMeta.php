@@ -24,8 +24,16 @@ class ImportMeta extends Model
     protected $fillable = [
         'description',
         'status',
-        'expires'
+        'expires',
+        'filename'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['filename'];
 
     /**
      * The model's default values for attributes.

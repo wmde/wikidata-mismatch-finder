@@ -15,6 +15,7 @@ class CreateImportMetaTable extends Migration
     {
         Schema::create('import_meta', function (Blueprint $table) {
             $table->id();
+            $table->string('filename');
             $table->string('description', 1024)->nullable();
             $table->enum('status', ['pending', 'failed', 'completed']);
             $table->date('expires')->nullable();

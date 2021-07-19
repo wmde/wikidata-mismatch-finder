@@ -10,7 +10,7 @@ return [
         'max_length' => env('IMPORTS_DESCRIPTION_MAX', 350)
     ],
 
-    'best_before' => [
-        'after' => env('IMPORTS_BEST_BEFORE_MIN', '+1 week')
+    'expires' => [
+        'after' => env('IMPORTS_BEST_BEFORE_MIN', '+1 day')
     ]
 ];

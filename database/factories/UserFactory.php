@@ -31,7 +31,7 @@ class UserFactory extends Factory
 
 
     /**
-     * Indicate that the user is suspended.
+     * Indicate that the user is an uploader.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */

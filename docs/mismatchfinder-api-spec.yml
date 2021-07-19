@@ -27,7 +27,7 @@ paths:
           in: query
           schema:
             type: string
-            enum: 
+            enum:
               - new
               - reviewed
               - ...
@@ -42,7 +42,7 @@ paths:
                 $ref: '#/components/schemas/ListOfMismatches'
         '500':
           $ref: '#/components/responses/UnexpectedError'
-          
+
 
   /imports:
     get:
@@ -57,6 +57,7 @@ paths:
                 $ref: '#/components/schemas/ListOfImportMeta'
         '500':
           $ref: '#/components/responses/UnexpectedError'
+
     post:
       tags: ['store']
       summary: Upload a mismatch file to import
@@ -87,10 +88,8 @@ paths:
                     description: URI of the newly created import resource.
         '400':
           $ref: '#/components/responses/ClientError'
-        '413':
-          description: Uploaded file too large (exceeds line number limit).
-        '415':
-          description: Uploaded file is not in CSV format.
+        '422':
+          $ref: '#/components/responses/ValidationErrors'
 
   /imports/{importId}:
     get:
@@ -121,11 +120,10 @@ components:
                 schema:
                   type: object
                   properties:
-                    code:
-                      type: string
                     message:
                      type: string
                   required: [ code, message ]
+
     NotFound:
         description: The specified resource was not found
         content:
@@ -133,11 +131,28 @@ components:
                 schema:
                   type: object
                   properties:
-                    code:
-                      type: string
                     message:
                      type: string
-                  required: [ code, message ]
+                  required: [ message ]
+
+    ValidationErrors:
+      description: Invalid data in request body
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              errors:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                example:
+                    name: [ "string" ]
+
     UnexpectedError:
         description: An unexpected error has occurred
         content:
@@ -164,7 +179,7 @@ components:
           type: string
         externalReference:
           type: string
-          
+
     ListOfMismatches:
       properties:
         mismatches:
@@ -191,8 +206,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImportMeta'
-    
-
-
-
-      

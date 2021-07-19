@@ -7,14 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 
-class UploadController extends Controller
+class ImportController extends Controller
 {
     public function upload(Request $request)
     {
+        // TODO: Consider using a FormRequest class for auth and validation
         Gate::authorize('upload-import');
 
         $request->validate([
-            'mismatchFile' => [ 'required', 'file', 'max:' . env('UPLOAD_SIZE_LIMIT'), 'mimes:csv,txt' ]
+            'mismatchFile' => [
+                'required',
+                'file',
+                'max:' . config('filesystems.uploads.max_size'),
+                'mimes:csv,txt'
+            ]
         ]);
 
         $uploadName = $request->name;

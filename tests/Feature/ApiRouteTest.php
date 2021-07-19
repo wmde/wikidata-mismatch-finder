@@ -231,7 +231,7 @@ class ApiRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'expires' => __('validation.after', [
-                    'attribute' => 'best before',
+                    'attribute' => 'expires',
                     'date' => config('imports.expires.after')
                 ])
             ]);

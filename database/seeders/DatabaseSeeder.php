@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             UploadUserSeeder::class,
-            ImportMetaSeeder::class
+            ImportMetaSeeder::class,
+            MismatchSeeder::class
         ]);
     }
 }

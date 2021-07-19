@@ -24,7 +24,7 @@ class ImportMeta extends Model
     protected $fillable = [
         'description',
         'status',
-        'best_before'
+        'expires'
     ];
 
     /**

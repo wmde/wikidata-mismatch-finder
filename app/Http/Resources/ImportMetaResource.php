@@ -18,7 +18,7 @@ class ImportMetaResource extends JsonResource
             'id' => $this->id,
             'status' => $this->status,
             'description' => $this->description,
-            'best_before' => $this->best_before,
+            'expires' => $this->expires,
             'created' => $this->created_at,
             'uploader' => new UserResource($this->user),
             'links' => [

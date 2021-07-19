@@ -30,7 +30,7 @@ class ImportMetaFactory extends Factory
                 'failed',
                 'completed'
             ]),
-            'best_before' => $this->faker->optional(0.7)->date()
+            'expires' => $this->faker->dateTimeBetween('+1 day', '+6 months')
         ];
     }
 }

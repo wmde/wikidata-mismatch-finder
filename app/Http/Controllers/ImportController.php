@@ -56,10 +56,10 @@ class ImportController extends Controller
                 'string',
                 'max:' . config('imports.description.max_length')
             ],
-            'bestBefore' => [
+            'expires' => [
                 'nullable',
                 'date',
-                'after:' . config('imports.best_before.after')
+                'after:' . config('imports.expires.after')
             ]
         ]);
 
@@ -67,9 +67,11 @@ class ImportController extends Controller
         $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 
+        $expires = $request->expires ?? now()->add(6, 'months')->toDateString();
+
         $meta = ImportMeta::make([
             'description' => $request->description,
-            'best_before' => $request->bestBefore
+            'expires' => $expires
         ])->user()->associate($request->user());
 
         $meta->save();

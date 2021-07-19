@@ -17,7 +17,7 @@ class CreateImportMetaTable extends Migration
             $table->id();
             $table->string('description', 1024)->nullable();
             $table->enum('status', ['pending', 'failed', 'completed']);
-            $table->date('best_before')->nullable();
+            $table->date('expires')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

@@ -90,7 +90,7 @@ class ApiRouteTest extends TestCase
             ->assertJsonStructure([
                 'id',
                 'description',
-                'best_before',
+                'expires',
                 'created',
                 'uploader' => ['username']
             ]);
@@ -225,14 +225,14 @@ class ApiRouteTest extends TestCase
         Sanctum::actingAs($user);
 
         $response = $this->postJson(self::IMPORTS_ROUTE, [
-            'bestBefore' => '1986-05-04'
+            'expires' => '1986-05-04'
         ]);
 
         $response
             ->assertJsonValidationErrors([
-                'bestBefore' => __('validation.after', [
+                'expires' => __('validation.after', [
                     'attribute' => 'best before',
-                    'date' => config('imports.best_before.after')
+                    'date' => config('imports.expires.after')
                 ])
             ]);
     }
@@ -254,7 +254,7 @@ class ApiRouteTest extends TestCase
             ->assertJson([
                 'id' => $import->id,
                 'status' => $import->status,
-                'best_before' => $import->best_before,
+                'expires' => $import->expires,
                 'created' => $import->created_at->toJSON(),
                 'uploader' => [
                     'username' => $import->user->username

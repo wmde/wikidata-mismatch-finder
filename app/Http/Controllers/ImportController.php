@@ -49,11 +49,20 @@ class ImportController extends Controller
                 'file',
                 'max:' . config('filesystems.uploads.max_size'),
                 'mimes:csv,txt'
+            ],
+            'description' => [
+                'nullable',
+                'string',
+                'max:' . config('imports.description.max_length')
+            ],
+            'bestBefore' => [
+                'nullable',
+                'date',
+                'after:' . config('imports.best_before.after')
             ]
         ]);
 
-        $uploadName = $request->name;
-        $description = $request->description;
+        // TODO: Replace with strtr()
         $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $request->user()->mw_userid . '.csv';
         $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
 

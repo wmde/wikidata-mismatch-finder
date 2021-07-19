@@ -13,10 +13,11 @@ use App\Models\UploadUser;
 use Illuminate\Http\Testing\File;
 use Illuminate\Testing\TestResponse;
 use App\Http\Controllers\ImportController;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class ApiRouteTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     private const USER_ROUTE = 'api/user';
     private const IMPORTS_ROUTE = 'api/' . ImportController::RESOURCE_NAME;
@@ -60,7 +61,7 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test the /api/import route's GET method
+     * Test the /api/imports route's GET method
      *
      *  @return void
      */
@@ -71,7 +72,7 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test the /api/import route' POST method
+     * Test the /api/imports route' POST method
      *
      *  @return void
      */
@@ -95,7 +96,7 @@ class ApiRouteTest extends TestCase
     }
 
      /**
-     * Test unauthorized POST /api/import
+     * Test unauthorized POST /api/imports
      *
      *  @return void
      */
@@ -112,7 +113,7 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test invalid file size in /api/import
+     * Test invalid file size in /api/imports
      *
      *  @return void
      */
@@ -139,7 +140,7 @@ class ApiRouteTest extends TestCase
     }
 
      /**
-     * Test invalid file format in /api/import
+     * Test invalid file format in /api/imports
      *
      *  @return void
      */
@@ -164,7 +165,7 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test missing file field in /api/import
+     * Test missing file field in /api/imports
      *
      *  @return void
      */
@@ -180,6 +181,57 @@ class ApiRouteTest extends TestCase
             ->assertStatus(422)
             ->assertJsonPath('errors.mismatchFile', [
                 __('validation.required', ['attribute' => 'mismatch file'])
+            ]);
+    }
+
+    /**
+     * Test long description field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_long_description()
+    {
+        $maxLength = config('imports.description.max_length');
+        $user = $this->getFakeUploader();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->makePostImportApiRequest([
+            'description' => $this->faker->realText($maxLength + 10)
+        ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonPath('errors.description', [
+                __('validation.max.string', [
+                    'attribute' => 'description',
+                    'max' => $maxLength
+                ])
+            ]);
+    }
+
+    /**
+     * Test expired best before field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_expired_date()
+    {
+        $user = $this->getFakeUploader();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->makePostImportApiRequest([
+            'bestBefore' => '1986-05-04'
+        ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonPath('errors.bestBefore', [
+                __('validation.after', [
+                    'attribute' => 'best before',
+                    'date' => config('imports.best_before.after')
+                ])
             ]);
     }
 

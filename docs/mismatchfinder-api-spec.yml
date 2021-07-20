@@ -204,7 +204,7 @@ components:
             - pending
             - failed
             - completed
-        best_before:
+        expires:
           type: string
           format: date
         created:

@@ -10,9 +10,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\ImportMeta;
 use Illuminate\Support\LazyCollection;
-use App\Models\Mismatch;
 
-class ImportCSV implements ShouldQueue
+class ValidateCSV implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -49,20 +48,6 @@ class ImportCSV implements ShouldQueue
                 yield $data;
             }
         })->skip(1)->each(function ($row) {
-            $mismatch = Mismatch::make([
-                'statement_guid' => $row[0],
-                'property_id' => $row[1],
-                'wikidata_value' => $row[2],
-                'external_value' => $row[3],
-                'external_url'  => $row[4]
-            ]);
-
-            $mismatch->importMeta()->associate($this->meta);
-
-            $mismatch->save();
         });
-
-        $this->meta->status = 'completed';
-        $this->meta->save();
     }
 }

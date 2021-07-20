@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ImportMetaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Jobs\ImportCSV;
+use Illuminate\Support\Facades\Bus;
+use App\Jobs\ValidateCSV;
 
 class ImportController extends Controller
 {
@@ -71,7 +73,10 @@ class ImportController extends Controller
 
         $meta->save();
 
-        ImportCSV::dispatch($meta);
+        Bus::chain([
+            new ValidateCSV($meta),
+            new ImportCSV($meta)
+        ])->dispatch();
 
         return new ImportMetaResource($meta);
     }

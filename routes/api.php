@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->post('/import', [ImportController::class, 'upload'])
-    ->name('upload');
+Route::apiResource(ImportController::RESOURCE_NAME, ImportController::class)
+    ->only(['store', 'show']);

@@ -12,20 +12,28 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UploadUser;
 use Illuminate\Http\Testing\File;
 use Illuminate\Testing\TestResponse;
+use App\Http\Controllers\ImportController;
+use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\ImportMeta;
+use App\Http\Resources\ImportMetaResource;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class ApiRouteTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
+
+    private const USER_ROUTE = 'api/user';
+    private const IMPORTS_ROUTE = 'api/' . ImportController::RESOURCE_NAME;
 
     /**
      * Test non authenticated api/user route
      *
      *  @return void
      */
-    public function test_non_authenticated_api_user_will_redirect()
+    public function test_unauthorized_api_user()
     {
-        $response = $this->get('/api/user');
-        $response->assertStatus(302);
+        $response = $this->getJson(self::USER_ROUTE);
+        $response->assertUnauthorized();
     }
 
     /**
@@ -39,8 +47,8 @@ class ApiRouteTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/user');
-        $response->assertStatus(200)
+        $response = $this->getJson(self::USER_ROUTE);
+        $response->assertSuccessful()
             ->assertJsonStructure([
                 'username',
                 'mw_userid',
@@ -51,44 +59,55 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test the /api/import route's GET method
+     * Test the /api/imports route's GET method
      *
      *  @return void
      */
     public function test_get_import_wrong_method()
     {
-        $response = $this->get('/api/import');
+        $response = $this->getJson(self::IMPORTS_ROUTE);
         $response->assertStatus(405);
     }
 
     /**
-     * Test the /api/import route' POST method
+     * Test the /api/imports route' POST method
      *
      *  @return void
      */
     public function test_post_import_upload_file()
     {
-
-
-        $user = $this->createFakeUploader();
+        $user = User::factory()->uploader()->create();
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
         Storage::fake('local');
         Sanctum::actingAs($user);
 
         $this->travelTo(now()); // freezes time to ensure correct filenames
-        $filename = now()->format('Ymd_His') . '-mismatch-upload.' . $user->getAttribute('mw_userid') . '.csv';
+        $filename = strtr(config('imports.upload.filename_template'), [
+            ':datetime' => now()->format('Ymd_His'),
+            ':userid' => $user->getAttribute('mw_userid')
+        ]);
 
-        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
-        $response->assertStatus(201);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
+        $response->assertCreated()
+            ->assertJsonStructure([
+                'id',
+                'description',
+                'expires',
+                'created',
+                'uploader' => ['username']
+            ]);
 
+        $this->assertDatabaseHas('import_meta', [
+            'filename' => $filename
+        ]);
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
 
         $this->travelBack(); // resumes the clock
     }
 
      /**
-     * Test unauthorized POST /api/import
+     * Test unauthorized POST /api/imports
      *
      *  @return void
      */
@@ -99,13 +118,13 @@ class ApiRouteTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
-     * Test invalid file size in /api/import
+     * Test invalid file size in /api/imports
      *
      *  @return void
      */
@@ -113,18 +132,17 @@ class ApiRouteTest extends TestCase
     {
         $maxSize = config('filesystems.uploads.max_size');
         $sizeInKilobytes = $maxSize + 10;
-        $user = $this->createFakeUploader();
+        $user = User::factory()->uploader()->create();
         $file = UploadedFile::fake()->create('mismatchFile.csv', $sizeInKilobytes);
 
         Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
 
         $response
-            ->assertStatus(422)
-            ->assertJsonPath('errors.mismatchFile', [
-                __('validation.max.file', [
+            ->assertJsonValidationErrors([
+                'mismatchFile' => __('validation.max.file', [
                     'attribute' => 'mismatch file',
                     'max' => $maxSize
                 ])
@@ -132,24 +150,23 @@ class ApiRouteTest extends TestCase
     }
 
      /**
-     * Test invalid file format in /api/import
+     * Test invalid file format in /api/imports
      *
      *  @return void
      */
     public function test_import_wrong_file_format()
     {
-        $user = $this->createFakeUploader();
+        $user = User::factory()->uploader()->create();
         $file = UploadedFile::fake()->create('mismatchFile.xls');
 
         Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->makePostImportApiRequest(['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
 
         $response
-            ->assertStatus(422)
-            ->assertJsonPath('errors.mismatchFile', [
-                __('validation.mimes', [
+            ->assertJsonValidationErrors([
+                'mismatchFile' => __('validation.mimes', [
                     'attribute' => 'mismatch file',
                     'values' => 'csv, txt'
                 ])
@@ -157,39 +174,97 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test missing file field in /api/import
+     * Test missing file field in /api/imports
      *
      *  @return void
      */
     public function test_import_missing_file()
     {
-        $user = $this->createFakeUploader();
+        $user = User::factory()->uploader()->create();
 
         Sanctum::actingAs($user);
 
-        $response = $this->makePostImportApiRequest();
+        $response = $this->postJson(self::IMPORTS_ROUTE);
 
         $response
-            ->assertStatus(422)
-            ->assertJsonPath('errors.mismatchFile', [
-                __('validation.required', ['attribute' => 'mismatch file'])
+            ->assertJsonValidationErrors([
+                'mismatchFile' => __('validation.required', [
+                    'attribute' => 'mismatch file'
+                ])
             ]);
     }
 
-    private function createFakeUploader(): Model
+    /**
+     * Test long description field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_long_description()
     {
-        $user = User::factory()->createOne();
-        UploadUser::factory()->createOne([
-            'username' => $user->getAttribute('username')
+        $maxLength = config('imports.description.max_length');
+        $user = User::factory()->uploader()->create();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson(self::IMPORTS_ROUTE, [
+            'description' => $this->faker->realText($maxLength + 10)
         ]);
 
-        return $user;
+        $response
+            ->assertJsonValidationErrors([
+                'description' => __('validation.max.string', [
+                    'attribute' => 'description',
+                    'max' => $maxLength
+                ])
+            ]);
     }
 
-    private function makePostImportApiRequest(array $payload = []): TestResponse
+    /**
+     * Test expired best before field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_expired_date()
     {
-        return $this->withHeaders([
-            'Accept' => 'application/json'
-        ])->post('/api/import', $payload);
+        $user = User::factory()->uploader()->create();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson(self::IMPORTS_ROUTE, [
+            'expires' => '1986-05-04'
+        ]);
+
+        $response
+            ->assertJsonValidationErrors([
+                'expires' => __('validation.after', [
+                    'attribute' => 'expires',
+                    'date' => config('imports.expires.after')
+                ])
+            ]);
+    }
+
+    /**
+     * Test expired best before field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_get_single_import()
+    {
+        $user = User::factory()->uploader()->create();
+        $import = ImportMeta::factory()->for($user)->create();
+
+        $response = $this->getJson(self::IMPORTS_ROUTE . '/' . $import->id);
+
+        $response
+            ->assertSuccessful()
+            ->assertJson([
+                'id' => $import->id,
+                'status' => $import->status,
+                'expires' => $import->expires,
+                'created' => $import->created_at->toJSON(),
+                'uploader' => [
+                    'username' => $import->user->username
+                ]
+            ]);
     }
 }

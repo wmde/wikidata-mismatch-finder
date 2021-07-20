@@ -68,24 +68,23 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                file:
+                mismatchFile:
                   type: string
                   format: binary
                 description:
                   type: string
-              required: [ name, file ]
+                  maxLength: 350
+                bestBefore:
+                  type: string
+                  format: date
+              required: [ mismatchFile ]
       responses:
         '201':
           description: Upload successful, import resource created.
           content:
             application/json:
               schema:
-                properties:
-                  importURI:
-                    type: string
-                    description: URI of the newly created import resource.
+                $ref: '#/components/schemas/ImportMeta'
         '400':
           $ref: '#/components/responses/ClientError'
         '422':
@@ -151,7 +150,7 @@ components:
                   items:
                     type: string
                 example:
-                    name: [ "string" ]
+                    attribute_name: [ "string" ]
 
     UnexpectedError:
         description: An unexpected error has occurred
@@ -167,6 +166,13 @@ components:
                   required: [ code, message ]
 
   schemas:
+    User:
+      properties:
+        username:
+          type: string
+        mw_userid:
+          type: string
+
     Mismatch:
       properties:
         statementGuid:
@@ -189,16 +195,24 @@ components:
 
     ImportMeta:
       properties:
-        name:
-          type: string
-        uploader:
-          type: string
-        date:
-          type: string
         description:
           type: string
+          maxLength: 350
         status:
           type: string
+          enum:
+            - pending
+            - failed
+            - completed
+        expires:
+          type: string
+          format: date
+        created:
+          type: string
+          format: date
+        uploader:
+          type: object
+          $ref: '#/components/schemas/User'
 
     ListOfImportMeta:
       properties:

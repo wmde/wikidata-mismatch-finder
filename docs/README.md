@@ -12,6 +12,7 @@
 - [Working with OAuth](#oauth)
 - [PHP Linting](#phpcs)
 - [Testing](#testing)
+- [Frontend - Working with CSS and JS](#frontend)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -168,6 +169,11 @@ $ sail artisan test
   Time:   0.16s
 ```
 
+## Frontend - Working with CSS and JS <a id="frontend"></a>
+
+Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.
+
+These files will be re-built everytime by webpack in the `public/js` and `public/css` folders for them to be used in the application. For this to happen run `npm run dev` in the console.  
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

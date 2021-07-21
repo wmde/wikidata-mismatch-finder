@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
-
+@import url(https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap);
 body {
     padding: 24px;
 }
@@ -84,3 +83,4 @@ nav ul {
 nav ul li {
     padding: 12px 4px;
 }
+

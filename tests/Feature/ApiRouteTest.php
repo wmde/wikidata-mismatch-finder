@@ -112,7 +112,6 @@ class ApiRouteTest extends TestCase
             ImportCSV::class
         ]);
 
-
         $this->travelBack(); // resumes the clock
     }
 

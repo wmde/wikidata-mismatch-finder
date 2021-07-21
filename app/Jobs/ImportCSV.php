@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\ImportMeta;
 use Illuminate\Support\LazyCollection;
 use App\Models\Mismatch;
+use Illuminate\Support\Facades\Storage;
 
 class ImportCSV implements ShouldQueue
 {
@@ -40,7 +41,8 @@ class ImportCSV implements ShouldQueue
      */
     public function handle()
     {
-        $filepath = storage_path('app/mismatch-files/' . $this->meta->filename);
+        $filepath = Storage::disk('local')
+            ->path('mismatch-files/' . $this->meta->filename);
 
         LazyCollection::make(function () use ($filepath) {
             $file = fopen($filepath, 'r');

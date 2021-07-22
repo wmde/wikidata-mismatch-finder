@@ -13,7 +13,7 @@ use App\Exceptions\ImportValidationException;
 
 class ValidateCSVTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     /**
      * Ensure validation fails on lines with too few columns
@@ -58,6 +58,68 @@ class ValidateCSVTest extends TestCase
     }
 
 
+    /**
+     * Ensure validation fails on missing statement guids
+     */
+    public function test_fails_on_missing_statement_guids(): void
+    {
+        $import = $this->createMockImport(
+            'missing_guid.csv',
+            ',P569,3 April 1934,some_date,from_some_URL' // Emulate missing guid
+        );
+
+        $this->expectValidationException(__('validation.required', [
+            'attribute' => 'statement guid'
+        ]));
+
+        ValidateCSV::dispatch($import);
+
+        $this->assertFailedImport($import);
+    }
+
+    /**
+     * Ensure validation fails on long statement guids
+     */
+    public function test_fails_on_long_statement_guids(): void
+    {
+        $maxLength = config('mismatches.validation.guid.max_length');
+        $longQID= $this->faker->numerify('Q' . str_repeat('#', $maxLength));
+
+        $import = $this->createMockImport(
+            'long_guid.csv',
+            $longQID . '$' . $this->faker->uuid() . ',' // Emulate long guid
+            . 'P569,3 April 1934,some_date,from_some_URL' // Ensure correct columns
+        );
+
+        $this->expectValidationException(__('validation.max.string', [
+            'attribute' => 'statement guid',
+            'max' => $maxLength
+        ]));
+
+        ValidateCSV::dispatch($import);
+
+        $this->assertFailedImport($import);
+    }
+
+     /**
+     * Ensure validation fails on malformed statement guids
+     */
+    public function test_fails_on_malformed_statement_guids(): void
+    {
+        $import = $this->createMockImport(
+            'long_guid.csv',
+            'some-malformed-guid,' // Emulate malformed guid
+            . 'P569,3 April 1934,some_date,from_some_URL' // Ensure correct columns
+        );
+
+        $this->expectValidationException(__('validation.regex', [
+            'attribute' => 'statement guid'
+        ]));
+
+        ValidateCSV::dispatch($import);
+
+        $this->assertFailedImport($import);
+    }
 
     private function createMockImport(string $filename, string $content): ImportMeta
     {

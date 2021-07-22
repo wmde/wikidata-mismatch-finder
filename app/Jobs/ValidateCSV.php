@@ -11,6 +11,7 @@ use App\Models\ImportMeta;
 use Illuminate\Support\LazyCollection;
 use App\Exceptions\ImportValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -54,6 +55,28 @@ class ValidateCSV implements ShouldQueue
                 $this->failImport($i, __('validation.import.columns', [
                     'amount' => config('imports.upload.col_count')
                 ]));
+            }
+
+            $keys = [
+                'statement_guid',
+                'property_id',
+                'wikidata_value',
+                'external_value',
+                'external_url'
+            ];
+
+            $rules = config('mismatches.validation');
+
+            $validator = Validator::make(array_combine($keys, $row), [
+                'statement_guid' => [
+                    'required',
+                    'max:' . $rules['guid']['max_length'],
+                    'regex:' . $rules['guid']['format']
+                ]
+            ]);
+
+            if ($validator->stopOnFirstFailure()->fails()) {
+                $this->failImport($i, $validator->errors()->first());
             }
         });
     }

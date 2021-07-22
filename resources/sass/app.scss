@@ -54,8 +54,8 @@ nav.tabs {
         border-bottom: 1px solid #A2A9B1;
     } 
     li {
-        padding: 4px 12px;
-        border-bottom: 2px solid white;
+        padding: 4px 10px;
+        border: 2px solid white;
     
         &:hover a {
             color: #447ff5;
@@ -67,18 +67,25 @@ nav.tabs {
     
         a {
             color: #54595D;
+            &:focus {
+                outline: 0;
+            }
         }
     
-        &:focus a {
-            border: 2px solid #3366CC;
+        &:focus-within {
+            border: 2px solid #447ff5;
         }
     
         &.active a {
-            color: #3366CC;
+            color: #2A4B8D;
+        }
+
+        &.active:focus-within {
+            border-color: #2A4B8D;
         }
     
         &.active {
-            border-color: #3366CC;
+            border-bottom-color: #2A4B8D;
         }
     }
 }

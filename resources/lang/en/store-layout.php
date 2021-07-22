@@ -9,7 +9,7 @@ return [
     |
     |
     */
-
+    'mismatch-finder' => 'Mismatch Finder',
     'tab:authentication-token' => 'Authentication Token',
     'tab:import-status' => 'Import Status',
 

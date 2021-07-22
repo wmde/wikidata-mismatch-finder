@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
+
+body {
+    padding: 24px;
+}
+
+a, .tabs a:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        font-family: 'Source Serif Pro', serif;
+        font-size: 32px;
+        line-height: 40px;
+        margin: 0;
+        padding: 0 0 28px 0;
+    }
+
+    .username {
+        font-family: 'Lato', sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        color: #3366cc;
+
+        a {
+            margin: 0 5px;
+        }
+    }
+    .icon-user {
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+}
+
+nav.tabs {
+    display: flex;
+    padding-bottom: 25px;
+    ul {
+        list-style: none;
+        display: flex;
+        font-family: 'Lato', sans-serif;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        font-weight: 700;
+        border-bottom: 1px solid #A2A9B1;
+    } 
+    li {
+        padding: 4px 12px;
+        border-bottom: 2px solid white;
+    
+        &:hover a {
+            color: #447ff5;
+        }
+    
+        &:hover {
+            border-color: #447ff5;
+        }
+    
+        a {
+            color: #54595D;
+        }
+    
+        &:focus a {
+            border: 2px solid #3366CC;
+        }
+    
+        &.active a {
+            color: #3366CC;
+        }
+    
+        &.active {
+            border-color: #3366CC;
+        }
+    }
+}
+
+

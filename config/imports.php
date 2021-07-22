@@ -7,7 +7,8 @@
  */
 return [
     'upload' => [
-        'filename_template' => ':datetime-mismatch-upload.:userid.csv'
+        'filename_template' => ':datetime-mismatch-upload.:userid.csv',
+        'col_count' => 5
     ],
 
     'description' => [

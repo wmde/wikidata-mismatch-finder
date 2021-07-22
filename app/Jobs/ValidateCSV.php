@@ -3,13 +3,14 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\ImportMeta;
 use Illuminate\Support\LazyCollection;
+use App\Exceptions\ImportValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -39,7 +40,8 @@ class ValidateCSV implements ShouldQueue
      */
     public function handle()
     {
-        $filepath = storage_path('app/mismatch-files/' . $this->meta->filename);
+        $filepath = Storage::disk('local')
+            ->path('mismatch-files/' . $this->meta->filename);
 
         LazyCollection::make(function () use ($filepath) {
             $file = fopen($filepath, 'r');
@@ -47,7 +49,20 @@ class ValidateCSV implements ShouldQueue
             while ($data = fgetcsv($file)) {
                 yield $data;
             }
-        })->skip(1)->each(function ($row) {
+        })->skip(1)->each(function ($row, $i) {
+            if(count($row) !== config('imports.upload.col_count')){
+                $this->failImport($i, __('validation.import.columns', [
+                    'amount' => config('imports.upload.col_count')
+                ]));
+            }
         });
+    }
+
+    private function failImport(int $line, string $message): void
+    {
+        $this->meta->status = 'failed';
+        $this->meta->save();
+
+        throw new ImportValidationException($this->meta, $line, $message);
     }
 }

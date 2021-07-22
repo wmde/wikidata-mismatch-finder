@@ -140,6 +140,10 @@ return [
         ],
     ],
 
+    'import' => [
+        'error' => 'CSV import validation error at line :line: :message',
+        'columns' => 'A mismatch csv import must include exactly :amount columns for each line'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

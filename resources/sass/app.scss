@@ -53,53 +53,46 @@ nav.tabs {
         padding: 0;
         font-weight: 700;
         border-bottom: 1px solid #A2A9B1;
-    } 
-    li {
-        padding: 4px 10px;
-        border: 2px solid white;
-        transition-property: border;
-        transition-duration: 100ms;
-    
-        &:hover a {
-            color: #447ff5;
-        }
-    
-        &:hover {
-            border-bottom-color: #447ff5;
-        }
-    
-        a {
-            color: #54595D;
-            &:focus {
-                outline: 0;
-            }
-            transition-property: color;
-            transition-duration: 100ms;
-        }
-    
-        &:focus-within {
-            border: 2px solid #36c;
-        }
-        
-        &.selected a {
-            color: #36c;
-        }
 
-        &.selected:focus-within {
-            border-color: #36c;
-        }
-    
-        &.selected {
-            border-bottom-color: #36c;
-        }
+        li {
+            padding: 4px 10px;
+            border: 2px solid white;
+            transition-property: border;
+            transition-duration: 100ms;
         
-        &.selected:active, &:active {
-            border-color: white white #2A4B8D white;
+            &:hover {
+                border-bottom-color: #447ff5;
+                a {
+                    color: #447ff5;
+                }  
+            }
+        
             a {
-                color: #2A4B8D;
+                color: #54595D;
+                &:focus {
+                    outline: 0;
+                }
+                transition-property: color;
+                transition-duration: 100ms;
+            }
+        
+            &:focus-within {
+                border: 2px solid #36c;
+            }
+        
+            &.selected {
+                border-bottom-color: #36c;
+                a {
+                    color: #36c;
+                }
+            }
+            
+            &.selected:active, &:active {
+                border-color: white white #2A4B8D white;
+                a {
+                    color: #2A4B8D;
+                }
             }
         }
     }
 }
-
-

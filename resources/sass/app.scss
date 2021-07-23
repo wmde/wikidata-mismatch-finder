@@ -43,6 +43,7 @@ header {
 nav.tabs {
     display: flex;
     padding-bottom: 25px;
+
     ul {
         list-style: none;
         display: flex;
@@ -56,13 +57,15 @@ nav.tabs {
     li {
         padding: 4px 10px;
         border: 2px solid white;
+        transition-property: border;
+        transition-duration: 100ms;
     
         &:hover a {
             color: #447ff5;
         }
     
         &:hover {
-            border-color: #447ff5;
+            border-bottom-color: #447ff5;
         }
     
         a {
@@ -70,22 +73,31 @@ nav.tabs {
             &:focus {
                 outline: 0;
             }
+            transition-property: color;
+            transition-duration: 100ms;
         }
     
         &:focus-within {
-            border: 2px solid #447ff5;
+            border: 2px solid #36c;
         }
-    
-        &.active a {
-            color: #2A4B8D;
+        
+        &.selected a {
+            color: #36c;
         }
 
-        &.active:focus-within {
-            border-color: #2A4B8D;
+        &.selected:focus-within {
+            border-color: #36c;
         }
     
-        &.active {
-            border-bottom-color: #2A4B8D;
+        &.selected {
+            border-bottom-color: #36c;
+        }
+        
+        &.selected:active, &:active {
+            border-color: white white #2A4B8D white;
+            a {
+                color: #2A4B8D;
+            }
         }
     }
 }

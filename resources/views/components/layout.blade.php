@@ -20,7 +20,7 @@
     </header>
     <nav class="tabs">
         <ul>
-            <li class="{{url()->current() == route('token') ? 'active' : ''}}"><a href="{{ route('token') }}">{{__('store-layout.tab:authentication-token')}}</a></li>
+            <li class="{{url()->current() == route('token') ? 'selected' : ''}}"><a href="{{ route('token') }}">{{__('store-layout.tab:authentication-token')}}</a></li>
             <li><a href="#">{{__('store-layout.tab:import-status')}}</a></li>
         </ul>
     </nav>

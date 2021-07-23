@@ -53,28 +53,38 @@ nav.tabs ul {
 nav.tabs li {
   padding: 4px 10px;
   border: 2px solid white;
+  transition-property: border;
+  transition-duration: 100ms;
 }
 nav.tabs li:hover a {
   color: #447ff5;
 }
 nav.tabs li:hover {
-  border-color: #447ff5;
+  border-bottom-color: #447ff5;
 }
 nav.tabs li a {
   color: #54595D;
+  transition-property: color;
+  transition-duration: 100ms;
 }
 nav.tabs li a:focus {
   outline: 0;
 }
 nav.tabs li:focus-within {
-  border: 2px solid #447ff5;
+  border: 2px solid #36c;
 }
-nav.tabs li.active a {
+nav.tabs li.selected a {
+  color: #36c;
+}
+nav.tabs li.selected:focus-within {
+  border-color: #36c;
+}
+nav.tabs li.selected {
+  border-bottom-color: #36c;
+}
+nav.tabs li.selected:active, nav.tabs li:active {
+  border-color: white white #2A4B8D white;
+}
+nav.tabs li.selected:active a, nav.tabs li:active a {
   color: #2A4B8D;
-}
-nav.tabs li.active:focus-within {
-  border-color: #2A4B8D;
-}
-nav.tabs li.active {
-  border-bottom-color: #2A4B8D;
 }

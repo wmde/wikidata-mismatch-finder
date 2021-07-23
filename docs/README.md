@@ -173,7 +173,17 @@ $ sail artisan test
 
 Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.
 
-These files will be re-built everytime by webpack in the `public/js` and `public/css` folders for them to be used in the application. For this to happen run `npm run dev` in the console.  
+Laravel mix (and webpack in the background) is responsible for compiling all of the frontend assets placed in these resources subfolders.
+
+To watch for changes in your frontend files, simply run:
+\```
+npm run watch
+\```
+
+To manually compile assets for your local dev environment run:
+\```
+npm run dev
+\```  
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

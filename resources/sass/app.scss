@@ -2,6 +2,8 @@
 
 body {
     padding: 24px;
+    max-width: 1090px;
+    margin: 0 auto;
 }
 
 a, .tabs a:hover {
@@ -24,18 +26,18 @@ header {
         padding: 0 0 28px 0;
     }
 
-    .username {
+    .top-nav-right {
         font-family: 'Lato', sans-serif;
         font-size: 16px;
         line-height: 24px;
         color: #3366cc;
 
-        a {
-            margin: 0 5px;
+        .username {
+            margin-right: 40px;
         }
     }
     .icon-user {
-        margin-right: 8px;
+        margin: 0 8px 0 16px;
         vertical-align: middle;
     }
 }

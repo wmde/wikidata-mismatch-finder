@@ -10,9 +10,9 @@
 <body>
     <header>
         <h1>{{__('store-layout.mismatch-finder')}}</h1>
-        <div class="username">
+        <div class="top-nav-right">
             @auth
-                <a href='https://www.wikidata.org/wiki/User:{{ Auth::user()->username}}'><img src="/svg/user.svg" class="icon-user" />{{ Auth::user()->username }}</a><a href="{{ route('logout') }}">Logout</a>
+                <a href='https://www.wikidata.org/wiki/User:{{ Auth::user()->username}}'><img src="/svg/user.svg" class="icon-user" /><span class="username">{{ Auth::user()->username }}</span></a><a href="{{ route('logout') }}">Logout</a>
             @else
                 <a href="{{ route('login') }}">Log in</a>
             @endauth

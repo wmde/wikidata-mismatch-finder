@@ -6,12 +6,22 @@ body {
     margin: 0 auto;
 }
 
-a, .tabs a:hover {
+a {
     text-decoration: none;
+
+    &:focus-visible { // for chrome
+        outline: dotted;
+        outline-width: 1px;
+        outline-color: gray;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-a:hover {
-    text-decoration: underline;
+.tabs a:hover {
+    text-decoration: none;
 }
 
 header {

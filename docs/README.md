@@ -176,14 +176,14 @@ Add the JS and CSS code in the `resources/js` and `resources/css` folder respect
 Laravel mix (and webpack in the background) is responsible for compiling all of the frontend assets placed in these resources subfolders.
 
 To watch for changes in your frontend files, simply run:
-\```
+```
 npm run watch
-\```
+```
 
 To manually compile assets for your local dev environment run:
-\```
+```
 npm run dev
-\```  
+```  
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

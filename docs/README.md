@@ -12,6 +12,7 @@
 - [Working with OAuth](#oauth)
 - [PHP Linting](#phpcs)
 - [Testing](#testing)
+- [Frontend - Working with CSS and JS](#frontend)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -168,6 +169,21 @@ $ sail artisan test
   Time:   0.16s
 ```
 
+## Frontend - Working with CSS and JS <a id="frontend"></a>
+
+Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.
+
+Laravel mix (and webpack in the background) is responsible for compiling all of the frontend assets placed in these resources subfolders.
+
+To watch for changes in your frontend files, simply run:
+```
+npm run watch
+```
+
+To manually compile assets for your local dev environment run:
+```
+npm run dev
+```  
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

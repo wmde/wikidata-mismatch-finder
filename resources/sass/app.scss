@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
+$mobile-max-size: 720px;
+
 body {
     padding: 24px;
     max-width: 1090px;
@@ -28,6 +30,10 @@ header {
     display: flex;
     justify-content: space-between;
 
+    @media (max-width: $mobile-max-size) {
+        flex-direction: column-reverse;
+    }
+
     h1 {
         font-family: 'Source Serif Pro', serif;
         font-size: 32px;
@@ -43,12 +49,19 @@ header {
         color: #3366cc;
 
         .username {
-            margin-right: 40px;
+            margin-right: 24px;
+        }
+        @media (max-width: $mobile-max-size) {
+            margin-bottom: 16px;
         }
     }
     .icon-user {
-        margin: 0 8px 0 16px;
+        margin-right: 8px;
+        margin-left: 16px;
         vertical-align: middle;
+        @media (max-width: $mobile-max-size) {
+            margin-left: 0;
+        }
     }
 }
 

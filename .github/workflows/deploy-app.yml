@@ -12,14 +12,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install dependencies
+    - name: Set up node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: Install composer dependencies
       uses: php-actions/composer@v6
       with:
         dev: no
         version: 2
         php_version: 7.3
-
+    - name: Installing node dependencies
+      run: npm ci    
+    - name: Minify and Build CSS and JS 
+      run: "npm run prod"
     - name: Syncing code to Toolforge
       uses: appleboy/scp-action@master
       with:
@@ -45,9 +51,3 @@ jobs:
           become mismatch-finder cp .env mismatch-finder-repo/
           become mismatch-finder mkdir -p mismatch-finder-repo/storage/app/allowlist
           become mismatch-finder cp uploaders.txt mismatch-finder-repo/storage/app/allowlist/
-    - name: Set up node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-    - name: Minify and Build CSS and JS 
-      run: "npm run prod"

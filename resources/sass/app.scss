@@ -40,6 +40,7 @@ header {
         line-height: 40px;
         margin: 0;
         padding: 0 0 28px 0;
+        font-weight: 400;
     }
 
     .top-nav-right {
@@ -79,7 +80,6 @@ nav.tabs {
         border-bottom: 1px solid #A2A9B1;
 
         li {
-            //padding: 4px 10px;
             border: 2px solid white;
             transition-property: border;
             transition-duration: 100ms;
@@ -96,6 +96,7 @@ nav.tabs {
                 display: block;
                 color: #54595D;
                 padding: 4px 10px;
+                line-height: 24px;
 
                 &:focus {
                     outline: 0;

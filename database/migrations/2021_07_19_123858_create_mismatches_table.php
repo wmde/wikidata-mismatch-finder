@@ -20,7 +20,7 @@ class CreateMismatchesTable extends Migration
             $table->string('property_id');
             $table->binary('wikidata_value'); // Saving as BLOB to enable storing JSON seralizations
             $table->text('external_value');
-            $table->string('external_url', 1024)->nullable();
+            $table->string('external_url', 2048)->nullable();
             $table->enum('status', [
                 'pending',
                 'wikidata',

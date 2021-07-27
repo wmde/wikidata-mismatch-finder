@@ -44,6 +44,8 @@ class ImportMeta extends Model
         'status' => 'pending'
     ];
 
+    protected $dates = ['expires'];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();

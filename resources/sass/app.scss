@@ -121,3 +121,35 @@ nav.tabs {
         }
     }
 }
+
+dl.import-meta {
+    margin: 0 0 24px 0;
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    padding: 16px;
+}
+
+dl.import-meta-pending {
+    border: 1px solid #c8ccd1;
+    background-color: #f8f9fa;
+}
+
+dl.import-meta-failed {
+    border: 1px solid #dd3333;
+    background-color: #fee7e6;
+}
+
+dl.import-meta-completed {
+    border: 1px solid #c8ccd1;
+    background-color: #ffffff;
+}
+
+dl.import-meta dt {
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+dl.import-meta dd {
+    margin: 0;
+    padding-bottom: 16px;
+}

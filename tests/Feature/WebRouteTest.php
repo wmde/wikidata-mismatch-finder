@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class WebRouteTest extends TestCase
 {
-    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-
+    use RefreshDatabase;
+    
     /**
      * Test the /auth/token route
      *
@@ -19,5 +21,18 @@ class WebRouteTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('welcome');
+    }
+
+    /**
+     * Test the /importStatus route
+     *
+     *  @return void
+     */
+    public function test_importStatus_route()
+    {
+        $response = $this->get('/imports');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('importStatus');
     }
 }

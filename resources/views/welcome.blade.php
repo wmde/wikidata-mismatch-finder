@@ -1,11 +1,7 @@
 <x-layout>
-    <p>Coming soon, to a screen near you...</p>
------------------------
     @auth
-        <p>Hello, {{ Auth::user()->username }}! <a href="{{ route('logout') }}">Logout</a></p>
-
-        Check out our <a href="{{ route('token') }}">shiny new API tokens</a>!
+     DONT know how to add the redirect here!
     @else
-        <p>Hello, Guest! <a href="{{ route('login') }}">Login</a></p>
+        <p>Please <a href="{{ route('login') }}">log in</a> to access the API token.</p>
     @endauth
 </x-layout>

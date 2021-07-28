@@ -6,6 +6,9 @@ body {
     padding: 24px;
     max-width: 1090px;
     margin: 0 auto;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Lato', sans-serif;
 }
 
 a {
@@ -68,7 +71,7 @@ header {
 
 nav.tabs {
     display: flex;
-    padding-bottom: 25px;
+    padding-bottom: 24px;
     ul {
         list-style: none;
         display: flex;
@@ -150,4 +153,7 @@ dl.import-meta dt {
 dl.import-meta dd {
     margin: 0;
     padding-bottom: 16px;
+}
+p {
+    margin: 16px 0;
 }

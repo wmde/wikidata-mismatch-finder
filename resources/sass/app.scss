@@ -40,6 +40,7 @@ header {
         line-height: 40px;
         margin: 0;
         padding: 0 0 28px 0;
+        font-weight: 400;
     }
 
     .top-nav-right {
@@ -79,42 +80,39 @@ nav.tabs {
         border-bottom: 1px solid #A2A9B1;
 
         li {
-            padding: 4px 10px;
-            border: 2px solid white;
-            transition-property: border;
-            transition-duration: 100ms;
             outline: 0;
         
-            &:hover {
-                border-bottom-color: #447ff5;
-                a {
-                    color: #447ff5;
-                }  
-            }
-        
             a {
+                border: 2px solid white;
+                display: block;
                 color: #54595D;
+                padding: 4px 10px;
+                line-height: 24px;
+                transition-property: color, border;
+                transition-duration: 100ms;
+                
                 &:focus {
                     outline: 0;
                 }
-                transition-property: color;
-                transition-duration: 100ms;
+                &:hover {
+                    border-bottom-color: #447ff5;
+                    color: #447ff5;  
+                }
+                
             }
         
-            &:focus {
+            &:focus a {
                 border: 2px solid #36c;
             }
         
-            &.selected {
+            &.selected a {
                 border-bottom-color: #36c;
-                a {
-                    color: #36c;
-                }
+                color: #36c;
             }
             
             &.selected:active, &:active {
-                border-color: white white #2A4B8D white;
                 a {
+                    border-color: white white #2A4B8D white;
                     color: #2A4B8D;
                 }
             }

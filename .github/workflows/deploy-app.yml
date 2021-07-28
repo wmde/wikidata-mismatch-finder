@@ -1,7 +1,7 @@
 name: Build and Deploy to Toolforge
 
-on: 
-  push: 
+on:
+  push:
    branches:
     - main
     - gh-actions/**
@@ -23,8 +23,8 @@ jobs:
         version: 2
         php_version: 7.3
     - name: Installing node dependencies
-      run: npm ci    
-    - name: Minify and Build CSS and JS 
+      run: npm ci
+    - name: Minify and Build CSS and JS
       run: "npm run prod"
     - name: Syncing code to Toolforge
       uses: appleboy/scp-action@master
@@ -45,9 +45,10 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          become mismatch-finder rm -rf mismatch-finder-repo
-          cp -rv mismatch-finder-repo/ ~tools.mismatch-finder/
-          become mismatch-finder take mismatch-finder-repo
-          become mismatch-finder cp .env mismatch-finder-repo/
-          become mismatch-finder mkdir -p mismatch-finder-repo/storage/app/allowlist
-          become mismatch-finder cp uploaders.txt mismatch-finder-repo/storage/app/allowlist/
+          # Make sure ~tools.mismatch-finder/mismatch-finder-repo is group writable
+          become mismatch-finder chmod -R g+rwx ~tools.mismatch-finder/mismatch-finder-repo
+          # Change group of ~/mismatch-finder-repo (including symlinks) to tools.mismatch-finder
+          chgrp --no-dereference -R tools.mismatch-finder ~/mismatch-finder-repo
+          rsync -rlgD --delete --delay-updates --exclude '.nfs*' --exclude mismatch-finder-repo/.env --exclude mismatch-finder-repo/storage/app/ ~/mismatch-finder-repo ~tools.mismatch-finder/
+          # take aborts recursion whenever it encounters a symlink, thus we use find+xargs to make sure all folders and file ares handled.
+          find ~tools.mismatch-finder/mismatch-finder-repo -type d,f \! -user tools.mismatch-finder -print0 | become mismatch-finder xargs -r --null take 2>&1 | { grep -vF 'will not follow or touch symlinks' || true; }

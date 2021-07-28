@@ -6,6 +6,9 @@ body {
     padding: 24px;
     max-width: 1090px;
     margin: 0 auto;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Lato', sans-serif;
 }
 
 a {
@@ -68,7 +71,7 @@ header {
 
 nav.tabs {
     display: flex;
-    padding-bottom: 25px;
+    padding-bottom: 24px;
     ul {
         list-style: none;
         display: flex;
@@ -118,4 +121,8 @@ nav.tabs {
             }
         }
     }
+}
+
+p {
+    margin: 16px 0;
 }

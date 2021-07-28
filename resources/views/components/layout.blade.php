@@ -25,5 +25,6 @@
         </ul>
     </nav>
     {{ $slot }}
+    <script> </script>
 </body>
 </html>

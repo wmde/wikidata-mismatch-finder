@@ -24,7 +24,7 @@ Route::get('/callback', [OAuthUserController::class, 'callback'])
 Route::get('/logout', [OAuthUserController::class, 'logout'])
     ->name('logout');
 
-Route::get('/token', [ApiTokenController::class, 'showToken'])->middleware('auth')
+Route::get('/token', [ApiTokenController::class, 'showToken'])
     ->name('token');
 
 Route::get('/createToken', [ApiTokenController::class, 'createToken'])->middleware('auth')

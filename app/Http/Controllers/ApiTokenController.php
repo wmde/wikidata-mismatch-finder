@@ -10,6 +10,10 @@ class ApiTokenController extends Controller
 {
     public function showToken(Request $request)
     {
+        if (!Auth::check()) {
+            return view('welcome');
+        }
+
         return view('showToken', [ 'tokens' => $request->user()->tokens ]);
     }
 

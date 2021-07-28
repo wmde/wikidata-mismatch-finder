@@ -4,11 +4,6 @@
             <dt>{{ __('import-status.item:status') }}</dt>
             <dd>{{ __('import-status.item:status.' . $import->status) }}</dd>
 
-        @if($import->status == 'failed' )
-            <dt>{{ __('import-status.item:error') }}</dt>
-            <dd>{{ __('import-status.item:error-line', [ 'line' => $errorLine ] ) }}</dd>
-        @endif
-
             <dt>{{__('import-status.item:uploader')}}</dt>
             <dd>{{ $import->user->username }}</dd>
 

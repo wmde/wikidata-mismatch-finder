@@ -26,6 +26,8 @@ jobs:
       run: npm ci
     - name: Minify and Build CSS and JS
       run: "npm run prod"
+    - name: Remove node_modules before syncing
+      run: "rm -rf node_modules"
     - name: Syncing code to Toolforge
       uses: appleboy/scp-action@master
       with:

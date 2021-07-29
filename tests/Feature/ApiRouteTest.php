@@ -276,7 +276,7 @@ class ApiRouteTest extends TestCase
                 [
                     'id' => $import->id,
                     'status' => $import->status,
-                    'expires' => $import->expires,
+                    'expires' => $import->expires->toJSON(),
                     'created' => $import->created_at->toJSON(),
                     'uploader' => [
                         'username' => $import->user->username

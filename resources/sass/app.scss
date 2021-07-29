@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
 $mobile-max-size: 720px;
+$color-base-10: #202122;
 $color-accent-30: #2A4B8D;
 $color-accent-50: #3366cc;
 $color-red-50: #DD3333;
@@ -12,6 +13,10 @@ body {
     font-size: 16px;
     line-height: 24px;
     font-family: 'Lato', sans-serif;
+
+    @media (max-width: $mobile-max-size) {
+        padding: 16px;
+    }
 }
 
 a {
@@ -158,21 +163,15 @@ dl.import-meta dd {
     padding-bottom: 16px;
 }
 p {
-    margin: 16px 0;
-}
-
-.card p {
-    margin-bottom: 16px;
+    margin: 0 0 16px 0;
 }
 
 .button {
     padding: 6px 13px;
     font-weight: 700;
     display: inline-block;
-
-    &:visited {
-        color: white;
-    }
+    color: $color-base-10;
+    border: 1px solid gray; //TODO: find correct color
 
     &:hover {
         text-decoration: none;
@@ -181,11 +180,19 @@ p {
     &.progressive {
         color: white;
         background-color: $color-accent-50;
+        &:visited {
+            color: white;
+        }
+        border: 0;
     }
 
     &.destructive {
         color: white;
         background-color: $color-red-50;
+        &:visited {
+            color: white;
+        }
+        border: 0;
     }
     &:not(:last-child) {
         margin-right: 8px;
@@ -193,10 +200,24 @@ p {
 }
 
 .button-group {
-    float: right;
+    display: flex;
     margin-top: 16px;
+
+    &.right {
+        justify-content: flex-end;
+    }
+
+    @media (max-width: $mobile-max-size) {
+       justify-content: flex-start;
+    }
 }
 
 .card {
     padding: 16px;
+    border-radius: 2px;
+    display: block;
+
+    &.border{
+        border: 1px solid #C8CCD1;
+    }
 }

@@ -175,14 +175,24 @@ Add the JS and CSS code in the `resources/js` and `resources/css` folder respect
 
 Laravel mix (and webpack in the background) is responsible for compiling all of the frontend assets placed in these resources subfolders.
 
-To watch for changes in your frontend files, simply run:
+Before you begin working with frontend assets, please make sure to install `npm` dependencies:
+
 ```
-npm run watch
+sail npm install
+```
+
+**Important!** Please only run `npm install` using [sail](#quickstart), or make sure that your local node.js version is the same as sail: 16 or above.
+
+To watch for changes in your frontend files, simply run:
+
+```
+sail npm run watch
 ```
 
 To manually compile assets for your local dev environment run:
+
 ```
-npm run dev
+sail npm run dev
 ```  
 
 ## Troubleshooting <a id="troubleshooting"></a>

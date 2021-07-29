@@ -14,7 +14,7 @@ class ApiTokenController extends Controller
             return view('welcome');
         }
 
-        return view('showToken', [ 'tokens' => $request->user()->tokens ]);
+        return view('showToken', [ 'tokens' => $request->user()->tokens, 'permission' => 'Upload' ]);
     }
 
     public function createToken(Request $request)

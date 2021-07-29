@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
 $mobile-max-size: 720px;
+$color-accent-30: #2A4B8D;
+$color-accent-50: #3366cc;
+$color-red-50: #DD3333;
 
 body {
     padding: 24px;
@@ -50,7 +53,7 @@ header {
         font-family: 'Lato', sans-serif;
         font-size: 16px;
         line-height: 24px;
-        color: #3366cc;
+        color: $color-accent-50;
 
         .username {
             margin-right: 24px;
@@ -105,18 +108,18 @@ nav.tabs {
             }
         
             &:focus a {
-                border: 2px solid #36c;
+                border: 2px solid $color-accent-50;
             }
         
             &.selected a {
-                border-bottom-color: #36c;
-                color: #36c;
+                border-bottom-color: $color-accent-50;
+                color: $color-accent-50;
             }
             
             &.selected:active, &:active {
                 a {
-                    border-color: white white #2A4B8D white;
-                    color: #2A4B8D;
+                    border-color: white white $color-accent-30 white;
+                    color: $color-accent-30;
                 }
             }
         }
@@ -156,4 +159,44 @@ dl.import-meta dd {
 }
 p {
     margin: 16px 0;
+}
+
+.card p {
+    margin-bottom: 16px;
+}
+
+.button {
+    padding: 6px 13px;
+    font-weight: 700;
+    display: inline-block;
+
+    &:visited {
+        color: white;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &.progressive {
+        color: white;
+        background-color: $color-accent-50;
+    }
+
+    &.destructive {
+        color: white;
+        background-color: $color-red-50;
+    }
+    &:not(:last-child) {
+        margin-right: 8px;
+    }
+}
+
+.button-group {
+    float: right;
+    margin-top: 16px;
+}
+
+.card {
+    padding: 16px;
 }

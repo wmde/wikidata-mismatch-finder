@@ -181,7 +181,7 @@ Before you begin working with frontend assets, please make sure to install `npm`
 sail npm install
 ```
 
-**Important!** Please only run `npm install` using [sail](#quickstart), or make sure that your local node.js version is the same as sail: 16 or above.
+**Important!** Please only run `npm install` using [sail](#quickstart), or make sure that your local node.js version is the similar to sail: 16 or above.
 
 To watch for changes in your frontend files, simply run:
 

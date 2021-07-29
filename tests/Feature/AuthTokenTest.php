@@ -14,7 +14,6 @@ class AuthTokenTest extends TestCase
     public function authRoutesProvider()
     {
         return [
-            ['/auth/token'],
             ['/auth/createToken'],
             ['/auth/revokeToken']
         ];
@@ -33,11 +32,24 @@ class AuthTokenTest extends TestCase
     }
 
     /**
-     * Test the /auth/token route
+     * Test the non authenticated /auth/token route
      *
      *  @return void
      */
-    public function test_token_returnsShowToken()
+    public function test_token_nonAuthenticated_returnsWelcome()
+    {
+        $response = $this->get('/auth/token');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('welcome');
+    }
+
+    /**
+     * Test the authenticated /auth/token route
+     *
+     *  @return void
+     */
+    public function test_token_authenticated_returnsShowToken()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)

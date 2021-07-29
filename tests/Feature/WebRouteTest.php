@@ -19,8 +19,7 @@ class WebRouteTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertStatus(302);
     }
 
     /**

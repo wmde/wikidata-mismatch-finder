@@ -2,6 +2,7 @@
 
 $mobile-max-size: 720px;
 $color-base-10: #202122;
+$color-base-50: #a2a9b1;
 $color-accent-30: #2A4B8D;
 $color-accent-50: #3366cc;
 $color-red-50: #DD3333;
@@ -171,7 +172,7 @@ p {
     font-weight: 700;
     display: inline-block;
     color: $color-base-10;
-    border: 1px solid gray; //TODO: find correct color
+    border: 1px solid $color-base-50; //TODO: find correct color
 
     &:hover {
         text-decoration: none;

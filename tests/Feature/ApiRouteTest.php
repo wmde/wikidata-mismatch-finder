@@ -59,17 +59,6 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test the /api/imports route's GET method
-     *
-     *  @return void
-     */
-    public function test_get_import_wrong_method()
-    {
-        $response = $this->getJson(self::IMPORTS_ROUTE);
-        $response->assertStatus(405);
-    }
-
-    /**
      * Test the /api/imports route' POST method
      *
      *  @return void
@@ -244,7 +233,7 @@ class ApiRouteTest extends TestCase
     }
 
     /**
-     * Test expired best before field in /api/imports
+     * Test single import
      *
      *  @return void
      */
@@ -264,6 +253,34 @@ class ApiRouteTest extends TestCase
                 'created' => $import->created_at->toJSON(),
                 'uploader' => [
                     'username' => $import->user->username
+                ]
+            ]);
+    }
+
+    /**
+     * Test import list
+     *
+     *  @return void
+     */
+    public function test_get_import_list()
+    {
+        $user = User::factory()->uploader()->create();
+        $import = ImportMeta::factory()->for($user)->create();
+
+        $response = $this->getJson(self::IMPORTS_ROUTE);
+
+        // response should contain a list with $import as element
+        $response
+            ->assertSuccessful()
+            ->assertJson([
+                [
+                    'id' => $import->id,
+                    'status' => $import->status,
+                    'expires' => $import->expires,
+                    'created' => $import->created_at->toJSON(),
+                    'uploader' => [
+                        'username' => $import->user->username
+                    ]
                 ]
             ]);
     }

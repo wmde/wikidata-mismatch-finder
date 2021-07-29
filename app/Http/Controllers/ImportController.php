@@ -82,4 +82,12 @@ class ImportController extends Controller
     {
         return new ImportMetaResource($import);
     }
+
+    /**
+     * Display the list of imports (latest 10)
+     */
+    public function index()
+    {
+        return ImportMetaResource::collection(ImportMeta::orderByDesc('id')->take(10)->get());
+    }
 }

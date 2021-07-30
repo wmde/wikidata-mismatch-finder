@@ -140,6 +140,10 @@ return [
         ],
     ],
 
+    'import' => [
+        'error' => 'CSV import validation error at line :line: :message',
+    ],
+
     'wikidata_value' => 'The :attribute could not be parsed for the given property id',
     /*
     |--------------------------------------------------------------------------

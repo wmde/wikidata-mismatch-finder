@@ -26,12 +26,14 @@ class ApiTokenController extends Controller
     public function createToken(Request $request)
     {
         if (sizeof($request->user()->tokens) > 0) {
-            // token already exists
-            return redirect(route('token'));
+            // token already exists and we want to create a new one
+            // we delete the previous tokens
+            Auth::user()->tokens()->delete();
         }
 
         $token = $request->user()->createToken('apiToken');
-        return view('newToken', [ 'newToken' => $token->plainTextToken ]);
+
+        return redirect('auth/token')->with('flashToken', $token->plainTextToken);
     }
 
     public function revokeToken(Request $request)

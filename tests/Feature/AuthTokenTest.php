@@ -70,9 +70,9 @@ class AuthTokenTest extends TestCase
         $response = $this->actingAs($user)
                          ->get('/auth/createToken');
 
-        $response->assertStatus(200);
-        $response->assertViewIs('newToken');
-        $response->assertViewHas('newToken');
+        $response->assertStatus(302);
+        $response->assertRedirect('auth/token');
+        $response->assertSessionHas('flashToken');
 
         // check token by loading the User from db
         $this->assertCount(1, User::find($user->id)->tokens);

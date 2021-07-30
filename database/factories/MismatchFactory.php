@@ -32,14 +32,14 @@ class MismatchFactory extends Factory
 
     private function getRandomValue()
     {
+        $randomWordAmount = $this->faker->numberBetween(1, 5);
+        $randomDecimalLength = $this->faker->numberBetween(1, 25);
+
         return $this->faker->randomElement([
             $this->faker->date(),
-            $this->faker->randomFloat(),
-            $this->faker->randomNumber(),
-            $this->faker->words(
-                $this->faker->numberBetween(1, 15),
-                true
-            )
+            $this->faker->randomFloat($randomDecimalLength, 0, 10000),
+            $this->faker->randomNumber(30),
+            $this->faker->words($randomWordAmount, true)
         ]);
     }
 }

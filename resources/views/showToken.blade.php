@@ -12,7 +12,7 @@
 
     @foreach ($tokens as $token)
     <div class="card border">
-        <p>{{__('store-layout.upload-permission')}}: {{ $permission == 'Upload' ? __('store-layout.yes') : __('store-layout.no') }}</p>
+        <p>{{__('store-layout.upload-permission')}}: {{ $upload_permission ? __('store-layout.yes') : __('store-layout.no') }}</p>
         <p>{{__('store-layout.created-at')}}: {{ $token->created_at }}</p>
         <p>{{__('store-layout.last-used-at')}}: {{ $token->last_used_at ?? __('store-layout.token-not-used') }}</p>
         

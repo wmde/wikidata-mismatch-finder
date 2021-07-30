@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class ApiTokenController extends Controller
 {
@@ -14,7 +14,13 @@ class ApiTokenController extends Controller
             return view('welcome');
         }
 
-        return view('showToken', [ 'tokens' => $request->user()->tokens, 'permission' => 'Upload' ]);
+        $upload_permission = false;
+
+        if (Gate::allows('upload-import')) {
+            $upload_permission = true;
+        }
+
+        return view('showToken', [ 'tokens' => $request->user()->tokens, 'upload_permission' => $upload_permission ]);
     }
 
     public function createToken(Request $request)

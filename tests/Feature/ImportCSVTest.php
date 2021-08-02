@@ -63,7 +63,7 @@ class ImportCSVTest extends TestCase
     }
 
     /**
-     * Ensure import persists mismatches to database
+     * Ensure no change is commited to Database in case of error
      */
     public function test_rolls_back_on_failure(): void
     {

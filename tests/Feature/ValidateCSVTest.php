@@ -24,6 +24,10 @@ class ValidateCSVTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    // Since PHPUnit data providers are evaluated earlier than Laravel we
+    // cannot use Laravel specific helpers such as __() or config().
+    // Therefore, we provide a closure, to be called at the appropriate time.
+    // See: https://technicallyfletch.com/how-to-use-laravel-factories-inside-a-data-provider/
     public function invalidLineProvider(): iterable
     {
         yield 'missing statement guid' => [
@@ -199,7 +203,7 @@ class ValidateCSVTest extends TestCase
 
         [$line, $message] = $data($config, $this->faker);
 
-        // Emulate passed validation rule
+        // Emulate passed validation rule, as this is not the system under test
         $this->partialMock(WikidataValue::class, function (MockInterface $mock) {
             $mock->shouldReceive('passes')->andReturn(true);
         });

@@ -18,9 +18,9 @@ class CreateMismatchesTable extends Migration
             $table->id();
             $table->string('statement_guid');
             $table->string('property_id');
-            $table->string('wikidata_value', 2048);
-            $table->string('external_value', 2048);
-            $table->string('external_url', 2048)->nullable();
+            $table->string('wikidata_value', 2048); // Arbitrary length above 1500 chars, upper limit for wikidata value
+            $table->string('external_value', 2048); // Arbitrary length above 1500 chars, upper limit for external value
+            $table->string('external_url', 2048)->nullable(); // Arbitrary length above 1500 chars, upper limit for url
             $table->enum('status', [
                 'pending',
                 'wikidata',

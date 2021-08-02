@@ -140,6 +140,7 @@ return [
         ],
     ],
 
+    'wikidata_value' => 'The :attribute could not be parsed for the given property id',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

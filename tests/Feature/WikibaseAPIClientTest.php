@@ -74,7 +74,7 @@ class WikibaseAPIClientTest extends TestCase
         $fakeResponseBody = ['test' => 'okay'];
 
         $mockCache = Mockery::mock(CacheMiddleware::class);
-        // The `__invoke()` magic method is utilized by guzzle middleware: 
+        // The `__invoke()` magic method is utilized by guzzle middleware:
         // https://www.phptutorial.net/php-oop/php-__invoke/
         $mockCache->shouldReceive('__invoke')->andReturn(function () use ($fakeResponseBody) {
             return Http::response($fakeResponseBody, 200);

@@ -17,6 +17,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\ImportMeta;
 use App\Http\Resources\ImportMetaResource;
 use Illuminate\Testing\Fluent\AssertableJson;
+use App\Jobs\ValidateCSV;
+use Illuminate\Support\Facades\Bus;
+use App\Jobs\ImportCSV;
 
 class ApiRouteTest extends TestCase
 {
@@ -68,6 +71,7 @@ class ApiRouteTest extends TestCase
         $user = User::factory()->uploader()->create();
         $file = UploadedFile::fake()->create('mismatchFile.csv');
 
+        Bus::fake();
         Storage::fake('local');
         Sanctum::actingAs($user);
 
@@ -90,7 +94,13 @@ class ApiRouteTest extends TestCase
         $this->assertDatabaseHas('import_meta', [
             'filename' => $filename
         ]);
+
         Storage::disk('local')->assertExists('mismatch-files/' . $filename);
+
+        Bus::assertChained([
+            ValidateCSV::class,
+            ImportCSV::class
+        ]);
 
         $this->travelBack(); // resumes the clock
     }

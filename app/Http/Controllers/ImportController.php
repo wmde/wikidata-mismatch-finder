@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\ImportMeta;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ImportMetaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Jobs\ValidateCSV;
+use App\Jobs\ImportCSV;
+use Illuminate\Support\Facades\Bus;
 
 class ImportController extends Controller
 {
@@ -69,6 +71,11 @@ class ImportController extends Controller
         ])->user()->associate($request->user());
 
         $meta->save();
+
+        Bus::chain([
+            new ValidateCSV($meta),
+            new ImportCSV($meta)
+        ])->dispatch();
 
         return new ImportMetaResource($meta);
     }

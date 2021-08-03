@@ -215,6 +215,27 @@ class ValidateCSVTest extends TestCase
         ValidateCSV::dispatch($import);
     }
 
+    public function test_does_not_throw_on_generic_uuid(): void
+    {
+        // Ensure correct columns
+        $line = 'Q4115189$ffa51229-4877-3135-a2e2-a22fe9b7039d' // Emulate non v4 UUID
+                . ',P569,3 April 1934,1934-04-03,http://www.example.com';
+
+        // Emulate passed validation rule, as this is not the system under test
+        $this->partialMock(WikidataValue::class, function (MockInterface $mock) {
+            $mock->shouldReceive('passes')->andReturn(true);
+        });
+
+        $import = $this->createMockImport($line);
+
+        ValidateCSV::dispatch($import);
+
+        $this->assertDatabaseMissing('import_meta', [
+            'id' => $import->id,
+            'status' => 'failed'
+        ]);
+    }
+
     public function test_throws_on_malformed_wikidata_value(): void
     {
         // Ensure correct columns
@@ -284,7 +305,8 @@ class ValidateCSVTest extends TestCase
 
         $user = User::factory()->uploader()->create();
         return ImportMeta::factory()->for($user)->create([
-            'filename' => 'invalid-import.csv'
+            'filename' => 'invalid-import.csv',
+            'status' => 'pending'
         ]);
     }
 

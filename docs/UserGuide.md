@@ -5,13 +5,14 @@
 
 - [Logging in](#login)
 - [Accessing the API](#apiAccess)
-- [Obtaining an API token](#apiToken)
+- [Obtaining an API access token](#apiToken)
+- [Importing mismatches](#importing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Logging in <a id="login"></a>
 
-You can log in to the Mismatch Finder website using your MediaWiki account on `www.wikidata.org`. Simply click the Login button on the Welcome page and get redirected to Wikidata, to allow Mismatch Finder access to your account as a "Connected Application". If you are not logged in already, Wikidata will ask you for the username and passwort of your MediaWiki account.
+You can log in to the Mismatch Finder website using your MediaWiki account on `www.wikidata.org`. Simply click the Login button on the Welcome page and get redirected to Wikidata, to allow Mismatch Finder access to your account as a "Connected Application". If you are not logged in already, Wikidata will ask you for the username and password of your MediaWiki account.
 
 ## Accessing the API <a id="apiAccess"></a>
 
@@ -36,4 +37,40 @@ To obtain a personal access token, follow these steps:
 
 In any case you want to revoke an existing token, simply click the revoke link in the token management page. After the token is revoked, you will be able to create a fresh token by repeating the steps above.
 
+## Importing mismatches <a id="importing"></a>
 
+Users which have sufficient access rights may perform batch imports into the Mismatch Finder by uploading a CSV file to describe their found mismatches.
+
+### Creating a mismatches import file
+
+A CSV import file must include the following header row, to describe each column:
+
+```csv
+statement_guid, property_id, wikidata_value, external_value, external_url
+```
+
+* `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data.
+* `property_id` - The id of the wikidata property defining the wikidata value of the mismatch.
+* `wikidata_value` - The value on wikidata that mismatches an external database.
+* `external_value` - The value in the external database that mismatches a wikidata value.
+* `external_url` - _(Optional)_ A url or uri to the mismatching entity in the external database.
+
+_**Note**: The data `wikidata_value`, `external_value`, `external_url` should be limited to a length of 1500 characters maximum._
+
+Additionally, each row of the csv file must contain exactly 4 commas (`,`). Optional values can simply be left out.
+
+### Uploading an import file
+
+<!-- TODO: Replace this description with a link to our API Specification, once deployed (See T287948). -->
+
+To upload an import file, users may send a request to our `POST /api/imports` api endpoint. 
+
+The request should include the `Authorization` header with a personal [access token](#apiAccess). Additionally, the request should include a `Content-Type: multipart/form-data` header.
+
+The request body should include the following fields:
+
+* `mismatchFile` - The CSV file containing mismatches to import to Mismatch Finder.
+* `description` - _(Optional)_ A short text (up to 350 characters) to describe this import.
+* `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default.
+
+Once an import is submitted, the newly created import status will be included in the response, alongside an api link to check its status again. Additionally, the status of the last 10 imports in to Mismatch Finder can be checked at our [import status page](https://mismatch-finder.toolforge.org/imports).

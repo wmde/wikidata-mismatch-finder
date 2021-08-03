@@ -24,11 +24,11 @@ Route::get('/callback', [OAuthUserController::class, 'callback'])
 Route::get('/logout', [OAuthUserController::class, 'logout'])
     ->name('logout');
 
-Route::get('/api_settings', [ApiTokenController::class, 'showToken'])
+Route::get('/api-settings', [ApiTokenController::class, 'showToken'])
     ->name('api.settings');
 
-Route::get('/create_token', [ApiTokenController::class, 'createToken'])->middleware('auth')
+Route::get('/create-token', [ApiTokenController::class, 'createToken'])->middleware('auth')
     ->name('api.create_token');
 
-Route::get('/revoke_token', [ApiTokenController::class, 'revokeToken'])->middleware('auth')
+Route::get('/revoke-token', [ApiTokenController::class, 'revokeToken'])->middleware('auth')
     ->name('api.revoke_token');

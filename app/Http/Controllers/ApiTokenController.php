@@ -33,7 +33,7 @@ class ApiTokenController extends Controller
 
         $token = $request->user()->createToken('apiToken');
 
-        return redirect('auth/api_settings')->with('flashToken', $token->plainTextToken);
+        return redirect(route('api.settings'))->with('flashToken', $token->plainTextToken);
     }
 
     public function revokeToken(Request $request)

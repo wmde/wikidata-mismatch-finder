@@ -20,7 +20,7 @@
     </header>
     <nav class="tabs" aria-label="{{__('store-layout.aria-labels:tabs')}}">
         <ul>
-            <li tabindex="0" {{ ( url()->current() == route('token') ) ? 'aria-current=page' : '' }} class="{{url()->current() == route('token') ? 'selected' : ''}}"><a tabindex="-1" href="{{ route('token') }}" >{{__('store-layout.tab:api-access-settings')}}</a></li>
+            <li tabindex="0" {{ ( url()->current() == route('api.settings') ) ? 'aria-current=page' : '' }} class="{{url()->current() == route('api.settings') ? 'selected' : ''}}"><a tabindex="-1" href="{{ route('api.settings') }}" >{{__('store-layout.tab:api-access-settings')}}</a></li>
             <li tabindex="0" {{ ( url()->current() == route('import.status') ) ? 'aria-current=page' : '' }} class="{{url()->current() == route('import.status') ? 'selected' : ''}}"><a tabindex="-1"  href="{{ route('import.status') }}">{{__('store-layout.tab:import-status')}}</a></li>
         </ul>
     </nav>

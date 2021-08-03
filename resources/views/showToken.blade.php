@@ -5,7 +5,7 @@
 
     <div>{{__('store-layout.no-token-found')}}</div>
     <div role="group" class="button-group">
-        <a class="button primary progressive" href="{{ route('token.create') }}">{{__('store-layout.button:create')}}</a>
+        <a class="button primary progressive" href="{{ route('api.create_token') }}">{{__('store-layout.button:create')}}</a>
     </div>
 </div>
 @else
@@ -13,7 +13,7 @@
     <div class="token">
             <p>{{__('store-layout.token-successfully-generated')}}: {{ session('flashToken') }}</p>
             <div role="group" class="button-group">
-                <a class="button primary" href="{{ route('token') }}">{{__('store-layout.button:confirm')}}</a>
+                <a class="button primary" href="{{ route('api.settings') }}">{{__('store-layout.button:confirm')}}</a>
             </div>
     </div>
     @endif
@@ -24,8 +24,8 @@
         <p>{{__('store-layout.last-used-at')}}: {{ $token->last_used_at ?? __('store-layout.token-not-used') }}</p>
         
         <div role="group" class="button-group right">
-            <a class="button primary progressive" href="{{ route('token.create') }}">{{__('store-layout.button:regenerate')}}</a>
-            <a class="button primary destructive" href="{{ route('token.revoke', [ 'id' => $token->id ] ) }}">{{__('store-layout.button:delete')}}</a>
+            <a class="button primary progressive" href="{{ route('api.create_token') }}">{{__('store-layout.button:regenerate')}}</a>
+            <a class="button primary destructive" href="{{ route('api.revoke_token', [ 'id' => $token->id ] ) }}">{{__('store-layout.button:delete')}}</a>
         </div>
     </div>
     @endforeach

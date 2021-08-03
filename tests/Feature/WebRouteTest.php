@@ -11,7 +11,7 @@ class WebRouteTest extends TestCase
     use RefreshDatabase;
     
     /**
-     * Test the /auth/token route
+     * Test the /auth/api_settings route
      *
      *  @return void
      */

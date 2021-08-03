@@ -14,8 +14,8 @@ class AuthTokenTest extends TestCase
     public function authRoutesProvider()
     {
         return [
-            ['/auth/createToken'],
-            ['/auth/revokeToken']
+            ['/auth/create_token'],
+            ['/auth/revoke_token']
         ];
     }
 
@@ -32,20 +32,20 @@ class AuthTokenTest extends TestCase
     }
 
     /**
-     * Test the non authenticated /auth/token route
+     * Test the non authenticated /auth/api.settings route
      *
      *  @return void
      */
     public function test_token_nonAuthenticated_returnsWelcome()
     {
-        $response = $this->get('/auth/token');
+        $response = $this->get('/auth/api_settings');
 
         $response->assertStatus(200);
         $response->assertViewIs('welcome');
     }
 
     /**
-     * Test the authenticated /auth/token route
+     * Test the authenticated /auth/api.settings route
      *
      *  @return void
      */
@@ -53,14 +53,14 @@ class AuthTokenTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                         ->get('/auth/token');
+                         ->get('/auth/api_settings');
 
         $response->assertStatus(200);
         $response->assertViewIs('showToken');
     }
 
     /**
-     * Test the /auth/token route when no token exists
+     * Test the /auth/api_settings route when no token exists
      *
      *  @return void
      */
@@ -68,10 +68,10 @@ class AuthTokenTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                         ->get('/auth/createToken');
+                         ->get('/auth/create_token');
 
         $response->assertStatus(302);
-        $response->assertRedirect('auth/token');
+        $response->assertRedirect('auth/api_settings');
         $response->assertSessionHas('flashToken');
 
         // check token by loading the User from db
@@ -79,7 +79,7 @@ class AuthTokenTest extends TestCase
     }
 
     /**
-     * Test the /auth/createToken route when a token exists already
+     * Test the /auth/create_token route when a token exists already
      *
      *  @return void
      */
@@ -89,7 +89,7 @@ class AuthTokenTest extends TestCase
         $user->createToken('testToken');
 
         $response = $this->actingAs($user)
-                         ->get('/auth/createToken');
+                         ->get('/auth/create_token');
 
         $response->assertStatus(302);
 
@@ -107,7 +107,7 @@ class AuthTokenTest extends TestCase
         $user = User::factory()->create();
         $user->createToken('testToken');
         $response = $this->actingAs($user)
-                         ->get('/auth/revokeToken?id=' . $user->tokens->first()->id);
+                         ->get('/auth/revoke_token?id=' . $user->tokens->first()->id);
 
         $response->assertStatus(302);
 

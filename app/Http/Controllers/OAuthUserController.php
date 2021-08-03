@@ -31,7 +31,7 @@ class OAuthUserController extends Controller
 
         Auth::login($user, false);
         if (Auth::check()) {
-            return redirect()->intended('/auth/token');
+            return redirect()->intended('/auth/api_settings');
         }
         return redirect()->intended('/');
     }

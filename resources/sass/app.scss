@@ -1,11 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
 $mobile-max-size: 720px;
+$color-base-0: #000;
+$color-base-10: #202122;
+$color-base-30: #72777D;
+$color-base-50: #A2A9B1;
+$color-base-80: #EAECF0;
+$color-base-90: #F8F9FA;
+$color-base-100: #FFF;
+$color-base-hover: #404244;
+$color-accent-30: #2A4B8D;
+$color-accent-50: #3366cc;
+$color-accent-hover: #447ff5;
+$color-red-30: #B32424;
+$color-red-50: #D33;
+$color-red-hover: #FF4242;
 
 body {
     padding: 24px;
     max-width: 1090px;
     margin: 0 auto;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Lato', sans-serif;
+
+    @media (max-width: $mobile-max-size) {
+        padding: 16px;
+    }
 }
 
 a {
@@ -47,7 +68,7 @@ header {
         font-family: 'Lato', sans-serif;
         font-size: 16px;
         line-height: 24px;
-        color: #3366cc;
+        color: $color-accent-50;
 
         .username {
             margin-right: 24px;
@@ -68,7 +89,7 @@ header {
 
 nav.tabs {
     display: flex;
-    padding-bottom: 25px;
+    padding-bottom: 24px;
     ul {
         list-style: none;
         display: flex;
@@ -95,25 +116,25 @@ nav.tabs {
                     outline: 0;
                 }
                 &:hover {
-                    border-bottom-color: #447ff5;
-                    color: #447ff5;  
+                    border-bottom-color: $color-accent-hover;
+                    color: $color-accent-hover;  
                 }
                 
             }
         
             &:focus a {
-                border: 2px solid #36c;
+                border: 2px solid $color-accent-50;
             }
         
             &.selected a {
-                border-bottom-color: #36c;
-                color: #36c;
+                border-bottom-color: $color-accent-50;
+                color: $color-accent-50;
             }
             
             &.selected:active, &:active {
                 a {
-                    border-color: white white #2A4B8D white;
-                    color: #2A4B8D;
+                    border-color: white white $color-accent-30 white;
+                    color: $color-accent-30;
                 }
             }
         }
@@ -150,4 +171,130 @@ dl.import-meta dt {
 dl.import-meta dd {
     margin: 0;
     padding-bottom: 16px;
+}
+p {
+    margin: 0 0 16px 0;
+}
+
+.button {
+    padding: 6px 13px;
+    font-weight: 700;
+    display: inline-block;
+    color: $color-base-10;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color-base-50;
+    border-radius: 2px;
+    background-color: $color-base-90;
+    transition-duration: 100ms;
+
+    &:hover {
+        text-decoration: none;
+        color: $color-base-hover;
+        border-color: $color-base-50;
+        background-color: $color-base-100;
+        transition-property: background-color, border-color;
+    }
+
+    &:active {
+        color: $color-base-0;
+        border-color: $color-base-30;
+        background-color: $color-base-80;
+        transition-property: background-color, border-color;
+    }
+
+    &:focus {
+        color: $color-base-10;
+        background-color: $color-base-90;
+        border-color: $color-accent-50;
+        box-shadow: $color-accent-50 0 0 0 1px inset;
+        transition-property: box-shadow;
+    }
+
+    &.progressive {
+        color: $color-base-100;
+        background-color: $color-accent-50;
+        border-color: $color-accent-50;
+
+        &:visited {
+            color: white;
+        }
+
+        &:hover {
+            background-color: $color-accent-hover;
+            border-color: $color-accent-hover;
+            transition-property: background-color, border-color;
+        }
+        &:active {
+            background-color: $color-accent-30;
+            border-color: $color-accent-30;
+            transition-property: background-color, border-color;
+        }
+        &:focus {
+            box-shadow: $color-base-100 0 0 0 1px inset;
+            border-color: $color-accent-50;
+            background-color: $color-accent-50;
+            transition-property: box-shadow;
+        }
+    }
+
+    &.destructive {
+        color:$color-base-100;
+        background-color: $color-red-50;
+        border-color: $color-red-50;
+
+        &:visited {
+            color: white;
+        }
+        
+        &:hover {
+            background-color: $color-red-hover;
+            border-color: $color-red-hover;
+            transition-property: background-color, border-color;
+        }
+        &:active {
+            background-color: $color-red-30;
+            border-color: $color-red-30;
+            transition-property: background-color, border-color;
+        }
+        &:focus {
+            box-shadow: $color-base-100 0 0 0 1px inset;
+            border-color: $color-red-50;
+            background-color: $color-red-50;
+            transition-property: box-shadow;
+        }
+    }
+    &:not(:last-child) {
+        margin-right: 8px;
+    }
+}
+
+.button-group {
+    display: flex;
+    margin-top: 16px;
+
+    &.right {
+        justify-content: flex-end;
+        @media (max-width: $mobile-max-size) {
+            justify-content: flex-start;
+         }
+    }
+
+    @media (max-width: $mobile-max-size) {
+       justify-content: flex-start;
+    }
+}
+
+.card {
+    padding: 16px;
+    border-radius: 2px;
+    display: block;
+
+    &.border{
+        border: 1px solid #C8CCD1;
+    }
+}
+
+.token {
+    padding-bottom: 24px;
 }

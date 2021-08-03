@@ -11,7 +11,7 @@ class WebRouteTest extends TestCase
     use RefreshDatabase;
     
     /**
-     * Test the /auth/token route
+     * Test the /auth/api_settings route
      *
      *  @return void
      */
@@ -19,8 +19,7 @@ class WebRouteTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertStatus(302);
     }
 
     /**

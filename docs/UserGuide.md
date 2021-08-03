@@ -30,7 +30,7 @@ Authorization: Bearer <your-access-token>
 
 To obtain a personal access token, follow these steps:
 
-1. At the [application homepage](https://mismatch-finder.toolforge.org/), click the API token link, or go to: https://mismatch-finder.toolforge.org/auth/token
+1. At the [application homepage](https://mismatch-finder.toolforge.org/), click the API token link, or go to: https://mismatch-finder.toolforge.org/auth/api-settings
 2. If you do no have an access token already, you will be prompted to create a new token.
 3. **Important!** Write the created token down in a safe place, as it will not be displayed again.
 4. Once you have noted down the token you will be redirected back to the token management page.

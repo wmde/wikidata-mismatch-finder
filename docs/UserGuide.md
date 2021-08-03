@@ -46,7 +46,7 @@ Users which have sufficient access rights may perform batch imports into the Mis
 A CSV import file must include the following header row, to describe each column:
 
 ```csv
-statement_guid, property_id, wikidata_value, external_value, external_url
+statement_guid,property_id,wikidata_value,external_value,external_url
 ```
 
 * `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data.

@@ -59,6 +59,8 @@ _**Note**: The data `wikidata_value`, `external_value`, `external_url` should be
 
 Additionally, each row of the csv file must contain exactly 4 commas (`,`). Optional values can simply be left out.
 
+You can consult this [mismatch file](exampleMismatchFile.csv) for a valid example.
+
 ### Uploading an import file
 
 <!-- TODO: Replace this description with a link to our API Specification, once deployed (See T287948). -->

@@ -42,8 +42,8 @@ class MismatchFactory extends Factory
             $this->faker->date(),
             // A random floating point number with up to 30 digits
             $this->faker->randomFloat($randomDecimalLength, 0, 10000),
-            // A random integer with up to 30 digits
-            $this->faker->randomNumber(30),
+            // A random integer with up to 9 digits
+            $this->faker->randomNumber(9),
             // A random lorem text with up to 5 words
             $this->faker->words($randomWordAmount, true)
         ]);

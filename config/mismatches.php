@@ -23,5 +23,7 @@ return [
         'external_url' => [
             'max_length' => 1500 // Longest allowed value on wikidata
         ]
-    ]
+    ],
+    'id_separator' => '|',
+    'max_ids' => 50
 ];

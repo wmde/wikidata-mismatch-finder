@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MismatchesRequest;
 use App\Http\Resources\MismatchCollection;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
@@ -17,12 +18,9 @@ class MismatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(MismatchesRequest $request)
     {
-        $separator = config('mismatches.id_separator');
-        $ids = explode($separator, $request->ids);
-
-        $mismatches = Mismatch::whereIn('item_id', $ids)->get();
+        $mismatches = Mismatch::whereIn('item_id', $request->ids)->get();
 
         return MismatchResource::collection($mismatches);
     }

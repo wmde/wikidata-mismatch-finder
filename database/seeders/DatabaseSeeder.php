@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UploadUserSeeder::class,
             ImportMetaSeeder::class,
-            MismatchSeeder::class
+            MismatchSeeder::class,
+            ImportFailureSeeder::class
         ]);
     }
 }

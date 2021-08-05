@@ -22,8 +22,14 @@ return [
         ],
         'external_url' => [
             'max_length' => 1500 // Longest allowed value on wikidata
+        ],
+        'item_id' => [
+            'max_length' => 12,
+            'format' => '/^Q\d+$/'
+        ],
+        'ids' => [
+            'max' => 50
         ]
     ],
-    'id_separator' => '|',
-    'max_ids' => 50
+    'id_separator' => '|'
 ];

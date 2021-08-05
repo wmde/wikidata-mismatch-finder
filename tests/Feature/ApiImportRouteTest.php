@@ -8,58 +8,18 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\UploadUser;
-use Illuminate\Http\Testing\File;
-use Illuminate\Testing\TestResponse;
 use App\Http\Controllers\ImportController;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\ImportMeta;
-use App\Http\Resources\ImportMetaResource;
-use Illuminate\Testing\Fluent\AssertableJson;
 use App\Jobs\ValidateCSV;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\ImportCSV;
 
-class ApiRouteTest extends TestCase
+class ApiImportRouteTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    private const USER_ROUTE = 'api/user';
     private const IMPORTS_ROUTE = 'api/' . ImportController::RESOURCE_NAME;
-
-    /**
-     * Test non authenticated api/user route
-     *
-     *  @return void
-     */
-    public function test_unauthorized_api_user()
-    {
-        $response = $this->getJson(self::USER_ROUTE);
-        $response->assertUnauthorized();
-    }
-
-    /**
-     * Test the /api/user route
-     *
-     *  @return void
-     */
-    public function test_user_returns_user_data()
-    {
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
-
-        $response = $this->getJson(self::USER_ROUTE);
-        $response->assertSuccessful()
-            ->assertJsonStructure([
-                'username',
-                'mw_userid',
-                'updated_at',
-                'created_at',
-                'id'
-            ]);
-    }
 
     /**
      * Test the /api/imports route' POST method

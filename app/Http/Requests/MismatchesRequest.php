@@ -22,12 +22,13 @@ class MismatchesRequest extends FormRequest
     {
         return [
             'ids' => [
-                'required',
                 'array',
-                'max:' . config('mismatches.max_ids')
+                'max:' . config('mismatches.validation.ids.max')
             ],
             'ids.*' => [
-                'regex:/^Q\d+$/'
+                'required',
+                'regex:' . config('mismatches.validation.item_id.format'),
+                'max:' . config('mismatches.validation.item_id.max_length'),
             ]
         ];
     }

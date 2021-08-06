@@ -45,25 +45,30 @@ class ValidateCSV implements ShouldQueue
      */
     public function handle(WikidataValue $valueValidator, CSVImportReader $reader)
     {
-        try {
-            $filepath = Storage::disk('local')
-            ->path('mismatch-files/' . $this->meta->filename);
+        $filepath = Storage::disk('local')
+        ->path('mismatch-files/' . $this->meta->filename);
 
-            $reader->lines($filepath)
-                ->each(function ($mismatch, $i) use ($valueValidator) {
-                    $error = $this->checkFieldErrors($mismatch)
-                        ?? $this->checkValueErrors($mismatch, $valueValidator);
+        $reader->lines($filepath)
+            ->each(function ($mismatch, $i) use ($valueValidator) {
+                $error = $this->checkFieldErrors($mismatch)
+                    ?? $this->checkValueErrors($mismatch, $valueValidator);
 
-                    if ($error) {
-                        throw new ImportValidationException($this->meta, $i, $error);
-                    }
-                });
-        } catch (Throwable $error) {
-            $this->meta->status = 'failed';
-            $this->meta->save();
+                if ($error) {
+                    throw new ImportValidationException($this->meta, $i, $error);
+                }
+            });
+    }
 
-            throw $error;
-        }
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(Throwable $exception)
+    {
+        $this->meta->status = 'failed';
+        $this->meta->save();
     }
 
     private function checkFieldErrors($mismatch): ?string

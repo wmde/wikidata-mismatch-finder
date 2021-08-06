@@ -22,7 +22,7 @@ class ImportFailureSeeder extends Seeder
                 'status' => 'failed'
             ]);
 
-        ImportFailure::factory(3)
+        ImportFailure::factory()
             ->for($import)
             ->create();
     }

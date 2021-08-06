@@ -14,6 +14,7 @@ use App\Models\ImportMeta;
 use App\Jobs\ValidateCSV;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\ImportCSV;
+use App\Models\ImportFailure;
 
 class ApiImportRouteTest extends TestCase
 {
@@ -224,6 +225,35 @@ class ApiImportRouteTest extends TestCase
                 'uploader' => [
                     'username' => $import->user->username
                 ]
+            ]);
+    }
+
+    /**
+     * Test single import
+     *
+     *  @return void
+     */
+    public function test_get_failed_import()
+    {
+        $user = User::factory()->uploader()->create();
+        $import = ImportMeta::factory()->for($user)->create([
+            'status' => 'failed'
+        ]);
+        $failure = ImportFailure::factory()->for($import)->create();
+
+        $response = $this->getJson(self::IMPORTS_ROUTE . '/' . $import->id);
+
+        $response
+            ->assertSuccessful()
+            ->assertJson([
+                'id' => $import->id,
+                'status' => $import->status,
+                'expires' => $import->expires->toJSON(),
+                'created' => $import->created_at->toJSON(),
+                'uploader' => [
+                    'username' => $import->user->username
+                ],
+                'error' => $failure->message
             ]);
     }
 

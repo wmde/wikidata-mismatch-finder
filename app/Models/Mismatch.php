@@ -35,4 +35,16 @@ class Mismatch extends Model
     {
         return $this->belongsTo(ImportMeta::class, 'import_id')->withDefault();
     }
+
+    /**
+     * Set the mismatch's item_id alongside the statement_guid
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setStatementGuidAttribute($value)
+    {
+        $this->attributes['statement_guid'] = $value;
+        $this->attributes['item_id'] = explode('$', $value, 2)[0];
+    }
 }

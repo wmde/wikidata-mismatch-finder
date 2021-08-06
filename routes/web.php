@@ -19,5 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/imports', function () {
-    return view('importStatus', [ 'imports' => ImportMeta::orderByDesc('id')->take(10)->get() ]);
+    // return ImportMeta::orderByDesc('id')->take(10)->get()->first()->error->message;
+    return view('importStatus', [ 'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get() ]);
 })->name('import.status');

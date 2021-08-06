@@ -16,6 +16,7 @@ use App\Rules\WikidataValue;
 use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
 use Throwable;
+use App\Models\ImportFailure;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -45,25 +46,49 @@ class ValidateCSV implements ShouldQueue
      */
     public function handle(WikidataValue $valueValidator, CSVImportReader $reader)
     {
+        $filepath = Storage::disk('local')
+        ->path('mismatch-files/' . $this->meta->filename);
+
+        $reader->lines($filepath)
+            ->each(function ($mismatch, $i) use ($valueValidator) {
+                $error = $this->checkFieldErrors($mismatch)
+                    ?? $this->checkValueErrors($mismatch, $valueValidator);
+
+                if ($error) {
+                    throw new ImportValidationException($i, $error);
+                }
+            });
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(Throwable $exception)
+    {
+        // We re-throw the exception in order to pattern match on it's instance
         try {
-            $filepath = Storage::disk('local')
-            ->path('mismatch-files/' . $this->meta->filename);
+            throw $exception;
+        } catch (ImportValidationException | ImportParserException $e) {
+            $context = $e->context();
+            $failure = ImportFailure::make([
+                'line' => $context['csv_line'],
+                'message' => $e->getMessage()
+            ])->importMeta()->associate($this->meta);
 
-            $reader->lines($filepath)
-                ->each(function ($mismatch, $i) use ($valueValidator) {
-                    $error = $this->checkFieldErrors($mismatch)
-                        ?? $this->checkValueErrors($mismatch, $valueValidator);
+            $failure->save();
+        } catch (Throwable $e) {
+            $failure = ImportFailure::make([
+                'message' => __('errors.unexpected')
+            ])->importMeta()->associate($this->meta);
 
-                    if ($error) {
-                        throw new ImportValidationException($this->meta, $i, $error);
-                    }
-                });
-        } catch (Throwable $error) {
-            $this->meta->status = 'failed';
-            $this->meta->save();
-
-            throw $error;
+            $failure->save();
         }
+
+        $this->meta->status = 'failed';
+        $this->meta->save();
     }
 
     private function checkFieldErrors($mismatch): ?string

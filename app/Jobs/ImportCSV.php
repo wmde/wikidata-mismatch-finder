@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\ImportParserException;
 use Exception;
 use Throwable;
+use App\Models\ImportFailure;
 
 class ImportCSV implements ShouldQueue
 {
@@ -46,24 +47,36 @@ class ImportCSV implements ShouldQueue
      */
     public function handle(CSVImportReader $reader)
     {
-        try {
-            $filepath = Storage::disk('local')
-                ->path('mismatch-files/' . $this->meta->filename);
+        $filepath = Storage::disk('local')
+            ->path('mismatch-files/' . $this->meta->filename);
 
-            DB::transaction(function () use ($reader, $filepath) {
-                $reader->lines($filepath)->each(function ($mismatchLine) {
-                    $mismatch = Mismatch::make($mismatchLine);
-                    $mismatch->importMeta()->associate($this->meta);
-                    $mismatch->save();
-                });
-
-                $this->meta->status = 'completed';
-                $this->meta->save();
+        DB::transaction(function () use ($reader, $filepath) {
+            $reader->lines($filepath)->each(function ($mismatchLine) {
+                $mismatch = Mismatch::make($mismatchLine);
+                $mismatch->importMeta()->associate($this->meta);
+                $mismatch->save();
             });
-        } catch (Throwable $error) {
-            $this->meta->status = 'failed';
+
+            $this->meta->status = 'completed';
             $this->meta->save();
-            throw $error;
-        }
+        });
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(Throwable $exception)
+    {
+        $failure = ImportFailure::make([
+            'message' => __('errors.unexpected')
+        ])->importMeta()->associate($this->meta);
+
+        $failure->save();
+
+        $this->meta->status = 'failed';
+        $this->meta->save();
     }
 }

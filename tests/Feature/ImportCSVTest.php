@@ -97,6 +97,9 @@ class ImportCSVTest extends TestCase
                 'id' => $import->id,
                 'status' => 'failed'
             ]);
+            $this->assertDatabaseHas('import_failures', [
+                'id' => $import->id
+            ]);
             $this->assertDatabaseCount('mismatches', 0);
             $this->assertDatabaseMissing('mismatches', [
                 'import_id' => $import->id

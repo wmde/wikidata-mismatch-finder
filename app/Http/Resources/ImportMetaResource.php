@@ -14,7 +14,7 @@ class ImportMetaResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $meta = [
             'id' => $this->id,
             'status' => $this->status,
             'description' => $this->description,
@@ -25,5 +25,11 @@ class ImportMetaResource extends JsonResource
                 'self' => route('imports.show', $this)
             ]
         ];
+
+        if( $this->error ) {
+            $meta['error'] = $this->error->message;
+        }
+
+        return $meta;
     }
 }

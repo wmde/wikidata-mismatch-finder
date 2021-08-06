@@ -26,7 +26,7 @@ class ImportMetaResource extends JsonResource
             ]
         ];
 
-        if( $this->error ) {
+        if ($this->error) {
             $meta['error'] = $this->error->message;
         }
 

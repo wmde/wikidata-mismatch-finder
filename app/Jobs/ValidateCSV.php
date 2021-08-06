@@ -54,7 +54,7 @@ class ValidateCSV implements ShouldQueue
                     ?? $this->checkValueErrors($mismatch, $valueValidator);
 
                 if ($error) {
-                    throw new ImportValidationException($this->meta, $i, $error);
+                    throw new ImportValidationException($i, $error);
                 }
             });
     }

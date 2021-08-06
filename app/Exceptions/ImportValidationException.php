@@ -20,8 +20,7 @@ class ImportValidationException extends Exception
     private $csvLine;
 
     public function __construct(
-        ImportMeta $import,
-        int $line,
+        int $line = 0,
         string $message = '',
         int $code = 0,
         Throwable $previous = null
@@ -31,7 +30,6 @@ class ImportValidationException extends Exception
             'message' => $message
         ]), $code, $previous);
 
-        $this->import = $import;
         $this->csvLine = $line;
     }
 
@@ -41,9 +39,7 @@ class ImportValidationException extends Exception
     public function context(): array
     {
         return [
-            'csv_line' => $this->csvLine,
-            'import_id' => $this->import->id,
-            'user_id' => $this->import->user->id
+            'csv_line' => $this->csvLine
         ];
     }
 }

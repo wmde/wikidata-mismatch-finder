@@ -290,7 +290,58 @@ class ValidateCSVTest extends TestCase
                 'id' => $import->id,
                 'status' => 'failed'
             ]);
+
+            $this->assertDatabaseHas('import_failures', [
+                'id' => $import->id
+            ]);
         }
+    }
+
+    public function exceptionProvider()
+    {
+        $fakeLine = 42;
+
+        yield 'validation exception' => [
+            function() use ($fakeLine){
+                $exception = new ImportValidationException($fakeLine, 'Some validation failure');
+
+                return [$exception, $fakeLine, $exception->getMessage()];
+            }
+        ];
+
+        yield 'parser exception' => [
+            function() use ($fakeLine){
+                $exception = new ImportParserException($fakeLine, 'Some parsing failure');
+
+                return [$exception, $fakeLine, $exception->getMessage()];
+            }
+        ];
+
+        yield 'generic exception' => [
+            function() use ($fakeLine){
+                return [new Exception(), null, __('errors.unexpected')];
+            }
+        ];
+    }
+
+    /**
+     * @dataProvider exceptionProvider
+     */
+    public function test_persists_failure_messages(Closure $data): void
+    {
+        [$exception, $line, $message] = $data();
+        $import = ImportMeta::factory()
+            ->forUser()
+            ->create();
+        $job = new ValidateCSV($import);
+
+        $job->failed($exception);
+
+        $this->assertDatabaseHas('import_failures', [
+            'import_id' => $import->id,
+            'line' => $line,
+            'message' => $message
+        ]);
     }
 
     private function createMockImport(string $content): ImportMeta

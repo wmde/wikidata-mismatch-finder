@@ -16,6 +16,7 @@ use App\Rules\WikidataValue;
 use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
 use Throwable;
+use App\Models\ImportFailure;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -67,6 +68,25 @@ class ValidateCSV implements ShouldQueue
      */
     public function failed(Throwable $exception)
     {
+        // We re-throw the exception in order to pattern match on it's instance
+        try {
+            throw $exception;
+        } catch ( ImportValidationException | ImportParserException $e ) {
+            $context = $e->context();
+            $failure = ImportFailure::make([
+                'line' => $context['csv_line'],
+                'message' => $e->getMessage()
+            ])->importMeta()->associate($this->meta);
+
+            $failure->save();
+        } catch ( Throwable $e ) {
+            $failure = ImportFailure::make([
+                'message' => __('errors.unexpected')
+            ])->importMeta()->associate($this->meta);
+
+            $failure->save();
+        }
+
         $this->meta->status = 'failed';
         $this->meta->save();
     }

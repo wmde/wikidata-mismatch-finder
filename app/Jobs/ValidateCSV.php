@@ -71,7 +71,7 @@ class ValidateCSV implements ShouldQueue
         // We re-throw the exception in order to pattern match on it's instance
         try {
             throw $exception;
-        } catch ( ImportValidationException | ImportParserException $e ) {
+        } catch (ImportValidationException | ImportParserException $e) {
             $context = $e->context();
             $failure = ImportFailure::make([
                 'line' => $context['csv_line'],
@@ -79,7 +79,7 @@ class ValidateCSV implements ShouldQueue
             ])->importMeta()->associate($this->meta);
 
             $failure->save();
-        } catch ( Throwable $e ) {
+        } catch (Throwable $e) {
             $failure = ImportFailure::make([
                 'message' => __('errors.unexpected')
             ])->importMeta()->associate($this->meta);

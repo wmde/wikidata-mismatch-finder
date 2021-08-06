@@ -302,7 +302,7 @@ class ValidateCSVTest extends TestCase
         $fakeLine = 42;
 
         yield 'validation exception' => [
-            function() use ($fakeLine){
+            function () use ($fakeLine) {
                 $exception = new ImportValidationException($fakeLine, 'Some validation failure');
 
                 return [$exception, $fakeLine, $exception->getMessage()];
@@ -310,7 +310,7 @@ class ValidateCSVTest extends TestCase
         ];
 
         yield 'parser exception' => [
-            function() use ($fakeLine){
+            function () use ($fakeLine) {
                 $exception = new ImportParserException($fakeLine, 'Some parsing failure');
 
                 return [$exception, $fakeLine, $exception->getMessage()];
@@ -318,7 +318,7 @@ class ValidateCSVTest extends TestCase
         ];
 
         yield 'generic exception' => [
-            function() use ($fakeLine){
+            function () use ($fakeLine) {
                 return [new Exception(), null, __('errors.unexpected')];
             }
         ];

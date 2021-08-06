@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\ImportParserException;
 use Exception;
 use Throwable;
+use App\Models\ImportFailure;
 
 class ImportCSV implements ShouldQueue
 {
@@ -69,6 +70,12 @@ class ImportCSV implements ShouldQueue
      */
     public function failed(Throwable $exception)
     {
+        $failure = ImportFailure::make([
+            'message' => __('errors.unexpected')
+        ])->importMeta()->associate($this->meta);
+
+        $failure->save();
+
         $this->meta->status = 'failed';
         $this->meta->save();
     }

@@ -47,11 +47,16 @@ class ApiMismatchRouteTest extends TestCase
                     'external_value',
                     'external_url',
                     'import' => [
+                        'id',
                         'status',
                         'description',
-                        'created_at',
+                        'created',
                         'expires',
-                        'uploader'
+                        'uploader' => [
+                            'id',
+                            'username',
+                            'mw_userid'
+                        ]
                     ]
                 ]]
             );

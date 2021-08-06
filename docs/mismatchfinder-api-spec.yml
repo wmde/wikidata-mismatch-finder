@@ -8,29 +8,24 @@ paths:
   /mismatches:
     get:
       tags: ['store']
-      summary: Get mismatches by item ID
+      summary: Get mismatches by item IDs
       parameters:
         - name: ids
           in: query
           schema:
             type: string
           required: true
-          description: List of item IDs to get mismatches for
-        - name: importDate
-          in: query
-          schema:
-            type: string
-            format: date-time
-          required: false
-          description: Date of the import to filter mismatches by
+          description: List of |-separated item IDs to get mismatches for
         - name: status
           in: query
           schema:
             type: string
             enum:
-              - new
-              - reviewed
-              - ...
+              - pending
+              - wikidata
+              - external
+              - both
+              - none
           required: false
           description: Status(es) to filter mismatches by
       responses:
@@ -40,8 +35,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListOfMismatches'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
+        '422':
+          $ref: '#/components/responses/ValidationErrors'
 
 
   /imports:
@@ -168,42 +163,51 @@ components:
   schemas:
     User:
       properties:
+        id:
+          type: number
         username:
           type: string
         mw_userid:
-          type: string
+          type: number
 
     Mismatch:
       properties:
-        statementGuid:
+        id:
           type: string
-        propertyId:
+        item_id:
           type: string
-        wikidataValue:
+        statement_guid:
           type: string
-        externalValue:
+        property_id:
           type: string
-        externalReference:
+        wikidata_value:
           type: string
+        external_value:
+          type: string
+        external_url:
+          type: string
+        import:
+          type: object
+          $ref: '#/components/schemas/ImportMeta'
 
     ListOfMismatches:
-      properties:
-        mismatches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Mismatch'
+      type: array
+      items:
+        $ref: '#/components/schemas/Mismatch'
 
     ImportMeta:
       properties:
-        description:
-          type: string
-          maxLength: 350
+        id:
+          type: number
         status:
           type: string
           enum:
             - pending
             - failed
             - completed
+        description:
+          type: string
+          maxLength: 350
         expires:
           type: string
           format: date
@@ -215,8 +219,6 @@ components:
           $ref: '#/components/schemas/User'
 
     ListOfImportMeta:
-      properties:
-        imports:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImportMeta'
+      type: array
+      items:
+        $ref: '#/components/schemas/ImportMeta'

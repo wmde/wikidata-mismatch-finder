@@ -22,13 +22,7 @@ class MismatchResource extends JsonResource
             'wikidata_value' => $this->wikidata_value,
             'external_value' => $this->external_value,
             'external_url' => $this->external_url,
-            'import' => [
-                'status' => $this->importMeta->status,
-                'description' => $this->importMeta->description,
-                'created_at' => $this->importMeta->created_at,
-                'expires' => $this->importMeta->expires,
-                'uploader' => $this->importMeta->user->username
-            ]
+            'import' => new ImportMetaResource($this->importMeta)
         ];
     }
 }

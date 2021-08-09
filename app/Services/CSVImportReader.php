@@ -20,7 +20,9 @@ class CSVImportReader
         $allowedKeys = config('imports.upload.column_keys');
         $columnKeys = $lines->get(0);
 
-        if (count(array_diff($allowedKeys, $columnKeys)) !== 0) {
+        if (count($allowedKeys) != count($columnKeys) ||
+            count(array_diff($allowedKeys, $columnKeys)) !== 0
+            ) {
             throw new ImportParserException(0, __('parsing.import.headers', [
                 'header-list' => join(", ", $allowedKeys)
             ]));

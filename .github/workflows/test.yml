@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v2
-        - name: Install dependencies
-          uses: php-actions/composer@v6
+        - name: Install Composer Dependencies
+          run: composer install --no-progress --prefer-dist --optimize-autoloader
         - name: phpunit
           uses: php-actions/phpunit@v3
           with: 

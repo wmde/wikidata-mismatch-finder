@@ -12,6 +12,7 @@
 - [Working with OAuth](#oauth)
 - [PHP Linting](#phpcs)
 - [Testing](#testing)
+  - [Browser Testing](#browser-testing)
 - [Frontend - Working with CSS and JS](#frontend)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
@@ -167,6 +168,16 @@ $ sail artisan test
 
   Tests:  2 passed
   Time:   0.16s
+```
+
+## Browser Testing <a id="browser-testing"></a>
+
+The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, which means you should install [Google Chrome](https://www.google.com/chrome/) to run the tests. 
+
+To run all the browser tests run in the root folder of the project:
+
+```
+sail dusk
 ```
 
 ## Frontend - Working with CSS and JS <a id="frontend"></a>

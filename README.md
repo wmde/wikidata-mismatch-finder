@@ -1,6 +1,6 @@
-# Wikidata Mismatch Finder
+# [Wikidata Mismatch Finder](https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder)
 
-A tool to review mismatches between Wikidata and External Databases
+A tool to review mismatches between Wikidata and External Databases.
 
 ## User Guide
 

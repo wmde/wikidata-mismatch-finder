@@ -22,6 +22,7 @@ jobs:
         dev: no
         version: 2
         php_version: 7.3
+        php_extensions: zip
     - name: Installing node dependencies
       run: npm ci
     - name: Minify and Build CSS and JS

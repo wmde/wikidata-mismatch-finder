@@ -48,7 +48,7 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Install Composer Dependencies
+      - name: Install Dependencies
         run: |
           composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
           chmod -R 777 storage bootstrap/cache

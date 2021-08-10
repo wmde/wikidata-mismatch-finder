@@ -172,9 +172,9 @@ $ sail artisan test
 
 ## Browser Testing <a id="browser-testing"></a>
 
-The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, which means you should install [Google Chrome](https://www.google.com/chrome/) to run the tests. 
+The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup. 
 
-To run all the browser tests run in the root folder of the project:
+To run all the browser tests:
 
 ```
 sail dusk

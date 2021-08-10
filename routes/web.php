@@ -18,9 +18,7 @@ Route::get('/', function () {
     return redirect(route('api.settings'));
 });
 
-Route::get('/test', function () {
-    return view('home');
-});
+Route::inertia('/test-inertia', 'SamplePage', [ 'user' => [ 'name' => 'Potato']]);
 
 Route::get('/imports', function () {
     return view('importStatus', [ 'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get() ]);

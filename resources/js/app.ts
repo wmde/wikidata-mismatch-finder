@@ -1,8 +1,14 @@
 // import './bootstrap';
 import Vue from 'vue';
-import Alert from './Components/Alert.vue';
+import { createInertiaApp } from '@inertiajs/inertia-vue';
 
-new Vue({
-    el: '#app',
-    components: { Alert }
-});
+const app = document.getElementById('app');
+
+createInertiaApp({
+  resolve: name => require(`./Pages/${name}`),
+  setup({ el, app, props }) {
+    new Vue({
+      render: h => h(app, props),
+    }).$mount(el)
+  },
+})

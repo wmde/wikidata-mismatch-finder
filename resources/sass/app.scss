@@ -174,8 +174,12 @@ dl.import-meta dt {
 
 dl.import-meta dd {
     margin: 0;
+}
+
+dl.import-meta dd:not(:last-child) {
     padding-bottom: 16px;
 }
+
 p {
     margin: 0 0 16px 0;
 }

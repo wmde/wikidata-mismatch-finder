@@ -25,13 +25,27 @@ class ImportMetaFactory extends Factory
     {
         return [
             'description' => $this->faker->optional(0.8)->realText(350),
+            // Exclude failed, so that we could associate it with an Import Failure
             'status' => $this->faker->randomElement([
                 'pending',
-                'failed',
                 'completed'
             ]),
             'expires' => $this->faker->dateTimeBetween('+1 day', '+6 months')->format('Y-m-d'),
             'filename' => 'test_file.csv'
         ];
+    }
+
+    /**
+     * Indicate that the import is failed.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function failed(string $username = null)
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => 'failed',
+            ];
+        });
     }
 }

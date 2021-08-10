@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Tests\Browser\Pages\HomePage;
 
 class ExampleTest extends DuskTestCase
 {
@@ -16,8 +17,9 @@ class ExampleTest extends DuskTestCase
     public function testBasicExample()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Mismatch Store');
+            $browser->visit(new HomePage)
+                ->assertGuest()
+                ->assertSeeLink('Log in');
         });
     }
 }

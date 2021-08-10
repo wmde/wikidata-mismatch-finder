@@ -1,6 +1,6 @@
 // import './bootstrap';
 import Vue from 'vue';
-import Alert from './Alert.vue';
+import Alert from './Components/Alert.vue';
 
 new Vue({
     el: '#app',

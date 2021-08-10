@@ -80,6 +80,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImportMeta'
+
         '400':
           $ref: '#/components/responses/ClientError'
         '422':
@@ -101,7 +102,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ImportMeta'
+                oneOf:
+                 - $ref: '#/components/schemas/ImportMeta'
+                 - $ref: '#/components/schemas/FailedImportMeta'
+                discriminator:
+                  propertyName: status
+                  mapping:
+                    pending: '#/components/schemas/ImportMeta'
+                    completed: '#/components/schemas/ImportMeta'
+                    failed: '#/components/schemas/FailedImportMeta'
         '404':
           $ref: '#/components/responses/NotFound'
 
@@ -215,10 +224,19 @@ components:
           type: string
           format: date
         uploader:
-          type: object
           $ref: '#/components/schemas/User'
+
+    FailedImportMeta:
+      allOf:
+      - $ref: '#/components/schemas/ImportMeta'
+      - type: object
+        properties:
+          error:
+            type: string
 
     ListOfImportMeta:
       type: array
       items:
-        $ref: '#/components/schemas/ImportMeta'
+        anyOf:
+          - $ref: '#/components/schemas/ImportMeta'
+          - $ref: '#/components/schemas/FailedImportMeta'

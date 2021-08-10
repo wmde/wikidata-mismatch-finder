@@ -50,4 +50,9 @@ class ImportMeta extends Model
     {
         return $this->belongsTo(User::class)->withDefault();
     }
+
+    public function error()
+    {
+        return $this->hasOne(ImportFailure::class, 'import_id');
+    }
 }

@@ -4,6 +4,11 @@
             <dt>{{ __('import-status.item:status') }}</dt>
             <dd>{{ __('import-status.item:status.' . $import->status) }}</dd>
 
+            @if($import->error)
+                <dt>{{ __('import-status.item:error') }}</dt>
+                <dd>{{ $import->error->message }}</dd>
+            @endif
+
             <dt>{{__('import-status.item:uploader')}}</dt>
             <dd>{{ $import->user->username }}</dd>
 

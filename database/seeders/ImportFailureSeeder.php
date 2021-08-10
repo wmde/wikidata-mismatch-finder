@@ -16,14 +16,17 @@ class ImportFailureSeeder extends Seeder
      */
     public function run()
     {
-        $import = ImportMeta::factory()
-            ->for(User::factory()->uploader())
-            ->create([
-                'status' => 'failed'
-            ]);
+        $user = User::factory()->uploader()->create();
 
-        ImportFailure::factory(3)
-            ->for($import)
-            ->create();
+        // Create 3 failed imports
+        for ($i = 0; $i < 3; $i++) {
+            $import = ImportMeta::factory()
+                ->failed()
+                ->for($user);
+
+            ImportFailure::factory()
+                ->for($import)
+                ->create();
+        }
     }
 }

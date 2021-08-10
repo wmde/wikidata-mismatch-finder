@@ -18,6 +18,10 @@ Route::get('/', function () {
     return redirect(route('api.settings'));
 });
 
+Route::get('/test', function () {
+    return view('home');
+});
+
 Route::get('/imports', function () {
     return view('importStatus', [ 'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get() ]);
 })->name('import.status');

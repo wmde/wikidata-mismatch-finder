@@ -4,7 +4,11 @@
         "module": "esnext",
         "allowJs": true,
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "moduleResolution": "node"
     },
-    "include": ["resources/js"]
+    "include": [
+        "resources/js",
+        "resources/js/Components"
+    ]
 }

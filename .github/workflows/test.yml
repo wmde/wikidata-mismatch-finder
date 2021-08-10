@@ -1,7 +1,7 @@
 name: Test
 
 on: [push]
-env: 
+env:
   APP_KEY: ${{ secrets.TESTING_KEY }}
 
 jobs:
@@ -13,8 +13,9 @@ jobs:
           run: composer install --no-progress --prefer-dist --optimize-autoloader
         - name: phpunit
           uses: php-actions/phpunit@v3
-          with: 
+          with:
             php_version: 7.3
+
   browser-test:
     runs-on: ubuntu-latest
     services:
@@ -35,7 +36,7 @@ jobs:
           fetch-depth: 1
 
       - name: Prepare The Environment
-        run: cp .env.dusk .env
+        run: cp .env.dusk.ci .env
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

@@ -28,6 +28,5 @@ class ImportFailureSeeder extends Seeder
                 ->for($import)
                 ->create();
         }
-
     }
 }

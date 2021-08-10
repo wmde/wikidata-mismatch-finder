@@ -237,4 +237,6 @@ components:
     ListOfImportMeta:
       type: array
       items:
-        $ref: '#/components/schemas/ImportMeta'
+        anyOf:
+          - $ref: '#/components/schemas/ImportMeta'
+          - $ref: '#/components/schemas/FailedImportMeta'

@@ -204,7 +204,13 @@ To manually compile assets for your local dev environment run:
 
 ```
 sail npm run dev
-```  
+```
+
+To run any Javascript tests created:
+
+```
+sail npm test
+```
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

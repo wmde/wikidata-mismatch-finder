@@ -24,7 +24,8 @@
         "ts-loader": "^9.2.5",
         "typescript": "^4.3.5",
         "vue-jest": "^3.0.7",
-        "vue-loader": "^15.9.8"
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.10.1",

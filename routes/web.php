@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return redirect(route('inertia.test'));
+});
+
+Route::get('/store', function () {
     return redirect(route('api.settings'));
 });
 
-Route::inertia('/test-inertia', 'Home', [ 'user' => [ 'name' => 'Potato']]);
+Route::inertia('/test-inertia', 'Home', [ 'user' => [ 'name' => 'Potato']])->name('inertia.test');
 
 Route::get('/imports', function () {
     return view('importStatus', [ 'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get() ]);

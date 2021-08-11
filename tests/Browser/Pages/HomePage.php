@@ -25,8 +25,8 @@ class HomePage extends Page
     public function assert(Browser $browser)
     {
         $browser
-            ->assertTitle('Mismatch Store')
-            ->assertSee('Mismatch Store');
+            ->assertTitle('Welcome')
+            ->assertSee('Mismatch Finder');
     }
 
     /**

@@ -19,7 +19,7 @@ class ExampleTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                 ->assertGuest()
-                ->assertSeeLink('Log in');
+                ->assertSeeLink('Mismatch Store');
         });
     }
 }

@@ -8,7 +8,6 @@
         "moduleResolution": "node"
     },
     "include": [
-        "resources/js",
-        "resources/js/Components"
+        "resources/js"
     ]
 }

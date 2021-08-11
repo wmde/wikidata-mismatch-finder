@@ -1,20 +1,20 @@
 <template>
   <div>
     <Head title="Welcome" />
-    <H1>Welcome</H1>
-    <p>Hello {{ user.name }}, welcome to your first Inertia app!</p>
+    <h1>Mismatch Finder</h1>
+    <p>Welcome, {{ user.name }}. This page is coming soon!</p>
     <Alert />
   </div>
 </template>
 
 <script>
   import { Head } from '@inertiajs/inertia-vue'
-  import Alert from '../Components/Alert.vue'
+  import Heading from '../Components/Heading.vue'
 
   export default {
     components: {
       Head,
-      Alert
+      Heading
     },
     props: {
       user: Object,

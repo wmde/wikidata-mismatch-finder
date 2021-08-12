@@ -9,11 +9,13 @@
   - [Start the application server](#start-the-application-server)
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#oauth)
-- [PHP Linting](#phpcs)
+- [Working with OAuth](#working-with-oauth)
+- [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
+- [PHP Linting](#php-linting)
 - [Testing](#testing)
+  - [PHP Testing](#php-testing)
+  - [Javascript Testing](#javascript-testing)
   - [Browser Testing](#browser-testing)
-- [Frontend - Working with CSS and JS](#frontend)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -133,53 +135,6 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 
 1. As soon as you receive the email from the WMF team that your consumer is approved, you may start testing your application by logging in through your local instance's home page.
 
-## PHP Linting <a id="phpcs"></a>
-
-The application uses `phpcs` to detect code format violations.
-
-To run phpcs: `sail composer run lint`
-
-To fix style errors automatically run: `sail composer run fix` 
-
-Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
-
-## Testing <a id="testing"></a>
-
-The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services. Mismatch finder uses an in-memory SQLite database for testing, so that the feature tests will leave your mariadb instance untouched. You can find the config settings for sqlite in `phpunit.xml`:
-```
-    <php>
-        [...]
-        <server name="DB_CONNECTION" value="sqlite"/>
-        <server name="DB_DATABASE" value=":memory:"/>
-        [...]
-    </php>
-```
-
-Simply run `# sail artisan test` to start both unit and integration tests:
-
-```
-$ sail artisan test
-
-   PASS  Tests\Unit\ExampleTest
-  ✓ example
-
-   PASS  Tests\Feature\ExampleTest
-  ✓ example
-
-  Tests:  2 passed
-  Time:   0.16s
-```
-
-## Browser Testing <a id="browser-testing"></a>
-
-The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup. 
-
-To run all the browser tests:
-
-```
-sail dusk
-```
-
 ## Frontend - Working with CSS and JS <a id="frontend"></a>
 
 Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.
@@ -206,10 +161,64 @@ To manually compile assets for your local dev environment run:
 sail npm run dev
 ```
 
-To run any Javascript tests created:
+## PHP Linting <a id="phpcs"></a>
+
+The application uses `phpcs` to detect code format violations.
+
+To run phpcs: `sail composer run lint`
+
+To fix style errors automatically run: `sail composer run fix` 
+
+Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
+
+## Testing <a id="testing"></a>
+
+### PHP Testing <a id="php-testing"></a>
+
+The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services.
+
+Mismatch finder uses an in-memory SQLite database for testing, so that the feature tests will leave your mariadb instance untouched. You can find the config settings for sqlite in `phpunit.xml`:
+
+```
+    <php>
+        [...]
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+        [...]
+    </php>
+```
+
+Simply run `# sail artisan test` to start both unit and integration tests:
+
+```
+$ sail artisan test
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ example
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ example
+
+  Tests:  2 passed
+  Time:   0.16s
+```
+
+### Javascript Testing <a id="javascript-testing"></a>
+
+To test our Javascript code in general, and any vue components or pages we create in particular, this repository utilizes the jest test runner. In order to run JS tests, use the following command:
 
 ```
 sail npm test
+```
+
+### Browser Testing <a id="browser-testing"></a>
+
+The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup. 
+
+To run all the browser tests:
+
+```
+sail dusk
 ```
 
 ## Troubleshooting <a id="troubleshooting"></a>

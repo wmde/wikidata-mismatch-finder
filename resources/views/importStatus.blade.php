@@ -12,8 +12,10 @@
             <dt>{{__('import-status.item:uploader')}}</dt>
             <dd>{{ $import->user->username }}</dd>
 
-            <dt>{{__('import-status.item:description')}}</dt>
-            <dd>{{ $import->description }}</dd>
+            @if($import->description)
+                <dt>{{__('import-status.item:description')}}</dt>
+                <dd>{{ $import->description }}</dd>
+            @endif
 
             <dt>{{__('import-status.item:upload_date')}}</dt>
             <dd>{{ $import->created_at->format(__('import-status.date_format')) }}</dd>

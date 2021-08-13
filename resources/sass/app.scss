@@ -1,20 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
-$mobile-max-size: 720px;
-$color-base-0: #000;
-$color-base-10: #202122;
-$color-base-30: #72777D;
-$color-base-50: #A2A9B1;
-$color-base-80: #EAECF0;
-$color-base-90: #F8F9FA;
-$color-base-100: #FFF;
-$color-base-hover: #404244;
-$color-accent-30: #2A4B8D;
-$color-accent-50: #3366cc;
-$color-accent-hover: #447ff5;
-$color-red-30: #B32424;
-$color-red-50: #D33;
-$color-red-hover: #FF4242;
+@import '~@wmde/wikit-vue-components/dist/wikit-vue-components.css';
+
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
 
 body, body * {
     box-sizing: border-box;
@@ -28,7 +16,7 @@ body {
     line-height: 24px;
     font-family: 'Lato', sans-serif;
 
-    @media (max-width: $mobile-max-size) {
+    @media (max-width: $width-breakpoint-tablet) {
         padding: 16px;
     }
 }
@@ -55,7 +43,7 @@ header {
     display: flex;
     justify-content: space-between;
 
-    @media (max-width: $mobile-max-size) {
+    @media (max-width: $width-breakpoint-tablet) {
         flex-direction: column-reverse;
     }
 
@@ -72,12 +60,12 @@ header {
         font-family: 'Lato', sans-serif;
         font-size: 16px;
         line-height: 24px;
-        color: $color-accent-50;
+        color: $color-base-50;
 
         .username {
             margin-right: 24px;
         }
-        @media (max-width: $mobile-max-size) {
+        @media (max-width: $width-breakpoint-tablet) {
             margin-bottom: 16px;
         }
     }
@@ -85,7 +73,7 @@ header {
         margin-right: 8px;
         margin-left: 16px;
         vertical-align: middle;
-        @media (max-width: $mobile-max-size) {
+        @media (max-width: $width-breakpoint-tablet) {
             margin-left: 0;
         }
     }
@@ -120,8 +108,8 @@ nav.tabs {
                     outline: 0;
                 }
                 &:hover {
-                    border-bottom-color: $color-accent-hover;
-                    color: $color-accent-hover;  
+                    border-bottom-color: $color-modifier-lighten-accent-50;
+                    color: $color-modifier-lighten-accent-50;  
                 }
                 
             }
@@ -198,7 +186,7 @@ p {
 
     &:hover {
         text-decoration: none;
-        color: $color-base-hover;
+        color: $color-modifier-lighten-base-10;
         border-color: $color-base-50;
         background-color: $color-base-100;
         transition-property: background-color, border-color;
@@ -229,8 +217,8 @@ p {
         }
 
         &:hover {
-            background-color: $color-accent-hover;
-            border-color: $color-accent-hover;
+            background-color: $color-modifier-lighten-accent-50;
+            border-color: $color-modifier-lighten-accent-50;
             transition-property: background-color, border-color;
         }
         &:active {
@@ -248,27 +236,27 @@ p {
 
     &.destructive {
         color:$color-base-100;
-        background-color: $color-red-50;
-        border-color: $color-red-50;
+        background-color: $color-utility-red-50;
+        border-color: $color-utility-red-50;
 
         &:visited {
             color: white;
         }
         
         &:hover {
-            background-color: $color-red-hover;
-            border-color: $color-red-hover;
+            background-color: $color-modifier-lighten-utility-red-50;
+            border-color: $color-modifier-lighten-utility-red-50;
             transition-property: background-color, border-color;
         }
         &:active {
-            background-color: $color-red-30;
-            border-color: $color-red-30;
+            background-color: $color-utility-red-30;
+            border-color: $color-utility-red-30;
             transition-property: background-color, border-color;
         }
         &:focus {
             box-shadow: $color-base-100 0 0 0 1px inset;
-            border-color: $color-red-50;
-            background-color: $color-red-50;
+            border-color: $color-utility-red-50;
+            background-color: $color-utility-red-50;
             transition-property: box-shadow;
         }
     }
@@ -283,12 +271,12 @@ p {
 
     &.right {
         justify-content: flex-end;
-        @media (max-width: $mobile-max-size) {
+        @media (max-width: $width-breakpoint-tablet) {
             justify-content: flex-start;
          }
     }
 
-    @media (max-width: $mobile-max-size) {
+    @media (max-width: $width-breakpoint-tablet) {
        justify-content: flex-start;
     }
 }

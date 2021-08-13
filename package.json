@@ -30,6 +30,8 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-vue": "^0.7.2",
+        "@wmde/wikit-tokens": "^2.0.0",
+        "@wmde/wikit-vue-components": "^2.0.0",
         "vue": "^2.6.14"
     }
 }

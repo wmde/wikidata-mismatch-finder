@@ -11,3 +11,19 @@ jobs:
           run: composer install --no-progress --prefer-dist --optimize-autoloader
         - name: PHP Lint
           run: "composer run lint"
+
+  js-lint:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: '16.x'
+
+        - name: Install Dependencies
+          run: npm ci
+
+        - name: Run ESLint
+          run: npm run lint

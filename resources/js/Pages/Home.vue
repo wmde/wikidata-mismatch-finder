@@ -8,7 +8,6 @@
   </div>
 </template>
 
-
 <script>
     import Vue from 'vue';
     import { Head } from '@inertiajs/inertia-vue'

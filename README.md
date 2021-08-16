@@ -6,9 +6,10 @@ A tool to review mismatches between Wikidata and External Databases.
 
  * See the [User Guide](docs/UserGuide.md) for instructions on how to use Wikidata Mismatch Finder.
  
-## Administration Guide
+## Administration Guides
 
  * See the [Administration Guide](docs/AdminGuide.md) for instructions on how to run administration tasks.
+ * See the [tool page on Wikitech](https://wikitech.wikimedia.org/wiki/Tool:Wikidata_Mismatch_Finder) for guides on running common deployment and maintenance tasks on toolforge.
 
 ## Local Development
 

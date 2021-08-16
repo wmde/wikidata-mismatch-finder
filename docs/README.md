@@ -11,7 +11,9 @@
   - [Destroy all the things](#destroy-all-the-things)
 - [Working with OAuth](#working-with-oauth)
 - [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
-- [PHP Linting](#php-linting)
+- [Linting](#linting)
+    - [PHP Linting](#php-linting)
+    - [Javascript Linting](#js-linting)
 - [Testing](#testing)
   - [PHP Testing](#php-testing)
   - [Javascript Testing](#javascript-testing)
@@ -161,7 +163,8 @@ To manually compile assets for your local dev environment run:
 sail npm run dev
 ```
 
-## PHP Linting <a id="phpcs"></a>
+## Linting <a id="linting"></a>
+### PHP Linting <a id="php-linting"></a>
 
 The application uses `phpcs` to detect code format violations.
 
@@ -170,6 +173,14 @@ To run phpcs: `sail composer run lint`
 To fix style errors automatically run: `sail composer run fix` 
 
 Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
+
+### Javascript Linting <a id="js-linting"></a>
+
+The application uses ESLint to detect code format violations in the frontend's `*.js` and `*.vue` files.
+
+To run eslint: `sail npm run lint`
+
+To fix style errors automatically run: `sail npm run lint:fix` 
 
 ## Testing <a id="testing"></a>
 

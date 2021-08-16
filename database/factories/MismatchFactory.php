@@ -30,6 +30,20 @@ class MismatchFactory extends Factory
         ];
     }
 
+    /**
+     * Indicate that a mismatch has been edited
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function edited()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => $this->getRandomEditStatus()
+            ];
+        });
+    }
+
     private function getRandomValue()
     {
         $randomWordAmount = $this->faker->numberBetween(1, 5);
@@ -47,5 +61,12 @@ class MismatchFactory extends Factory
             // A random lorem text with up to 5 words
             $this->faker->words($randomWordAmount, true)
         ]);
+    }
+
+    private function getRandomEditStatus()
+    {
+        $editStatuses = [ 'wikidata', 'external', 'both', 'none' ];
+        $randomStatusIndex = $this->faker->numberBetween(0, 3);
+        return $editStatuses[ $randomStatusIndex ];
     }
 }

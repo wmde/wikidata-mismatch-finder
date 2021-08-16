@@ -69,14 +69,40 @@ class ApiMismatchRouteTest extends TestCase
         ->create();
 
         $mismatches = Mismatch::factory(3)->for($import)->create();
+        $editedMismatches = Mismatch::factory(3)->for($import)->edited()->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
-            ['ids' => $mismatches->implode('item_id', '|')]
+            ['ids' =>
+                $mismatches->implode('item_id', '|') . '|' .
+                $editedMismatches->implode('item_id', '|')
+            ]
         );
 
         $response->assertSuccessful()
-            ->assertJsonCount($mismatches->count());
+            ->assertJsonCount($mismatches->count() + $editedMismatches->count());
+    }
+
+    public function test_query_for_active_mismatches_returns_correct_number_of_items()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $activeMismatches = Mismatch::factory(3)->for($import)->create();
+        $editedMismatches = Mismatch::factory(3)->for($import)->edited()->create();
+        $response = $this->json(
+            'GET',
+            self::MISMATCH_ROUTE,
+            [
+                'ids' => $activeMismatches->implode('item_id', '|') . '|' .
+                         $editedMismatches->implode('item_id', '|'),
+                'active' => true
+            ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJsonCount($activeMismatches->count());
     }
 
     public function test_missing_item_ids_returns_validation_error()

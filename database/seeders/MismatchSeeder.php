@@ -20,8 +20,13 @@ class MismatchSeeder extends Seeder
             ->for(User::factory()->uploader())
             ->create();
 
-        Mismatch::factory(42)
+        Mismatch::factory(21)
             ->for($import)
+            ->create();
+
+        Mismatch::factory(21)
+            ->for($import)
+            ->edited()
             ->create();
     }
 }

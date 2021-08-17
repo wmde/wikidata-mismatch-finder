@@ -8,7 +8,6 @@ use App\Models\Mismatch;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class ApiMismatchRouteTest extends TestCase
@@ -77,13 +76,15 @@ class ApiMismatchRouteTest extends TestCase
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
         $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
+        $expiredReviewedMismatches = Mismatch::factory(3)->for($expiredImport)->reviewed()->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
-            ['ids' =>
-                $pendingMismatches->implode('item_id', '|') . '|' .
-                $reviewedMismatches->implode('item_id', '|') . '|' .
-                $expiredMismatches->implode('item_id', '|')
+            [
+                'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
+                         $reviewedMismatches->implode('item_id', '|') . '|' .
+                         $expiredMismatches->implode('item_id', '|') . '|' .
+                         $expiredReviewedMismatches->implode('item_id', '|')
             ]
         );
 
@@ -91,7 +92,7 @@ class ApiMismatchRouteTest extends TestCase
             ->assertJsonCount($pendingMismatches->count());
     }
 
-    public function test_query_including_reviewed()
+    public function test_query_including_reviewed_returns_reviewed_mismatches()
     {
         $import = ImportMeta::factory()
         ->for(User::factory()->uploader())
@@ -105,13 +106,15 @@ class ApiMismatchRouteTest extends TestCase
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
         $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
+        $expiredReviewedMismatches = Mismatch::factory(3)->for($expiredImport)->reviewed()->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
             [
                 'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
                          $reviewedMismatches->implode('item_id', '|') . '|' .
-                         $expiredMismatches->implode('item_id', '|'),
+                         $expiredMismatches->implode('item_id', '|') . '|' .
+                         $expiredReviewedMismatches->implode('item_id', '|'),
                 'include_reviewed' => true
             ]
         );
@@ -120,7 +123,7 @@ class ApiMismatchRouteTest extends TestCase
             ->assertJsonCount($pendingMismatches->count() + $reviewedMismatches->count());
     }
 
-    public function test_query_including_expired()
+    public function test_query_including_expired_returns_expired_mismatches()
     {
         $import = ImportMeta::factory()
         ->for(User::factory()->uploader())
@@ -134,13 +137,15 @@ class ApiMismatchRouteTest extends TestCase
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
         $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
+        $expiredReviewedMismatches = Mismatch::factory(3)->for($expiredImport)->reviewed()->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
             [
                 'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
                          $reviewedMismatches->implode('item_id', '|') . '|' .
-                         $expiredMismatches->implode('item_id', '|'),
+                         $expiredMismatches->implode('item_id', '|') . '|' .
+                         $expiredReviewedMismatches->implode('item_id', '|'),
                 'include_expired' => true
             ]
         );
@@ -149,7 +154,7 @@ class ApiMismatchRouteTest extends TestCase
             ->assertJsonCount($pendingMismatches->count() + $expiredMismatches->count());
     }
 
-    public function test_query_including_reviewed_and_expired()
+    public function test_query_including_reviewed_and_expired_returns_all_mismatches()
     {
         $import = ImportMeta::factory()
         ->for(User::factory()->uploader())

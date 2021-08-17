@@ -31,7 +31,7 @@ class MismatchFactory extends Factory
     }
 
     /**
-     * Indicate that a mismatch has been edited
+     * Indicate that a mismatch has been reviewed
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */

@@ -97,14 +97,21 @@ class ApiMismatchRouteTest extends TestCase
         ->for(User::factory()->uploader())
         ->create();
 
+        $expiredImport = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->expired()
+        ->create();
+
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
+        $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
             [
                 'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
-                         $reviewedMismatches->implode('item_id', '|'),
+                         $reviewedMismatches->implode('item_id', '|') . '|' .
+                         $expiredMismatches->implode('item_id', '|'),
                 'include_reviewed' => true
             ]
         );
@@ -125,12 +132,14 @@ class ApiMismatchRouteTest extends TestCase
         ->create();
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
+        $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
         $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
             [
                 'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
+                         $reviewedMismatches->implode('item_id', '|') . '|' .
                          $expiredMismatches->implode('item_id', '|'),
                 'include_expired' => true
             ]
@@ -138,6 +147,43 @@ class ApiMismatchRouteTest extends TestCase
 
         $response->assertSuccessful()
             ->assertJsonCount($pendingMismatches->count() + $expiredMismatches->count());
+    }
+
+    public function test_query_including_reviewed_and_expired()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $expiredImport = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->expired()
+        ->create();
+
+        $pendingMismatches = Mismatch::factory(3)->for($import)->create();
+        $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
+        $expiredMismatches = Mismatch::factory(3)->for($expiredImport)->create();
+        $expiredReviewedMismatches = Mismatch::factory(3)->for($expiredImport)->reviewed()->create();
+        $response = $this->json(
+            'GET',
+            self::MISMATCH_ROUTE,
+            [
+                'ids' => $pendingMismatches->implode('item_id', '|') . '|' .
+                         $reviewedMismatches->implode('item_id', '|') . '|' .
+                         $expiredMismatches->implode('item_id', '|') . '|' .
+                         $expiredReviewedMismatches->implode('item_id', '|'),
+                'include_reviewed' => true,
+                'include_expired' => true
+            ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJsonCount(
+                $pendingMismatches->count() +
+                $reviewedMismatches->count() +
+                $expiredMismatches->count() +
+                $expiredReviewedMismatches->count()
+            );
     }
 
     public function test_missing_item_ids_returns_validation_error()

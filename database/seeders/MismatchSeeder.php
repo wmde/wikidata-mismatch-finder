@@ -33,9 +33,14 @@ class MismatchSeeder extends Seeder
             ->for($expiredImport)
             ->create();
 
-        Mismatch::factory(21)
+        Mismatch::factory(10)
             ->for($import)
-            ->edited()
+            ->reviewed()
+            ->create();
+
+        Mismatch::factory(11)
+            ->for($expiredImport)
+            ->reviewed()
             ->create();
     }
 }

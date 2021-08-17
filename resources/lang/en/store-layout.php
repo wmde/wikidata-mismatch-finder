@@ -24,5 +24,6 @@ return [
     'no' => 'No',
     'no-token-found' => 'No token found, do you want to create one?',
     'token-not-used' => 'Token has not been used yet.',
-    'token-successfully-generated' => 'Token successfully generated'
+    'token-successfully-generated' => 'Token successfully generated',
+    'login-request' => 'Please <a href=":login-url">log in</a> to access the API token.'
 ];

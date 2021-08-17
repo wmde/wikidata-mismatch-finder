@@ -8,19 +8,12 @@ use Illuminate\Support\Facades\Gate;
 
 class ApiTokenController extends Controller
 {
-    public function showToken(Request $request)
+    public function showToken()
     {
-        if (!Auth::check()) {
-            return view('welcome');
-        }
-
-        $upload_permission = false;
-
-        if (Gate::allows('upload-import')) {
-            $upload_permission = true;
-        }
-
-        return view('showToken', [ 'tokens' => $request->user()->tokens, 'upload_permission' => $upload_permission ]);
+        return view('showToken', [
+            'tokens' => Auth::user() ? Auth::user()->tokens : null,
+            'upload_permission' => Gate::allows('upload-import')
+        ]);
     }
 
     public function createToken(Request $request)

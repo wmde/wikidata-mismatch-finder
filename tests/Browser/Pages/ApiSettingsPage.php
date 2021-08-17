@@ -4,7 +4,7 @@ namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 
-class HomePage extends Page
+class ApiSettingsPage extends Page
 {
     /**
      * Get the URL for the page.
@@ -13,7 +13,7 @@ class HomePage extends Page
      */
     public function url()
     {
-        return '/';
+        return '/auth/api-settings';
     }
 
     /**
@@ -25,8 +25,8 @@ class HomePage extends Page
     public function assert(Browser $browser)
     {
         $browser
-            ->assertTitle('Mismatch Finder')
-            ->assertSee('Mismatch Finder');
+            ->assertTitle('Mismatch Store')
+            ->assertSee('Mismatch Store');
     }
 
     /**

@@ -32,24 +32,11 @@ class AuthTokenTest extends TestCase
     }
 
     /**
-     * Test the non authenticated /auth/api-settings route
-     *
-     *  @return void
-     */
-    public function test_token_nonAuthenticated_returnsWelcome()
-    {
-        $response = $this->get('/auth/api-settings');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('welcome');
-    }
-
-    /**
      * Test the authenticated /auth/api-settings route
      *
      *  @return void
      */
-    public function test_token_authenticated_returnsShowToken()
+    public function test_api_settings_returnsShowToken()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)

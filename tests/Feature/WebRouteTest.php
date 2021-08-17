@@ -54,9 +54,9 @@ class WebRouteTest extends TestCase
      */
     public function test_importStatus_route()
     {
-        $response = $this->get('/imports');
+        $response = $this->get('/store/imports');
 
-        $response->assertStatus(200);
+        $response->assertSuccessful();
         $response->assertViewIs('importStatus');
     }
 }

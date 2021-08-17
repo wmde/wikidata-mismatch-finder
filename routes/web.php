@@ -3,7 +3,6 @@
 use App\Models\ImportMeta;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,21 +22,24 @@ Route::get('/', function () {
 
 Route::inertia('/test-inertia', 'Home', [ 'user' => [ 'name' => 'Potato']])->name('inertia.test');
 
-Route::get('/imports', function () {
-    return view('importStatus', [ 'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get() ]);
-})->name('import.status');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {
 
     Route::redirect('/', '/store/api-settings')->name('home');
 
-    Route::get('/api-settings', function (Request $request) {
+    Route::get('/api-settings', function () {
         return view('showToken', [
             'tokens' => Auth::user() ? Auth::user()->tokens : null,
             'upload_permission' => Gate::allows('upload-import')
         ]);
     })->name('api-settings');
 
+    Route::get('/imports', function () {
+        return view('importStatus', [
+            'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get()
+        ]);
+    })->name('import-status');
 });
+
 

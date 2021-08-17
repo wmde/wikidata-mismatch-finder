@@ -16,12 +16,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return redirect(route('inertia.test'));
-});
-
-Route::inertia('/test-inertia', 'Home', [ 'user' => [ 'name' => 'Potato']])->name('inertia.test');
-
+// Main Route for our application, should serve the client side Vue application
+Route::inertia('/', 'Home', ['user' => ['name' => 'Potato']])->name('home');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

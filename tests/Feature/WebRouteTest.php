@@ -5,21 +5,26 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Inertia\Testing\Assert;
 
 class WebRouteTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
-     * Test the /auth/api_settings route
+     * Test the / route
      *
      *  @return void
      */
-    public function test_welcome_route()
+    public function test_home_route()
     {
         $response = $this->get('/');
 
-        $response->assertStatus(302);
+        $response->assertSuccessful();
+        $response->assertViewIs('app')
+            ->assertInertia(function(Assert $page) {
+                $page->component('Home');
+            });
     }
 
     /**
@@ -35,7 +40,7 @@ class WebRouteTest extends TestCase
     }
 
     /**
-     * Test the authenticated /auth/api-settings route
+     * Test the authenticated /store/api-settings route
      *
      *  @return void
      */
@@ -48,7 +53,7 @@ class WebRouteTest extends TestCase
     }
 
     /**
-     * Test the /importStatus route
+     * Test the store/imports route
      *
      *  @return void
      */

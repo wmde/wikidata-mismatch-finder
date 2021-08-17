@@ -26,13 +26,13 @@ class ApiTokenController extends Controller
 
         $token = $request->user()->createToken('apiToken');
 
-        return redirect(route('api.settings'))->with('flashToken', $token->plainTextToken);
+        return redirect(route('store.api-settings'))->with('flashToken', $token->plainTextToken);
     }
 
     public function revokeToken(Request $request)
     {
         Auth::user()->tokens()->where('id', $request->id)->delete();
 
-        return redirect(route('api.settings'));
+        return redirect(route('store.api-settings'));
     }
 }

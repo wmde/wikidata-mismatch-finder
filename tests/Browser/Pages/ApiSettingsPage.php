@@ -13,7 +13,7 @@ class ApiSettingsPage extends Page
      */
     public function url()
     {
-        return '/auth/api-settings';
+        return '/store/api-settings';
     }
 
     /**

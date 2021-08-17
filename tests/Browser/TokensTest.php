@@ -59,7 +59,7 @@ class ExampleTest extends DuskTestCase
                 ->assertPresent('.no-tokens')
                 ->assertSeeLink('Create')
                 ->clickLink('Create')
-                ->assertRouteIs('api.settings')
+                ->assertRouteIs('store.api-settings')
                 ->assertPresent('.token')
                 ->assertSeeLink('Regenerate')
                 ->assertSeeLink('Delete');

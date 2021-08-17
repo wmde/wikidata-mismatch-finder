@@ -16,7 +16,7 @@
             <div class="token">
                     <p>{{__('store-layout.token-successfully-generated')}}: {{ session('flashToken') }}</p>
                     <div role="group" class="button-group">
-                        <a class="button primary" href="{{ route('api.settings') }}">{{__('store-layout.button:confirm')}}</a>
+                        <a class="button primary" href="{{ route('store.api-settings') }}">{{__('store-layout.button:confirm')}}</a>
                     </div>
             </div>
             @endif

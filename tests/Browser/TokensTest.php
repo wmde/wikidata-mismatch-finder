@@ -8,8 +8,9 @@ use Tests\DuskTestCase;
 use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\ApiSettingsPage;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 
-class ExampleTest extends DuskTestCase
+class TokensTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
@@ -51,7 +52,8 @@ class ExampleTest extends DuskTestCase
      */
     public function testUserCanCreateTokens()
     {
-        $user = User::factory()->create();
+        Artisan::call('db:seed');
+        $user = User::first();
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)

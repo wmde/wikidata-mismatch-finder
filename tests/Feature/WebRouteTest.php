@@ -22,7 +22,7 @@ class WebRouteTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertViewIs('app')
-            ->assertInertia(function(Assert $page) {
+            ->assertInertia(function (Assert $page) {
                 $page->component('Home');
             });
     }

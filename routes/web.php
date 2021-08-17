@@ -17,7 +17,15 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // Main Route for our application, should serve the client side Vue application
-Route::inertia('/', 'Home', ['user' => ['name' => 'Potato']])->name('home');
+Route::get('/', function () {
+    $user = Auth::user() ? [
+        'name' => Auth::user()->username
+    ] : null;
+
+    return inertia('Home', [
+        'user' => $user
+    ]);
+})->name('home');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {
@@ -37,5 +45,3 @@ Route::prefix('store')->name('store.')->group(function () {
         ]);
     })->name('import-status');
 });
-
-

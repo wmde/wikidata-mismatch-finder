@@ -10,7 +10,7 @@ class MismatchesRequest extends FormRequest
     protected function prepareForValidation()
     {
         $separator = config('mismatches.id_separator');
-        $this->replace(['ids' => explode($separator, $this->ids)]);
+        $this->merge(['ids' => explode($separator, $this->ids)]);
     }
 
     /**

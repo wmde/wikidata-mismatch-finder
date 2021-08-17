@@ -35,11 +35,11 @@ class MismatchFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function edited()
+    public function reviewed()
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => $this->getRandomEditStatus()
+                'status' => $this->getRandomReviewStatus()
             ];
         });
     }
@@ -63,10 +63,10 @@ class MismatchFactory extends Factory
         ]);
     }
 
-    private function getRandomEditStatus()
+    private function getRandomReviewStatus()
     {
-        $editStatuses = [ 'wikidata', 'external', 'both', 'none' ];
+        $reviewStatuses = [ 'wikidata', 'external', 'both', 'none' ];
         $randomStatusIndex = $this->faker->numberBetween(0, 3);
-        return $editStatuses[ $randomStatusIndex ];
+        return $reviewStatuses[ $randomStatusIndex ];
     }
 }

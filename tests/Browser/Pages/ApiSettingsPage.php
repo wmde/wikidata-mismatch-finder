@@ -4,7 +4,7 @@ namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 
-class StorePage extends Page
+class ApiSettingsPage extends Page
 {
     /**
      * Get the URL for the page.
@@ -24,7 +24,7 @@ class StorePage extends Page
      */
     public function assert(Browser $browser)
     {
-        $browser
+        $browser->assertPathIs($this->url())
             ->assertTitle('Mismatch Store')
             ->assertSee('Mismatch Store');
     }

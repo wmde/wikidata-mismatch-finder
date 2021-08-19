@@ -52,7 +52,7 @@ class WebRouteTest extends TestCase
      *
      *  @return void
      */
-    public function test_store_route()
+    public function test_store_home()
     {
         $response = $this->get(route('store.home'));
 
@@ -64,7 +64,7 @@ class WebRouteTest extends TestCase
      *
      *  @return void
      */
-    public function test_api_settings_returnsShowToken()
+    public function test_store_api_settings()
     {
         $response = $this->get(route('store.api-settings'));
 
@@ -77,7 +77,7 @@ class WebRouteTest extends TestCase
      *
      *  @return void
      */
-    public function test_importStatus_route()
+    public function test_store_import_status()
     {
         $response = $this->get(route('store.import-status'));
 

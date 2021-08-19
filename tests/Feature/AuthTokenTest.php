@@ -43,7 +43,7 @@ class AuthTokenTest extends TestCase
                          ->get('/auth/create-token');
 
         $response->assertStatus(302);
-        $response->assertRedirect('store/api-settings');
+        $response->assertRedirect(route('store.api-settings'));
         $response->assertSessionHas('flashToken');
 
         // check token by loading the User from db

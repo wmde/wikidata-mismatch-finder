@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MismatchesRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
-use Carbon\Carbon;
 
 class MismatchController extends Controller
 {
@@ -31,7 +30,7 @@ class MismatchController extends Controller
         // unless include_expired parameter is provided
         if (!$request->include_expired) {
             $query->whereHas('importMeta', function ($import) {
-                $import->where('expires', '>=', Carbon::now());
+                $import->where('expires', '>=', now());
             });
         }
 

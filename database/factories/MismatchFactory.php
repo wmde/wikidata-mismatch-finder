@@ -65,8 +65,11 @@ class MismatchFactory extends Factory
 
     private function getRandomReviewStatus()
     {
-        $reviewStatuses = [ 'wikidata', 'external', 'both', 'none' ];
-        $randomStatusIndex = $this->faker->numberBetween(0, 3);
-        return $reviewStatuses[ $randomStatusIndex ];
+        return $this->faker->randomElement([
+            'wikidata',
+            'external',
+            'both',
+            'none'
+        ]);
     }
 }

@@ -24,8 +24,8 @@ class ApiMismatchRouteTest extends TestCase
     public function test_single_mismatch_returns_correct_data()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+           ->for(User::factory()->uploader())
+           ->create();
 
         $mismatch = Mismatch::factory()->for($import)->create();
 
@@ -65,13 +65,13 @@ class ApiMismatchRouteTest extends TestCase
     public function test_multiple_mismatches_do_not_return_edited_or_expired()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+            ->for(User::factory()->uploader())
+            ->create();
 
         $expiredImport = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->expired()
-        ->create();
+            ->for(User::factory()->uploader())
+            ->expired()
+            ->create();
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -95,13 +95,13 @@ class ApiMismatchRouteTest extends TestCase
     public function test_query_including_reviewed_returns_reviewed_mismatches()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+            ->for(User::factory()->uploader())
+            ->create();
 
         $expiredImport = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->expired()
-        ->create();
+            ->for(User::factory()->uploader())
+            ->expired()
+            ->create();
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -126,13 +126,13 @@ class ApiMismatchRouteTest extends TestCase
     public function test_query_including_expired_returns_expired_mismatches()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+            ->for(User::factory()->uploader())
+            ->create();
 
         $expiredImport = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->expired()
-        ->create();
+            ->for(User::factory()->uploader())
+            ->expired()
+            ->create();
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -157,13 +157,13 @@ class ApiMismatchRouteTest extends TestCase
     public function test_query_including_reviewed_and_expired_returns_all_mismatches()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+            ->for(User::factory()->uploader())
+            ->create();
 
         $expiredImport = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->expired()
-        ->create();
+            ->for(User::factory()->uploader())
+            ->expired()
+            ->create();
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -195,10 +195,10 @@ class ApiMismatchRouteTest extends TestCase
     {
         $response = $this->json('GET', self::MISMATCH_ROUTE);  // ids missing
         $response->assertJsonValidationErrors([
-                'ids.0' => __('validation.required', [
-                    'attribute' => 'ids.0'
-                ])
-            ]);
+            'ids.0' => __('validation.required', [
+                'attribute' => 'ids.0'
+            ])
+        ]);
     }
 
     public function test_too_many_item_ids_returns_validation_error()
@@ -212,11 +212,11 @@ class ApiMismatchRouteTest extends TestCase
         );
 
         $response->assertJsonValidationErrors([
-                'ids' => __('validation.max.array', [
-                    'attribute' => 'ids',
-                    'max' => $maxItemIds
-                ])
-            ]);
+            'ids' => __('validation.max.array', [
+                'attribute' => 'ids',
+                'max' => $maxItemIds
+            ])
+        ]);
     }
 
     public function test_invalid_item_id_returns_validation_error()
@@ -228,9 +228,9 @@ class ApiMismatchRouteTest extends TestCase
         );
 
         $response->assertJsonValidationErrors([
-                'ids.0' => __('validation.regex', [
-                    'attribute' => 'ids.0'
-                ])
-            ]);
+            'ids.0' => __('validation.regex', [
+                'attribute' => 'ids.0'
+            ])
+        ]);
     }
 }

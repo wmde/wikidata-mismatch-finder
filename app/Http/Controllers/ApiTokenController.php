@@ -8,21 +8,6 @@ use Illuminate\Support\Facades\Gate;
 
 class ApiTokenController extends Controller
 {
-    public function showToken(Request $request)
-    {
-        if (!Auth::check()) {
-            return view('welcome');
-        }
-
-        $upload_permission = false;
-
-        if (Gate::allows('upload-import')) {
-            $upload_permission = true;
-        }
-
-        return view('showToken', [ 'tokens' => $request->user()->tokens, 'upload_permission' => $upload_permission ]);
-    }
-
     public function createToken(Request $request)
     {
         if (sizeof($request->user()->tokens) > 0) {
@@ -33,13 +18,13 @@ class ApiTokenController extends Controller
 
         $token = $request->user()->createToken('apiToken');
 
-        return redirect(route('api.settings'))->with('flashToken', $token->plainTextToken);
+        return redirect(route('store.api-settings'))->with('flashToken', $token->plainTextToken);
     }
 
     public function revokeToken(Request $request)
     {
         Auth::user()->tokens()->where('id', $request->id)->delete();
 
-        return redirect(route('api.settings'));
+        return redirect(route('store.api-settings'));
     }
 }

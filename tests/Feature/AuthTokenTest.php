@@ -32,34 +32,6 @@ class AuthTokenTest extends TestCase
     }
 
     /**
-     * Test the non authenticated /auth/api-settings route
-     *
-     *  @return void
-     */
-    public function test_token_nonAuthenticated_returnsWelcome()
-    {
-        $response = $this->get('/auth/api-settings');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('welcome');
-    }
-
-    /**
-     * Test the authenticated /auth/api-settings route
-     *
-     *  @return void
-     */
-    public function test_token_authenticated_returnsShowToken()
-    {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)
-                         ->get('/auth/api-settings');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('showToken');
-    }
-
-    /**
      * Test the /auth/create-token route when no token exists
      *
      *  @return void
@@ -71,7 +43,7 @@ class AuthTokenTest extends TestCase
                          ->get('/auth/create-token');
 
         $response->assertStatus(302);
-        $response->assertRedirect('auth/api-settings');
+        $response->assertRedirect(route('store.api-settings'));
         $response->assertSessionHas('flashToken');
 
         // check token by loading the User from db

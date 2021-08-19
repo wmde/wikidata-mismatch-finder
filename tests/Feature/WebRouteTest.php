@@ -19,7 +19,7 @@ class WebRouteTest extends TestCase
      */
     public function test_home_route()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('home'));
 
         $response->assertSuccessful();
         $response->assertViewIs('app')
@@ -37,7 +37,7 @@ class WebRouteTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/');
+        $response = $this->actingAs($user)->get(route('home'));
 
         $response->assertSuccessful();
         $response->assertViewIs('app')
@@ -54,7 +54,7 @@ class WebRouteTest extends TestCase
      */
     public function test_store_route()
     {
-        $response = $this->get('/store');
+        $response = $this->get(route('store.home'));
 
         $response->assertRedirect(route('store.api-settings'));
     }
@@ -66,7 +66,7 @@ class WebRouteTest extends TestCase
      */
     public function test_api_settings_returnsShowToken()
     {
-        $response = $this->get('/store/api-settings');
+        $response = $this->get(route('store.api-settings'));
 
         $response->assertSuccessful();
         $response->assertViewIs('showToken');
@@ -79,7 +79,7 @@ class WebRouteTest extends TestCase
      */
     public function test_importStatus_route()
     {
-        $response = $this->get('/store/imports');
+        $response = $this->get(route('store.import-status'));
 
         $response->assertSuccessful();
         $response->assertViewIs('importStatus');

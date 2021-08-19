@@ -13,7 +13,7 @@ class StorePage extends Page
      */
     public function url()
     {
-        return '/store/api-settings/';
+        return route('store.home');
     }
 
     /**

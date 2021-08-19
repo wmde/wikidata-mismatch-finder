@@ -48,4 +48,18 @@ class ImportMetaFactory extends Factory
             ];
         });
     }
+
+    /**
+     * Indicate that the import is expired.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function expired(string $username = null)
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'expires' => $this->faker->dateTimeBetween('-6 months', '-1 day')->format('Y-m-d'),
+            ];
+        });
+    }
 }

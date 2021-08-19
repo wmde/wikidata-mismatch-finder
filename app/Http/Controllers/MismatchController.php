@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MismatchesRequest;
-use App\Http\Resources\MismatchCollection;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
-use Illuminate\Http\Request;
 
 class MismatchController extends Controller
 {
@@ -20,8 +18,22 @@ class MismatchController extends Controller
      */
     public function index(MismatchesRequest $request)
     {
-        $mismatches = Mismatch::whereIn('item_id', $request->ids)->get();
+        $query = Mismatch::whereIn('item_id', $request->ids);
 
-        return MismatchResource::collection($mismatches);
+        // limit to 'pending',
+        // unless include_reviewed parameter is provided
+        if (!$request->include_reviewed) {
+            $query->where('status', 'pending');
+        }
+
+        // limit to non-expired,
+        // unless include_expired parameter is provided
+        if (!$request->include_expired) {
+            $query->whereHas('importMeta', function ($import) {
+                $import->where('expires', '>=', now());
+            });
+        }
+
+        return MismatchResource::collection($query->get());
     }
 }

@@ -16,18 +16,18 @@ paths:
             type: string
           required: true
           description: List of |-separated item IDs to get mismatches for
-        - name: status
+        - name: include_reviewed
           in: query
           schema:
-            type: string
-            enum:
-              - pending
-              - wikidata
-              - external
-              - both
-              - none
+            type: boolean
           required: false
-          description: Status(es) to filter mismatches by
+          description: "Include reviewed mismatches? (default: false)"
+        - name: include_expired
+          in: query
+          schema:
+            type: boolean
+          required: false
+          description: "Include expired mismatches? (default: false)"
       responses:
         '200':
           description: A list of mismatches, potentially empty if none are found.
@@ -195,6 +195,14 @@ components:
           type: string
         external_url:
           type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - wikidata
+            - external
+            - both
+            - none
         import:
           type: object
           $ref: '#/components/schemas/ImportMeta'

@@ -30,6 +30,20 @@ class MismatchFactory extends Factory
         ];
     }
 
+    /**
+     * Indicate that a mismatch has been reviewed
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function reviewed()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => $this->getRandomReviewStatus()
+            ];
+        });
+    }
+
     private function getRandomValue()
     {
         $randomWordAmount = $this->faker->numberBetween(1, 5);
@@ -46,6 +60,16 @@ class MismatchFactory extends Factory
             $this->faker->randomNumber(9),
             // A random lorem text with up to 5 words
             $this->faker->words($randomWordAmount, true)
+        ]);
+    }
+
+    private function getRandomReviewStatus()
+    {
+        return $this->faker->randomElement([
+            'wikidata',
+            'external',
+            'both',
+            'none'
         ]);
     }
 }

@@ -20,8 +20,29 @@ class MismatchSeeder extends Seeder
             ->for(User::factory()->uploader())
             ->create();
 
-        Mismatch::factory(42)
+        $expiredImport = ImportMeta::factory()
+            ->for(User::factory()->uploader())
+            ->expired()
+            ->create([
+                'status' => 'completed'
+            ]);
+
+        Mismatch::factory(10)
             ->for($import)
+            ->create();
+
+        Mismatch::factory(11)
+            ->for($expiredImport)
+            ->create();
+
+        Mismatch::factory(10)
+            ->for($import)
+            ->reviewed()
+            ->create();
+
+        Mismatch::factory(11)
+            ->for($expiredImport)
+            ->reviewed()
             ->create();
     }
 }

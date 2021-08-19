@@ -23,7 +23,9 @@ class MismatchSeeder extends Seeder
         $expiredImport = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->expired()
-            ->create();
+            ->create([
+                'status' => 'completed'
+            ]);
 
         Mismatch::factory(10)
             ->for($import)

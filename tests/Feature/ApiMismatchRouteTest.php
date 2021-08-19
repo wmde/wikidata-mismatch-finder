@@ -71,7 +71,9 @@ class ApiMismatchRouteTest extends TestCase
         $expiredImport = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->expired()
-            ->create();
+            ->create([
+                'status' => 'completed'
+            ]);
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -101,7 +103,9 @@ class ApiMismatchRouteTest extends TestCase
         $expiredImport = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->expired()
-            ->create();
+            ->create([
+                'status' => 'completed'
+            ]);
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -132,7 +136,9 @@ class ApiMismatchRouteTest extends TestCase
         $expiredImport = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->expired()
-            ->create();
+            ->create([
+                'status' => 'completed'
+            ]);
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();
@@ -163,7 +169,9 @@ class ApiMismatchRouteTest extends TestCase
         $expiredImport = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->expired()
-            ->create();
+            ->create([
+                'status' => 'completed'
+            ]);
 
         $pendingMismatches = Mismatch::factory(3)->for($import)->create();
         $reviewedMismatches = Mismatch::factory(3)->for($import)->reviewed()->create();

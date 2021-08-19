@@ -20,7 +20,7 @@ class SetLocale
         $locale = $request->query('uselang');
         $translated = $locale && file_exists(public_path('i18n/' .$locale . '.json'));
 
-        if($translated){
+        if ($translated) {
             App::setLocale($locale);
         }
 

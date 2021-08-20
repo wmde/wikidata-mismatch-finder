@@ -1,12 +1,25 @@
 <template>
+    <div class="wikit-TextArea">
+        <span class="wikit-TextArea__label-wrapper">
+			<label
+				:class="[
+					'wikit-TextArea__label'
+				]"
+				:for="id"
+			>
+				{{ label }}
+			</label>
+		</span>
     <textarea :class="[
-        'wikit-TextArea',
-        checkValidLimit() ? `wikit-TextArea--${resize}` : 'wikit-TextArea--vertical'
-    ]" :rows="rows"></textarea>
+            'wikit-TextArea__textarea',
+            checkValidLimit() ? `wikit-TextArea__textarea--${resize}` : 'wikit-TextArea__textarea--vertical'
+        ]" :rows="rows" placeholder="Potato!!" label=""></textarea>
+    </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import generateId from '../lib/uid';
 import ResizeLimit from '../types/ResizeLimit';
 
 function isValidLimit(limit: string): boolean {
@@ -15,6 +28,14 @@ function isValidLimit(limit: string): boolean {
 
 export default Vue.extend({
     props: {
+        label: {
+            type: String,
+            default: ''
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
         rows: {
             type: Number,
             default: 2
@@ -27,6 +48,14 @@ export default Vue.extend({
             default: ResizeLimit.Vertical
         }
     },
+
+    data() {
+		return {
+			// https://github.com/vuejs/vue/issues/5886
+			id: generateId( 'wikit-TextArea' ),
+		};
+	},
+
     methods: {
         checkValidLimit(){
             return isValidLimit(this.resize);

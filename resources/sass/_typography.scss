@@ -1,8 +1,8 @@
 @mixin body-text {
     font-family: $font-family-style-body;
     font-size: $font-size-style-body;
-    line-height: $font-line-height-style-body;
     font-weight: $font-weight-style-body;
+    line-height: $font-line-height-style-body;
     margin-bottom: $dimension-layout-large;
     color: $font-color-base;
 }
@@ -10,9 +10,8 @@
 @mixin heading-4 {
     font-family: $font-family-style-heading-sans;
     font-size: $font-size-style-h4;
-    line-height: $font-line-height-style-heading;
-    margin: 0;
-    padding: 0 0 $dimension-layout-xsmall 0;
     font-weight: $font-weight-style-h4;
+    line-height: $font-line-height-style-heading;
+    margin-bottom: $dimension-layout-xsmall;
     color: $font-color-emphasized;
 }

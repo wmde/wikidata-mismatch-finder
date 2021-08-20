@@ -12,7 +12,7 @@
 		</span>
         <textarea :class="[
             'wikit-TextArea__textarea',
-            checkValidLimit() ? `wikit-TextArea__textarea--${resize}` : 'wikit-TextArea__textarea--vertical'
+            `wikit-TextArea__textarea--${resizeType}`
         ]" :rows="rows" :placeholder="placeholder" label=""></textarea>
     </div>
 </template>
@@ -20,11 +20,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import generateId from '../lib/uid';
-import ResizeLimit from '../types/ResizeLimit';
-
-function isValidLimit(limit: string): boolean {
-    return Object.values( ResizeLimit ).includes( limit as ResizeLimit );
-}
+import { ResizeLimit, validateLimit } from '../types/ResizeLimit';
 
 export default Vue.extend({
     props: {
@@ -42,8 +38,8 @@ export default Vue.extend({
         },
         resize: {
 			type: String,
-			validator( value: string ): boolean {
-				return isValidLimit(value);
+			validator( value: ResizeLimit ): boolean {
+				return validateLimit(value);
 			},
             default: ResizeLimit.Vertical
         }
@@ -56,9 +52,12 @@ export default Vue.extend({
 		};
 	},
 
-    methods: {
-        checkValidLimit(){
-            return isValidLimit(this.resize);
+    computed: {
+        resizeType: function(){
+            // Unfortunately, the vue prop validator does not throw or falls
+            // back to default values on validation failure, therefore, we need
+            // to check for a valid
+            return validateLimit(this.resize) ? this.resize : 'vertical';
         }
     }
 });
@@ -112,8 +111,6 @@ export default Vue.extend({
             padding-block: $wikit-Input-mobile-padding-block;
         }
 
-        /**
-         */
         border-color: $wikit-Input-border-color;
         border-style: $wikit-Input-border-style;
         border-width: $wikit-Input-border-width;

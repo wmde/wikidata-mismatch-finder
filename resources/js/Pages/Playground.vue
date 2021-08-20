@@ -4,7 +4,7 @@
     <h1>Mismatch Finder - Playground!</h1>
     <p>Feel free to throw any component you want to try, in here</p>
     <auth-widget v-bind:user="user" />
-    <text-area :rows="4" label="G&I Amazing text area"></text-area>
+    <text-area :rows="4" label="G&I Amazing text area" resize="none" />
     <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button>
   </div>
 </template>

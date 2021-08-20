@@ -13,7 +13,7 @@
         <textarea :class="[
             'wikit-TextArea__textarea',
             checkValidLimit() ? `wikit-TextArea__textarea--${resize}` : 'wikit-TextArea__textarea--vertical'
-        ]" :rows="rows" placeholder="Potato!!" label=""></textarea>
+        ]" :rows="rows" :placeholder="placeholder" label=""></textarea>
     </div>
 </template>
 

@@ -22,8 +22,24 @@ describe('TextArea.vue', () => {
         expect(wrapper.find('textarea').classes()).toContain('wikit-TextArea__textarea--horizontal');
     });
 
-    test.todo('accepts label property');
-    test.todo('accepts placeholder property');
+    it('accepts label property', () => {
+        const label = 'da Label';
+        const wrapper = mount(TextArea, {
+            propsData: { label }
+        });
+
+        expect(wrapper.props().label).toBe(label);
+        expect(wrapper.find('label').text()).toBe(label);
+    });
+    
+    it('accepts placeholder property', () => {
+        const placeholder = 'This is a placeholder';
+        const wrapper = mount(TextArea, {
+            propsData: { placeholder }
+        });
+
+        expect(wrapper.find('textarea').attributes('placeholder')).toBe(placeholder);
+    });
 
     // TODO: This test is waaay too noisy and we need to find a way to shush it
     // it('ignores invalid resize values', () => {

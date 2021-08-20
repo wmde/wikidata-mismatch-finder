@@ -22,13 +22,13 @@ class MismatchController extends Controller
 
         // limit to 'pending',
         // unless include_reviewed parameter is provided
-        if (!$request->include_reviewed) {
+        if (!$request->boolean('include_reviewed')) {
             $query->where('status', 'pending');
         }
 
         // limit to non-expired,
         // unless include_expired parameter is provided
-        if (!$request->include_expired) {
+        if (!$request->boolean('include_expired')) {
             $query->whereHas('importMeta', function ($import) {
                 $import->where('expires', '>=', now());
             });

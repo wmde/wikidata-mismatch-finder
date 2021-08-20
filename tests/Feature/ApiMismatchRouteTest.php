@@ -92,7 +92,7 @@ class ApiMismatchRouteTest extends TestCase
             self::MISMATCH_ROUTE,
             [
                 'ids' => $this->getSeededMismatchIds(),
-                'include_reviewed' => true
+                'include_reviewed' => 'true'
             ]
         );
 
@@ -100,6 +100,25 @@ class ApiMismatchRouteTest extends TestCase
             ->assertJsonCount(
                 $this->pendingMismatches->count() +
                 $this->reviewedMismatches->count()
+            );
+    }
+
+    public function test_query_including_reviewed_false_does_not_return_reviewed_mismatches()
+    {
+        $this->seedMismatches();
+
+        $response = $this->json(
+            'GET',
+            self::MISMATCH_ROUTE,
+            [
+                'ids' => $this->getSeededMismatchIds(),
+                'include_reviewed' => 'false'
+            ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJsonCount(
+                $this->pendingMismatches->count()
             );
     }
 
@@ -112,7 +131,7 @@ class ApiMismatchRouteTest extends TestCase
             self::MISMATCH_ROUTE,
             [
                 'ids' => $this->getSeededMismatchIds(),
-                'include_expired' => true
+                'include_expired' => 'true'
             ]
         );
 
@@ -120,6 +139,25 @@ class ApiMismatchRouteTest extends TestCase
             ->assertJsonCount(
                 $this->pendingMismatches->count() +
                 $this->expiredMismatches->count()
+            );
+    }
+
+    public function test_query_including_expired_false_does_not_return_expired_mismatches()
+    {
+        $this->seedMismatches();
+
+        $response = $this->json(
+            'GET',
+            self::MISMATCH_ROUTE,
+            [
+                'ids' => $this->getSeededMismatchIds(),
+                'include_expired' => 'false'
+            ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJsonCount(
+                $this->pendingMismatches->count()
             );
     }
 
@@ -132,8 +170,8 @@ class ApiMismatchRouteTest extends TestCase
             self::MISMATCH_ROUTE,
             [
                 'ids' => $this->getSeededMismatchIds(),
-                'include_reviewed' => true,
-                'include_expired' => true
+                'include_reviewed' => 'true',
+                'include_expired' => 'true'
             ]
         );
 

@@ -102,28 +102,55 @@ export default Vue.extend({
         width: 100%;
         // The default resizing behaviour should be on the y axis only
         resize: vertical;
+
+        /**
+        * Colors
+        */
+        color: $wikit-Input-color;
+        background-color:  $wikit-Input-background-color;
+
+
+        /**
+         * Typography
+         */
+        font-family: $wikit-Input-font-family;
+        font-size: $wikit-Input-font-size;
+        font-weight: $wikit-Input-font-weight;
+        line-height: $wikit-Input-line-height;
+
+        /**
+         * Spacing
+         */
         padding-inline: $wikit-Input-desktop-padding-inline;
         padding-block: $wikit-Input-desktop-padding-block;
-        box-shadow: inset 0 0 0 1px transparent; //TODO: replace by token
 
         @media (max-width: $width-breakpoint-mobile) {
             padding-inline: $wikit-Input-mobile-padding-inline;
             padding-block: $wikit-Input-mobile-padding-block;
         }
 
+        /**
+         * Borders
+         */
         border-color: $wikit-Input-border-color;
         border-style: $wikit-Input-border-style;
         border-width: $wikit-Input-border-width;
         border-radius: $wikit-Input-border-radius;
 
-        background-color:  $wikit-Input-background-color;
-        color: $wikit-Input-color;
+        /**
+         * Animation
+         */
+        // Sets a basis for the inset box-shadow transition which otherwise doesn't work in Firefox.
+	    // https://stackoverflow.com/questions/25410207/css-transition-not-working-on-box-shadow-property/25410897
+        // TODO: replace by token
+        box-shadow: inset 0 0 0 1px transparent;
+        transition-duration: $wikit-Input-transition-duration;
+	    transition-timing-function: $wikit-Input-transition-timing-function;
+	    transition-property: $wikit-Input-transition-property;
 
-        font-family: $wikit-Input-font-family;
-        font-size: $wikit-Input-font-size;
-        font-weight: $wikit-Input-font-weight;
-        line-height: $wikit-Input-line-height;
-
+        /**
+         * State overrides
+         */
         &:hover {
             border-color: $wikit-Input-hover-border-color;
         }
@@ -146,6 +173,9 @@ export default Vue.extend({
             color: $wikit-Input-placeholder-color;
         }
 
+        /**
+         * Property overrides
+         */
         &--horizontal {
             resize: horizontal;
         }

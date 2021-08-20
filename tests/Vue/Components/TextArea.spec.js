@@ -10,7 +10,7 @@ describe('TextArea.vue', () => {
         });
 
         expect(wrapper.props().rows).toBe(42);
-        expect(wrapper.find('.wikit-TextArea').attributes('rows')).toBe('42');
+        expect(wrapper.find('textarea').attributes('rows')).toBe('42');
     });
 
     it('accepts resize property', () => {
@@ -19,11 +19,11 @@ describe('TextArea.vue', () => {
         });
 
         expect(wrapper.props().resize).toBe(ResizeLimit.Horizontal);
-        expect(wrapper.find('.wikit-TextArea').classes()).toContain('wikit-TextArea--horizontal');
+        expect(wrapper.find('textarea').classes()).toContain('wikit-TextArea__textarea--horizontal');
     });
 
-    todo.test('accepts label property');
-    todo.test('accepts placeholder property');
+    test.todo('accepts label property');
+    test.todo('accepts placeholder property');
 
     // TODO: This test is waaay too noisy and we need to find a way to shush it
     // it('ignores invalid resize values', () => {

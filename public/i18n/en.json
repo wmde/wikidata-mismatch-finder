@@ -6,5 +6,7 @@
         "locale": "en",
         "message-documentation": "qqq"
     },
-    "test-string": "This is a test string to ensure i18n is working, it should be deleted ASAP"
+    "about-mismatch-finder-title": "About this tool",
+    "about-mismatch-finder-description": "The Mismatch Finder shows you data in Wikidata that differs with the data in another database, catalog or website (for example, someone's date of birth in Wikidata doesn't match the corresponding entry in the German National Library catalogue). Mismatches like this need fixing, and the Mismatch Finder helps you to do just that.",
+    "find-more": "Find out more"
 }

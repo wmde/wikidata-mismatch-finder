@@ -27,6 +27,19 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+// Local dev route to test vue components
+// TODO: Move to dedicated development routes file
+// TODO: Only enable this route in local dev envs
+Route::get('/playground', function () {
+    $user = Auth::user() ? [
+        'name' => Auth::user()->username
+    ] : null;
+
+    return inertia('Playground', [
+        'user' => $user
+    ]);
+})->name('playground');
+
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {
 

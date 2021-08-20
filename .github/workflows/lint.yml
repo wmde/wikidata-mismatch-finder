@@ -27,3 +27,6 @@ jobs:
 
         - name: Run ESLint
           run: npm run lint
+
+        - name: Run i18 Validation
+          run: npm run i18n:validate

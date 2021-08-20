@@ -22,6 +22,14 @@ describe('TextArea.vue', () => {
         expect(wrapper.find('textarea').classes()).toContain('wikit-TextArea__textarea--horizontal');
     });
 
+    it('ignores invalid resize values', () => {
+        const wrapper = mount(TextArea, {
+            propsData: { resize: 'nonsense' }
+        });
+
+        expect(wrapper.find('textarea').classes()).not.toContain('wikit-TextArea__textarea--nonsense');
+    });
+
     it('accepts label property', () => {
         const label = 'da Label';
         const wrapper = mount(TextArea, {
@@ -31,7 +39,7 @@ describe('TextArea.vue', () => {
         expect(wrapper.props().label).toBe(label);
         expect(wrapper.find('label').text()).toBe(label);
     });
-    
+
     it('accepts placeholder property', () => {
         const placeholder = 'This is a placeholder';
         const wrapper = mount(TextArea, {
@@ -41,14 +49,4 @@ describe('TextArea.vue', () => {
         expect(wrapper.find('textarea').attributes('placeholder')).toBe(placeholder);
     });
 
-    // TODO: This test is waaay too noisy and we need to find a way to shush it
-    // it('ignores invalid resize values', () => {
-    //     const wrapper = mount(TextArea, {
-    //         propsData: { resize: 'nonsense' }
-    //     });
-    //     const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    //     expect(spy).toHaveBeenCalled();
-
-    //     expect(wrapper.find('.wikit-TextArea').classes()).not.toContain('wikit-TextArea--nonsense');
-    // });
 });

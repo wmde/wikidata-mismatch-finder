@@ -49,4 +49,5 @@ describe('TextArea.vue', () => {
         expect(wrapper.find('textarea').attributes('placeholder')).toBe(placeholder);
     });
 
+    test.todo('should emit a change event with textarea value');
 });

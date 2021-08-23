@@ -165,7 +165,13 @@ sail npm run dev
 
 ## Localization and Internationalization
 
-The Mismatch Finder application employs two separate localization systems: one for the server-side Laravel  app, and another for the vue based clinet-side application.
+The Mismatch Finder application employs two separate localization systems: one for the server-side Laravel  app, and another for the vue based client-side application.
+
+To switch to any other language than English, set the `uselang` parameter in the URL. For example, to set the language to German:
+
+```
+http://<your-localhost>/?uselang=de
+```
 
 On the server side, we fully employ the default [Laravel localization system](https://laravel.com/docs/8.x/localization) and syntax, and messages in the server side should be added as or to php files in the `resources/lang/en` directory.
 

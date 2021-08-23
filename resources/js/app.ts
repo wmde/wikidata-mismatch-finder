@@ -12,7 +12,6 @@ createInertiaApp({
         try {
             const locale = document.documentElement.lang;
             const messages = await i18nMessages(locale);
-
             Vue.use(i18n, { locale, messages });
 
             new Vue({
@@ -23,7 +22,7 @@ createInertiaApp({
                 render: h => h(Error, {
                     props: {
                         title: 'Oops!',
-                        description: 'Something unexpected happened, but we are working on it!'
+                        description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
                     }
                 }),
             }).$mount(el)

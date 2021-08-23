@@ -56,7 +56,7 @@ export default Vue.extend({
         resizeType: function(){
             // Unfortunately, the vue prop validator does not throw or falls
             // back to default values on validation failure, therefore, we need
-            // to check for a valid
+            // to check for a valid resize limit value
             return validateLimit(this.resize) ? this.resize : 'vertical';
         }
     }

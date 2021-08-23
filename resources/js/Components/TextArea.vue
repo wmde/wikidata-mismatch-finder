@@ -13,7 +13,7 @@
         <textarea :class="[
             'wikit-TextArea__textarea',
             `wikit-TextArea__textarea--${resizeType}`
-        ]" :rows="rows" :placeholder="placeholder" label=""></textarea>
+        ]" :rows="rows" :placeholder="placeholder" label="" @input="$emit( 'input', $event.target.value )"></textarea>
     </div>
 </template>
 

@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 import TextArea from '@/Components/TextArea.vue';
 import { ResizeLimit } from '@/types/ResizeLimit';
-import { toEditorSettings } from 'typescript';
 
 describe('TextArea.vue', () => {
     it('accepts rows property', () => {
@@ -49,5 +48,11 @@ describe('TextArea.vue', () => {
         expect(wrapper.find('textarea').attributes('placeholder')).toBe(placeholder);
     });
 
-    test.todo('should emit a change event with textarea value');
+    it('should emit a change event with textarea value', () => {
+		const userInput = 'hello';
+		const wrapper = mount( TextArea );
+
+		wrapper.find( 'textarea' ).setValue( userInput );
+		expect( wrapper.emitted( 'input' )[ 0 ] ).toEqual( [ userInput ] );
+	});
 });

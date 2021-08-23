@@ -3,6 +3,7 @@
     <Head title="Mismatch Finder" />
     <h1>Mismatch Finder</h1>
     <p>This page is coming soon!</p>
+    <p>{{ $i18n('test-string') }}</p>
     <auth-widget v-bind:user="user" />
     <Button type="progressive" variant="primary" @click.native="console">Test Wikit Component</Button>
   </div>

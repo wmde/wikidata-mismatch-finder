@@ -5,9 +5,11 @@ module.exports = {
     ],
     // vue: transform vue with vue-jest to make jest understand Vue's syntax
     // js: transform js files with babel, we can now use import statements in tests
+    // ts: transform ts files with babel, to import ts files into js specs
     "transform": {
         ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
-        "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+        "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
     },
     // (Optional) This file helps you later for global settings
     "setupFilesAfterEnv": [

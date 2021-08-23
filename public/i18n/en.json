@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "ItamarWMDE"
+        ],
+        "locale": "en",
+        "message-documentation": "qqq"
+    },
+    "test-string": "This is a test string to ensure i18n is working, it should be deleted ASAP"
+}

@@ -163,6 +163,26 @@ To manually compile assets for your local dev environment run:
 sail npm run dev
 ```
 
+## Localization and Internationalization
+
+The Mismatch Finder application employs two separate localization systems: one for the server-side Laravel  app, and another for the vue based client-side application.
+
+To switch to any other language than English, set the `uselang` parameter in the URL. For example, to set the language to German:
+
+```
+http://<your-localhost>/?uselang=de
+```
+
+On the server side, we fully employ the default [Laravel localization system](https://laravel.com/docs/8.x/localization) and syntax, and messages in the server side should be added as or to php files in the `resources/lang/en` directory.
+
+The client side localization system utilizes the [banana-i18n](https://www.npmjs.com/package/banana-i18n) library and format. Messages for the client side application are kept in the `public/i18n/` directory, and are served in order to be consumed by the vue client. Each message that is added to the `en.json` file, should be documented in the `qqq.json` file as well, to provide more context for translators.
+
+To ensure that your client side localization files are valid, run:
+
+```
+sail npm run i18n:validate
+```
+
 ## Linting <a id="linting"></a>
 ### PHP Linting <a id="php-linting"></a>
 

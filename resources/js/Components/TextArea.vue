@@ -109,7 +109,6 @@ export default Vue.extend({
         color: $wikit-Input-color;
         background-color:  $wikit-Input-background-color;
 
-
         /**
          * Typography
          */
@@ -141,12 +140,12 @@ export default Vue.extend({
          * Animation
          */
         // Sets a basis for the inset box-shadow transition which otherwise doesn't work in Firefox.
-	    // https://stackoverflow.com/questions/25410207/css-transition-not-working-on-box-shadow-property/25410897
+        // https://stackoverflow.com/questions/25410207/css-transition-not-working-on-box-shadow-property/25410897
         // TODO: replace by token
         box-shadow: inset 0 0 0 1px transparent;
         transition-duration: $wikit-Input-transition-duration;
-	    transition-timing-function: $wikit-Input-transition-timing-function;
-	    transition-property: $wikit-Input-transition-property;
+        transition-timing-function: $wikit-Input-transition-timing-function;
+        transition-property: $wikit-Input-transition-property;
 
         /**
          * State overrides

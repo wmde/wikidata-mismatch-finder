@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/auth.php'));
 
-            if ( App::environment('local')) {
+            if (App::environment('local')) {
                 Route::prefix('dev')
                     ->middleware('web')
                     ->namespace($this->namespace)

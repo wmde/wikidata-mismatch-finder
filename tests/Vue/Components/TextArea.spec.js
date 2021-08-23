@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import TextArea from '@/Components/TextArea.vue';
-import ResizeLimit from '@/types/ResizeLimit';
+import { ResizeLimit } from '@/types/ResizeLimit';
 import { toEditorSettings } from 'typescript';
 
 describe('TextArea.vue', () => {

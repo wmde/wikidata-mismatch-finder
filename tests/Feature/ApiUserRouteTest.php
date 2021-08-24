@@ -8,7 +8,7 @@ use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\WithFaker;
 
-class ApiRouteTest extends TestCase
+class ApiUserRouteTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

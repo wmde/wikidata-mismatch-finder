@@ -28,12 +28,17 @@ class Mismatch extends Model
      * @var array
      */
     protected $attributes = [
-        'status' => 'pending'
+        'review_status' => 'pending'
     ];
 
     public function importMeta()
     {
         return $this->belongsTo(ImportMeta::class, 'import_id')->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

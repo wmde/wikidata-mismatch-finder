@@ -23,7 +23,7 @@ class MismatchController extends Controller
         // limit to 'pending',
         // unless include_reviewed parameter is provided
         if (!$request->boolean('include_reviewed')) {
-            $query->where('status', 'pending');
+            $query->where('review_status', 'pending');
         }
 
         // limit to non-expired,

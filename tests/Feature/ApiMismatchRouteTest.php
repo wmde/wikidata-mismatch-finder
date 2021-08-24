@@ -32,12 +32,21 @@ class ApiMismatchRouteTest extends TestCase
            ->for(User::factory()->uploader())
            ->create();
 
-        $mismatch = Mismatch::factory()->for($import)->create();
+        $reviewer = User::factory()->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->reviewed()
+            ->for($reviewer)
+            ->create();
 
         $response = $this->json(
             'GET',
             self::MISMATCH_ROUTE,
-            [ 'ids' => $mismatch->item_id ]
+            [
+                 'ids' => $mismatch->item_id,
+                 'include_reviewed' => 'true'
+            ]
         );
 
         $response->assertSuccessful()
@@ -50,7 +59,12 @@ class ApiMismatchRouteTest extends TestCase
                     'wikidata_value',
                     'external_value',
                     'external_url',
-                    'status',
+                    'review_status',
+                    'reviewer' => [
+                        'id',
+                        'username',
+                        'mw_userid',
+                    ],
                     'import' => [
                         'id',
                         'status',
@@ -63,6 +77,15 @@ class ApiMismatchRouteTest extends TestCase
                             'mw_userid'
                         ]
                     ]
+                ]]
+            )->assertJson(
+                [[
+                    'import' => [
+                        'status' => $import->status
+                    ],
+                    'reviewer' => [
+                        'id' => $reviewer->id
+                        ]
                 ]]
             );
     }

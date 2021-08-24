@@ -39,7 +39,7 @@ class MismatchFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => $this->getRandomReviewStatus()
+                'review_status' => $this->getRandomReviewStatus()
             ];
         });
     }

@@ -22,7 +22,8 @@ class MismatchResource extends JsonResource
             'wikidata_value' => $this->wikidata_value,
             'external_value' => $this->external_value,
             'external_url' => $this->external_url,
-            'status' => $this->status,
+            'review_status' => $this->review_status,
+            'reviewer' => new UserResource($this->user),
             'import' => new ImportMetaResource($this->importMeta)
         ];
     }

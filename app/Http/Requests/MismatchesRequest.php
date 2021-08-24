@@ -20,16 +20,24 @@ class MismatchesRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'ids' => [
-                'array',
-                'max:' . config('mismatches.validation.ids.max')
-            ],
-            'ids.*' => [
-                'required',
-                'regex:' . config('mismatches.validation.item_id.format'),
-                'max:' . config('mismatches.validation.item_id.max_length'),
-            ]
-        ];
+        if ($this->isMethod('get')) {
+            return [
+                'ids' => [
+                    'array',
+                    'max:' . config('mismatches.validation.ids.max')
+                ],
+                'ids.*' => [
+                    'required',
+                    'regex:' . config('mismatches.validation.item_id.format'),
+                    'max:' . config('mismatches.validation.item_id.max_length'),
+                ]
+            ];
+        } elseif ($this->isMethod('put')) {
+            return [
+                'review_status' => [
+                    'required'
+                ],
+            ];
+        }
     }
 }

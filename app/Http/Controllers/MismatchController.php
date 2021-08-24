@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MismatchesRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
+use Microsoft\PhpParser\MissingToken;
+use Symfony\Component\Translation\Exception\MissingRequiredOptionException;
 
 class MismatchController extends Controller
 {
@@ -35,5 +37,23 @@ class MismatchController extends Controller
         }
 
         return MismatchResource::collection($query->get());
+    }
+    /**
+     * Update review_status of the resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(MismatchesRequest $request, $id)
+    {
+        $mismatch = Mismatch::find($id);
+
+        // TODO: validate value of review_status
+        // TODO: changes to any other property will lead to a validation error
+        
+        $mismatch->review_status = $request->review_status;
+        $mismatch->save();
+       
+        return new MismatchResource($mismatch);
     }
 }

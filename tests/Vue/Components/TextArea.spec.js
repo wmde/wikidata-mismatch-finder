@@ -26,7 +26,7 @@ describe('TextArea.vue', () => {
             propsData: { resize: 'nonsense' }
         });
 
-        expect(wrapper.find('textarea').classes()).not.toContain('wikit-TextArea__textarea--nonsense');
+        expect(wrapper.find('textarea').classes()).toContain('wikit-TextArea__textarea--vertical');
     });
 
     it('accepts label property', () => {

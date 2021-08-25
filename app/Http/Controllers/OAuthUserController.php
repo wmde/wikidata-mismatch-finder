@@ -7,7 +7,6 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Log;
 
 class OAuthUserController extends Controller
 {
@@ -20,7 +19,6 @@ class OAuthUserController extends Controller
     public function login(Request $request)
     {
         $referer = $request->headers->get('referer');
-        Log::debug($referer);
         Redirect::setIntendedUrl($referer);
 
         return Socialite::driver('mediawiki')->redirect();
@@ -42,7 +40,6 @@ class OAuthUserController extends Controller
     public function logout(Request $request)
     {
         $referer = $request->headers->get('referer');
-        Log::debug($referer);
         Auth::guard()->logout();
 
         $request->session()->invalidate();

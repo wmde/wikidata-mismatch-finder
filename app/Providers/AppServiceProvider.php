@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
-        // Ensure urls are generated with the correct scheme in production.
-        if (App::environment('production')) {
+        // Ensure urls are generated with https scheme.
+        if (config('app.force_https')) {
             URL::forceScheme('https');
         }
     }

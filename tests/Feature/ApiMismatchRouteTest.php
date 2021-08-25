@@ -211,8 +211,8 @@ class ApiMismatchRouteTest extends TestCase
     {
         $response = $this->json('GET', self::MISMATCH_ROUTE);  // ids missing
         $response->assertJsonValidationErrors([
-            'ids.0' => __('validation.required', [
-                'attribute' => 'ids.0'
+            'ids' => __('validation.required', [
+                'attribute' => 'ids'
             ])
         ]);
     }

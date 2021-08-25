@@ -35,7 +35,8 @@ class MismatchesRequest extends FormRequest
         } elseif ($this->isMethod('put')) {
             return [
                 'review_status' => [
-                    'required'
+                    'required',
+                    'in:pending,wikidata,external,both,none'
                 ],
             ];
         }

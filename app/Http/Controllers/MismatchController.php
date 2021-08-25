@@ -47,8 +47,7 @@ class MismatchController extends Controller
     public function update(MismatchesRequest $request, $id)
     {
         $mismatch = Mismatch::find($id);
-
-        // TODO: validate value of review_status
+        
         // TODO: changes to any other property will lead to a validation error
         
         $mismatch->review_status = $request->review_status;

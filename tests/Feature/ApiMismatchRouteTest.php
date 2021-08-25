@@ -250,6 +250,24 @@ class ApiMismatchRouteTest extends TestCase
         ]);
     }
 
+    public function test_invalid_review_status_returns_validation_error()
+    {
+        $this->seedMismatches();
+
+        $mismatchId =  $this->getSeededMismatchIds()[0];
+        $response = $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            [ 'review_status' => 'potato' ]
+        );
+
+        $response->assertJsonValidationErrors([
+                'review_status' => __('validation.in', [
+                    'attribute' => 'review status'
+                ])
+            ]);
+    }
+
     private function seedMismatches()
     {
         $import = ImportMeta::factory()

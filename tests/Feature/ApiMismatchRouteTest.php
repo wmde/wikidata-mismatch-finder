@@ -276,7 +276,7 @@ class ApiMismatchRouteTest extends TestCase
         $response = $this->json(
             'PUT',
             self::MISMATCH_ROUTE . '/' . $mismatchId,
-            [ 
+            [
                 'review_status' => 'wikidata',
                 'property_id' => 'P1234'
             ]

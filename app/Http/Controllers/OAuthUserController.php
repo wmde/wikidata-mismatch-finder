@@ -46,6 +46,7 @@ class OAuthUserController extends Controller
         Auth::guard()->logout();
 
         $request->session()->invalidate();
-        return redirect($referer);
+
+        return redirect($referer ?? '/');
     }
 }

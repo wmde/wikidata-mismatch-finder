@@ -268,6 +268,27 @@ class ApiMismatchRouteTest extends TestCase
             ]);
     }
 
+    public function test_parameter_other_than_review_status_in_put_request_returns_validation_error()
+    {
+        $this->seedMismatches();
+
+        $mismatchId =  $this->getSeededMismatchIds()[0];
+        $response = $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            [ 
+                'review_status' => 'wikidata',
+                'property_id' => 'P1234'
+            ]
+        );
+
+        $response->assertJsonValidationErrors([
+                'property_id' => __('validation.prohibited', [
+                    'attribute' => 'property id'
+                ])
+            ]);
+    }
+
     private function seedMismatches()
     {
         $import = ImportMeta::factory()

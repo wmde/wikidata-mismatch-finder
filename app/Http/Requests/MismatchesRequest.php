@@ -38,6 +38,15 @@ class MismatchesRequest extends FormRequest
                     'required',
                     'in:pending,wikidata,external,both,none'
                 ],
+                'id' => 'prohibited',
+                'item_id' => 'prohibited',
+                'statetement_guid' => 'prohibited',
+                'property_id' => 'prohibited',
+                'wikidata_value' => 'prohibited',
+                'external_value' => 'prohibited',
+                'external_url' => 'prohibited',
+                'reviewer' => 'prohibited',
+                'import' => 'prohibited'
             ];
         }
     }

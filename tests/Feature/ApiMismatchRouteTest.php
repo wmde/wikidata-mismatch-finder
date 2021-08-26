@@ -268,7 +268,25 @@ class ApiMismatchRouteTest extends TestCase
             ]);
     }
 
-    public function test_parameter_other_than_review_status_in_put_request_returns_validation_error()
+    public function fillablePropertyOtherThanReviewStatus()
+    {
+        return [
+            ['property_id' , 'P1234'],
+            ['statement_guid', 'Q111$1234'],
+            ['property_id', 'P666'],
+            ['wikidata_value', 'Potato'],
+            ['external_value', 'Tomato'],
+            ['external_url', 'http://potato.com']
+        ];
+    }
+
+    /**
+     *  Test parameters other than review status
+     *
+     *  @return void
+     *  @dataProvider fillablePropertyOtherThanReviewStatus
+     */
+    public function test_parameter_other_than_review_status_in_put_request_returns_validation_error($key, $parameter)
     {
         $this->seedMismatches();
 
@@ -278,13 +296,13 @@ class ApiMismatchRouteTest extends TestCase
             self::MISMATCH_ROUTE . '/' . $mismatchId,
             [
                 'review_status' => 'wikidata',
-                'property_id' => 'P1234'
+                 $key => $parameter
             ]
         );
 
         $response->assertJsonValidationErrors([
-                'property_id' => __('validation.prohibited', [
-                    'attribute' => 'property id'
+                $key => __('validation.prohibited', [
+                    'attribute' => str_replace('_', ' ', $key)
                 ])
             ]);
     }

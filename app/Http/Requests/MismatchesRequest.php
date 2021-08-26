@@ -44,7 +44,7 @@ class MismatchesRequest extends FormRequest
                     'required',
                     'in:' . implode(',', config('mismatches.validation.review_status.accepted_values'))
                 ],
-                'statetement_guid' => 'prohibited',
+                'statement_guid' => 'prohibited',
                 'property_id' => 'prohibited',
                 'wikidata_value' => 'prohibited',
                 'external_value' => 'prohibited',

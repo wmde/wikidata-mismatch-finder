@@ -6,6 +6,7 @@ use App\Http\Requests\MismatchGetRequest;
 use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
+use Illuminate\Support\Facades\Log;
 
 class MismatchController extends Controller
 {
@@ -56,12 +57,19 @@ class MismatchController extends Controller
     public function update(MismatchPutRequest $request, $id)
     {
         $mismatch = Mismatch::findorFail($id);
-        
-        //TODO: verify that $id exists, return 404
 
+        $old_status = $mismatch->review_status;
         $mismatch->review_status = $request->review_status;
         $mismatch->user()->associate($request->user());
         $mismatch->save();
+
+        Log::info("Mismatch review_status changed:", [
+            "username" => $request->user()->username,
+            "mw_userid" => $request->user()->mw_userid,
+            "old" => $old_status,
+            "new" => $mismatch->review_status,
+            "time" => $mismatch->updated_at
+        ]);
        
         return new MismatchResource($mismatch);
     }

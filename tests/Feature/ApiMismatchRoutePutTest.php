@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\Sanctum;
 
 class ApiMismatchRoutePutTest extends TestCase
@@ -169,6 +170,32 @@ class ApiMismatchRoutePutTest extends TestCase
             ]);
     }
 
+    public function test_review_log_message()
+    {
+        $reviewer = User::factory()->create();
+        $mismatch = $this->generateSingleMismatch();
+        Sanctum::actingAs($reviewer);
+
+        Log::shouldReceive('info')
+            ->once()
+            ->withArgs([
+                "Mismatch review_status changed:",
+                [
+                    "username" => $reviewer->username,
+                    "mw_userid" => $reviewer->mw_userid,
+                    "old" => $mismatch->review_status,
+                    "new" => 'wikidata',
+                    "time" => $mismatch->updated_at
+                ]
+            ]);
+
+        $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/' . $mismatch->id,
+            [ 'review_status' => 'wikidata' ]
+        );
+    }
+
     private function generateSingleMismatch()
     {
         $import = ImportMeta::factory()
@@ -176,6 +203,8 @@ class ApiMismatchRoutePutTest extends TestCase
         ->create();
 
         $mismatch = Mismatch::factory()
+            ->for(User::factory()->create())
+            ->reviewed()
             ->for($import)
             ->create();
 

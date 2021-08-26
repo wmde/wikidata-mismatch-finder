@@ -31,7 +31,7 @@ return [
             'max' => 50
         ],
         'review_status' => [
-            'accepted_values' => ['wikidata', 'external','both','none']
+            'accepted_values' => ['pending','wikidata', 'external','both','none']
         ]
     ],
     'id_separator' => '|',

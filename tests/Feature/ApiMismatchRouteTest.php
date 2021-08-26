@@ -207,6 +207,62 @@ class ApiMismatchRouteTest extends TestCase
             );
     }
 
+    public function test_put_review_status_returns_updated_mismatch_with_updated_review_status_value()
+    {
+
+        $import = ImportMeta::factory()
+           ->for(User::factory()->uploader())
+           ->create();
+
+        $reviewer = User::factory()->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->reviewed()
+            ->for($reviewer)
+            ->create();
+
+        $review_status = 'wikidata';
+
+        $mismatchId =  $mismatch->id;
+        $response = $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            [ 'review_status' => $review_status ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJsonStructure(
+                [  // array of mismatch items
+                    'id',
+                    'item_id',
+                    'statement_guid',
+                    'property_id',
+                    'wikidata_value',
+                    'external_value',
+                    'external_url',
+                    'review_status',
+                    'reviewer' => [],
+                    'import' => [
+                        'id',
+                        'status',
+                        'description',
+                        'created',
+                        'expires',
+                        'uploader' => [
+                            'id',
+                            'username',
+                            'mw_userid'
+                        ]
+                    ]
+                ]
+            )->assertJson(
+                [
+                    'review_status' => $review_status
+                ]
+            );
+    }
+
     public function test_missing_item_ids_returns_validation_error()
     {
         $response = $this->json('GET', self::MISMATCH_ROUTE);  // ids missing
@@ -252,12 +308,11 @@ class ApiMismatchRouteTest extends TestCase
 
     public function test_invalid_review_status_returns_validation_error()
     {
-        $this->seedMismatches();
 
-        $mismatchId =  $this->getSeededMismatchIds()[0];
+        $mismatch =  $this->generateSingleMismatch();
         $response = $this->json(
             'PUT',
-            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            self::MISMATCH_ROUTE . '/' . $mismatch->id,
             [ 'review_status' => 'potato' ]
         );
 
@@ -288,12 +343,11 @@ class ApiMismatchRouteTest extends TestCase
      */
     public function test_parameter_other_than_review_status_in_put_request_returns_validation_error($key, $parameter)
     {
-        $this->seedMismatches();
 
-        $mismatchId =  $this->getSeededMismatchIds()[0];
+        $mismatch = $this->generateSingleMismatch();
         $response = $this->json(
             'PUT',
-            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            self::MISMATCH_ROUTE . '/' . $mismatch->id,
             [
                 'review_status' => 'wikidata',
                  $key => $parameter
@@ -305,6 +359,24 @@ class ApiMismatchRouteTest extends TestCase
                     'attribute' => str_replace('_', ' ', $key)
                 ])
             ]);
+    }
+
+    private function generateSingleMismatch()
+    {
+
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $reviewer = User::factory()->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->reviewed()
+            ->for($reviewer)
+            ->create();
+
+        return $mismatch;
     }
 
     private function seedMismatches()

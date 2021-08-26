@@ -48,6 +48,8 @@ class MismatchController extends Controller
     {
         $mismatch = Mismatch::find($id);
         
+        //TODO: verify that $id exists, return 404
+
         $mismatch->review_status = $request->review_status;
         $mismatch->save();
        

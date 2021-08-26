@@ -263,6 +263,22 @@ class ApiMismatchRouteTest extends TestCase
             );
     }
 
+    public function test_put_review_status_with_invalid_mismatch_id_returns_validation_error()
+    {
+
+        $review_status = 'wikidata';
+
+        $mismatchId =  'not_a_valid_id';
+        $response = $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/' . $mismatchId,
+            [ 'review_status' => $review_status ]
+        );
+
+        //TODO: return proper error, 404?
+        $response->assertStatus(500);
+    }
+
     public function test_missing_item_ids_returns_validation_error()
     {
         $response = $this->json('GET', self::MISMATCH_ROUTE);  // ids missing

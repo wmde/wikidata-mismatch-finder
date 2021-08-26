@@ -10,7 +10,12 @@ class MismatchesRequest extends FormRequest
     protected function prepareForValidation()
     {
         $separator = config('mismatches.id_separator');
-        $this->merge(['ids' => explode($separator, $this->ids)]);
+        
+        $this->merge(
+            [
+                'ids' => explode($separator, $this->ids)
+            ]
+        );
     }
 
     /**
@@ -33,10 +38,11 @@ class MismatchesRequest extends FormRequest
                 ]
             ];
         } elseif ($this->isMethod('put')) {
+            $review_status_values = implode(config('mismatches.validation.review_status.accepted_values'));
             return [
                 'review_status' => [
                     'required',
-                    'in:pending,wikidata,external,both,none'
+                    'in:' . implode(',', config('mismatches.validation.review_status.accepted_values'))
                 ],
                 'statetement_guid' => 'prohibited',
                 'property_id' => 'prohibited',

@@ -65,11 +65,6 @@ class MismatchFactory extends Factory
 
     private function getRandomReviewStatus()
     {
-        return $this->faker->randomElement([
-            'wikidata',
-            'external',
-            'both',
-            'none'
-        ]);
+        return $this->faker->randomElement(config('mismatches.validation.review_status.accepted_values'));
     }
 }

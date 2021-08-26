@@ -48,8 +48,6 @@ class MismatchController extends Controller
     {
         $mismatch = Mismatch::find($id);
         
-        // TODO: changes to any other property will lead to a validation error
-        
         $mismatch->review_status = $request->review_status;
         $mismatch->save();
        

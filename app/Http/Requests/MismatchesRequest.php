@@ -36,20 +36,17 @@ class MismatchesRequest extends FormRequest
                 ]
             ];
         } elseif ($this->isMethod('put')) {
+            $review_status_values = implode(config('mismatches.validation.review_status.accepted_values'));
             return [
                 'review_status' => [
                     'required',
-                    'in:pending,wikidata,external,both,none'
+                    'in:' . implode(',', config('mismatches.validation.review_status.accepted_values'))
                 ],
-                'id' => 'prohibited',
-                'item_id' => 'prohibited',
-                'statetement_guid' => 'prohibited',
+                'statement_guid' => 'prohibited',
                 'property_id' => 'prohibited',
                 'wikidata_value' => 'prohibited',
                 'external_value' => 'prohibited',
                 'external_url' => 'prohibited',
-                'reviewer' => 'prohibited',
-                'import' => 'prohibited'
             ];
         }
     }

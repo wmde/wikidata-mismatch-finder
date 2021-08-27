@@ -6,5 +6,9 @@
     },
     "about-mismatch-finder-title": "The title of the tool's \"about\" text",
     "about-mismatch-finder-description": "A short text to describe the Mismatch Finder tool",
-    "find-more": "A call to action for more information"
+    "find-more": "A call to action for more information",
+    "item-form-title": "The title of the form that filters Mismatches by Item id",
+    "item-form-id-input-label": "The label for the Item id input",
+    "item-form-id-input-placeholder": "The placeholder for the Item id input",
+    "item-form-submit": "The call to action on the Item id form's submit button"
 }

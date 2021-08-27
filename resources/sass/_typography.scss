@@ -43,4 +43,8 @@
     font-weight: $font-weight-style-h5;
     line-height: $font-line-height-style-heading;
     color: $font-color-emphasized;
+
+    @media(min-width: $width-breakpoint-tablet){
+        margin: $dimension-layout-xsmall 0;
+    }
 }

@@ -4,7 +4,7 @@
     <h1>Mismatch Finder - Playground!</h1>
     <p>Feel free to throw any component you want to try, in here</p>
     <auth-widget v-bind:user="user" />
-    <text-area :rows="4" label="G&I Amazing text area" resize="none" />
+    <text-area :rows="10" label="I am from Wikit" resize="horizontal" value="With a default value" @input="printVal" />
     <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button>
   </div>
 </template>
@@ -13,8 +13,7 @@
     import Vue from 'vue';
     import { Head } from '@inertiajs/inertia-vue'
     import AuthWidget from '../Components/AuthWidget.vue';
-    import TextArea from '../Components/TextArea.vue';
-    import { Button as WikitButton } from '@wmde/wikit-vue-components';
+    import { Button as WikitButton, TextArea } from '@wmde/wikit-vue-components';
 
     export default Vue.extend({
         components: {
@@ -29,6 +28,9 @@
         methods: {
             console() {
                 console.log('testing wikit component');
+            },
+            printVal(v) {
+                console.log(v);
             }
         }
     });

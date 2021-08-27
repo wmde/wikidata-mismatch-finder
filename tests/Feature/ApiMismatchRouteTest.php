@@ -265,6 +265,7 @@ class ApiMismatchRouteTest extends TestCase
     public function test_put_review_status_with_invalid_mismatch_id_returns_validation_error()
     {
 
+        Sanctum::actingAs(User::factory()->create());
         $review_status = 'wikidata';
 
         $mismatchId =  'not_a_valid_id';
@@ -274,8 +275,7 @@ class ApiMismatchRouteTest extends TestCase
             [ 'review_status' => $review_status ]
         );
 
-        //TODO: return proper error, 404?
-        $response->assertStatus(500);
+        $response->assertStatus(404);
     }
 
     public function test_missing_item_ids_returns_validation_error()
@@ -335,7 +335,7 @@ class ApiMismatchRouteTest extends TestCase
 
     public function test_invalid_review_status_returns_validation_error()
     {
-
+        Sanctum::actingAs(User::factory()->create());
         $mismatch =  $this->generateSingleMismatch();
         $response = $this->json(
             'PUT',
@@ -370,7 +370,7 @@ class ApiMismatchRouteTest extends TestCase
      */
     public function test_parameter_other_than_review_status_in_put_request_returns_validation_error($key, $parameter)
     {
-
+        Sanctum::actingAs(User::factory()->create());
         $mismatch = $this->generateSingleMismatch();
         $response = $this->json(
             'PUT',

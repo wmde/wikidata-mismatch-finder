@@ -55,7 +55,7 @@ class MismatchController extends Controller
      */
     public function update(MismatchPutRequest $request, $id)
     {
-        $mismatch = Mismatch::find($id);
+        $mismatch = Mismatch::findorFail($id);
         
         //TODO: verify that $id exists, return 404
 

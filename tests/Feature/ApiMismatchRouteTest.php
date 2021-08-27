@@ -216,6 +216,7 @@ class ApiMismatchRouteTest extends TestCase
         $review_status = 'wikidata';
 
         Sanctum::actingAs($reviewer);
+        $this->travelTo(now()); // freezes time to ensure correct updated_at timestamp
 
         $mismatchId =  $mismatch->id;
         $response = $this->json(
@@ -257,7 +258,7 @@ class ApiMismatchRouteTest extends TestCase
                         'username' => $reviewer->username,
                         'mw_userid' => $reviewer->mw_userid
                     ],
-                    'updated_at' => now()->format('Y-m-d H:i:s')
+                    'updated_at' => now()->millisecond(0)->toISOString()
                 ]
             );
     }

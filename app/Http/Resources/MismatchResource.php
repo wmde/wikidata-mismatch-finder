@@ -25,7 +25,7 @@ class MismatchResource extends JsonResource
             'review_status' => $this->review_status,
             'reviewer' => new UserResource($this->user),
             'import' => new ImportMetaResource($this->importMeta),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s')
+            'updated_at' => $this->updated_at
         ];
     }
 }

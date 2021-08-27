@@ -7,16 +7,18 @@
     </section>
     <section id="querying-section">
         <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
-        <form id="item-form" @submit.prevent="send">
+        <form id="items-form" @submit.prevent="send">
             <text-area
                 :label="$i18n('item-form-id-input-label')"
                 :placeholder="$i18n('item-form-id-input-placeholder')"
                 :rows="8"
                 v-model="form.itemsInput"
             />
-            <wikit-button native-type="submit" disabled>
-                {{ $i18n('item-form-submit') }}
-            </wikit-button>
+            <div class="form-buttons">
+                <wikit-button native-type="submit" disabled>
+                    {{ $i18n('item-form-submit') }}
+                </wikit-button>
+            </div>
         </form>
     </section>
   </div>
@@ -55,7 +57,41 @@
 </script>
 
 <style lang="scss">
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
+
 #about-description {
     max-width: 705px;
+}
+
+#items-form {
+    /**
+    * Colors
+    */
+    background-color: $background-color-neutral-default;
+
+    /**
+    * Border
+    */
+    border-style: $border-style-base;
+    border-width: $border-width-thin;
+    border-color: $border-color-base-subtle;
+    border-radius: $border-radius-base;
+
+    /**
+    * Layout
+    */
+    padding: $dimension-spacing-large;
+    margin: $dimension-layout-xsmall 0;
+
+    // Any direct decendent of this form that has a predecessor element will
+    // get a top margin, this creates the even gutter between elements or "stack"
+    // See https://every-layout.dev/layouts/stack/#the-solution
+    & > * + * {
+        margin-top: $dimension-spacing-large;
+    }
+
+    .form-buttons {
+        text-align: end;
+    }
 }
 </style>

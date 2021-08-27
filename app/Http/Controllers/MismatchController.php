@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MismatchesRequest;
+use App\Http\Requests\MismatchGetRequest;
+use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
-use Microsoft\PhpParser\MissingToken;
-use Symfony\Component\Translation\Exception\MissingRequiredOptionException;
 
 class MismatchController extends Controller
 {
@@ -18,7 +17,7 @@ class MismatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(MismatchesRequest $request)
+    public function index(MismatchGetRequest $request)
     {
         $query = Mismatch::whereIn('item_id', $request->ids);
 
@@ -44,7 +43,7 @@ class MismatchController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MismatchesRequest $request, $id)
+    public function update(MismatchPutRequest $request, $id)
     {
         $mismatch = Mismatch::find($id);
         

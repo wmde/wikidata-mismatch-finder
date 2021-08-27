@@ -322,6 +322,17 @@ class ApiMismatchRouteTest extends TestCase
         ]);
     }
 
+    public function test_unauthenticated_put_returns_401()
+    {
+        $response = $this->json(
+            'PUT',
+            self::MISMATCH_ROUTE . '/1',
+            [ 'review_status' => 'wikidata' ]
+        );
+
+        $response->assertStatus(401);
+    }
+
     public function test_put_non_existing_mismatch_returns_404()
     {
         Sanctum::actingAs(User::factory()->create());

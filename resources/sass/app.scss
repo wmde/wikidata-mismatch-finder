@@ -5,41 +5,58 @@
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 
-body, body * {
-    box-sizing: border-box;
-}
-
+/**
+* Layout
+*/
 body {
-    padding: 24px;
     max-width: 1090px;
+    padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
-
     @include body-text;
 
-    @media (max-width: $width-breakpoint-tablet) {
-        padding: 16px;
+    @media(min-width: $width-breakpoint-tablet){
+        padding: 0 $dimension-layout-small;
+    }
+}
+
+section {
+    margin-bottom: $dimension-layout-large;
+}
+
+h1, .h1 {
+    margin: $dimension-layout-xsmall 0;
+    @include heading-1;
+
+    @media(min-width: $width-breakpoint-tablet){
+        margin: $dimension-layout-small 0;
     }
 }
 
 h4, .h4 {
+    margin: $dimension-layout-xxsmall 0;
     @include heading-4;
+
+    @media(min-width: $width-breakpoint-tablet){
+        margin: $dimension-layout-xsmall 0;
+    }
 }
 
+h5, .h5 {
+    margin: $dimension-layout-xxsmall 0;
+    @include heading-5;
+
+    @media(min-width: $width-breakpoint-tablet){
+        margin: $dimension-layout-xsmall 0;
+    }
+}
 
 a {
-    text-decoration: none;
-
-    &:focus-visible { // for chrome
-        outline: dotted;
-        outline-width: 1px;
-        outline-color: gray;
-    }
-
-    &:hover {
-        text-decoration: underline;
-    }
+    @include link;
 }
 
+/**
+* Legacy
+*/
 .tabs a:hover {
     text-decoration: none;
 }
@@ -47,18 +64,15 @@ a {
 header {
     display: flex;
     justify-content: space-between;
+    margin: $dimension-layout-small 0;
 
     @media (max-width: $width-breakpoint-tablet) {
         flex-direction: column-reverse;
+        margin: $dimension-layout-xsmall 0;
     }
 
     h1 {
-        font-family: 'Source Serif Pro', serif;
-        font-size: 32px;
-        line-height: 40px;
         margin: 0;
-        padding: 0 0 28px 0;
-        font-weight: 400;
     }
 
     .top-nav-right {

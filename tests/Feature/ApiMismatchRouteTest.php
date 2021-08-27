@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 
 class ApiMismatchRouteTest extends TestCase
 {
@@ -207,22 +208,14 @@ class ApiMismatchRouteTest extends TestCase
             );
     }
 
-    public function test_put_review_status_returns_updated_mismatch_with_updated_review_status_value()
+    public function test_put_review_status_returns_updated_mismatch()
     {
-
-        $import = ImportMeta::factory()
-           ->for(User::factory()->uploader())
-           ->create();
+        $mismatch = $this->generateSingleMismatch();
 
         $reviewer = User::factory()->create();
-
-        $mismatch = Mismatch::factory()
-            ->for($import)
-            ->reviewed()
-            ->for($reviewer)
-            ->create();
-
         $review_status = 'wikidata';
+
+        Sanctum::actingAs($reviewer);
 
         $mismatchId =  $mismatch->id;
         $response = $this->json(
@@ -258,7 +251,13 @@ class ApiMismatchRouteTest extends TestCase
                 ]
             )->assertJson(
                 [
-                    'review_status' => $review_status
+                    'review_status' => $review_status,
+                    'reviewer' => [
+                        'id' => $reviewer->id,
+                        'username' => $reviewer->username,
+                        'mw_userid' => $reviewer->mw_userid
+                    ],
+                    'updated_at' => now()->format('Y-m-d H:i:s')
                 ]
             );
     }
@@ -384,12 +383,8 @@ class ApiMismatchRouteTest extends TestCase
         ->for(User::factory()->uploader())
         ->create();
 
-        $reviewer = User::factory()->create();
-
         $mismatch = Mismatch::factory()
             ->for($import)
-            ->reviewed()
-            ->for($reviewer)
             ->create();
 
         return $mismatch;

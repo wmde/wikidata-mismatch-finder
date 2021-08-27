@@ -13,6 +13,16 @@ class MismatchController extends Controller
     public const RESOURCE_NAME = 'mismatches';
 
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only('update');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -50,6 +60,7 @@ class MismatchController extends Controller
         //TODO: verify that $id exists, return 404
 
         $mismatch->review_status = $request->review_status;
+        $mismatch->user()->associate($request->user());
         $mismatch->save();
        
         return new MismatchResource($mismatch);

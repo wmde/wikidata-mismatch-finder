@@ -9,6 +9,7 @@ class MismatchGetRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        // split ids parameter into array, if it is there
         if ($this->ids) {
             $separator = config('mismatches.id_separator');
             $this->merge(['ids' => explode($separator, $this->ids)]);

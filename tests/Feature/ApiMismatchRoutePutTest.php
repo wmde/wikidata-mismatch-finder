@@ -85,7 +85,8 @@ class ApiMismatchRoutePutTest extends TestCase
                             'username',
                             'mw_userid'
                         ]
-                    ]
+                    ],
+                    'updated_at'
                 ]
             )->assertJson(
                 [
@@ -112,7 +113,7 @@ class ApiMismatchRoutePutTest extends TestCase
             [ 'review_status' => $review_status ]
         );
 
-        $response->assertStatus(404);
+        $response->assertStatus(422);
     }
 
     public function test_invalid_review_status_returns_validation_error()
@@ -137,7 +138,6 @@ class ApiMismatchRoutePutTest extends TestCase
         return [
             ['property_id' , 'P1234'],
             ['statement_guid', 'Q111$1234'],
-            ['property_id', 'P666'],
             ['wikidata_value', 'Potato'],
             ['external_value', 'Tomato'],
             ['external_url', 'http://potato.com']

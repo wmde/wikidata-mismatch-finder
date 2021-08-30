@@ -1,5 +1,5 @@
 @mixin link {
-    color: $font-color-base;
+    color: $font-color-primary;
     text-decoration: none;
 
     &:focus-visible { // for chrome

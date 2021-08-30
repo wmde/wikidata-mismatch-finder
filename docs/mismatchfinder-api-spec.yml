@@ -206,6 +206,9 @@ components:
         import:
           type: object
           $ref: '#/components/schemas/ImportMeta'
+        updated_at:
+          type: string
+          format: date-time
 
     ListOfMismatches:
       type: array

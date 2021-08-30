@@ -24,4 +24,4 @@ Route::apiResource(ImportController::RESOURCE_NAME, ImportController::class)
     ->only(['store', 'show', 'index']);
 
 Route::apiResource(MismatchController::RESOURCE_NAME, MismatchController::class)
-->only(['index']);
+    ->only(['index', 'update']);

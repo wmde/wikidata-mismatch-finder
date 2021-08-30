@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MismatchesRequest;
+use App\Http\Requests\MismatchGetRequest;
+use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
+use Illuminate\Support\Facades\Log;
 
 class MismatchController extends Controller
 {
@@ -12,11 +14,21 @@ class MismatchController extends Controller
     public const RESOURCE_NAME = 'mismatches';
 
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only('update');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(MismatchesRequest $request)
+    public function index(MismatchGetRequest $request)
     {
         $query = Mismatch::whereIn('item_id', $request->ids);
 
@@ -35,5 +47,30 @@ class MismatchController extends Controller
         }
 
         return MismatchResource::collection($query->get());
+    }
+    /**
+     * Update review_status of the resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(MismatchPutRequest $request, $id)
+    {
+        $mismatch = Mismatch::findorFail($id);
+
+        $old_status = $mismatch->review_status;
+        $mismatch->review_status = $request->review_status;
+        $mismatch->user()->associate($request->user());
+        $mismatch->save();
+
+        Log::info("Mismatch review_status changed:", [
+            "username" => $request->user()->username,
+            "mw_userid" => $request->user()->mw_userid,
+            "old" => $old_status,
+            "new" => $mismatch->review_status,
+            "time" => $mismatch->updated_at
+        ]);
+       
+        return new MismatchResource($mismatch);
     }
 }

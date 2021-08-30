@@ -29,7 +29,10 @@ return [
         ],
         'ids' => [
             'max' => 50
+        ],
+        'review_status' => [
+            'accepted_values' => ['pending','wikidata', 'external','both','none']
         ]
     ],
-    'id_separator' => '|'
+    'id_separator' => '|',
 ];

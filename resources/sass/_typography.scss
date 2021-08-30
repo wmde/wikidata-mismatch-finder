@@ -1,5 +1,5 @@
 @mixin link {
-    color: $font-color-primary;
+    color: $font-color-progressive;
     text-decoration: none;
 
     &:focus-visible { // for chrome

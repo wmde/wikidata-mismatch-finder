@@ -1,10 +1,32 @@
+@mixin link {
+    color: $font-color-progressive;
+    text-decoration: none;
+
+    &:focus-visible { // for chrome
+        outline: dotted;
+        outline-width: 1px;
+        outline-color: gray;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 @mixin body-text {
     font-family: $font-family-style-body;
     font-size: $font-size-style-body;
     font-weight: $font-weight-style-body;
     line-height: $font-line-height-style-body;
-    margin-bottom: $dimension-layout-large;
     color: $font-color-base;
+}
+
+@mixin heading-1 {
+    font-family: $font-family-style-heading-serif;
+    font-size: $font-size-style-h1;
+    font-weight: $font-weight-style-h1;
+    line-height: $font-line-height-style-heading;
+    color: $font-color-emphasized;
 }
 
 @mixin heading-4 {
@@ -12,6 +34,13 @@
     font-size: $font-size-style-h4;
     font-weight: $font-weight-style-h4;
     line-height: $font-line-height-style-heading;
-    margin-bottom: $dimension-layout-xsmall;
+    color: $font-color-emphasized;
+}
+
+@mixin heading-5 {
+    font-family: $font-family-style-heading-sans;
+    font-size: $font-size-style-h5;
+    font-weight: $font-weight-style-h5;
+    line-height: $font-line-height-style-heading;
     color: $font-color-emphasized;
 }

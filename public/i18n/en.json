@@ -9,5 +9,9 @@
     },
     "about-mismatch-finder-title": "About this tool",
     "about-mismatch-finder-description": "The Mismatch Finder shows you data in Wikidata that differs with the data in another database, catalog or website (for example, someone's date of birth in Wikidata doesn't match the corresponding entry in the German National Library catalogue). Mismatches like this need fixing, and the Mismatch Finder helps you to do just that.",
-    "find-more": "Find out more"
+    "find-more": "Find out more",
+    "item-form-title": "For which items should the check be performed?",
+    "item-form-id-input-label": "Please add one Item identifier per line",
+    "item-form-id-input-placeholder": "For example:\nQ345\nQ0987609\nQ4567890",
+    "item-form-submit": "Check Items"
 }

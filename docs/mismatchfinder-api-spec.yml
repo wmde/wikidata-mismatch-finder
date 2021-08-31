@@ -38,9 +38,17 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationErrors'
 
+  /mismatches/{mismatchId}:
     put:
       tags: ['store']
       summary: Update Mismatch review status
+      parameters:
+        - in: path
+          name: mismatchId
+          description: The ID of the Mismatch to update
+          schema:
+            type: number
+          required: true
       requestBody:
         description: A object with the new review status field.
         content:

@@ -9,10 +9,13 @@
 * Layout
 */
 body {
-    max-width: 1090px;
     padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
     @include body-text;
+
+    &.app-container {
+        max-width: calc(1132px + (#{$dimension-layout-xsmall} * 2)); // Compensate for extra padding in large screens
+    }
 
     @media(min-width: $width-breakpoint-tablet){
         padding: 0 $dimension-layout-small;

@@ -38,6 +38,24 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationErrors'
 
+    put:
+      tags: ['store']
+      summary: Update Mismatch review status
+      requestBody:
+        description: A object with the new review status field.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableMismatch'
+      responses:
+        '200':
+          description: The updated mismatch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mismatch'
+        '422':
+          $ref: '#/components/responses/ValidationErrors'
 
   /imports:
     get:

@@ -63,13 +63,17 @@ class MismatchController extends Controller
         $mismatch->user()->associate($request->user());
         $mismatch->save();
 
-        Log::info("Mismatch review_status changed:", [
-            "username" => $request->user()->username,
-            "mw_userid" => $request->user()->mw_userid,
-            "old" => $old_status,
-            "new" => $mismatch->review_status,
-            "time" => $mismatch->updated_at
-        ]);
+        Log::channel("mismatch_updates")
+            ->info(
+                __('logging.mismatch-updated'),
+                [
+                    "username" => $request->user()->username,
+                    "mw_userid" => $request->user()->mw_userid,
+                    "old" => $old_status,
+                    "new" => $mismatch->review_status,
+                    "time" => $mismatch->updated_at
+                ]
+            );
        
         return new MismatchResource($mismatch);
     }

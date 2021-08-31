@@ -11,6 +11,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\Sanctum;
+use TiMacDonald\Log\LogFake;
 
 class ApiMismatchRoutePutTest extends TestCase
 {
@@ -176,24 +177,27 @@ class ApiMismatchRoutePutTest extends TestCase
         $mismatch = $this->generateSingleMismatch();
         Sanctum::actingAs($reviewer);
 
-        Log::shouldReceive('info')
-            ->once()
-            ->withArgs([
-                "Mismatch review_status changed:",
-                [
-                    "username" => $reviewer->username,
-                    "mw_userid" => $reviewer->mw_userid,
-                    "old" => $mismatch->review_status,
-                    "new" => 'wikidata',
-                    "time" => $mismatch->updated_at
-                ]
-            ]);
+        Log::swap(new LogFake);
 
         $this->json(
             'PUT',
             self::MISMATCH_ROUTE . '/' . $mismatch->id,
             [ 'review_status' => 'wikidata' ]
         );
+
+        Log::channel('mismatch_updates')
+            ->assertLogged('info', function ($message, $context) use ($reviewer, $mismatch) {
+                $assertMessage = ($message == __('logging.mismatch-updated'));
+                $assertContext =
+                    ($context == [
+                        "username" => $reviewer->username,
+                        "mw_userid" => $reviewer->mw_userid,
+                        "old" => $mismatch->review_status,
+                        "new" => 'wikidata',
+                        "time" => $mismatch->updated_at
+                    ]);
+                return $assertMessage && $assertContext;
+            });
     }
 
     private function generateSingleMismatch()

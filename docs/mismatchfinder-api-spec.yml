@@ -179,23 +179,9 @@ components:
         mw_userid:
           type: number
 
-    Mismatch:
+    FillableMismatch:
       properties:
-        id:
-          type: string
-        item_id:
-          type: string
-        statement_guid:
-          type: string
-        property_id:
-          type: string
-        wikidata_value:
-          type: string
-        external_value:
-          type: string
-        external_url:
-          type: string
-        status:
+        review_status:
           type: string
           enum:
             - pending
@@ -203,12 +189,32 @@ components:
             - external
             - both
             - none
-        import:
-          type: object
-          $ref: '#/components/schemas/ImportMeta'
-        updated_at:
-          type: string
-          format: date-time
+
+    Mismatch:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            item_id:
+              type: string
+            statement_guid:
+              type: string
+            property_id:
+              type: string
+            wikidata_value:
+              type: string
+            external_value:
+              type: string
+            external_url:
+              type: string
+            import:
+              type: object
+              $ref: '#/components/schemas/ImportMeta'
+            updated_at:
+              type: string
+              format: date-time
+        - $ref: '#/components/schemas/FillableMismatch'
 
     ListOfMismatches:
       type: array

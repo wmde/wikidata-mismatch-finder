@@ -232,6 +232,9 @@ components:
             updated_at:
               type: string
               format: date-time
+            reviewer:
+              type: object
+              $ref: '#/components/schemas/User'
         - $ref: '#/components/schemas/FillableMismatch'
 
     ListOfMismatches:

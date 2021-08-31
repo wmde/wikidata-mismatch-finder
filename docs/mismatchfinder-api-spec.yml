@@ -38,6 +38,32 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationErrors'
 
+  /mismatches/{mismatchId}:
+    put:
+      tags: ['store']
+      summary: Update Mismatch review status
+      parameters:
+        - in: path
+          name: mismatchId
+          description: The ID of the Mismatch to update
+          schema:
+            type: number
+          required: true
+      requestBody:
+        description: A object with the new review status field.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableMismatch'
+      responses:
+        '200':
+          description: The updated mismatch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mismatch'
+        '422':
+          $ref: '#/components/responses/ValidationErrors'
 
   /imports:
     get:
@@ -179,23 +205,9 @@ components:
         mw_userid:
           type: number
 
-    Mismatch:
+    FillableMismatch:
       properties:
-        id:
-          type: string
-        item_id:
-          type: string
-        statement_guid:
-          type: string
-        property_id:
-          type: string
-        wikidata_value:
-          type: string
-        external_value:
-          type: string
-        external_url:
-          type: string
-        status:
+        review_status:
           type: string
           enum:
             - pending
@@ -203,12 +215,35 @@ components:
             - external
             - both
             - none
-        import:
-          type: object
-          $ref: '#/components/schemas/ImportMeta'
-        updated_at:
-          type: string
-          format: date-time
+
+    Mismatch:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            item_id:
+              type: string
+            statement_guid:
+              type: string
+            property_id:
+              type: string
+            wikidata_value:
+              type: string
+            external_value:
+              type: string
+            external_url:
+              type: string
+            import:
+              type: object
+              $ref: '#/components/schemas/ImportMeta'
+            updated_at:
+              type: string
+              format: date-time
+            reviewer:
+              type: object
+              $ref: '#/components/schemas/User'
+        - $ref: '#/components/schemas/FillableMismatch'
 
     ListOfMismatches:
       type: array

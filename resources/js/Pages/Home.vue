@@ -15,7 +15,7 @@
                 v-model="form.itemsInput"
             />
             <div class="form-buttons">
-                <wikit-button native-type="submit" disabled>
+                <wikit-button native-type="submit">
                     {{ $i18n('item-form-submit') }}
                 </wikit-button>
             </div>
@@ -42,9 +42,12 @@
             user: Object,
         },
         methods: {
-            send(){
-                // TODO: Implement validation and form sending logic (See: https://inertiajs.com/forms)
-            }
+            send() {
+                // TODO: Implement validation
+
+                const idsToSend = this.form.itemsInput.split('\n').join('|');
+                this.$inertia.get('/results?ids=' + idsToSend)
+            },
         },
         data(){
             return {

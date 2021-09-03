@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ImportMeta;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,15 @@ Route::get('/', function () {
         'user' => $user
     ]);
 })->name('home');
+
+Route::get('/results', function (Request $request) {
+    $separator = config('mismatches.id_separator');
+    $ids = explode($separator, $request->input('ids'));
+
+    return inertia('Results', [
+        'item_ids' => $ids
+    ]);
+})->name('results');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

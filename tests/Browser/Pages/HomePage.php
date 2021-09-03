@@ -39,7 +39,8 @@ class HomePage extends Page
     {
         return [
             '@form' => '#items-form',
-            '@items-input' => '@form textarea'
+            '@items-input' => '@form textarea',
+            '@results' => 'p.results'
         ];
     }
 }

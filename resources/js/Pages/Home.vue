@@ -1,27 +1,29 @@
 <template>
-  <div class="page-container">
-    <Head title="Mismatch Finder" />
-    <section id="intro-section">
-        <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
-        <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
-    </section>
-    <section id="querying-section">
-        <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
-        <form id="items-form" @submit.prevent="send">
-            <text-area
-                :label="$i18n('item-form-id-input-label')"
-                :placeholder="$i18n('item-form-id-input-placeholder')"
-                :rows="8"
-                v-model="form.itemsInput"
-            />
-            <div class="form-buttons">
-                <wikit-button native-type="submit">
-                    {{ $i18n('item-form-submit') }}
-                </wikit-button>
-            </div>
-        </form>
-    </section>
-  </div>
+    <Layout>
+    <div class="page-container">
+        <Head title="Mismatch Finder" />
+        <section id="intro-section">
+            <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
+            <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
+        </section>
+        <section id="querying-section">
+            <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
+            <form id="items-form" @submit.prevent="send">
+                <text-area
+                    :label="$i18n('item-form-id-input-label')"
+                    :placeholder="$i18n('item-form-id-input-placeholder')"
+                    :rows="8"
+                    v-model="form.itemsInput"
+                />
+                <div class="form-buttons">
+                    <wikit-button native-type="submit">
+                        {{ $i18n('item-form-submit') }}
+                    </wikit-button>
+                </div>
+            </form>
+        </section>
+    </div>
+    </Layout>
 </template>
 
 <script>
@@ -32,11 +34,15 @@
         TextArea
     } from '@wmde/wikit-vue-components';
 
+    import Layout from './Layout';
+import Layout from './Layout.vue';
+
     export default Vue.extend({
         components: {
             Head,
             TextArea,
-            WikitButton
+            WikitButton,
+            Layout
         },
         props: {
             user: Object,
@@ -49,6 +55,7 @@
                 this.$inertia.get('/results?ids=' + idsToSend)
             },
         },
+        layout: Layout,
         data(){
             return {
                 form: {

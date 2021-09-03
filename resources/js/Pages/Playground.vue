@@ -4,8 +4,13 @@
     <h1>Mismatch Finder - Playground!</h1>
     <p>Feel free to throw any component you want to try, in here</p>
     <auth-widget v-bind:user="user" />
-    <text-area :rows="10" label="I am from Wikit" resize="horizontal" value="With a default value" @input="printVal" />
     <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button>
+    <p/>
+    <form id="idsForm" action="/results">
+        <text-area v-model="itemIds" :rows="10" label="Enter Item IDs here:" @input="printVal"/>
+        <input name="ids" type="hidden"/>
+        <wikit-button type="progressive" variant="primary" @click.native="submitForm">Send Item IDs</wikit-button>
+    </form>
   </div>
 </template>
 
@@ -29,10 +34,18 @@
             console() {
                 console.log('testing wikit component');
             },
+            submitForm() {
+                var form = document.getElementById('idsForm');
+                form.ids.value = this.itemIds;
+                form.submit();
+            },
             printVal(v) {
                 console.log(v);
             }
-        }
+        },
+        data: () => ({
+            itemIds: ''
+        })
     });
 </script>
 

@@ -29,8 +29,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/results', function (Request $request) {
-    $separator = config('mismatches.id_separator');
-    $ids = explode($separator, $request->input('ids'));
+    $ids = preg_split('/[\n\r]+/', $request->ids);
 
     return inertia('Results', [
         'item_ids' => $ids

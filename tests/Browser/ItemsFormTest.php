@@ -22,4 +22,16 @@ class ItemsFormTest extends DuskTestCase
                     ->assertInputValue('@items-input', "Q1\nQ2");
         });
     }
+
+    public function test_can_submit_list_of_item_ids()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                    ->keys('@items-input', 'Q1', '{return_key}', 'Q2')
+                    ->press('button')
+                    ->waitFor('div.results')
+                    ->assertTitle('Mismatch Finder - Results')
+                    ->assertSee('[ "Q1", "Q2" ]');
+        });
+    }
 }

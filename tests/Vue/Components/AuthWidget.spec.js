@@ -16,6 +16,6 @@ describe('AuthWidget.vue', () => {
     it('displays a "Guest" when username is missing', () => {
         const wrapper = mount(AuthWidget);
 
-        expect(wrapper.text()).toContain("Guest");
+        expect(wrapper.text()).toContain("Log in");
     });
 });

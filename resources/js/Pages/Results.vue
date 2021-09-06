@@ -2,7 +2,9 @@
   <div>
     <Head title="Mismatch Finder - Results" />
     <h1>Mismatch Finder - Results!</h1>
-    <p>Thank you for sending IDs {{item_ids}}. Mismatch results will be displayed in this page soon.</p>
+    <p class="results">
+        Thank you for sending IDs {{item_ids}}. Mismatch results will be displayed in this page soon.
+    </p>
   </div>
 </template>
 

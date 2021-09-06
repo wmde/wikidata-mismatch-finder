@@ -35,7 +35,6 @@
     } from '@wmde/wikit-vue-components';
 
     import Layout from './Layout';
-import Layout from './Layout.vue';
 
     export default Vue.extend({
         components: {

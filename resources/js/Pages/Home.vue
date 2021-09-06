@@ -12,11 +12,14 @@
                     :label="$i18n('item-form-id-input-label')"
                     :placeholder="$i18n('item-form-id-input-placeholder')"
                     :rows="8"
-                    :error="error"
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
-                    <wikit-button native-type="submit">
+                    <wikit-button
+                        variant="primary"
+                        type="progressive"
+                        native-type="submit"
+                    >
                         {{ $i18n('item-form-submit') }}
                     </wikit-button>
                 </div>

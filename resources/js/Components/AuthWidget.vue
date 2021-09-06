@@ -1,11 +1,13 @@
 <template>
-    <div v-if="user" class="auth">
-        <!-- Stuff to show when user is logged in -->
-        <p>Hello, {{user.name}}!</p>
-    </div>
-    <div v-else class="guest">
-        <!-- Stuff to Show otherwise -->
-        <p>Hello, Guest!</p>
+    <div>
+        <div v-if="user">
+            <a :href="`https://www.wikidata.org/wiki/User:${user.name}`">
+                <img src="../../img/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
+                </a>
+            <a href="/auth/logout">Logout</a>
+            
+        </div>
+        <a v-else href="/auth/login">Log in</a>
     </div>
 </template>
 

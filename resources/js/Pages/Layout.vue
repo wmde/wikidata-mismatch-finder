@@ -3,23 +3,27 @@
     <header>
       <img src="../../img/wikidata-logo.svg" alt="Wikidata-logo" /> 
       <div class="top-nav-right">
-        <a v-if="user" href="`https://www.wikidata.org/wiki/User:${user}`">
-          <img src="../../img/user.svg" class="icon-user" />
-          <span class="username">{{ user }}</span>
-        </a>
-        <a v-else href="/auth/login">Log in</a>
+        <AuthWidget :user="user" />
       </div>
     </header>
+     <h1>{{ $i18n('mismatch-finder-title') }}</h1>
     <slot />
   </main>
 </template>
 
-<script>
-
-export default {
-
-  props: {
-      user: Object,
-  },
+<script lang="ts">
+interface User {
+    username: string,
+    mw_userid: string
 }
+
+import Vue, { PropType } from 'vue';
+import AuthWidget from '../Components/AuthWidget.vue';
+
+export default Vue.extend({
+  components: { AuthWidget },
+    props: {
+        user: Object as PropType<User>
+    }
+});
 </script>

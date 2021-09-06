@@ -10,5 +10,6 @@
     "item-form-title": "The title of the form that filters Mismatches by Item id",
     "item-form-id-input-label": "The label for the Item id input",
     "item-form-id-input-placeholder": "The placeholder for the Item id input",
-    "item-form-submit": "The call to action on the Item id form's submit button"
+    "item-form-submit": "The call to action on the Item id form's submit button",
+    "mismatch-finder-title": "The main title of the website"
 }

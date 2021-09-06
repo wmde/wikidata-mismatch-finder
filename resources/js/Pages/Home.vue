@@ -12,6 +12,7 @@
                     :label="$i18n('item-form-id-input-label')"
                     :placeholder="$i18n('item-form-id-input-placeholder')"
                     :rows="8"
+                    :loading="loading"
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
@@ -92,7 +93,8 @@
                 form: {
                     itemsInput: ''
                 },
-                error: null
+                error: null,
+                loading: false
             }
         }
     });

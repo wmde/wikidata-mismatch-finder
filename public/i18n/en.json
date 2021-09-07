@@ -14,5 +14,7 @@
     "item-form-id-input-label": "Please add one Item identifier per line",
     "item-form-id-input-placeholder": "For example:\nQ345\nQ0987609\nQ4567890",
     "item-form-submit": "Check Items",
+    "log-in": "Log in",
+    "log-out": "Logout",
     "mismatch-finder-title": "Mismatch Finder"
 }

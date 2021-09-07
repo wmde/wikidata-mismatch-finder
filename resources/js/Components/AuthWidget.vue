@@ -4,10 +4,10 @@
             <a :href="`https://www.wikidata.org/wiki/User:${user.name}`">
                 <img src="../../img/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
                 </a>
-            <a href="/auth/logout">Logout</a>
+            <a href="/auth/logout">{{ $i18n('log-out') }}</a>
             
         </div>
-        <a v-else href="/auth/login">Log in</a>
+        <a v-else href="/auth/login">{{ $i18n('log-in') }}</a>
     </div>
 </template>
 

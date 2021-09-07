@@ -11,5 +11,7 @@
     "item-form-id-input-label": "The label for the Item id input",
     "item-form-id-input-placeholder": "The placeholder for the Item id input",
     "item-form-submit": "The call to action on the Item id form's submit button",
+    "log-in": "The call to action for user log in",
+    "log-out": "The call to action for user log out",
     "mismatch-finder-title": "The main title of the website"
 }

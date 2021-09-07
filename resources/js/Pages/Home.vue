@@ -13,7 +13,7 @@
                         :label="$i18n('item-form-id-input-label')"
                         :placeholder="$i18n('item-form-id-input-placeholder')"
                         :rows="8"
-                        :error="error ? {message: $i18n(error.message), type: error.type} : null"
+                        :error="error"
                         v-model="form.itemsInput"
                     />
                     <div class="form-buttons">
@@ -48,43 +48,45 @@
             user: Object,
         },
         methods: {
+            splitInput: function() {
+                return this.form.itemsInput.split( '\n' );
+            },
+            serializeInput: function() {
+                return this.splitInput().join('|');
+            },
             checkEmpty() {
                 if( !this.form.itemsInput ) {
                     this.error = {
                         type: 'warning',
-                        message: 'item-form-error-message-empty'
+                        message: this.$i18n('item-form-error-message-empty')
                     };
-                    return false;
+                } else {
+                    this.error = null;
                 }
-                return true;
             },
             validate() {
-                let valid = true;
-                const lines = this.form.itemsInput.split( '\n' );
-                for ( let line of lines ) {
-                    line = line.trim();
-                    valid = valid && ( line == '' || line.match( /^Q[0-9]*$/ ) );
-                }
+                this.checkEmpty();
+
+                let valid = this.splitInput().every( function( currentValue ) {
+                    let trimmedLine = currentValue.trim();
+                    return trimmedLine == '' || trimmedLine.match( /^Q[0-9]*$/ );
+                });
 
                 if( !valid ) {
                     this.error = {
                         type: 'error',
-                        message: 'item-form-error-message-invalid'
+                        message: this.$i18n('item-form-error-message-invalid')
                     };
-                    return false;
                 }
-
-                return lines.join( '|' );
             },
             send() {
-                if( !this.checkEmpty() ) {
+                this.validate();
+
+                if(this.error) {
                     return;
                 }
 
-                const validatedIds = this.validate();
-                if( validatedIds ) {
-                    this.$inertia.get( '/results?ids=' + validatedIds );
-                }
+                this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
         data(){

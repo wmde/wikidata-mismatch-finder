@@ -13,6 +13,7 @@
                         :label="$i18n('item-form-id-input-label')"
                         :placeholder="$i18n('item-form-id-input-placeholder')"
                         :rows="8"
+                        :error="error ? {message: $i18n(error.message), type: error.type} : null"
                         v-model="form.itemsInput"
                     />
                     <div class="form-buttons">
@@ -47,18 +48,51 @@
             user: Object,
         },
         methods: {
-            send() {
-                // TODO: Implement validation
+            checkEmpty() {
+                if( !this.form.itemsInput ) {
+                    this.error = {
+                        type: 'warning',
+                        message: 'item-form-error-message-empty'
+                    };
+                    return false;
+                }
+                return true;
+            },
+            validate() {
+                let valid = true;
+                const lines = this.form.itemsInput.split( '\n' );
+                for ( let line of lines ) {
+                    line = line.trim();
+                    valid = valid && ( line == '' || line.match( /^Q[0-9]*$/ ) );
+                }
 
-                const idsToSend = this.form.itemsInput.split('\n').join('|');
-                this.$inertia.get('/results?ids=' + idsToSend)
+                if( !valid ) {
+                    this.error = {
+                        type: 'error',
+                        message: 'item-form-error-message-invalid'
+                    };
+                    return false;
+                }
+
+                return lines.join( '|' );
+            },
+            send() {
+                if( !this.checkEmpty() ) {
+                    return;
+                }
+
+                const validatedIds = this.validate();
+                if( validatedIds ) {
+                    this.$inertia.get( '/results?ids=' + validatedIds );
+                }
             },
         },
         data(){
             return {
                 form: {
                     itemsInput: ''
-                }
+                },
+                error: null
             }
         }
     });

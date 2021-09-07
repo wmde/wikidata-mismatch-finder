@@ -13,5 +13,8 @@
     "item-form-title": "For which Items should the check be performed?",
     "item-form-id-input-label": "Please add one Item identifier per line",
     "item-form-id-input-placeholder": "For example:\nQ345\nQ0987609\nQ4567890",
-    "item-form-submit": "Check Items"
+    "item-form-submit": "Check Items",
+    "log-in": "Log in",
+    "log-out": "Log out",
+    "mismatch-finder-title": "Mismatch Finder"
 }

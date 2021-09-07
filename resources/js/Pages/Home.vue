@@ -54,7 +54,6 @@
                 this.$inertia.get('/results?ids=' + idsToSend)
             },
         },
-        layout: Layout,
         data(){
             return {
                 form: {

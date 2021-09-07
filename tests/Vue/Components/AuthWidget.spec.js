@@ -1,5 +1,19 @@
 import { mount } from '@vue/test-utils';
 import AuthWidget from '@/Components/AuthWidget.vue';
+import Vue from 'vue';
+import i18n from 'vue-banana-i18n';
+
+const messages = {
+	en: {
+		'log-in': 'Log in',
+	},
+};
+
+Vue.use( i18n, {
+	locale: 'en',
+	messages,
+	wikilinks: true,
+} );
 
 describe('AuthWidget.vue', () => {
     it('displays a the username when provided', () => {

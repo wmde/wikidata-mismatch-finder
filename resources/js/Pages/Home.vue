@@ -13,6 +13,7 @@
                     :placeholder="$i18n('item-form-id-input-placeholder')"
                     :rows="8"
                     :loading="loading"
+                    :error="error"
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
@@ -20,6 +21,7 @@
                         variant="primary"
                         type="progressive"
                         native-type="submit"
+                        :disabled="loading"
                     >
                         {{ $i18n('item-form-submit') }}
                     </wikit-button>
@@ -88,13 +90,17 @@
                 this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
+        computed: {
+            loading(){
+                return this.$store.state.loading
+            }
+        },
         data(){
             return {
                 form: {
                     itemsInput: ''
                 },
-                error: null,
-                loading: false
+                error: null
             }
         }
     });

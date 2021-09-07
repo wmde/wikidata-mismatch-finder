@@ -12,32 +12,35 @@ async function setupI18n(locale: string): Promise<void>{
     Vue.use(i18n, { locale, messages });
 }
 
-createInertiaApp({
-    resolve: name => {
-        const page = require(`./Pages/${name}`).default;
-        // Ensure that every page uses the Mismatch Finder layout
-        page.layout = page.layout || Layout;
+// Only bootstrap inertia if i18nMessages are available. Display generic error
+// component otherwise
+(async () => {
+    try {
+        await setupI18n(document.documentElement.lang);
 
-        return page
-    },
-    setup({ el, app, props }) {
-        (async () => {
-            try {
-                await setupI18n(document.documentElement.lang);
+        createInertiaApp({
+            resolve: name => {
+                const page = require(`./Pages/${name}`).default;
+                // Ensure that every page uses the Mismatch Finder layout
+                page.layout = page.layout || Layout;
 
+                return page
+            },
+            setup({ el, app, props }) {
                 new Vue({
-                    render: h => h(app, props),
-                }).$mount(el)
-            } catch (e) {
-                new Vue({
-                    render: h => h(Error, {
-                        props: {
-                            title: 'Oops!',
-                            description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
-                        }
-                    }),
-                }).$mount(el)
+                    render: h => h(app, props)
+                }).$mount(el);
             }
-        })()
-    },
-})
+        });
+    } catch (e) {
+        new Vue({
+            render: h => h(Error, {
+                props: {
+                    title: 'Oops!',
+                    description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
+                }
+            }),
+        }).$mount('#app');
+    }
+})();
+

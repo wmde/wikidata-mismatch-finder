@@ -46,6 +46,18 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
+    public function test_empty_list_warning_resolves()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                    ->press('button')
+                    ->assertSee('Please provide the Item identifiers in order to perform the check.')
+                    ->keys('@items-input', 'Q1', '{return_key}', 'Q2')
+                    ->press('button')
+                    ->assertDontSee('Please provide the Item identifiers in order to perform the check.');
+        });
+    }
+
     public function test_invalid_item_list_yields_error()
     {
         $this->browse(function (Browser $browser) {

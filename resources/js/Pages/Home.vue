@@ -60,11 +60,10 @@
                         type: 'warning',
                         message: this.$i18n('item-form-error-message-empty')
                     };
-                } else {
-                    this.error = null;
                 }
             },
             validate() {
+                this.error = null;
                 this.checkEmpty();
 
                 let valid = this.splitInput().every( function( currentValue ) {

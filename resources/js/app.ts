@@ -6,6 +6,12 @@ import i18nMessages from './lib/i18n';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
 
+// Retrieve i18n messages and setup the Vue instance to handle them.
+async function setupI18n(locale: string): Promise<void>{
+    const messages = await i18nMessages(locale);
+    Vue.use(i18n, { locale, messages });
+}
+
 createInertiaApp({
     resolve: name => {
         const page = require(`./Pages/${name}`).default;
@@ -17,9 +23,7 @@ createInertiaApp({
     setup({ el, app, props }) {
         (async () => {
             try {
-                const locale = document.documentElement.lang;
-                const messages = await i18nMessages(locale);
-                Vue.use(i18n, { locale, messages });
+                await setupI18n(document.documentElement.lang);
 
                 new Vue({
                     render: h => h(app, props),

@@ -12,13 +12,10 @@
 </template>
 
 <script lang="ts">
-interface User {
-    username: string,
-    mw_userid: string
-}
 
 import Vue, { PropType } from 'vue';
 import AuthWidget from '../Components/AuthWidget.vue';
+import User from '../types/User';
 
 export default Vue.extend({
   components: { AuthWidget },

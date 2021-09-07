@@ -12,12 +12,9 @@
 </template>
 
 <script lang="ts">
-interface User {
-    name: string,
-    id: string
-}
 
 import Vue, { PropType } from 'vue';
+import User from '../types/User';
 
 export default Vue.extend({
     props: {

@@ -34,4 +34,27 @@ class ItemsFormTest extends DuskTestCase
                     ->assertSee('[ "Q1", "Q2" ]');
         });
     }
+
+    public function test_empty_item_list_yields_warning()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                    ->press('button')
+                    ->assertSee('Please provide the Item identifiers in order to perform the check.');
+
+            $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
+        });
+    }
+
+    public function test_invalid_item_list_yields_error()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                    ->keys('@items-input', 'Q1234-invalid')
+                    ->press('button')
+                    ->assertSee('One or more Item identifiers couldn\'t be processed.');
+
+            $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
+        });
+    }
 }

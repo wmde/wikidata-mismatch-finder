@@ -167,7 +167,7 @@ class ApiImportRouteTest extends TestCase
         Sanctum::actingAs($user);
 
         $response = $this->postJson(self::IMPORTS_ROUTE, [
-            'description' => $this->faker->realText($maxLength + 10)
+            'description' => $this->faker->realTextBetween($maxLength + 10, $maxLength + 100)
         ]);
 
         $response

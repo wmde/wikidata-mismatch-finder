@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+    import { mapState } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -39,6 +40,17 @@
     } from '@wmde/wikit-vue-components';
 
     import defineComponent from '../types/defineComponent';
+
+
+    interface HomeState {
+        form: {
+            itemsInput: string
+        },
+        error: null|{
+            type: string,
+            message: string
+        }
+    }
 
     export default defineComponent({
         components: {
@@ -68,7 +80,7 @@
                 this.error = null;
                 this.checkEmpty();
 
-                let valid = this.splitInput().every( function( currentValue ) {
+                let valid = this.splitInput().every( function( currentValue: string ) {
                     let trimmedLine = currentValue.trim();
                     return trimmedLine == '' || trimmedLine.match( /^Q[0-9]*$/ );
                 });
@@ -90,15 +102,10 @@
                 this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
-        computed: {
-            loading(){
-                return this.$store.state.loading
-            }
-        },
-        data(): {
-            form: { itemsInput: string};
-            error: null|Record<string, string>
-        } {
+        computed: mapState({
+            loading: 'loading'
+        }),
+        data(): HomeState {
             return {
                 form: {
                     itemsInput: ''

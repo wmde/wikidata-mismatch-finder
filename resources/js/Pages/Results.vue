@@ -18,8 +18,7 @@
             Head
         },
         props: {
-            item_ids: Array,
-            user: Object
+            item_ids: Array
         }
     });
 </script>

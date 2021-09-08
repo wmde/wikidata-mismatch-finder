@@ -58,9 +58,6 @@
             TextArea,
             WikitButton
         },
-        props: {
-            user: Object,
-        },
         methods: {
             splitInput: function(): Array<string> {
                 return this.form.itemsInput.split( '\n' );

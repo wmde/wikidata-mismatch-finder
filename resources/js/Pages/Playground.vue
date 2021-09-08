@@ -10,12 +10,13 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import { Head } from '@inertiajs/inertia-vue'
     import AuthWidget from '../Components/AuthWidget.vue';
     import { Button as WikitButton, TextArea } from '@wmde/wikit-vue-components';
 
-    export default Vue.extend({
+    import defineComponent from '../types/defineComponent';
+
+    export default defineComponent({
         components: {
             Head,
             AuthWidget,

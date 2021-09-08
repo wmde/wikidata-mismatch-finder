@@ -1,48 +1,44 @@
 <template>
-    <Layout :user="user">
-        <div class="page-container">
-            <Head title="Mismatch Finder" />
-            <section id="intro-section">
-                <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
-                <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
-            </section>
-            <section id="querying-section">
-                <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
-                <form id="items-form" @submit.prevent="send">
-                    <text-area
-                        :label="$i18n('item-form-id-input-label')"
-                        :placeholder="$i18n('item-form-id-input-placeholder')"
-                        :rows="8"
-                        :error="error"
-                        v-model="form.itemsInput"
-                    />
-                    <div class="form-buttons">
-                        <wikit-button native-type="submit">
-                            {{ $i18n('item-form-submit') }}
-                        </wikit-button>
-                    </div>
-                </form>
-            </section>
-        </div>
-    </Layout>
+    <div class="page-container">
+        <Head title="Mismatch Finder" />
+        <section id="intro-section">
+            <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
+            <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
+        </section>
+        <section id="querying-section">
+            <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
+            <form id="items-form" @submit.prevent="send">
+                <text-area
+                    :label="$i18n('item-form-id-input-label')"
+                    :placeholder="$i18n('item-form-id-input-placeholder')"
+                    :rows="8"
+                    :error="error"
+                    v-model="form.itemsInput"
+                />
+                <div class="form-buttons">
+                    <wikit-button native-type="submit">
+                        {{ $i18n('item-form-submit') }}
+                    </wikit-button>
+                </div>
+            </form>
+        </section>
+    </div>
 </template>
 
 <script>
-    import Vue from 'vue';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
         TextArea
     } from '@wmde/wikit-vue-components';
 
-    import Layout from './Layout';
+    import defineComponent from '../types/defineComponent';
 
-    export default Vue.extend({
+    export default defineComponent({
         components: {
             Head,
             TextArea,
-            WikitButton,
-            Layout
+            WikitButton
         },
         props: {
             user: Object,

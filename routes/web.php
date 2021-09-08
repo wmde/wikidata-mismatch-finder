@@ -29,11 +29,16 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/results', function (Request $request) {
+    $user = Auth::user() ? [
+        'name' => Auth::user()->username
+    ] : null;
+
     $separator = config('mismatches.id_separator');
     $ids = explode($separator, $request->input('ids'));
 
     return inertia('Results', [
-        'item_ids' => $ids
+        'item_ids' => $ids,
+        'user' => $user
     ]);
 })->name('results');
 

@@ -8,8 +8,8 @@
     </div>
 </template>
 
-<script>
-    import { Head } from '@inertiajs/inertia-vue';
+<script lang="ts">
+    import { Head } from '@inertiajs/inertia-vue'
 
     import defineComponent from '../types/defineComponent';
 

@@ -31,7 +31,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -50,13 +50,13 @@
             user: Object,
         },
         methods: {
-            splitInput: function() {
+            splitInput: function(): Array<string> {
                 return this.form.itemsInput.split( '\n' );
             },
-            serializeInput: function() {
+            serializeInput: function(): string {
                 return this.splitInput().join('|');
             },
-            checkEmpty() {
+            checkEmpty(): void {
                 if( !this.form.itemsInput ) {
                     this.error = {
                         type: 'warning',
@@ -64,7 +64,7 @@
                     };
                 }
             },
-            validate() {
+            validate(): void {
                 this.error = null;
                 this.checkEmpty();
 
@@ -80,7 +80,7 @@
                     };
                 }
             },
-            send() {
+            send(): void {
                 this.validate();
 
                 if(this.error) {
@@ -95,7 +95,10 @@
                 return this.$store.state.loading
             }
         },
-        data(){
+        data(): {
+            form: { itemsInput: string};
+            error: null|Record<string, string>
+        } {
             return {
                 form: {
                     itemsInput: ''

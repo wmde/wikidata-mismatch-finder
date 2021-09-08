@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
     import AuthWidget from '../Components/AuthWidget.vue';
     import { Button as WikitButton, TextArea } from '@wmde/wikit-vue-components';
@@ -30,7 +30,7 @@
             console() {
                 console.log('testing wikit component');
             },
-            printVal(v) {
+            printVal(v: string) {
                 console.log(v);
             }
         }

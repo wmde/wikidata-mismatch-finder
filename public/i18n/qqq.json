@@ -13,5 +13,7 @@
     "item-form-submit": "The call to action on the Item id form's submit button",
     "log-in": "The call to action for user log in",
     "log-out": "The call to action for user log out",
-    "mismatch-finder-title": "The main title of the website"
+    "mismatch-finder-title": "The main title of the website",
+    "item-form-error-message-empty": "A warning message when no Item ids are provided",
+    "item-form-error-message-invalid": "An error message when invalid Item ids are provided"
 }

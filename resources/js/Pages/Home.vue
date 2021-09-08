@@ -13,6 +13,7 @@
                         :label="$i18n('item-form-id-input-label')"
                         :placeholder="$i18n('item-form-id-input-placeholder')"
                         :rows="8"
+                        :error="error"
                         v-model="form.itemsInput"
                     />
                     <div class="form-buttons">
@@ -47,18 +48,52 @@
             user: Object,
         },
         methods: {
-            send() {
-                // TODO: Implement validation
+            splitInput: function() {
+                return this.form.itemsInput.split( '\n' );
+            },
+            serializeInput: function() {
+                return this.splitInput().join('|');
+            },
+            checkEmpty() {
+                if( !this.form.itemsInput ) {
+                    this.error = {
+                        type: 'warning',
+                        message: this.$i18n('item-form-error-message-empty')
+                    };
+                }
+            },
+            validate() {
+                this.error = null;
+                this.checkEmpty();
 
-                const idsToSend = this.form.itemsInput.split('\n').join('|');
-                this.$inertia.get('/results?ids=' + idsToSend)
+                let valid = this.splitInput().every( function( currentValue ) {
+                    let trimmedLine = currentValue.trim();
+                    return trimmedLine == '' || trimmedLine.match( /^Q[0-9]*$/ );
+                });
+
+                if( !valid ) {
+                    this.error = {
+                        type: 'error',
+                        message: this.$i18n('item-form-error-message-invalid')
+                    };
+                }
+            },
+            send() {
+                this.validate();
+
+                if(this.error) {
+                    return;
+                }
+
+                this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
         data(){
             return {
                 form: {
                     itemsInput: ''
-                }
+                },
+                error: null
             }
         }
     });

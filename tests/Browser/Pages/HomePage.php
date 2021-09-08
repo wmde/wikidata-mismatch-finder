@@ -27,6 +27,7 @@ class HomePage extends Page
     {
         $browser
             ->assertPathIs('/')
+            ->assertPresent('header')
             ->assertPresent('@form');
     }
 

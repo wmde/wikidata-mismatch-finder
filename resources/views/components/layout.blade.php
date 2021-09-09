@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>{{__('store-layout.mismatch-finder')}}</h1>
-        <div class="top-nav-right">
+        <div class="auth-widget">
             @auth
                 <a href='https://www.wikidata.org/wiki/User:{{ Auth::user()->username}}'><img src="{{ asset('/svg/user.svg') }}" class="icon-user" /><span class="username">{{ Auth::user()->username }}</span></a><a href="{{ route('logout') }}">Logout</a>
             @else

@@ -2,7 +2,7 @@
   <main>
     <header>
       <img src="../../img/wikidata-logo.svg" alt="Wikidata-logo" />
-      <div class="top-nav-right">
+      <div class="auth-widget">
         <AuthWidget :user="user" />
       </div>
     </header>
@@ -25,3 +25,10 @@
         }
     });
 </script>
+
+<style lang="scss">
+
+.auth-widget div {
+    display: flex;
+}
+</style>

@@ -8,8 +8,8 @@
     </div>
 </template>
 
-<script>
-    import { Head } from '@inertiajs/inertia-vue';
+<script lang="ts">
+    import { Head } from '@inertiajs/inertia-vue'
 
     import defineComponent from '../types/defineComponent';
 
@@ -18,8 +18,7 @@
             Head
         },
         props: {
-            item_ids: Array,
-            user: Object
+            item_ids: Array
         }
     });
 </script>

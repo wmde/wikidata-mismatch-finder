@@ -31,7 +31,8 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { mapState } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -40,23 +41,30 @@
 
     import defineComponent from '../types/defineComponent';
 
+    interface HomeState {
+        form: {
+            itemsInput: string
+        },
+        error: null|{
+            type: string,
+            message: string
+        }
+    }
+
     export default defineComponent({
         components: {
             Head,
             TextArea,
             WikitButton
         },
-        props: {
-            user: Object,
-        },
         methods: {
-            splitInput: function() {
+            splitInput: function(): Array<string> {
                 return this.form.itemsInput.split( '\n' );
             },
-            serializeInput: function() {
+            serializeInput: function(): string {
                 return this.splitInput().join('|');
             },
-            checkEmpty() {
+            checkEmpty(): void {
                 if( !this.form.itemsInput ) {
                     this.error = {
                         type: 'warning',
@@ -64,11 +72,11 @@
                     };
                 }
             },
-            validate() {
+            validate(): void {
                 this.error = null;
                 this.checkEmpty();
 
-                let valid = this.splitInput().every( function( currentValue ) {
+                let valid = this.splitInput().every( function( currentValue: string ) {
                     let trimmedLine = currentValue.trim();
                     return trimmedLine == '' || trimmedLine.match( /^Q[0-9]*$/ );
                 });
@@ -80,7 +88,7 @@
                     };
                 }
             },
-            send() {
+            send(): void {
                 this.validate();
 
                 if(this.error) {
@@ -90,12 +98,10 @@
                 this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
-        computed: {
-            loading(){
-                return this.$store.state.loading
-            }
-        },
-        data(){
+        computed: mapState({
+            loading: 'loading'
+        }),
+        data(): HomeState {
             return {
                 form: {
                     itemsInput: ''

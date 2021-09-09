@@ -41,7 +41,6 @@
 
     import defineComponent from '../types/defineComponent';
 
-
     interface HomeState {
         form: {
             itemsInput: string

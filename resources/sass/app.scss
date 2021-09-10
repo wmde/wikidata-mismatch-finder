@@ -61,19 +61,39 @@ a {
     text-decoration: none;
 }
 
+.store header{
+        @media (max-width: $width-breakpoint-tablet) {
+            flex-direction: column-reverse;
+        }
+}
+
+.website {
+    header {
+        .wikidata-logo {
+            @media (max-width: $width-breakpoint-tablet) {
+                margin-bottom: $dimension-layout-small;
+            }
+        }
+
+        @media (max-width: $width-breakpoint-tablet) {
+            flex-direction: column;
+        }
+    }
+    h1 {
+        @media (max-width: $width-breakpoint-tablet) {
+            margin: $dimension-layout-xxsmall 0;
+        }
+    }
+}
+
 header {
     display: flex;
     justify-content: space-between;
     margin: $dimension-layout-small 0;
 
     @media (max-width: $width-breakpoint-tablet) {
-        flex-direction: column-reverse;
         margin: $dimension-layout-xsmall 0;
-    }
-
-    h1 {
-        margin: 0;
-    }
+    }  
 
     .auth-widget {
         font-family: 'Lato', sans-serif;

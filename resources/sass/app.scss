@@ -24,12 +24,7 @@ section {
 }
 
 h1, .h1 {
-    margin: $dimension-layout-xsmall 0;
     @include heading-1;
-
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-small 0;
-    }
 }
 
 h4, .h4 {
@@ -62,9 +57,16 @@ a {
 }
 
 .store header{
+    flex-direction: row;
+    @media (max-width: $width-breakpoint-tablet) {
+        flex-direction: column-reverse;
+    }
+
+    .auth-widget {
         @media (max-width: $width-breakpoint-tablet) {
-            flex-direction: column-reverse;
+            margin-bottom: $dimension-layout-xsmall;
         }
+    }
 }
 
 .website {
@@ -103,9 +105,6 @@ header {
 
         .username {
             margin-right: 24px;
-        }
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: 16px;
         }
     }
     .icon-user {

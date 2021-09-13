@@ -24,12 +24,7 @@ section {
 }
 
 h1, .h1 {
-    margin: $dimension-layout-xsmall 0;
     @include heading-1;
-
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-small 0;
-    }
 }
 
 h4, .h4 {
@@ -61,21 +56,48 @@ a {
     text-decoration: none;
 }
 
+.store header{
+    flex-direction: row;
+    @media (max-width: $width-breakpoint-tablet) {
+        flex-direction: column-reverse;
+    }
+
+    .auth-widget {
+        @media (max-width: $width-breakpoint-tablet) {
+            margin-bottom: $dimension-layout-xsmall;
+        }
+    }
+}
+
+.website {
+    header {
+        .wikidata-logo {
+            @media (max-width: $width-breakpoint-tablet) {
+                margin-bottom: $dimension-layout-small;
+            }
+        }
+
+        @media (max-width: $width-breakpoint-tablet) {
+            flex-direction: column;
+        }
+    }
+    h1 {
+        @media (max-width: $width-breakpoint-tablet) {
+            margin: $dimension-layout-xxsmall 0;
+        }
+    }
+}
+
 header {
     display: flex;
     justify-content: space-between;
     margin: $dimension-layout-small 0;
 
     @media (max-width: $width-breakpoint-tablet) {
-        flex-direction: column-reverse;
         margin: $dimension-layout-xsmall 0;
-    }
+    }  
 
-    h1 {
-        margin: 0;
-    }
-
-    .top-nav-right {
+    .auth-widget {
         font-family: 'Lato', sans-serif;
         font-size: 16px;
         line-height: 24px;
@@ -83,9 +105,6 @@ header {
 
         .username {
             margin-right: 24px;
-        }
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: 16px;
         }
     }
     .icon-user {

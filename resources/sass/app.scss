@@ -25,6 +25,12 @@ section {
 
 h1, .h1 {
     @include heading-1;
+
+    margin: $dimension-layout-xsmall 0;
+
+    @media (min-width: $width-breakpoint-tablet) {
+        margin: $dimension-layout-small 0;
+    }
 }
 
 h4, .h4 {
@@ -58,8 +64,13 @@ a {
 
 .store header{
     flex-direction: row;
+
     @media (max-width: $width-breakpoint-tablet) {
         flex-direction: column-reverse;
+    }
+
+    h1 {
+        margin: 0;
     }
 
     .auth-widget {
@@ -81,11 +92,6 @@ a {
             flex-direction: column;
         }
     }
-    h1 {
-        @media (max-width: $width-breakpoint-tablet) {
-            margin: $dimension-layout-xxsmall 0;
-        }
-    }
 }
 
 header {
@@ -95,7 +101,7 @@ header {
 
     @media (max-width: $width-breakpoint-tablet) {
         margin: $dimension-layout-xsmall 0;
-    }  
+    }
 
     .auth-widget {
         font-family: 'Lato', sans-serif;

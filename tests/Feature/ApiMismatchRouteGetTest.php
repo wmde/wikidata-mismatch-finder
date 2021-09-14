@@ -90,6 +90,28 @@ class ApiMismatchRouteGetTest extends TestCase
             );
     }
 
+    public function test_lowercase_item_id()
+    {
+        Mismatch::factory()
+            ->for(ImportMeta::factory()->for(User::factory()->uploader())->create())
+            ->create([ 'statement_guid' => 'Q1234$ffa51229-4877-3135-a2e2-a22fe9b7039d' ]);
+
+        $response = $this->json(
+            'GET',
+            self::MISMATCH_ROUTE,
+            [
+                 'ids' => 'q1234'
+            ]
+        );
+
+        $response->assertSuccessful()
+            ->assertJson(
+                [[
+                    'item_id' => 'Q1234'
+                ]]
+            );
+    }
+
     public function test_multiple_mismatches_do_not_return_edited_or_expired()
     {
         $this->seedMismatches();

@@ -8,13 +8,24 @@ use Laravel\Dusk\Page;
 class ResultsPage extends Page
 {
     /**
+     * @var string
+     */
+    private $ids;
+
+    public function __construct(?string $ids = null)
+    {
+        $this->ids = $ids;
+    }
+    /**
      * Get the URL for the page.
      *
      * @return string
      */
     public function url()
     {
-        return route('results');
+        return route('results', [
+            'ids' => $this->ids
+        ]);
     }
 
     /**

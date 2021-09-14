@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\MismatchGetRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,13 +29,12 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/results', function (Request $request) {
+Route::get('/results', function (MismatchGetRequest $request) {
     $user = Auth::user() ? [
         'name' => Auth::user()->username
     ] : null;
 
-    $separator = config('mismatches.id_separator');
-    $ids = explode($separator, $request->input('ids'));
+    $ids = $request->input('ids');
 
     return inertia('Results', [
         'item_ids' => $ids,

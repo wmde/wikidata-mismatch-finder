@@ -64,6 +64,54 @@ class WebRouteTest extends TestCase
     }
 
     /**
+     * Test the /results route
+     *
+     *  @return void
+     */
+    public function test_results_route()
+    {
+        $response = $this->get(route('results', [
+            'ids' => 'Q1|Q2'
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertViewIs('app')
+            ->assertInertia(function (Assert $page) {
+                $page->component('Results');
+            });
+    }
+
+    /**
+     * Test the /results redirects when no ids provided
+     *
+     *  @return void
+     */
+    public function test_results_route_redirects_on_missing_ids()
+    {
+        $response = $this->get(route('results'));
+
+        $response->assertRedirect(route('home'));
+    }
+
+    /**
+     * Test the /results route accepts lowercase QIDs
+     *
+     *  @return void
+     */
+    public function test_results_route_accepts_lowercase_ids()
+    {
+        $response = $this->get(route('results', [
+            'ids' => 'q1|q2'
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertViewIs('app')
+            ->assertInertia(function (Assert $page) {
+                $page->component('Results');
+            });
+    }
+
+    /**
      * Test the / route with a non translated language code
      *
      *  @return void

@@ -25,7 +25,7 @@ return [
         ],
         'item_id' => [
             'max_length' => 12,
-            'format' => '/^Q\d+$/'
+            'format' => '/^Q\d+$/i'
         ],
         'ids' => [
             'max' => 50

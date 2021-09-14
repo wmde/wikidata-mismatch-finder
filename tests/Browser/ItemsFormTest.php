@@ -27,11 +27,11 @@ class ItemsFormTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
-                    ->keys('@items-input', 'Q1', '{return_key}', 'Q2')
+                    ->keys('@items-input', 'Q1', '{return_key}', 'q2')
                     ->press('button')
                     ->waitFor('@results')
                     ->assertTitle('Mismatch Finder - Results')
-                    ->assertSee('[ "Q1", "Q2" ]');
+                    ->assertSee('[ "Q1", "q2" ]');
         });
     }
 

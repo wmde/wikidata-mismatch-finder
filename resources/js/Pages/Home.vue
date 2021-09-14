@@ -78,7 +78,7 @@
 
                 let valid = this.splitInput().every( function( currentValue: string ) {
                     let trimmedLine = currentValue.trim();
-                    return trimmedLine == '' || trimmedLine.match( /^Q[0-9]*$/ );
+                    return trimmedLine == '' || trimmedLine.match( /^[Qq]\d+$/ );
                 });
 
                 if( !valid ) {

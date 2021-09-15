@@ -34,15 +34,6 @@ jobs:
 
   browser-test:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mariadb:10.2
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: dusk
-        ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     timeout-minutes: 30
 
@@ -53,6 +44,13 @@ jobs:
 
       - name: Prepare The Environment
         run: cp .env.dusk.ci .env
+
+      - name: Create Database
+        run: |
+          sudo systemctl start mysql
+          # workaround for php/mysql-8 incompatibility: https://stackoverflow.com/a/50776838
+          mysql --user="root" --password="root" -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'"
+          mysql --user="root" --password="root" -e "CREATE DATABASE dusk character set UTF8mb4 collate utf8mb4_bin;"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -93,6 +91,7 @@ jobs:
           DB_DATABASE: dusk
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USER: root
+          DB_PASSWORD: root
 
       - name: Upload Laravel Logs
         if: failure()

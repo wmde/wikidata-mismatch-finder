@@ -1,25 +1,40 @@
 <template>
-  <div>
+  <div lang="en">
     <Head title="Mismatch Finder - Component Playground" />
-    <h1>Mismatch Finder - Playground!</h1>
+    <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
-    <auth-widget v-bind:user="user" />
+    <!-- <auth-widget v-bind:user="user" />
     <text-area :rows="10" label="I am from Wikit" resize="horizontal" value="With a default value" @input="printVal" />
-    <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button>
+    <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button> -->
+    <wikit-table id="some-table" linearize="mobile">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Calories</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="dessert in desserts" :key="dessert.name">
+                <td data-header="Name">{{dessert.name}}</td>
+                <td data-header="Calories">{{dessert.calories}}</td>
+            </tr>
+        </tbody>
+    </wikit-table>
   </div>
 </template>
 
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
     import AuthWidget from '../Components/AuthWidget.vue';
+    import WikitTable from '../Components/Table.vue';
     import { Button as WikitButton, TextArea } from '@wmde/wikit-vue-components';
-
     import defineComponent from '../types/defineComponent';
 
     export default defineComponent({
         components: {
             Head,
             AuthWidget,
+            WikitTable,
             TextArea,
             WikitButton
         },
@@ -33,19 +48,56 @@
             printVal(v: string) {
                 console.log(v);
             }
+        },
+        data(){
+            return {
+                desserts: [
+                    {
+                        name: 'Frozen Yogurt',
+                        calories: 159,
+                    },
+                    {
+                        name: 'Ice cream sandwich',
+                        calories: 237,
+                    },
+                    {
+                        name: 'Eclair',
+                        calories: 262,
+                    },
+                    {
+                        name: 'Cupcake',
+                        calories: 305,
+                    },
+                    {
+                        name: 'Gingerbread',
+                        calories: 356,
+                    },
+                    {
+                        name: 'Jelly bean',
+                        calories: 375,
+                    },
+                    {
+                        name: 'Lollipop',
+                        calories: 392,
+                    },
+                    {
+                        name: 'Honeycomb',
+                        calories: 408,
+                    },
+                    {
+                        name: 'Donut',
+                        calories: 452,
+                    },
+                    {
+                        name: 'KitKat',
+                        calories: 518,
+                    },
+                ],
+            }
         }
     });
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
-h1 {
-    font-family: 'Source Serif Pro', serif;
-    font-size: 32px;
-    line-height: 40px;
-    margin: 0;
-    padding: 0 0 28px 0;
-    font-weight: 400;
-}
 </style>

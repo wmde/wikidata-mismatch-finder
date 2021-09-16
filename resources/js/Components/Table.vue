@@ -1,0 +1,101 @@
+<template>
+    <table :class="[
+        'wikit',
+        'wikit-Table',
+        `wikit-Table--linear-${linearize}`
+    ]">
+        <slot></slot>
+    </table>
+</template>
+
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+
+export default Vue.extend({
+    props: {
+        linearize: {
+            type: String,
+            default: 'tablet'
+        }
+    },
+    components: {}
+});
+</script>
+
+<style lang="scss">
+    @import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+    .wikit-Table {
+        /**
+        * Layout
+        */
+        // As the specificationn state that the table columns should gain their
+        // width from cell content (instead of just header content / width) we
+        // revert to using the default table layout algorithm. This is done in
+        // order to avoid changing the table's display proterty and thus
+        // oblitirating it's inehrit accesibility:
+        // See: https://www.tpgi.com/short-note-on-what-css-display-properties-do-to-table-semantics/
+        table-layout: auto;
+        width: 100%;
+
+
+        /**
+        * Borders
+        */
+        border-collapse: collapse;
+
+        /**
+        * Colors
+        */
+        background-color: $background-color-base-default;
+        color: $font-color-base;
+
+        /**
+        * Typography
+        */
+        font-family: $font-family-style-body;
+        font-size: $font-size-style-body;
+        font-weight: $font-weight-style-body;
+
+        tr {
+            /**
+            * Layout
+            */
+            height: $dimension-min-height-xlarge;
+
+            /**
+            * Borders
+            */
+            border-bottom-style: $border-style-base;
+            border-bottom-width: $border-width-thin;
+            border-radius: $border-radius-none;
+            border-bottom-color: $border-color-base-subtle;
+        }
+
+        th, td {
+            /**
+            * Layout
+            */
+            padding-inline: $dimension-spacing-medium;
+            padding-block: $dimension-spacing-small;
+
+            /**
+            * Typography
+            */
+            line-height: $font-line-height-style-label;
+            text-align: start;
+            vertical-align: middle;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        th {
+            /**
+            * Typography
+            */
+            font-weight: $font-weight-bold;
+        }
+
+
+    }
+</style>

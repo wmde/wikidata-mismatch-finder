@@ -25,6 +25,62 @@ export default Vue.extend({
 <style lang="scss">
     @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
+    @mixin LinearTable {
+        /**
+        * Wipe the thead from the face of the earth
+        * modern screen readers will expose the
+        * generated content
+        */
+        thead {
+            display: none;
+            visibility: hidden;
+        }
+
+        /**
+        * make everything display flex for alignment
+        */
+        tbody, tr, th, td {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        td, th {
+            flex-direction: row;
+            flex-basis: 60%;
+        }
+
+        /**
+        * Labeling
+        *
+        * Adding a data-title attribute to the cells
+        * lets us add text before the content to provide
+        * the missing context.
+        *
+        * Markup:
+        *   <td data-title="Column Header">Content Here</td>
+        *
+        * Display:
+        *   Column Header: Content Here
+        */
+        th[data-header]:before,
+        td[data-header]:before {
+            content: attr(data-header);
+            display: block;
+            font-weight: bold;
+            flex-basis: 40%;
+        }
+
+        th:not([data-header]) {
+            font-weight: bold;
+        }
+
+        // hide empty cells
+        td:empty {
+            display: none;
+        }
+    }
+
     .wikit-Table {
         /**
         * Layout
@@ -97,5 +153,22 @@ export default Vue.extend({
         }
 
 
+        &--linear-mobile {
+            @media (max-width: $width-breakpoint-mobile){
+                @include LinearTable;
+            }
+        }
+
+        &--linear-tablet {
+            @media (max-width: $width-breakpoint-tablet){
+                @include LinearTable;
+            }
+        }
+
+        &--linear-desktop {
+            @media (max-width: $width-breakpoint-desktop){
+                @include LinearTable;
+            }
+        }
     }
 </style>

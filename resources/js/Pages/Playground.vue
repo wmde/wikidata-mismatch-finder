@@ -3,10 +3,7 @@
     <Head title="Mismatch Finder - Component Playground" />
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
-    <!-- <auth-widget v-bind:user="user" />
-    <text-area :rows="10" label="I am from Wikit" resize="horizontal" value="With a default value" @input="printVal" />
-    <wikit-button type="progressive" variant="primary" @click.native="console">Test Wikit Component</wikit-button> -->
-    <wikit-table id="some-table" linearize="mobile">
+    <wikit-table id="some-table" linearize="desktop">
         <thead>
             <tr>
                 <th scope="col">Name</th>

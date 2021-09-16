@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\ImportMeta;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +35,12 @@ Route::get('/results', function (MismatchGetRequest $request) {
 
     $ids = $request->input('ids');
 
+    $results = app('app\Http\Controllers\MismatchController')->index($request);
+    
     return inertia('Results', [
         'item_ids' => $ids,
-        'user' => $user
+        'user' => $user,
+        'results' => $results,
     ]);
 })->name('results');
 

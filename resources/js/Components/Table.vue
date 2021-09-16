@@ -2,7 +2,7 @@
     <table :class="[
         'wikit',
         'wikit-Table',
-        `wikit-Table--linear-${linearize}`
+        `wikit-Table--linear-${breakpoint}`
     ]">
         <slot></slot>
     </table>
@@ -10,15 +10,23 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
+import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 
 export default Vue.extend({
     props: {
         linearize: {
-            type: String,
-            default: 'tablet'
+            type: String as PropType<Breakpoint>,
+            validator( value: Breakpoint ): boolean {
+                return validateBreakpoint(value);
+            },
+            default: Breakpoint.Tablet
         }
     },
-    components: {}
+    computed: {
+        breakpoint(): string {
+            return validateBreakpoint( this. linearize ) ? this.linearize : 'tablet';
+        }
+    }
 });
 </script>
 

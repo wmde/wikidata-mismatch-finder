@@ -3,7 +3,7 @@ import Table from '@/Components/Table.vue';
 import {Breakpoint} from '@/types/Breakpoint.ts';
 
 describe('Table.vue', () => {
-    it('accepts a linerize property', () => {
+    it('accepts a linearize property', () => {
         const wrapper = mount(Table, {
             propsData: {
                 linearize: Breakpoint.Desktop

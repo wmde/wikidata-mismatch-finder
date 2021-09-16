@@ -13,6 +13,8 @@
         </thead>
         <tbody>
             <tr v-for="dessert in desserts" :key="dessert.name">
+                <!-- When using the table make sure to include the
+                    data-header for linearization and accesibility -->
                 <td data-header="Name">{{dessert.name}}</td>
                 <td data-header="Calories">{{dessert.calories}}</td>
             </tr>

@@ -3,6 +3,7 @@
     <Head title="Mismatch Finder - Component Playground" />
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
+
     <wikit-table id="some-table" linearize="desktop">
         <thead>
             <tr>
@@ -22,18 +23,13 @@
 
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
-    import AuthWidget from '../Components/AuthWidget.vue';
     import WikitTable from '../Components/Table.vue';
-    import { Button as WikitButton, TextArea } from '@wmde/wikit-vue-components';
     import defineComponent from '../types/defineComponent';
 
     export default defineComponent({
         components: {
             Head,
-            AuthWidget,
-            WikitTable,
-            TextArea,
-            WikitButton
+            WikitTable
         },
         props: {
             user: Object,

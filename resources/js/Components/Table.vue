@@ -102,7 +102,6 @@ export default Vue.extend({
         table-layout: auto;
         width: 100%;
 
-
         /**
         * Borders
         */
@@ -159,7 +158,6 @@ export default Vue.extend({
             */
             font-weight: $font-weight-bold;
         }
-
 
         &--linear-mobile {
             @media (max-width: $width-breakpoint-mobile){

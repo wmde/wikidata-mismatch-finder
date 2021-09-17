@@ -35,7 +35,8 @@
             Head
         },
         props: {
-            item_ids: Array
+            item_ids: Array,
+            results: Array
         }
     });
 </script>

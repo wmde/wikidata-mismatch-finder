@@ -9,6 +9,9 @@ use Tests\Browser\Pages\HomePage;
 
 class ItemsFormTest extends DuskTestCase
 {
+
+    use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      *

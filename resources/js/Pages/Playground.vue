@@ -15,7 +15,10 @@
             <tr v-for="dessert in desserts" :key="dessert.name">
                 <!-- When using the table make sure to include the
                     data-header for linearization and accesibility -->
-                <td data-header="Name">{{dessert.name}}</td>
+                <td data-header="Name">
+                    <Link v-if="dessert.url" :href="dessert.url">{{dessert.name}}</Link>
+                    <div v-else>{{dessert.name}}</div>
+                </td>
                 <td data-header="Calories">{{dessert.calories}}</td>
             </tr>
         </tbody>
@@ -27,10 +30,12 @@
     import { Head } from '@inertiajs/inertia-vue'
     import WikitTable from '../Components/Table.vue';
     import defineComponent from '../types/defineComponent';
+    import { Link } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {
             Head,
+            Link,
             WikitTable
         },
         props: {
@@ -49,6 +54,7 @@
                 desserts: [
                     {
                         name: 'Frozen Yogurt',
+                        url: 'https://commons.wikimedia.org/wiki/File:Blueberry_frozen_yoghurt_(4937999312).jpg',
                         calories: 159,
                     },
                     {

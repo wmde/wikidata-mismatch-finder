@@ -2,9 +2,6 @@
     <div>
         <Head title="Mismatch Finder - Results" />
         <h2>Results</h2>
-        <p class="results">
-            Thank you for sending IDs {{item_ids}}. Mismatch results will be displayed in this page soon.
-        </p>
         <table>
             <tbody>
                 <tr v-for="result in results" :key="result.id">
@@ -35,7 +32,6 @@
             Head
         },
         props: {
-            item_ids: Array,
             results: Array
         }
     });

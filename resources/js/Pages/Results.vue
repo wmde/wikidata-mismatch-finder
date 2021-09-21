@@ -2,7 +2,7 @@
     <div>
         <Head title="Mismatch Finder - Results" />
         <h2>Results</h2>
-        <table>
+        <table v-if="results.length">
             <tbody>
                 <tr v-for="result in results" :key="result.id">
                     <td>{{result.id}}</td>
@@ -19,6 +19,11 @@
                 </tr>
             </tbody>
         </table>
+        <p v-else class="results">
+            Thank you for sending IDs {{item_ids}}. 
+            The requested item ids didn't match any entries in our database. 
+            Please try with a different set of ids.
+        </p>
     </div>
 </template>
 
@@ -32,6 +37,7 @@
             Head
         },
         props: {
+            item_ids: Array,
             results: Array
         }
     });

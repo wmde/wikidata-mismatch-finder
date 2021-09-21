@@ -35,10 +35,13 @@ Route::get('/results', function (MismatchGetRequest $request) {
         'name' => Auth::user()->username
     ] : null;
 
+    $ids = $request->input('ids');
+
     $query = Mismatch::whereIn('item_id', $request->ids);
     $results = MismatchResource::collection($query->get());
     
     return inertia('Results', [
+        'item_ids' => $ids,
         'user' => $user,
         'results' => $results,
     ]);

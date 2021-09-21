@@ -13,7 +13,7 @@
                     :placeholder="$i18n('item-form-id-input-placeholder')"
                     :rows="8"
                     :loading="loading"
-                    :error="error"
+                    :error="validationError"
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
@@ -45,7 +45,7 @@
         form: {
             itemsInput: string
         },
-        error: null|{
+        validationError: null|{
             type: string,
             message: string
         }
@@ -66,14 +66,14 @@
             },
             checkEmpty(): void {
                 if( !this.form.itemsInput ) {
-                    this.error = {
+                    this.validationError = {
                         type: 'warning',
                         message: this.$i18n('item-form-error-message-empty')
                     };
                 }
             },
             validate(): void {
-                this.error = null;
+                this.validationError = null;
                 this.checkEmpty();
 
                 let valid = this.splitInput().every( function( currentValue: string ) {
@@ -82,7 +82,7 @@
                 });
 
                 if( !valid ) {
-                    this.error = {
+                    this.validationError = {
                         type: 'error',
                         message: this.$i18n('item-form-error-message-invalid')
                     };
@@ -91,7 +91,7 @@
             send(): void {
                 this.validate();
 
-                if(this.error) {
+                if(this.validationError) {
                     return;
                 }
 
@@ -106,7 +106,7 @@
                 form: {
                     itemsInput: ''
                 },
-                error: null
+                validationError: null
             }
         }
     });

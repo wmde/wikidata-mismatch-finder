@@ -31,6 +31,11 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/results', function (MismatchGetRequest $request) {
+    if ($request->header('X-Mismatch-Results-Error')) {
+        // force a 500 server response for testing purposes
+        throw new RuntimeException("Simulated Server Error");
+    }
+
     $user = Auth::user() ? [
         'name' => Auth::user()->username
     ] : null;

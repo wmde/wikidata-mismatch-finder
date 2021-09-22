@@ -5,6 +5,13 @@
             <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
             <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
         </section>
+
+        <div v-if="unexpectedError">
+            <Message type="error">
+                <span>{{ $i18n('mismatch-query-server-error') }}</span>
+            </Message>
+        </div>
+
         <section id="querying-section">
             <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
             <form id="items-form" @submit.prevent="send">
@@ -36,6 +43,7 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
+        Message,
         TextArea
     } from '@wmde/wikit-vue-components';
 
@@ -51,9 +59,14 @@
         }
     }
 
+    interface FlashMessages {
+        errors : { [ key : string ] : string }
+    }
+
     export default defineComponent({
         components: {
             Head,
+            Message,
             TextArea,
             WikitButton
         },
@@ -98,9 +111,16 @@
                 this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
-        computed: mapState({
-            loading: 'loading'
-        }),
+        computed: {
+            unexpectedError() {
+                const flashMessages = this.$page.props.flash as FlashMessages;
+                return (flashMessages && flashMessages.errors);
+            },
+            // spread to combine with local computed props
+            ...mapState({
+                loading: 'loading'
+            }),
+        },
         data(): HomeState {
             return {
                 form: {

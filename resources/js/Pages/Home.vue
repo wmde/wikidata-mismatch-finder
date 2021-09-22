@@ -6,11 +6,9 @@
             <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
         </section>
 
-        <div v-if="unexpectedError">
-            <Message type="error">
-                <span>{{ $i18n('mismatch-query-server-error') }}</span>
-            </Message>
-        </div>
+        <Message id="error-message" v-if="unexpectedError" type="error">
+            <span>{{ $i18n('mismatch-query-server-error') }}</span>
+        </Message>
 
         <section id="querying-section">
             <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
@@ -169,5 +167,11 @@
     .form-buttons {
         text-align: end;
     }
+}
+
+#error-message {
+    max-width: 675px;
+    margin: 40px 0px 40px 0px;
+    border-radius: $border-radius-base;
 }
 </style>

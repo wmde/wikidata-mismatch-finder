@@ -54,4 +54,14 @@ class WikibaseAPIClient
 
         return $response;
     }
+
+    public function formatEntities(array $ids, string $lang): Response
+    {
+        $response = $this->get('wbformatentities', [
+            'ids' => implode('|', $ids),
+            'uselang' => $lang
+        ]);
+
+        return $response;
+    }
 }

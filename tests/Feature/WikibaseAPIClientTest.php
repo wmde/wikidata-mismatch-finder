@@ -65,7 +65,44 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', $fakePayload);
     }
 
-    public function test_parse_value_retrieves_cached_responses()
+    public function test_format_entities_returns_api_responses(): void
+    {
+        $fakeIds = ['P1234', 'Q4321'];
+        $fakePayload = [
+            'ids' => implode('|', $fakeIds),
+            'uselang' => 'en'
+        ];
+        $fakeResponseBody = ['test' => 'okay'];
+
+        Http::fake(function (Request $req) use ($fakeResponseBody) {
+            return Http::response($fakeResponseBody, 200);
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $response = $client->formatEntities($fakeIds, $fakePayload['uselang']);
+
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbformatentities', $fakePayload);
+        $this->assertSame($fakeResponseBody, $response->json());
+    }
+
+    }
+
+    public function test_format_entities_returns_stripped_labels(): void {
+        $this->markTestIncomplete();
+    }
+
+    public function methodProvider(): iterable
+    {
+        yield 'parseValue' => ['parseValue', ['P1234', 'fake-value']];
+        yield 'formatEntities' => ['formatEntities', [['Q1234'], 'en']];
+    }
+
+    /**
+     * @dataProvider methodProvider
+     */
+    public function test_all_methods_retrieve_cached_responses($methodName, $args): void
     {
         $fakeResponseBody = ['test' => 'okay'];
 
@@ -77,21 +114,9 @@ class WikibaseAPIClientTest extends TestCase
         });
 
         $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
-        $response = $client->parseValue('P1234', 'fake-value');
+        $response = $client->$methodName(...$args);
 
         $this->assertSame($fakeResponseBody, $response->json());
-    }
-
-    public function test_format_entities_returns_api_responses(): void {
-        $this->markTestIncomplete();
-    }
-
-    public function test_format_entities_returns_stripped_labels(): void {
-        $this->markTestIncomplete();
-    }
-
-    public function test_format_entities_returns_cached_responses(): void {
-        $this->markTestIncomplete();
     }
 
     private function assertActionRequest(string $url, string $action, array $payload)

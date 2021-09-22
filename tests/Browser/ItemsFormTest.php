@@ -51,11 +51,11 @@ class ItemsFormTest extends DuskTestCase
             $item2_not_in_db_id = 'Q' . substr($item2_in_db_id, 1) . '000';
 
             $browser->visit(new HomePage)
-                    ->keys('@items-input', $item1_not_in_db_id, '{return_key}', $item2_not_in_db_id)
+                    ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
                     ->press('button')
                     ->waitFor('@not-found')
                     ->assertTitle('Mismatch Finder - Results')
-                    ->assertSee('[ "'. $item1_not_in_db_id . '", "'. $item2_not_in_db_id .'" ]');
+                    ->assertSee('[ "Q23", "Q42" ]');
         });
     }
 

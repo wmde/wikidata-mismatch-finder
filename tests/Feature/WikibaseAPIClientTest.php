@@ -82,6 +82,18 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertSame($fakeResponseBody, $response->json());
     }
 
+    public function test_format_entities_returns_api_responses(): void {
+        $this->markTestIncomplete();
+    }
+
+    public function test_format_entities_returns_stripped_labels(): void {
+        $this->markTestIncomplete();
+    }
+
+    public function test_format_entities_returns_cached_responses(): void {
+        $this->markTestIncomplete();
+    }
+
     private function assertActionRequest(string $url, string $action, array $payload)
     {
         Http::assertSent(function (Request $req) use ($url, $action, $payload) {

@@ -8,12 +8,8 @@ use App\Services\WikibaseAPIClient;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Str;
 use App\Exceptions\WikibaseValueParserException;
-use Illuminate\Http\Client\Response;
-use Mockery;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Arr;
 use Kevinrob\GuzzleCache\CacheMiddleware;
-use Kevinrob\GuzzleCache\Strategy\NullCacheStrategy;
+use Mockery;
 
 class WikibaseAPIClientTest extends TestCase
 {

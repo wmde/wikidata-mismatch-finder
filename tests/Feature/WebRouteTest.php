@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\ImportMeta;
+use App\Models\Mismatch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Inertia\Testing\Assert;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
-use Hamcrest\Core\IsSame;
 
 class WebRouteTest extends TestCase
 {
@@ -78,6 +78,36 @@ class WebRouteTest extends TestCase
         $response->assertViewIs('app')
             ->assertInertia(function (Assert $page) {
                 $page->component('Results');
+            });
+    }
+
+    /**
+     * Test that the /results response contains mismatch data
+     *
+     *  @return void
+     */
+    public function test_results_route_retrieves_mismatches()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $response = $this->get(route('results', [
+            'ids' => $mismatch->item_id
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertViewIs('app')
+            ->assertInertia(function (Assert $page) use ($mismatch, $import) {
+                $page->component('Results')
+                    ->has('results.0', 11) // result object size
+                    ->where('results.0.id', $mismatch->id)
+                    ->where('results.0.reviewer', null)
+                    ->where('results.0.import.id', $import->id);
             });
     }
 

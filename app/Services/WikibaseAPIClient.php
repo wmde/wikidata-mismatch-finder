@@ -64,4 +64,14 @@ class WikibaseAPIClient
 
         return $response;
     }
+
+    public function getLabels(array $ids, string $lang): array
+    {
+        $response = $this->formatEntities($ids, $lang);
+
+        // The code below was added due to the fact that wbformatentities only
+        // returns labels formatted as html links, however we only require the
+        // label text. Therefore, we extract the text from the links.
+        return array_map('strip_tags', $response['wbformatentities']);
+    }
 }

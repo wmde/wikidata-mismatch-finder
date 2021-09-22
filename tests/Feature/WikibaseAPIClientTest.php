@@ -87,10 +87,34 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertSame($fakeResponseBody, $response->json());
     }
 
-    }
+    public function test_get_labels_returns_label_array(): void
+    {
+        $fakeIds = ['P1234', 'Q4321'];
+        $fakePayload = [
+            'ids' => implode('|', $fakeIds),
+            'uselang' => 'en'
+        ];
 
-    public function test_format_entities_returns_stripped_labels(): void {
-        $this->markTestIncomplete();
+        $fakeResponseBody = ['wbformatentities' => [
+            'Q4321' => '<a title="Q4321" href="https://www.wikidata.org/wiki/Q4321">some item</a>',
+            'P1234' => '<a title="Property:P1234" href="https://www.wikidata.org/wiki/Property:P1234">some property</a>'
+        ]];
+
+        $expectedResult = [
+            'Q4321' => 'some item',
+            'P1234' => 'some property'
+        ];
+
+        Http::fake(function (Request $req) use ($fakeResponseBody) {
+            return Http::response($fakeResponseBody, 200);
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $data = $client->getLabels($fakeIds, $fakePayload['uselang']);
+
+        $this->assertEquals($expectedResult, $data);
     }
 
     public function methodProvider(): iterable

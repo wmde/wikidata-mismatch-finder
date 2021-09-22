@@ -114,7 +114,7 @@
         computed: {
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
-                return (flashMessages && flashMessages.errors);
+                return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
             ...mapState({

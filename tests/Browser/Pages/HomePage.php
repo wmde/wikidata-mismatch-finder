@@ -41,7 +41,7 @@ class HomePage extends Page
         return [
             '@form' => '#items-form',
             '@items-input' => '@form textarea',
-            '@results' => 'p.results'
+            '@not-found' => 'p.not-found'
         ];
     }
 }

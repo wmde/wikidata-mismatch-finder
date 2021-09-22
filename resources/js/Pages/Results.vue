@@ -19,7 +19,7 @@
                 </tr>
             </tbody>
         </table>
-        <p v-else class="results">
+        <p v-else class="not-found">
             Thank you for sending IDs {{item_ids}}. 
             The requested item ids didn't match any entries in our database. 
             Please try with a different set of ids.

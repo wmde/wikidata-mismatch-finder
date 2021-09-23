@@ -16,5 +16,9 @@
     "mismatch-finder-title": "The main title of the website",
     "item-form-error-message-empty": "A warning message when no Item ids are provided",
     "item-form-error-message-invalid": "An error message when invalid Item ids are provided",
-    "mismatch-query-server-error": "An error message when the server encountered an error retrieving results"
+    "mismatch-query-server-error": "An error message when the server encountered an error retrieving results",
+    "column-property": "Property column on mismatches table",
+    "column-wikidata-value": "Wikidata value column on mismatches table",
+    "column-external-value": "External source column on mismatches table",
+    "column-upload-info": "Upload Info column on mismatches table"
 }

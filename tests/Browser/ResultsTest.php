@@ -15,7 +15,8 @@ class ResultsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new ResultsPage('Q1|Q2'))
-                ->assertSee('Results');
+                ->assertSee('Q1')
+                ->assertSee('Q2');
         });
     }
 }

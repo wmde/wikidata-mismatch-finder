@@ -203,14 +203,14 @@ class WebRouteTest extends TestCase
         $redirect = $this
             ->get(
                 route('results', ['ids' => 'Q1']),
-                ['X-Mismatch-Results-Error' => 'true']
-            );
+                ['X-Mismatch-Results-Error' => 'true']  // force error response
+            )->assertRedirect(route('home'));
 
-        $redirect->assertRedirect(route('home'));
-        $response = $this->get($redirect->headers->get('Location'));
-        $response->assertInertia(function (Assert $page) {
+        // follow the redirect
+        $this->get($redirect->headers->get('Location'))
+            ->assertInertia(function (Assert $page) {
                 $page->component('Home')
                     ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
-        });
+            });
     }
 }

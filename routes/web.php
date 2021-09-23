@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MismatchGetRequest;
 use App\Models\Mismatch;
-use App\Http\Resources\MismatchResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,21 +31,22 @@ Route::get('/', function () {
 
 Route::middleware('simulateError')
     ->get('/results', function (MismatchGetRequest $request) {
-        $user = Auth::user() ? [
-            'name' => Auth::user()->username
-        ] : null;
+    $user = Auth::user() ? [
+        'name' => Auth::user()->username
+    ] : null;
 
-        $ids = $request->input('ids');
+    $ids = $request->input('ids');
 
-        $query = Mismatch::whereIn('item_id', $request->ids);
-        $results = MismatchResource::collection($query->get());
-        
-        return inertia('Results', [
-            'item_ids' => $ids,
-            'user' => $user,
-            'results' => $results,
-        ]);
-    })->name('results');
+    $results = Mismatch::with('importMeta.user')
+        ->whereIn('item_id', $ids)
+        ->lazy()
+        ->groupBy('item_id');
+
+    return inertia('Results', [
+        'user' => $user,
+        'results' => $results,
+    ]);
+})->name('results');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

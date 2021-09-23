@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\ImportMeta;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MismatchGetRequest;
+use App\Models\Mismatch;
+use App\Http\Resources\MismatchResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,13 @@ Route::get('/results', function (MismatchGetRequest $request) {
 
     $ids = $request->input('ids');
 
+    $query = Mismatch::whereIn('item_id', $request->ids);
+    $results = MismatchResource::collection($query->get());
+    
     return inertia('Results', [
         'item_ids' => $ids,
-        'user' => $user
+        'user' => $user,
+        'results' => $results,
     ]);
 })->name('results');
 

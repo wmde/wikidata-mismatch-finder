@@ -6,9 +6,15 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Tests\Browser\Pages\HomePage;
+use App\Models\Mismatch;
+use App\Models\ImportMeta;
+use App\Models\User;
 
 class ItemsFormTest extends DuskTestCase
 {
+
+    use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      *
@@ -23,15 +29,46 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_can_submit_list_of_item_ids()
+    public function test_can_submit_list_of_item_ids_not_present_in_db()
     {
+
         $this->browse(function (Browser $browser) {
+
             $browser->visit(new HomePage)
-                    ->keys('@items-input', 'Q1', '{return_key}', 'q2')
+                    ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
                     ->press('button')
-                    ->waitFor('@results')
+                    ->waitFor('@not-found')
                     ->assertTitle('Mismatch Finder - Results')
-                    ->assertSee('[ "Q1", "Q2" ]');
+                    ->assertSee('[ "Q23", "Q42" ]');
+        });
+    }
+
+    public function test_can_submit_list_of_item_ids_present_in_db()
+    {
+
+        $this->browse(function (Browser $browser) {
+
+            $import = ImportMeta::factory()
+            ->for(User::factory()->uploader())
+            ->create();
+
+            Mismatch::factory(2)
+                ->for($import)
+                ->create();
+            
+            $mismatch = Mismatch::first();
+            $mismatch2 = Mismatch::find(2);
+
+            $item1_in_db_id =  $mismatch->item_id;
+            $item2_in_db_id =  $mismatch2->item_id;
+
+            $browser->visit(new HomePage)
+                    ->keys('@items-input', $item1_in_db_id, '{return_key}', $item2_in_db_id)
+                    ->press('button')
+                    ->waitFor('table')
+                    ->assertTitle('Mismatch Finder - Results')
+                    ->assertSee($item1_in_db_id)
+                    ->assertSee($item2_in_db_id);
         });
     }
 

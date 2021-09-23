@@ -2,12 +2,15 @@
 
 namespace Tests\Browser;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Tests\Browser\Pages\ResultsPage;
 
 class ResultsTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
     public function test_shows_results()
     {
         $this->browse(function (Browser $browser) {

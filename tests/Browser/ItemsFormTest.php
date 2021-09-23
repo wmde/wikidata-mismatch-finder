@@ -34,22 +34,6 @@ class ItemsFormTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
 
-            $import = ImportMeta::factory()
-            ->for(User::factory()->uploader())
-            ->create();
-
-            Mismatch::factory(2)
-                ->for($import)
-                ->create();
-            
-            $mismatch = Mismatch::first();
-            $mismatch2 = Mismatch::find(2);
-
-            $item1_in_db_id =  $mismatch->item_id;
-            $item2_in_db_id =  $mismatch2->item_id;
-            $item1_not_in_db_id = 'Q' . substr($item1_in_db_id, 1) . '000';
-            $item2_not_in_db_id = 'Q' . substr($item2_in_db_id, 1) . '000';
-
             $browser->visit(new HomePage)
                     ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
                     ->press('button')

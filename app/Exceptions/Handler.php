@@ -43,4 +43,22 @@ class Handler extends ExceptionHandler
             }
         });
     }
+
+    /**
+     * Prepare error messages on failed responses
+     *
+     * @param  \Throwable  $e
+     * @return \Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        $response = parent::render($request, $e);
+
+        if ($response->status() >= 500) {
+            return redirect(route('home'))
+                ->with('serverErrors', [ 'unexpected' => 'Unexpected error' ]);
+        }
+
+        return $response;
+    }
 }

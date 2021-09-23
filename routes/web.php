@@ -30,22 +30,23 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/results', function (MismatchGetRequest $request) {
-    $user = Auth::user() ? [
-        'name' => Auth::user()->username
-    ] : null;
+Route::middleware('simulateError')
+    ->get('/results', function (MismatchGetRequest $request) {
+        $user = Auth::user() ? [
+            'name' => Auth::user()->username
+        ] : null;
 
-    $ids = $request->input('ids');
+        $ids = $request->input('ids');
 
-    $query = Mismatch::whereIn('item_id', $request->ids);
-    $results = MismatchResource::collection($query->get());
-    
-    return inertia('Results', [
-        'item_ids' => $ids,
-        'user' => $user,
-        'results' => $results,
-    ]);
-})->name('results');
+        $query = Mismatch::whereIn('item_id', $request->ids);
+        $results = MismatchResource::collection($query->get());
+        
+        return inertia('Results', [
+            'item_ids' => $ids,
+            'user' => $user,
+            'results' => $results,
+        ]);
+    })->name('results');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

@@ -192,4 +192,25 @@ class WebRouteTest extends TestCase
         $response->assertSuccessful();
         $response->assertViewIs('importStatus');
     }
+
+    /**
+     * Test error response handling
+     *
+     * @return void
+     */
+    public function test_error_response_handling()
+    {
+        $redirect = $this
+            ->get(
+                route('results', ['ids' => 'Q1']),
+                ['X-Mismatch-Results-Error' => 'true']  // force error response
+            )->assertRedirect(route('home'));
+
+        // follow the redirect
+        $this->get($redirect->headers->get('Location'))
+            ->assertInertia(function (Assert $page) {
+                $page->component('Home')
+                    ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
+            });
+    }
 }

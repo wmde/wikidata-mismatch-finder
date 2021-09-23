@@ -5,6 +5,13 @@
             <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
             <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
         </section>
+
+        <section id="message-section">
+            <Message v-if="unexpectedError" type="error">
+                <span>{{ $i18n('mismatch-query-server-error') }}</span>
+            </Message>
+        </section>
+
         <section id="querying-section">
             <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
             <form id="items-form" @submit.prevent="send">
@@ -13,7 +20,7 @@
                     :placeholder="$i18n('item-form-id-input-placeholder')"
                     :rows="8"
                     :loading="loading"
-                    :error="error"
+                    :error="validationError"
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
@@ -36,6 +43,7 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
+        Message,
         TextArea
     } from '@wmde/wikit-vue-components';
 
@@ -45,15 +53,20 @@
         form: {
             itemsInput: string
         },
-        error: null|{
+        validationError: null|{
             type: string,
             message: string
         }
     }
 
+    interface FlashMessages {
+        errors : { [ key : string ] : string }
+    }
+
     export default defineComponent({
         components: {
             Head,
+            Message,
             TextArea,
             WikitButton
         },
@@ -66,14 +79,14 @@
             },
             checkEmpty(): void {
                 if( !this.form.itemsInput ) {
-                    this.error = {
+                    this.validationError = {
                         type: 'warning',
                         message: this.$i18n('item-form-error-message-empty')
                     };
                 }
             },
             validate(): void {
-                this.error = null;
+                this.validationError = null;
                 this.checkEmpty();
 
                 let valid = this.splitInput().every( function( currentValue: string ) {
@@ -82,7 +95,7 @@
                 });
 
                 if( !valid ) {
-                    this.error = {
+                    this.validationError = {
                         type: 'error',
                         message: this.$i18n('item-form-error-message-invalid')
                     };
@@ -91,22 +104,29 @@
             send(): void {
                 this.validate();
 
-                if(this.error) {
+                if(this.validationError) {
                     return;
                 }
 
                 this.$inertia.get( '/results?ids=' + this.serializeInput() );
             },
         },
-        computed: mapState({
-            loading: 'loading'
-        }),
+        computed: {
+            unexpectedError() {
+                const flashMessages = this.$page.props.flash as FlashMessages;
+                return (flashMessages.errors && flashMessages.errors.unexpected);
+            },
+            // spread to combine with local computed props
+            ...mapState({
+                loading: 'loading'
+            }),
+        },
         data(): HomeState {
             return {
                 form: {
                     itemsInput: ''
                 },
-                error: null
+                validationError: null
             }
         }
     });
@@ -117,6 +137,14 @@
 
 #about-description {
     max-width: 705px;
+}
+
+#message-section {
+    max-width: 675px;
+
+    .wikit-Message {
+        border-radius: $border-radius-base;
+    }
 }
 
 #items-form {

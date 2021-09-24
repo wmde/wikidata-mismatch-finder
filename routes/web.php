@@ -31,22 +31,22 @@ Route::get('/', function () {
 
 Route::middleware('simulateError')
     ->get('/results', function (MismatchGetRequest $request) {
-    $user = Auth::user() ? [
-        'name' => Auth::user()->username
-    ] : null;
+        $user = Auth::user() ? [
+            'name' => Auth::user()->username
+        ] : null;
 
-    $ids = $request->input('ids');
+        $ids = $request->input('ids');
 
-    $results = Mismatch::with('importMeta.user')
-        ->whereIn('item_id', $ids)
-        ->lazy()
-        ->groupBy('item_id');
+        $results = Mismatch::with('importMeta.user')
+            ->whereIn('item_id', $ids)
+            ->lazy()
+            ->groupBy('item_id');
 
-    return inertia('Results', [
-        'user' => $user,
-        'results' => $results,
-    ]);
-})->name('results');
+        return inertia('Results', [
+            'user' => $user,
+            'results' => $results,
+        ]);
+    })->name('results');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

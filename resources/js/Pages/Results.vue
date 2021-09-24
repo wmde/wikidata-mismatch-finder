@@ -2,26 +2,27 @@
     <div>
         <Head title="Mismatch Finder - Results" />
         <h2>Results</h2>
-        <table v-if="results.length">
-            <tbody>
-                <tr v-for="result in results" :key="result.id">
-                    <td>{{result.id}}</td>
-                    <td>{{result.item_id}}</td>
-                    <td>{{result.statement_guid}}</td>
-                    <td>{{result.property_id}}</td>
-                    <td>{{result.wikidata_value}}</td>
-                    <td>{{result.external_value}}</td>
-                    <td>{{result.external_url}}</td>
-                    <td>{{result.review_status}}</td>
-                    <td>{{result.reviewer}}</td>
-                    <td>{{result.import}}</td>
-                    <td>{{result.updated_at}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <section class="results" v-if="Object.keys(results).length">
+            <section v-for="(mismatches, item, idx) in results" :key="idx">
+                <h3>{{item}}</h3>
+                <table>
+                    <tbody>
+                        <tr v-for="mismatch in mismatches" :key="mismatch.id">
+                            <td>{{mismatch.property_id}}</td>
+                            <td>{{mismatch.wikidata_value}}</td>
+                            <td>{{mismatch.external_value}}</td>
+                            <td>
+                                <span>{{mismatch.import_meta.user.username}}</span>
+                                <span>{{mismatch.import_meta.created_at}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
         <p v-else class="not-found">
-            Thank you for sending IDs {{item_ids}}. 
-            The requested item ids didn't match any entries in our database. 
+            Thank you for sending IDs {{item_ids}}.
+            The requested item ids didn't match any entries in our database.
             Please try with a different set of ids.
         </p>
     </div>
@@ -38,7 +39,7 @@
         },
         props: {
             item_ids: Array,
-            results: Array
+            results: Object
         }
     });
 </script>

@@ -43,6 +43,7 @@ Route::middleware('simulateError')
             ->groupBy('item_id');
 
         return inertia('Results', [
+            'item_ids' => $ids,
             'user' => $user,
             'results' => $results,
         ]);

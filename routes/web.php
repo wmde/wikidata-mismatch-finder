@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MismatchGetRequest;
 use App\Models\Mismatch;
+use App\Services\WikibaseAPIClient;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,22 +32,37 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('simulateError')
-    ->get('/results', function (MismatchGetRequest $request) {
+    ->get('/results', function (MismatchGetRequest $request, WikibaseAPIClient $wikidata) {
         $user = Auth::user() ? [
             'name' => Auth::user()->username
         ] : null;
 
-        $ids = $request->input('ids');
+        $itemIds = $request->input('ids');
 
-        $results = Mismatch::with('importMeta.user')
-            ->whereIn('item_id', $ids)
-            ->lazy()
-            ->groupBy('item_id');
+        $mismatches= Mismatch::with('importMeta.user')
+            ->whereIn('item_id', $itemIds)
+            ->lazy();
+
+        $entityIds = $mismatches->reduce(function ($ids, $mismatch) {
+            $wikidataValue = $mismatch->wikidata_value;
+            $entityValue = preg_match(config('mismatches.validation.item_id.format'), $wikidataValue);
+
+            if (!in_array($mismatch->property_id, $ids)) {
+                $ids[] = $mismatch->property_id;
+            }
+
+            if ($entityValue && !in_array($wikidataValue, $ids)) {
+                $ids[] = $wikidataValue;
+            }
+
+            return $ids;
+        }, $itemIds);
 
         return inertia('Results', [
-            'item_ids' => $ids,
             'user' => $user,
-            'results' => $results,
+            'item_ids' => $itemIds,
+            'results' => $mismatches->groupBy('item_id'),
+            'labels' => $wikidata->getLabels($entityIds, App::getLocale())
         ]);
     })->name('results');
 

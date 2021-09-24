@@ -6,6 +6,7 @@ describe('MismatchesRow.vue', () => {
         const mismatch = {
             id: 123,
             property_id: 'P123',
+            property_label: 'Hey hey',
             wikidata_value: 'Some value',
             external_value: 'Another Value',
             import_meta: {
@@ -27,7 +28,7 @@ describe('MismatchesRow.vue', () => {
         expect( wrapper.props().mismatch ).toBe( mismatch );
 
         expect( wrapper.find( 'tr' ).text() ).toContain(
-            mismatch.property_id,
+            mismatch.property_label,
             mismatch.wikidata_value,
             mismatch.external_value,
             mismatch.import_meta.user.username,

@@ -1,4 +1,4 @@
-export default interface Mismatch {
+interface Mismatch {
     id: number,
     property_id: string,
     wikidata_value: string,
@@ -10,3 +10,10 @@ export default interface Mismatch {
         created_at: string
     }
 }
+
+export interface LabelledMismatch extends Mismatch {
+    property_label: string,
+    value_label: string|null
+}
+
+export default Mismatch;

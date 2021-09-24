@@ -4,7 +4,7 @@
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
                 <h2 class="h4">{{item}}</h2>
-                <mismatches-table :mismatches="mismatches" />
+                <mismatches-table :mismatches="mapLabels(mismatches)" />
             </section>
         </section>
         <p v-else class="not-found">

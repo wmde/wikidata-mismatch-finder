@@ -19,7 +19,7 @@ import Vue, { PropType } from 'vue';
 import MismatchRow from './MismatchRow.vue';
 import WikitTable from './Table.vue';
 
-import Mismatch from '../types/Mismatch';
+import { LabelledMismatch } from '../types/Mismatch';
 
 export default Vue.extend({
     components: {
@@ -27,7 +27,7 @@ export default Vue.extend({
         WikitTable,
     },
     props: {
-        mismatches: Array as PropType<Mismatch[]>
+        mismatches: Array as PropType<LabelledMismatch[]>
     }
 });
 </script>

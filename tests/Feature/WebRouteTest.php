@@ -103,6 +103,8 @@ class WebRouteTest extends TestCase
                 'id' => $mismatch->id,
                 // Casting values to string, as it seems that the inertia
                 // testing helper also converts all values to strings
+                'item_id' => (string) $mismatch->item_id,
+                'statement_guid' => (string) $mismatch->statement_guid,
                 'property_id' => (string) $mismatch->property_id,
                 'wikidata_value' => (string) $mismatch->wikidata_value,
                 'external_value' => (string) $mismatch->external_value,

@@ -5,7 +5,11 @@
                 {{mismatch.property_label}}
             </wikit-link>
         </td>
-        <td :data-header="$i18n('column-wikidata-value')">{{mismatch.value_label || mismatch.wikidata_value}}</td>
+        <td :data-header="$i18n('column-wikidata-value')">
+            <wikit-link :href="statementUrl">
+                {{mismatch.value_label || mismatch.wikidata_value}}
+            </wikit-link>
+        </td>
         <td :data-header="$i18n('column-external-value')">{{mismatch.external_value}}</td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
@@ -40,6 +44,9 @@ export default Vue.extend({
             return formatISO(new Date(this.mismatch.import_meta.created_at), {
                 representation: 'date'
             });
+        },
+        statementUrl(): string {
+            return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`
         }
     }
 });

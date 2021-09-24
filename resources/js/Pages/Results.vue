@@ -3,7 +3,9 @@
         <Head title="Mismatch Finder - Results" />
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
-                <h2 class="h4">{{item}}</h2>
+                <h2 class="h4">
+                    <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
+                </h2>
                 <mismatches-table :mismatches="mapLabels(mismatches)" />
             </section>
         </section>
@@ -19,26 +21,47 @@
     import { PropType } from 'vue';
 
     import { Head } from '@inertiajs/inertia-vue';
+    import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
     import MismatchesTable from '../Components/MismatchesTable.vue';
-    import Mismatch from '../types/Mismatch';
+    import Mismatch, {LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
 
     interface Result {
         [qid: string]: Mismatch[]
     }
 
+    interface LabelMap {
+        [entityId: string]: string
+    }
+
     export default defineComponent({
         components: {
             Head,
-            MismatchesTable
+            MismatchesTable,
+            WikitLink
         },
         props: {
             item_ids: Array as PropType<string[]>,
-            results: Object as PropType<Result>
+            results: Object as PropType<Result>,
+            labels: Object as PropType<LabelMap>
+        },
+        methods: {
+            mapLabels(mismatches: Mismatch[]): LabelledMismatch[]{
+                return mismatches.map(mismatch => ({
+                    property_label: this.labels[mismatch.property_id],
+                    value_label: this.labels[mismatch.wikidata_value] || null,
+                    ...mismatch
+                }));
+            }
         }
     });
 </script>
 
 <style lang="scss">
+    h2 {
+        .wikit-Link.wikit {
+            font-weight: bold;
+        }
+    }
 </style>

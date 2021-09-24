@@ -1,5 +1,7 @@
 interface Mismatch {
     id: number,
+    item_id: string,
+    statement_guid: string,
     property_id: string,
     wikidata_value: string,
     external_value: string,

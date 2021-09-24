@@ -1,19 +1,46 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
-        <section id="results" v-if="Object.keys(results).length">
-            <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
-                <h2 class="h4">
-                    <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
-                </h2>
-                <mismatches-table :mismatches="addLabels(mismatches)" />
+        <section class="results" v-if="Object.keys(results).length">
+            <section v-for="(mismatches, item, idx) in results" :key="idx">
+                <h3>{{item}}</h3>
+                <table>
+                    <tbody>
+                        <tr v-for="mismatch in mismatches" :key="mismatch.id">
+                            <td>{{mismatch.property_id}}</td>
+                            <td>{{mismatch.wikidata_value}}</td>
+                            <td>{{mismatch.external_value}}</td>
+                            <td>
+                                <span>{{mismatch.import_meta.user.username}}</span>
+                                <span>{{mismatch.import_meta.created_at}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </section>
-        <p v-else class="not-found">
-            Thank you for sending IDs {{item_ids}}.
-            The requested item ids didn't match any entries in our database.
-            Please try with a different set of ids.
-        </p>
+        <div v-else class="not-found">
+            
+            <div id="top-button">
+                <wikit-button
+                    variant="normal"
+                    type="neutral"
+                    native-type="button"
+                    @click.native="returnHome"
+                >
+                    &#x2190; {{ $i18n('refine-items-selection') }}
+                </wikit-button>
+            </div>
+            <section id="description-section">
+                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
+                <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+            </section>
+            <section id="message-section">
+                <Message type="notice">
+                    <span>{{ $i18n('no-mismatches-found-message') }} {{item_ids}}</span>
+                </Message>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -34,12 +61,18 @@
     interface LabelMap {
         [entityId: string]: string
     }
+     import {
+        Button as WikitButton,
+        Message
+    } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {
             Head,
             MismatchesTable,
-            WikitLink
+            WikitLink,
+            WikitButton,
+            Message
         },
         props: {
             item_ids: Array as PropType<string[]>,
@@ -56,15 +89,38 @@
                     value_label: this.labels[mismatch.wikidata_value] || null,
                     ...mismatch
                 }));
-            }
-        }
+            },
+            returnHome(): void {
+                this.$inertia.get( '/' );
+            },
+        },
     });
 </script>
 
 <style lang="scss">
-    h2 {
-        .wikit-Link.wikit {
-            font-weight: bold;
-        }
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+h2 {
+    .wikit-Link.wikit {
+        font-weight: bold;
     }
+}
+
+#about-description {
+    max-width: 705px;
+    margin-top: 8px;
+}
+
+#top-button {
+    margin-bottom: 15px;
+}
+
+#message-section {
+    max-width: 675px;
+
+    .wikit-Message {
+        border-radius: $border-radius-base;
+    }
+}
+
 </style>

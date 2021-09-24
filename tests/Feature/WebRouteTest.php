@@ -96,19 +96,31 @@ class WebRouteTest extends TestCase
             ->for($import)
             ->create();
 
+        $qid = $mismatch->item_id;
+
+        $isMismatch = function (Assert $data) use ($mismatch, $import) {
+            $data->whereAll([
+                'id' => $mismatch->id,
+                // Casting values to string, as it seems that the inertia
+                // testing helper also converts all values to strings
+                'property_id' => (string) $mismatch->property_id,
+                'wikidata_value' => (string) $mismatch->wikidata_value,
+                'external_value' => (string) $mismatch->external_value,
+                'import_meta.user.username' => (string) $import->user->username,
+                'import_meta.created_at' => $import->created_at->toISOString()
+            ])->etc();
+        };
+
+        $withResultsPage = function (Assert $page) use ($qid, $isMismatch) {
+            $page->component('Results')->has("results.$qid.0", $isMismatch);
+        };
+
         $response = $this->get(route('results', [
-            'ids' => $mismatch->item_id
+            'ids' => $qid
         ]));
 
         $response->assertSuccessful();
-        $response->assertViewIs('app')
-            ->assertInertia(function (Assert $page) use ($mismatch, $import) {
-                $page->component('Results')
-                    ->has('results.0', 11) // result object size
-                    ->where('results.0.id', $mismatch->id)
-                    ->where('results.0.reviewer', null)
-                    ->where('results.0.import.id', $import->id);
-            });
+        $response->assertViewIs('app')->assertInertia($withResultsPage);
     }
 
     /**

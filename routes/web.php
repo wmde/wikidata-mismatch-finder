@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MismatchGetRequest;
 use App\Models\Mismatch;
-use App\Http\Resources\MismatchResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +37,11 @@ Route::middleware('simulateError')
 
         $ids = $request->input('ids');
 
-        $query = Mismatch::whereIn('item_id', $request->ids);
-        $results = MismatchResource::collection($query->get());
-        
+        $results = Mismatch::with('importMeta.user')
+            ->whereIn('item_id', $ids)
+            ->lazy()
+            ->groupBy('item_id');
+
         return inertia('Results', [
             'item_ids' => $ids,
             'user' => $user,

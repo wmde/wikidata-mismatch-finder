@@ -1,6 +1,27 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
+        <div v-if="Object.keys(results).length < item_ids.length" class="not-found">
+            <div id="top-button">
+                <wikit-button
+                    variant="normal"
+                    type="neutral"
+                    native-type="button"
+                    @click.native="returnHome"
+                >
+                    &#x2190; {{ $i18n('refine-items-selection') }}
+                </wikit-button>
+            </div>
+            <section id="description-section">
+                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
+                <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+            </section>
+            <section id="message-section">
+                <Message type="notice">
+                    <span>{{ $i18n('no-mismatches-found-message') }} {{item_ids}} {{labels}}</span>
+                </Message>
+            </section>
+        </div>
         <section class="results" v-if="Object.keys(results).length">
             <section v-for="(mismatches, item, idx) in results" :key="idx">
                 <h3>{{item}}</h3>
@@ -19,28 +40,6 @@
                 </table>
             </section>
         </section>
-        <div v-else class="not-found">
-            
-            <div id="top-button">
-                <wikit-button
-                    variant="normal"
-                    type="neutral"
-                    native-type="button"
-                    @click.native="returnHome"
-                >
-                    &#x2190; {{ $i18n('refine-items-selection') }}
-                </wikit-button>
-            </div>
-            <section id="description-section">
-                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-                <p id="about-description" >{{ $i18n('results-page-description') }}</p>
-            </section>
-            <section id="message-section">
-                <Message type="notice">
-                    <span>{{ $i18n('no-mismatches-found-message') }} {{item_ids}}</span>
-                </Message>
-            </section>
-        </div>
     </div>
 </template>
 
@@ -116,7 +115,7 @@ h2 {
 }
 
 #message-section {
-    max-width: 675px;
+    max-width: 705px;
 
     .wikit-Message {
         border-radius: $border-radius-base;

@@ -6,7 +6,7 @@
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
-                <mismatches-table :mismatches="mapLabels(mismatches)" />
+                <mismatches-table :mismatches="addLabels(mismatches)" />
             </section>
         </section>
         <p v-else class="not-found">
@@ -47,7 +47,10 @@
             labels: Object as PropType<LabelMap>
         },
         methods: {
-            mapLabels(mismatches: Mismatch[]): LabelledMismatch[]{
+            addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
+                // The following callback maps existing mismatches to extended
+                // mismatch objects which include labels, by looking up any
+                // potential entity ids within the labels object.
                 return mismatches.map(mismatch => ({
                     property_label: this.labels[mismatch.property_id],
                     value_label: this.labels[mismatch.wikidata_value] || null,

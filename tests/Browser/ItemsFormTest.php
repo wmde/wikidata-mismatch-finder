@@ -6,9 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Tests\Browser\Pages\HomePage;
-use App\Models\Mismatch;
-use App\Models\ImportMeta;
-use App\Models\User;
 
 class ItemsFormTest extends DuskTestCase
 {
@@ -29,40 +26,16 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_can_submit_list_of_item_ids_not_present_in_db()
+    public function test_can_submit_list_of_item_ids()
     {
         $this->browse(function (Browser $browser) {
 
             $browser->visit(new HomePage)
                     ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
                     ->press('button')
-                    ->waitFor('@not-found')
+                    ->waitFor('.results-page')
                     ->assertTitle('Mismatch Finder - Results')
                     ->assertSee('[ "Q23", "Q42" ]');
-        });
-    }
-
-    public function test_can_submit_list_of_item_ids_present_in_db()
-    {
-        $this->browse(function (Browser $browser) {
-
-            $import = ImportMeta::factory()
-            ->for(User::factory()->uploader())
-            ->create();
-
-            Mismatch::factory(2)
-                ->for($import)
-                ->create();
-
-            $mismatches = Mismatch::all();
-
-            $browser->visit(new HomePage)
-                    ->keys('@items-input', $mismatches[0]->item_id, '{return_key}', $mismatches[1]->item_id)
-                    ->press('button')
-                    ->waitFor('table')
-                    ->assertTitle('Mismatch Finder - Results')
-                    ->assertSee($mismatches[0]->item_id)
-                    ->assertSee($mismatches[1]->item_id);
         });
     }
 

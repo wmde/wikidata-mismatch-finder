@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">

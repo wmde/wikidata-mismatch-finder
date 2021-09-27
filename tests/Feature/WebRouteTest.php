@@ -9,6 +9,7 @@ use Tests\TestCase;
 use Inertia\Testing\Assert;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Collection;
 
 class WebRouteTest extends TestCase
 {
@@ -113,8 +114,16 @@ class WebRouteTest extends TestCase
             ])->etc();
         };
 
-        $withResultsPage = function (Assert $page) use ($qid, $isMismatch) {
-            $page->component('Results')->has("results.$qid.0", $isMismatch);
+        $assertLabels = function (Collection $labels) use ($mismatch) {
+            // Labels should at least have the item id and property id
+            // of a mismatch
+            return $labels->has([$mismatch->item_id, $mismatch->property_id]);
+        };
+
+        $withResultsPage = function (Assert $page) use ($qid, $isMismatch, $assertLabels) {
+            $page->component('Results')
+                ->has("results.$qid.0", $isMismatch)
+                ->where("labels", $assertLabels);
         };
 
         $response = $this->get(route('results', [

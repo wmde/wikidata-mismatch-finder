@@ -46,7 +46,7 @@ class ResultsController extends Controller
                 $ids[] = $mismatch->property_id;
             }
 
-            // If they wikidata value is an item id, add it to the array of ids if
+            // If the wikidata value is an item id, add it to the array of ids if
             // it is not there yet.
             if ($entityValue && !in_array($wikidataValue, $ids)) {
                 $ids[] = $wikidataValue;

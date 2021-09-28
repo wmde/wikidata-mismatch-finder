@@ -135,16 +135,13 @@
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
-#about-description {
+#intro-section,
+#message-section {
     max-width: 705px;
 }
 
-#message-section {
-    max-width: 675px;
-
-    .wikit-Message {
-        border-radius: $border-radius-base;
-    }
+#message-section .wikit-Message {
+    border-radius: $border-radius-base;
 }
 
 #items-form {

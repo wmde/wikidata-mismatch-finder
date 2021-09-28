@@ -51,6 +51,6 @@ class Mismatch extends Model
     public function setStatementGuidAttribute($value)
     {
         $this->attributes['statement_guid'] = $value;
-        $this->attributes['item_id'] = explode('$', $value, 2)[0];
+        $this->attributes['item_id'] = strtoupper(explode('$', $value, 2)[0]);
     }
 }

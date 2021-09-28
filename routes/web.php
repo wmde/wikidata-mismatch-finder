@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MismatchGetRequest;
 use App\Models\Mismatch;
+use App\Services\WikibaseAPIClient;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\ResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,24 +33,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('simulateError')
-    ->get('/results', function (MismatchGetRequest $request) {
-        $user = Auth::user() ? [
-            'name' => Auth::user()->username
-        ] : null;
-
-        $ids = $request->input('ids');
-
-        $results = Mismatch::with('importMeta.user')
-            ->whereIn('item_id', $ids)
-            ->lazy()
-            ->groupBy('item_id');
-
-        return inertia('Results', [
-            'item_ids' => $ids,
-            'user' => $user,
-            'results' => $results,
-        ]);
-    })->name('results');
+    ->get('/results', [ResultsController::class, 'index'])
+    ->name('results');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {

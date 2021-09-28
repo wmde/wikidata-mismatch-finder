@@ -1,7 +1,15 @@
 <template>
     <tr>
-        <td :data-header="$i18n('column-property')">{{mismatch.property_id}}</td>
-        <td :data-header="$i18n('column-wikidata-value')">{{mismatch.wikidata_value}}</td>
+        <td :data-header="$i18n('column-property')">
+            <wikit-link :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
+                {{mismatch.property_label}}
+            </wikit-link>
+        </td>
+        <td :data-header="$i18n('column-wikidata-value')">
+            <wikit-link :href="statementUrl">
+                {{mismatch.value_label || mismatch.wikidata_value}}
+            </wikit-link>
+        </td>
         <td :data-header="$i18n('column-external-value')">{{mismatch.external_value}}</td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
@@ -22,20 +30,23 @@ import { formatISO } from 'date-fns';
 import Vue, { PropType } from 'vue';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
-import Mismatch from '../types/Mismatch';
+import { LabelledMismatch } from '../types/Mismatch';
 
 export default Vue.extend({
     components: {
         WikitLink
     },
     props: {
-        mismatch: Object as PropType<Mismatch>
+        mismatch: Object as PropType<LabelledMismatch>
     },
     computed: {
         uploadDate(): string {
             return formatISO(new Date(this.mismatch.import_meta.created_at), {
                 representation: 'date'
             });
+        },
+        statementUrl(): string {
+            return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`
         }
     }
 });

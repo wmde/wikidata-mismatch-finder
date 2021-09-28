@@ -9,6 +9,7 @@ use Tests\Browser\Pages\ResultsPage;
 use App\Models\Mismatch;
 use App\Models\ImportMeta;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class ResultsTest extends DuskTestCase
 {
@@ -31,20 +32,45 @@ class ResultsTest extends DuskTestCase
 
         Mismatch::factory(2)
             ->for($import)
+            ->state(new Sequence(
+                [
+                    'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
+                    'property_id' => 'P610',
+                    'wikidata_value' => 'Q513'
+                ],
+                [
+                    'statement_guid' => 'q111$fc6ebc3f-4ea3-3cc8-0f09-a5608474754c',
+                    'property_id' => 'P571',
+                    'wikidata_value' => '4540 million years BCE'
+                ]
+            ))
             ->create();
+
+        $expected = [
+            [
+                'item_label' => 'Earth (Q2)',
+                'property_label' => 'highest point',
+                'wikidata_value' => 'Mount Everest'
+            ],
+            [
+                'item_label' => 'Mars (Q111)',
+                'property_label' => 'inception',
+                'wikidata_value' => '4540 million years BCE'
+            ]
+        ];
 
         $mismatches = Mismatch::all();
 
-        $this->browse(function (Browser $browser) use ($mismatches) {
+        $this->browse(function (Browser $browser) use ($mismatches, $expected) {
             $idsQuery = $mismatches->implode('item_id', '|');
             $browser->visit(new ResultsPage($idsQuery));
 
-            foreach ($mismatches as $mismatch) {
-                $browser->assertSee($mismatch->item_id)
-                    ->assertSee($mismatch->property_id)
-                    ->assertSee($mismatch->wikidata_value)
+            foreach ($mismatches as $i => $mismatch) {
+                $browser->assertSeeLink($expected[$i]['item_label'])
+                    ->assertSeeLink($expected[$i]['property_label'])
+                    ->assertSeeLink($expected[$i]['wikidata_value'])
                     ->assertSee($mismatch->external_value)
-                    ->assertSee($mismatch->importMeta->user->username)
+                    ->assertSeeLink($mismatch->importMeta->user->username)
                     ->assertSee($mismatch->importMeta->created_at->toDateString());
             }
         });

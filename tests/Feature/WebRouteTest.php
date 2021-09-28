@@ -9,6 +9,7 @@ use Tests\TestCase;
 use Inertia\Testing\Assert;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Collection;
 
 class WebRouteTest extends TestCase
 {
@@ -103,6 +104,8 @@ class WebRouteTest extends TestCase
                 'id' => $mismatch->id,
                 // Casting values to string, as it seems that the inertia
                 // testing helper also converts all values to strings
+                'item_id' => (string) $mismatch->item_id,
+                'statement_guid' => (string) $mismatch->statement_guid,
                 'property_id' => (string) $mismatch->property_id,
                 'wikidata_value' => (string) $mismatch->wikidata_value,
                 'external_value' => (string) $mismatch->external_value,
@@ -111,8 +114,16 @@ class WebRouteTest extends TestCase
             ])->etc();
         };
 
-        $withResultsPage = function (Assert $page) use ($qid, $isMismatch) {
-            $page->component('Results')->has("results.$qid.0", $isMismatch);
+        $assertLabels = function (Collection $labels) use ($mismatch) {
+            // Labels should at least have the item id and property id
+            // of a mismatch
+            return $labels->has([$mismatch->item_id, $mismatch->property_id]);
+        };
+
+        $withResultsPage = function (Assert $page) use ($qid, $isMismatch, $assertLabels) {
+            $page->component('Results')
+                ->has("results.$qid.0", $isMismatch)
+                ->where("labels", $assertLabels);
         };
 
         $response = $this->get(route('results', [

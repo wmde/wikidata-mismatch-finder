@@ -18,26 +18,16 @@
             </section>
             <section id="message-section">
                 <Message type="notice">
-                    <span>{{ $i18n('no-mismatches-found-message') }} {{item_ids}} {{labels}}</span>
+                    <span>{{ $i18n('no-mismatches-found-message') }} {{labels}}</span>
                 </Message>
             </section>
         </div>
         <section class="results" v-if="Object.keys(results).length">
             <section v-for="(mismatches, item, idx) in results" :key="idx">
-                <h3>{{item}}</h3>
-                <table>
-                    <tbody>
-                        <tr v-for="mismatch in mismatches" :key="mismatch.id">
-                            <td>{{mismatch.property_id}}</td>
-                            <td>{{mismatch.wikidata_value}}</td>
-                            <td>{{mismatch.external_value}}</td>
-                            <td>
-                                <span>{{mismatch.import_meta.user.username}}</span>
-                                <span>{{mismatch.import_meta.created_at}}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h2 class="h4">
+                    <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
+                </h2>
+                <mismatches-table :mismatches="addLabels(mismatches)" />
             </section>
         </section>
     </div>
@@ -45,10 +35,11 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
-
     import { Head } from '@inertiajs/inertia-vue';
-    import { Link as WikitLink } from '@wmde/wikit-vue-components';
-
+    import { 
+        Link as WikitLink,
+        Button as WikitButton,
+        Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
@@ -60,11 +51,7 @@
     interface LabelMap {
         [entityId: string]: string
     }
-     import {
-        Button as WikitButton,
-        Message
-    } from '@wmde/wikit-vue-components';
-
+     
     export default defineComponent({
         components: {
             Head,

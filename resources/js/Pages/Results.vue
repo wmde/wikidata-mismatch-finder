@@ -18,7 +18,13 @@
             </section>
             <section id="message-section">
                 <Message type="notice">
-                    <span>{{ $i18n('no-mismatches-found-message') }} {{labels}}</span>
+                    <span>{{ $i18n('no-mismatches-found-message') }} 
+                        <span class="message-link" v-for="(label, item_id) in labelsFromNotFound" :key="item_id">
+                            <wikit-link 
+                                :href="`http://www.wikidata.org/wiki/${item_id}`">{{label}} ({{item_id}})
+                            </wikit-link>
+                        </span>
+                    </span>
                 </Message>
             </section>
         </div>
@@ -65,6 +71,17 @@
             results: Object as PropType<Result>,
             labels: Object as PropType<LabelMap>
         },
+        computed: {
+            labelsFromNotFound() {
+                const notFoundItems = this.item_ids.filter( element => !Object.keys( this.results ).includes(element) );
+                
+                const notFoundLabels = Object.entries(this.labels)
+                    .filter(([key]) => notFoundItems.includes(key))
+                    .reduce((obj, [key, val]) => Object.assign(obj, { [key]: val }), {});
+                
+                return notFoundLabels;
+                }
+        },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended
@@ -89,6 +106,20 @@
 h2 {
     .wikit-Link.wikit {
         font-weight: bold;
+    }
+}
+
+.message-link {
+    .wikit-Link.wikit {
+        display: inline;
+    }
+
+    &::after {
+        content: ", ";
+    }
+
+    &:last-child::after {
+        content: "";
     }
 }
 

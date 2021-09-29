@@ -1,12 +1,11 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
-        <div v-if="Object.keys(results).length < item_ids.length" class="not-found">
-            <div id="top-button">
+        <div id="top-button">
                 <wikit-button
                     variant="normal"
-                    type="neutral"
                     native-type="button"
+                    type="neutral"
                     @click.native="returnHome"
                 >
                     &#x2190; {{ $i18n('refine-items-selection') }}
@@ -16,15 +15,15 @@
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
                 <p id="about-description" >{{ $i18n('results-page-description') }}</p>
             </section>
+        <div v-if="notFoundItemIds.length" class="not-found">
             <section id="message-section">
                 <Message type="notice">
-                    <span>{{ $i18n('no-mismatches-found-message') }} 
-                        <span class="message-link" v-for="item_id in labelsFromNotFound" :key="item_id">
+                    <span>{{ $i18n('no-mismatches-found-message') }}</span> 
+                        <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                             <wikit-link 
                                 :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                             </wikit-link>
                         </span>
-                    </span>
                 </Message>
             </section>
         </div>
@@ -72,15 +71,9 @@
             labels: Object as PropType<LabelMap>
         },
         computed: {
-            labelsFromNotFound() {
-                const notFoundItems = this.item_ids.filter( element => !Object.keys( this.results ).includes(element) );
-                
-                const notFoundLabels = Object.entries(this.labels)
-                    .filter(([key]) => notFoundItems.includes(key))
-                    .reduce((obj, [key, val]) => Object.assign(obj, { [key]: val }), {});
-                
-                return notFoundLabels;
-                }
+            notFoundItemIds() {   
+                return this.item_ids.filter( id => !this.results[id] )
+            }
         },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
@@ -111,7 +104,7 @@ h2 {
 
 .message-link {
     .wikit-Link.wikit {
-        display: inline;
+        display: inline-block;
     }
 
     &::after {

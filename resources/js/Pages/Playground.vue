@@ -28,9 +28,8 @@
 
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
-    import WikitTable from '../Components/Table.vue';
     import defineComponent from '../types/defineComponent';
-    import { Link } from '@wmde/wikit-vue-components';
+    import { Link, Table as WikitTable } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {

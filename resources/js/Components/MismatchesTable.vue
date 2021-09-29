@@ -16,8 +16,9 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
+import { Table as WikitTable } from '@wmde/wikit-vue-components';
+
 import MismatchRow from './MismatchRow.vue';
-import WikitTable from './Table.vue';
 
 import { LabelledMismatch } from '../types/Mismatch';
 

@@ -19,9 +19,9 @@
             <section id="message-section">
                 <Message type="notice">
                     <span>{{ $i18n('no-mismatches-found-message') }} 
-                        <span class="message-link" v-for="(label, item_id) in labelsFromNotFound" :key="item_id">
+                        <span class="message-link" v-for="item_id in labelsFromNotFound" :key="item_id">
                             <wikit-link 
-                                :href="`http://www.wikidata.org/wiki/${item_id}`">{{label}} ({{item_id}})
+                                :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                             </wikit-link>
                         </span>
                     </span>

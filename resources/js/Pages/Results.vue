@@ -55,9 +55,18 @@
             Message
         },
         props: {
-            item_ids: Array as PropType<string[]>,
-            results: Object as PropType<Result>,
-            labels: Object as PropType<LabelMap>
+            item_ids: {
+                type: Array as PropType<string[]>,
+                default: () => []
+            },
+            results: {
+                type: Object as PropType<Result>,
+                default: () => ({})
+            },
+            labels: {
+                type: Object as PropType<LabelMap>,
+                default: () => ({})
+            }
         },
         computed: {
             notFoundItemIds() {   

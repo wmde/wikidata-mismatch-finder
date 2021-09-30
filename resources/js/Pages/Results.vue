@@ -1,20 +1,10 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
-        <div id="top-button">
-                <wikit-button
-                    variant="normal"
-                    native-type="button"
-                    type="neutral"
-                    @click.native="returnHome"
-                >
-                    &#x2190; {{ $i18n('refine-items-selection') }}
-                </wikit-button>
-            </div>
-            <section id="description-section">
-                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-                <p id="about-description" >{{ $i18n('results-page-description') }}</p>
-            </section>
+        <section id="description-section">
+            <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
+            <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+        </section>
         <section id="message-section" v-if="notFoundItemIds.length">
             <Message type="notice">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span> 
@@ -84,9 +74,6 @@
                     ...mismatch
                 }));
             },
-            returnHome(): void {
-                this.$inertia.get( '/' );
-            },
         },
     });
 </script>
@@ -117,10 +104,6 @@ h2 {
 #about-description {
     max-width: 705px;
     margin-top: 8px;
-}
-
-#top-button {
-    margin-bottom: 15px;
 }
 
 #message-section {

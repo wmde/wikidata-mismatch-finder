@@ -25,7 +25,6 @@
     "column-external-value": "Value on external source",
     "column-upload-info": "Upload Info",
     "no-mismatches-found-message": "No mismatches have been found for:",
-    "refine-items-selection": "Refine Items Selection",
     "results-page-description": "You can fix them! The table below presents you with links to the statement on Wikidata and to the entry on the external source. You can compare the values and manually fix the mismatch, editing Wikidata or the external data source. After investigating and fixing the mismatch, you can indicate their status using the options from the drop-down.",
     "results-page-title": "What should I do with the mismatches?"
 }

@@ -1,10 +1,6 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
-        <section id="description-section">
-            <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-            <p id="about-description" >{{ $i18n('results-page-description') }}</p>
-        </section>
         <section id="message-section" v-if="notFoundItemIds.length">
             <Message type="notice">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span> 
@@ -97,11 +93,6 @@ h2 {
     &:last-child::after {
         content: "";
     }
-}
-
-#about-description {
-    max-width: 705px;
-    margin-top: 8px;
 }
 
 #message-section {

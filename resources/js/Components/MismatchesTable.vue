@@ -5,6 +5,7 @@
                 <th>{{$i18n('column-property')}}</th>
                 <th>{{$i18n('column-wikidata-value')}}</th>
                 <th>{{$i18n('column-external-value')}}</th>
+                <th>{{$i18n('column-review-status')}}</th>
                 <th>{{$i18n('column-upload-info')}}</th>
             </tr>
         </thead>

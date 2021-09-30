@@ -20,6 +20,12 @@
     "column-property": "Property column on mismatches table",
     "column-wikidata-value": "Wikidata value column on mismatches table",
     "column-external-value": "External source column on mismatches table",
+    "column-review-status": "The mismatch review decision column on mismatches table",
     "column-upload-info": "Upload Info column on mismatches table",
-    "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids"
+    "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids",
+    "review-status-pending": "Label for pending review status. Used as placeholder in the review decision dropdown",
+    "review-status-wikidata": "Label that indicates that the data mismatch is on Wikidata. Used as an option in the review decision dropdown",
+    "review-status-external": "Label that indicates that the data mismatch is on the external database. Used as an option in the review decision dropdown",
+    "review-status-both": "Label that indicates that the data mismatch is on both sources. Used as an option in the in review decision dropdown",
+    "review-status-none": "Label that indicates that the data mismatch is not on any source. Used as an option in the in review decision dropdown"
 }

@@ -21,6 +21,5 @@
     "column-wikidata-value": "Wikidata value column on mismatches table",
     "column-external-value": "External source column on mismatches table",
     "column-upload-info": "Upload Info column on mismatches table",
-    "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids",
-    "results-page-title": "The title of the Results page"
+    "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids"
 }

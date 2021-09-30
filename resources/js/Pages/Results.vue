@@ -4,11 +4,11 @@
         <section id="message-section" v-if="notFoundItemIds.length">
             <Message type="notice">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span> 
-                    <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                        <wikit-link 
-                            :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
-                        </wikit-link>
-                    </span>
+                <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
+                    <wikit-link 
+                        :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
+                    </wikit-link>
+                </span>
             </Message>
         </section>
         <section class="results" v-if="Object.keys(results).length">

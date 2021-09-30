@@ -31,7 +31,6 @@
     import { Head } from '@inertiajs/inertia-vue';
     import { 
         Link as WikitLink,
-        Button as WikitButton,
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {LabelledMismatch} from '../types/Mismatch';
@@ -50,7 +49,6 @@
             Head,
             MismatchesTable,
             WikitLink,
-            WikitButton,
             Message
         },
         props: {

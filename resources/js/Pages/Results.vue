@@ -15,18 +15,16 @@
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
                 <p id="about-description" >{{ $i18n('results-page-description') }}</p>
             </section>
-        <div v-if="notFoundItemIds.length" class="not-found">
-            <section id="message-section">
-                <Message type="notice">
-                    <span>{{ $i18n('no-mismatches-found-message') }}</span> 
-                        <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                            <wikit-link 
-                                :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
-                            </wikit-link>
-                        </span>
-                </Message>
-            </section>
-        </div>
+        <section id="message-section" v-if="notFoundItemIds.length">
+            <Message type="notice">
+                <span>{{ $i18n('no-mismatches-found-message') }}</span> 
+                    <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
+                        <wikit-link 
+                            :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
+                        </wikit-link>
+                    </span>
+            </Message>
+        </section>
         <section class="results" v-if="Object.keys(results).length">
             <section v-for="(mismatches, item, idx) in results" :key="idx">
                 <h2 class="h4">

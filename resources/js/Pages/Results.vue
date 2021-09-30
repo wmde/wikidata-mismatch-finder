@@ -11,8 +11,8 @@
                 </span>
             </Message>
         </section>
-        <section class="results" v-if="Object.keys(results).length">
-            <section v-for="(mismatches, item, idx) in results" :key="idx">
+        <section id="results" v-if="Object.keys(results).length">
+            <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>

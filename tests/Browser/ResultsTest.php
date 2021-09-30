@@ -46,7 +46,7 @@ class ResultsTest extends DuskTestCase
             // check results for Q1 and Q2
             $browser->visit(new ResultsPage('Q1|Q2'));
 
-            $browser->assertSeeIn('.results', 'Q1');
+            $browser->assertSeeIn('#results', 'Q1');
             $browser->assertSeeIn('.wikit-Message--notice', 'Q2');
         });
     }

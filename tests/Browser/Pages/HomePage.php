@@ -40,8 +40,7 @@ class HomePage extends Page
     {
         return [
             '@form' => '#items-form',
-            '@items-input' => '@form textarea',
-            '@not-found' => 'div.not-found'
+            '@items-input' => '@form textarea'
         ];
     }
 }

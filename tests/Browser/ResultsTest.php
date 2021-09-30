@@ -24,6 +24,33 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_shows_message_for_non_existing_item_ids()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new ResultsPage('Q1|Q2'))
+                ->assertSee('No mismatches have been found for')
+                ->assertSeeLink('Q1')
+                ->assertSeeLink('Q2');
+        });
+    }
+
+    public function test_shows_table_for_existing_item_and_message_for_non_existing_item()
+    {
+        // add only one mismatch for Q1
+        Mismatch::factory()
+            ->for(ImportMeta::factory()->for(User::factory()->uploader()))
+            ->state(['statement_guid' => 'Q1$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0'])
+            ->create();
+
+        $this->browse(function (Browser $browser) {
+            // check results for Q1 and Q2
+            $browser->visit(new ResultsPage('Q1|Q2'));
+
+            $browser->assertSeeIn('#results', 'Q1');
+            $browser->assertSeeIn('.wikit-Message--notice', 'Q2');
+        });
+    }
+
     public function test_shows_tables_for_existing_items()
     {
         $import = ImportMeta::factory()

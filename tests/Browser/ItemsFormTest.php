@@ -35,7 +35,8 @@ class ItemsFormTest extends DuskTestCase
                     ->press('button')
                     ->waitFor('.results-page')
                     ->assertTitle('Mismatch Finder - Results')
-                    ->assertSee('[ "Q23", "Q42" ]');
+                    ->assertSee("Q23")
+                    ->assertSee("Q42");
         });
     }
 

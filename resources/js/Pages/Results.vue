@@ -1,6 +1,16 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
+        <section id="message-section" v-if="notFoundItemIds.length">
+            <Message type="notice">
+                <span>{{ $i18n('no-mismatches-found-message') }}</span> 
+                <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
+                    <wikit-link 
+                        :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
+                    </wikit-link>
+                </span>
+            </Message>
+        </section>
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
                 <h2 class="h4">
@@ -9,20 +19,15 @@
                 <mismatches-table :mismatches="addLabels(mismatches)" />
             </section>
         </section>
-        <p v-else class="not-found">
-            Thank you for sending IDs {{item_ids}}.
-            The requested item ids didn't match any entries in our database.
-            Please try with a different set of ids.
-        </p>
     </div>
 </template>
 
 <script lang="ts">
     import { PropType } from 'vue';
-
     import { Head } from '@inertiajs/inertia-vue';
-    import { Link as WikitLink } from '@wmde/wikit-vue-components';
-
+    import { 
+        Link as WikitLink,
+        Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
@@ -34,17 +39,23 @@
     interface LabelMap {
         [entityId: string]: string
     }
-
+     
     export default defineComponent({
         components: {
             Head,
             MismatchesTable,
-            WikitLink
+            WikitLink,
+            Message
         },
         props: {
             item_ids: Array as PropType<string[]>,
             results: Object as PropType<Result>,
             labels: Object as PropType<LabelMap>
+        },
+        computed: {
+            notFoundItemIds() {   
+                return this.item_ids.filter( id => !this.results[id] )
+            }
         },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
@@ -56,15 +67,40 @@
                     value_label: this.labels[mismatch.wikidata_value] || null,
                     ...mismatch
                 }));
-            }
-        }
+            },
+        },
     });
 </script>
 
 <style lang="scss">
-    h2 {
-        .wikit-Link.wikit {
-            font-weight: bold;
-        }
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+h2 {
+    .wikit-Link.wikit {
+        font-weight: bold;
     }
+}
+
+.message-link {
+    .wikit-Link.wikit {
+        display: inline-block;
+    }
+
+    &::after {
+        content: ", ";
+    }
+
+    &:last-child::after {
+        content: "";
+    }
+}
+
+#message-section {
+    max-width: 705px;
+
+    .wikit-Message {
+        border-radius: $border-radius-base;
+    }
+}
+
 </style>

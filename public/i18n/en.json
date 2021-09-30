@@ -23,5 +23,6 @@
     "column-property": "Property",
     "column-wikidata-value": "Value on Wikidata",
     "column-external-value": "Value on external source",
-    "column-upload-info": "Upload Info"
+    "column-upload-info": "Upload Info",
+    "no-mismatches-found-message": "No mismatches have been found for:"
 }

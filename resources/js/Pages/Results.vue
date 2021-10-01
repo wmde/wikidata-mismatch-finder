@@ -6,9 +6,9 @@
         </section>
         <section id="message-section" v-if="notFoundItemIds.length">
             <Message type="notice">
-                <span>{{ $i18n('no-mismatches-found-message') }}</span> 
+                <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                    <wikit-link 
+                    <wikit-link
                         :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
@@ -22,7 +22,9 @@
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
-                <mismatches-table :mismatches="addLabels(mismatches)" />
+                <mismatches-table :mismatches="addLabels(mismatches)"
+                    @decision="recordDecision"
+                />
             </section>
         </section>
     </div>
@@ -31,12 +33,18 @@
 <script lang="ts">
     import { PropType } from 'vue';
     import { Head } from '@inertiajs/inertia-vue';
-    import { 
+    import {
         Link as WikitLink,
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
-    import Mismatch, {LabelledMismatch} from '../types/Mismatch';
+    import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
+
+    interface MismatchDecision {
+        id: number,
+        item_id: string,
+        review_status: ReviewDecision
+    }
 
     interface Result {
         [qid: string]: Mismatch[]
@@ -48,6 +56,16 @@
 
     interface FlashMessages {
         errors : { [ key : string ] : string }
+    }
+
+    interface DecisionMap {
+        [entityId: string]: {
+            [id: number]: MismatchDecision
+        }
+    }
+
+    interface ResultsState {
+        decisions: DecisionMap
     }
 
     export default defineComponent({
@@ -72,13 +90,18 @@
             }
         },
         computed: {
-            notFoundItemIds() {   
+            notFoundItemIds() {
                 return this.item_ids.filter( id => !this.results[id] )
             },
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
+        },
+        data(): ResultsState {
+            return {
+                decisions: {}
+            }
         },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
@@ -91,7 +114,14 @@
                     ...mismatch
                 }));
             },
-        },
+            recordDecision( decision: MismatchDecision ): void {
+                const itemDecisions = this.decisions[decision.item_id]
+                this.decisions[decision.item_id] = {
+                    ...itemDecisions,
+                    [decision.id]: decision
+                };
+            }
+        }
     });
 </script>
 

@@ -6,8 +6,11 @@ import { Inertia } from '@inertiajs/inertia';
 import { createInertiaApp } from '@inertiajs/inertia-vue';
 
 import i18nMessages from './lib/i18n';
+import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
+
+Vue.use(bubble);
 
 // Retrieve i18n messages and setup the Vue instance to handle them.
 async function setupI18n(locale: string): Promise<void>{

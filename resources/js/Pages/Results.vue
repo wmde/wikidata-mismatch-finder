@@ -115,7 +115,6 @@
                 }));
             },
             recordDecision( decision: MismatchDecision ): void {
-                console.log(decision)
                 const itemDecisions = this.decisions[decision.item_id]
                 this.decisions[decision.item_id] = {
                     ...itemDecisions,

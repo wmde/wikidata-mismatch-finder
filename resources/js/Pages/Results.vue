@@ -2,20 +2,18 @@
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
         <section id="error-section" v-if="unexpectedError">
-            <message-box type="error">{{ $i18n('server-error') }}</message-box>
+            <Message type="error">{{ $i18n('server-error') }}</Message>
         </section>
-
         <section id="message-section" v-if="notFoundItemIds.length">
-            <message-box type="notice">
+            <Message type="notice">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span> 
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link 
                         :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
-            </message-box>
+            </Message>
         </section>
-
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
                 <h2 class="h4">
@@ -30,8 +28,9 @@
 <script lang="ts">
     import { PropType } from 'vue';
     import { Head } from '@inertiajs/inertia-vue';
-    import { Link as WikitLink } from '@wmde/wikit-vue-components';
-    import MessageBox from '../Components/MessageBox.vue';
+    import { 
+        Link as WikitLink,
+        Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
@@ -53,7 +52,7 @@
             Head,
             MismatchesTable,
             WikitLink,
-            MessageBox
+            Message
         },
         props: {
             item_ids: Array as PropType<string[]>,
@@ -68,7 +67,7 @@
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
-        },    
+        },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended

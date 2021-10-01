@@ -37,6 +37,6 @@ export default Vue.extend({
 <style lang="scss">
     .column-review-status {
         // Ensures that the dropdowns are evenly wide
-        min-width: 35%;
+        width: 35%;
     }
 </style>

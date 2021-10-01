@@ -95,4 +95,48 @@ describe('MismatchesRow.vue', () => {
             value: currentStatus
         });
     });
+
+    it('bubbles a decision event on dropdown input', async () => {
+        const mismatch = {
+            id: 123,
+            item_id: 'Q123',
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                created_at: '2021-09-23'
+            },
+        };
+
+        const bubbleStub = jest.fn();
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => `${key}`,
+                $bubble: bubbleStub
+            }
+        });
+
+        const dropdown = wrapper.findComponent(Dropdown);
+
+        dropdown.vm.$emit('input', {
+            value: ReviewDecision.Wikidata
+        });
+
+        // Wait for the event queue to be processed.
+        await wrapper.vm.$nextTick();
+
+        expect(bubbleStub).toHaveBeenCalledTimes(1);
+        expect(bubbleStub).toHaveBeenCalledWith('decision', {
+            id: mismatch.id,
+            item_id: mismatch.item_id,
+            review_status: ReviewDecision.Wikidata
+        });
+    });
 })

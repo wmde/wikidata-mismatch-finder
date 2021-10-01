@@ -18,6 +18,11 @@
                 :menuItems="Object.values(statusOptions)"
                 :placeholder="$i18n('review-status-pending')"
                 v-model="decision"
+                @input="$bubble('decision', {
+                    id: mismatch.id,
+                    item_id: mismatch.item_id,
+                    review_status: $event.value
+                })"
             />
         </td>
         <td :data-header="$i18n('column-upload-info')">

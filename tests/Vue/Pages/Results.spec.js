@@ -113,7 +113,7 @@ describe('Results.vue', () => {
         Object.values(labels).forEach(label => expect(wrapper.text()).toContain(label));
     });
 
-    it('Updates decisions mismatches on emitted decision events', async () => {
+    it('Updates decisions mismatches on emitted decision events', () => {
         const results = {
             'Q321': [{
                 id: 123,
@@ -133,9 +133,7 @@ describe('Results.vue', () => {
 
         const wrapper = mount(Results, {
             propsData: { results },
-            mocks: {
-                $i18n: key => key
-            }
+            mocks
         });
 
         const tables = wrapper.findAllComponents(MismatchesTable);
@@ -146,9 +144,6 @@ describe('Results.vue', () => {
         };
 
         tables.at(0).vm.$emit('decision', emitted);
-
-        // Wait for the event queue to be processed.
-        await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.decisions['Q321'][123]).toEqual(emitted)
     });

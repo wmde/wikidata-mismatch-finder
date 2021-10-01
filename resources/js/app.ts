@@ -59,8 +59,6 @@ function createStore(): Store<{loading: boolean}>{
     return store;
 }
 
-
-
 // Only bootstrap inertia if setup is successful. Display generic error
 // component otherwise
 (async () => {

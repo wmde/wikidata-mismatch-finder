@@ -96,7 +96,7 @@ describe('MismatchesRow.vue', () => {
         });
     });
 
-    it('bubbles a decision event on dropdown input', async () => {
+    it('bubbles a decision event on dropdown input', () => {
         const mismatch = {
             id: 123,
             item_id: 'Q123',
@@ -128,9 +128,6 @@ describe('MismatchesRow.vue', () => {
         dropdown.vm.$emit('input', {
             value: ReviewDecision.Wikidata
         });
-
-        // Wait for the event queue to be processed.
-        await wrapper.vm.$nextTick();
 
         expect(bubbleStub).toHaveBeenCalledTimes(1);
         expect(bubbleStub).toHaveBeenCalledWith('decision', {

@@ -247,8 +247,9 @@ class WebRouteTest extends TestCase
         // start from results
         $this->get(route('results', ['ids' => 'Q1']));
         $redirect = $this
-            ->get(
-                route('mismatch-review', ['ids' => 'Q1']),
+            ->put(
+                route('mismatch-review'),
+                [ "some" => "data" ],
                 ['X-Mismatch-Finder-Error' => 'mismatch-review']  // force error response on this path
             )->assertRedirect(route('results', ['ids' => 'Q1']));
 

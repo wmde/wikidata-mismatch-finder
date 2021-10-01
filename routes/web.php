@@ -32,14 +32,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::middleware('simulateError')
-    ->get('/results', [ResultsController::class, 'index'])
+Route::get('/results', [ResultsController::class, 'index'])
     ->name('results');
 
-Route::middleware('simulateError')
-    ->get('/mismatch-review', function () {
-        return back();
-    })
+Route::put('/mismatch-review', [ResultsController::class, 'update'])
     ->name('mismatch-review');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future

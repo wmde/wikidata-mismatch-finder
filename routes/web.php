@@ -36,6 +36,12 @@ Route::middleware('simulateError')
     ->get('/results', [ResultsController::class, 'index'])
     ->name('results');
 
+Route::middleware('simulateError')
+    ->get('/mismatch-review', function () {
+        return back();
+    })
+    ->name('mismatch-review');
+
 // Mismatch store manager routes, might be converted to inertia routes in the future
 Route::prefix('store')->name('store.')->group(function () {
 

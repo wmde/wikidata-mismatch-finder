@@ -6,10 +6,8 @@
             <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
         </section>
 
-        <section id="message-section">
-            <Message v-if="unexpectedError" type="error">
-                <span>{{ $i18n('mismatch-query-server-error') }}</span>
-            </Message>
+        <section id="error-section" v-if="unexpectedError">
+            <message-box type="error">{{ $i18n('server-error') }}</message-box>
         </section>
 
         <section id="querying-section">
@@ -43,10 +41,9 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
-        Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-
+    import MessageBox from '../Components/MessageBox.vue';
     import defineComponent from '../types/defineComponent';
 
     interface HomeState {
@@ -66,7 +63,7 @@
     export default defineComponent({
         components: {
             Head,
-            Message,
+            MessageBox,
             TextArea,
             WikitButton
         },
@@ -135,13 +132,8 @@
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
-#intro-section,
-#message-section {
+#intro-section{
     max-width: 705px;
-}
-
-#message-section .wikit-Message {
-    border-radius: $border-radius-base;
 }
 
 #items-form {

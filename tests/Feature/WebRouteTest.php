@@ -217,22 +217,45 @@ class WebRouteTest extends TestCase
     }
 
     /**
-     * Test error response handling
+     * Test results error response handling
      *
      * @return void
      */
-    public function test_error_response_handling()
+    public function test_results_error_response_handling()
     {
         $redirect = $this
             ->get(
                 route('results', ['ids' => 'Q1']),
-                ['X-Mismatch-Results-Error' => 'true']  // force error response
+                ['X-Mismatch-Finder-Error' => 'results']  // force error response on this path
             )->assertRedirect(route('home'));
 
         // follow the redirect
         $this->get($redirect->headers->get('Location'))
             ->assertInertia(function (Assert $page) {
                 $page->component('Home')
+                    ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
+            });
+    }
+
+    /**
+     * Test mismatch review error response handling
+     *
+     * @return void
+     */
+    public function test_mismatch_review_error_response_handling()
+    {
+        // start from results
+        $this->get(route('results', ['ids' => 'Q1']));
+        $redirect = $this
+            ->get(
+                route('mismatch-review', ['ids' => 'Q1']),
+                ['X-Mismatch-Finder-Error' => 'mismatch-review']  // force error response on this path
+            )->assertRedirect(route('results', ['ids' => 'Q1']));
+
+        // follow the redirect
+        $this->get($redirect->headers->get('Location'))
+            ->assertInertia(function (Assert $page) {
+                $page->component('Results')
                     ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
             });
     }

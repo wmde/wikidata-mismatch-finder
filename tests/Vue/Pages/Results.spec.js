@@ -7,10 +7,19 @@ import MismatchesTable from '@/Components/MismatchesTable.vue';
 jest.mock('@inertiajs/inertia-vue', () => ({}));
 
 describe('Results.vue', () => {
+
+    const mocks = {
+        $i18n: key => key,
+        $page: {
+            props: { flash: {} }
+        },
+    }
+
     it('accepts and renders item ids', () => {
         const item_ids =  ['Q1', 'Q2']
         const wrapper = mount(Results, {
-            propsData: { item_ids }
+            propsData: { item_ids },
+            mocks
         });
 
         expect(wrapper.props().item_ids).toBe(item_ids);
@@ -53,9 +62,7 @@ describe('Results.vue', () => {
 
         const wrapper = mount(Results, {
             propsData: { results },
-            mocks: {
-                $i18n: key => key
-            }
+            mocks
         });
 
         const tables = wrapper.findAllComponents(MismatchesTable);
@@ -96,9 +103,7 @@ describe('Results.vue', () => {
 
         const wrapper = mount(Results, {
             propsData: { results, labels },
-            mocks: {
-                $i18n: key => key
-            }
+            mocks
         });
 
         expect(wrapper.props().labels).toBe(labels);

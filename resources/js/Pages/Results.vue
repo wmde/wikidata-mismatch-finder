@@ -15,7 +15,10 @@
             </Message>
         </section>
         <section id="results" v-if="Object.keys(results).length">
-            <section class="item-mismatches" v-for="(mismatches, item, idx) in results" :key="idx">
+            <section class="item-mismatches"
+                v-for="(mismatches, item, idx) in results"
+                :id="`item-mismatches-${item}`"
+                :key="idx">
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
@@ -55,9 +58,18 @@
             Message
         },
         props: {
-            item_ids: Array as PropType<string[]>,
-            results: Object as PropType<Result>,
-            labels: Object as PropType<LabelMap>
+            item_ids: {
+                type: Array as PropType<string[]>,
+                default: () => []
+            },
+            results: {
+                type: Object as PropType<Result>,
+                default: () => ({})
+            },
+            labels: {
+                type: Object as PropType<LabelMap>,
+                default: () => ({})
+            }
         },
         computed: {
             notFoundItemIds() {   

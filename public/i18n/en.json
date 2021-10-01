@@ -23,6 +23,12 @@
     "column-property": "Property",
     "column-wikidata-value": "Value on Wikidata",
     "column-external-value": "Value on external source",
+    "column-review-status": "Status",
     "column-upload-info": "Upload Info",
-    "no-mismatches-found-message": "No mismatches have been found for:"
+    "no-mismatches-found-message": "No mismatches have been found for:",
+    "review-status-pending": "To be defined",
+    "review-status-wikidata": "Mismatch on Wikidata",
+    "review-status-external": "Mismatch on external data source",
+    "review-status-both": "Both are wrong",
+    "review-status-none": "None of the above"
 }

@@ -2,10 +2,11 @@
     <wikit-table>
         <thead>
             <tr>
-                <th>{{$i18n('column-property')}}</th>
-                <th>{{$i18n('column-wikidata-value')}}</th>
-                <th>{{$i18n('column-external-value')}}</th>
-                <th>{{$i18n('column-upload-info')}}</th>
+                <th class="column-property">{{$i18n('column-property')}}</th>
+                <th class="column-wikidata-value">{{$i18n('column-wikidata-value')}}</th>
+                <th class="column-external-value">{{$i18n('column-external-value')}}</th>
+                <th class="column-review-status">{{$i18n('column-review-status')}}</th>
+                <th class="column-upload-info">{{$i18n('column-upload-info')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,3 +33,10 @@ export default Vue.extend({
     }
 });
 </script>
+
+<style lang="scss">
+    .column-review-status {
+        // Ensures that the dropdowns are evenly wide
+        width: 35%;
+    }
+</style>

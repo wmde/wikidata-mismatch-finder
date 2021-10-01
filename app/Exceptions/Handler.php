@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
         $response = parent::render($request, $e);
 
         if ($response->status() >= 500) {
-            return redirect(route('home'))
+            return back()
                 ->with('serverErrors', [ 'unexpected' => 'Unexpected error' ]);
         }
 

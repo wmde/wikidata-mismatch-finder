@@ -1,6 +1,9 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
+        <section id="error-section" v-if="unexpectedError">
+            <Message type="error">{{ $i18n('server-error') }}</Message>
+        </section>
         <section id="message-section" v-if="notFoundItemIds.length">
             <Message type="notice">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span> 
@@ -39,7 +42,11 @@
     interface LabelMap {
         [entityId: string]: string
     }
-     
+
+    interface FlashMessages {
+        errors : { [ key : string ] : string }
+    }
+
     export default defineComponent({
         components: {
             Head,
@@ -55,7 +62,11 @@
         computed: {
             notFoundItemIds() {   
                 return this.item_ids.filter( id => !this.results[id] )
-            }
+            },
+            unexpectedError() {
+                const flashMessages = this.$page.props.flash as FlashMessages;
+                return (flashMessages.errors && flashMessages.errors.unexpected);
+            },
         },
         methods: {
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
@@ -94,13 +105,4 @@ h2 {
         content: "";
     }
 }
-
-#message-section {
-    max-width: 705px;
-
-    .wikit-Message {
-        border-radius: $border-radius-base;
-    }
-}
-
 </style>

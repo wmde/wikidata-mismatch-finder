@@ -6,12 +6,24 @@ use App\Http\Requests\MismatchGetRequest;
 use App\Services\WikibaseAPIClient;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
 class ResultsController extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('simulateError');
+    }
+
     public function index(MismatchGetRequest $request, WikibaseAPIClient $wikidata): Response
     {
         $user = Auth::user() ? [
@@ -58,5 +70,16 @@ class ResultsController extends Controller
         // Extract all entity ids encountered in mismatch data, and add them
         // into an array of initial entity ids.
         return $mismatches->reduce($entityIdExtractor, $initialIds);
+    }
+
+    /**
+     * Update review_statuses of a batch of mismatches
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        return back();
     }
 }

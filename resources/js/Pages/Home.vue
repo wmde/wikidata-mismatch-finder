@@ -8,7 +8,7 @@
 
         <section id="message-section">
             <Message v-if="unexpectedError" type="error">
-                <span>{{ $i18n('mismatch-query-server-error') }}</span>
+                <span>{{ $i18n('server-error') }}</span>
             </Message>
         </section>
 
@@ -134,15 +134,6 @@
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-
-#intro-section,
-#message-section {
-    max-width: 705px;
-}
-
-#message-section .wikit-Message {
-    border-radius: $border-radius-base;
-}
 
 #items-form {
     /**

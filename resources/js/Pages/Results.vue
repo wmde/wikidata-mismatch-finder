@@ -22,9 +22,20 @@
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
-                <mismatches-table :mismatches="addLabels(mismatches)"
-                    @decision="recordDecision"
-                />
+                <form @submit.prevent="send(mismatches)">
+                    <mismatches-table :mismatches="addLabels(mismatches)"
+                        @decision="recordDecision"
+                    />
+                    <div class="form-buttons">
+                        <wikit-button
+                            variant="primary"
+                            type="progressive"
+                            native-type="submit"
+                        >
+                            {{ $i18n('result-form-submit') }}
+                        </wikit-button>
+                </div>
+                </form>
             </section>
         </section>
     </div>
@@ -35,6 +46,7 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,
+        Button as WikitButton,
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
@@ -73,6 +85,7 @@
             Head,
             MismatchesTable,
             WikitLink,
+            WikitButton,
             Message
         },
         props: {
@@ -120,7 +133,22 @@
                     ...itemDecisions,
                     [decision.id]: decision
                 };
-            }
+            },
+            send( itemMismatches: Mismatch[] ): void {
+
+                console.log( JSON.stringify(itemMismatches) );
+                console.log( JSON.stringify(this.decisions) );
+
+                if(this.decisions){
+
+                    itemMismatches.map( mismatch => ({
+                        review_status: 'hola'
+                    }) );
+                }
+                
+                // console.log('send!!!' + JSON.stringify(itemMismatches) + '\n=====\n\n' + JSON.stringify(this.decisions) );
+                // //this.$inertia.get( '/mismatch-review );
+            },
         }
     });
 </script>
@@ -146,5 +174,10 @@ h2 {
     &:last-child::after {
         content: "";
     }
+}
+
+.form-buttons {
+    text-align: end;
+    margin-top: $dimension-layout-xsmall;
 }
 </style>

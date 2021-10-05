@@ -185,6 +185,9 @@ class ApiMismatchRoutePutTest extends TestCase
             [ 'review_status' => 'wikidata' ]
         );
 
+        // refresh mismatch to get correct updated_at timestamp
+        $mismatch->refresh();
+
         Log::channel('mismatch_updates')
             ->assertLogged('info', function ($message, $context) use ($reviewer, $mismatch) {
                 $assertMessage = ($message == __('logging.mismatch-updated'));
@@ -210,6 +213,10 @@ class ApiMismatchRoutePutTest extends TestCase
             ->for(User::factory()->create())
             ->reviewed()
             ->for($import)
+            ->state([
+                 'review_status' => 'pending',
+                 'updated_at' => now()->subDay() // created yesterday
+                 ])
             ->create();
 
         return $mismatch;

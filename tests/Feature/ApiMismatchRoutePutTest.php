@@ -195,8 +195,14 @@ class ApiMismatchRoutePutTest extends TestCase
                     ($context == [
                         "username" => $reviewer->username,
                         "mw_userid" => $reviewer->mw_userid,
-                        "old" => $mismatch->review_status,
-                        "new" => 'wikidata',
+                        "mismatch_id" => $mismatch->id,
+                        "item_id" => $mismatch->item_id,
+                        "property_id" => $mismatch->property_id,
+                        "statement_guid" => $mismatch->statement_guid,
+                        "wikidata_value" => $mismatch->wikidata_value,
+                        "external_value" => $mismatch->external_value,
+                        "review_status_old" => 'pending',
+                        "review_status_new" => 'wikidata',
                         "time" => $mismatch->updated_at
                     ]);
                 return $assertMessage && $assertContext;

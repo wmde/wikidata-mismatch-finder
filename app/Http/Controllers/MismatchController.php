@@ -69,8 +69,14 @@ class MismatchController extends Controller
                 [
                     "username" => $request->user()->username,
                     "mw_userid" => $request->user()->mw_userid,
-                    "old" => $old_status,
-                    "new" => $mismatch->review_status,
+                    "mismatch_id" => $mismatch->id,
+                    "item_id" => $mismatch->item_id,
+                    "property_id" => $mismatch->property_id,
+                    "statement_guid" => $mismatch->statement_guid,
+                    "wikidata_value" => $mismatch->wikidata_value,
+                    "external_value" => $mismatch->external_value,
+                    "review_status_old" => $old_status,
+                    "review_status_new" => $mismatch->review_status,
                     "time" => $mismatch->updated_at
                 ]
             );

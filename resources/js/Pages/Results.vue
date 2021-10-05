@@ -22,7 +22,7 @@
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
-                <form @submit.prevent="send(mismatches)">
+                <form @submit.prevent="send(item)">
                     <mismatches-table :mismatches="addLabels(mismatches)"
                         @decision="recordDecision"
                     />
@@ -31,6 +31,7 @@
                             variant="primary"
                             type="progressive"
                             native-type="submit"
+                            :disabled="buttonDisabled(item, idx)"
                         >
                             {{ $i18n('result-form-submit') }}
                         </wikit-button>
@@ -109,7 +110,7 @@
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
-            },
+            }
         },
         data(): ResultsState {
             return {
@@ -134,20 +135,22 @@
                     [decision.id]: decision
                 };
             },
-            send( itemMismatches: Mismatch[] ): void {
+            send( item: string ): void {
 
-                console.log( JSON.stringify(itemMismatches) );
-                console.log( JSON.stringify(this.decisions) );
+                if(this.decisions && this.decisions.hasOwnProperty(item)){
 
-                if(this.decisions){
+                    console.log( '/mismatch-review?decisions=' + encodeURIComponent(JSON.stringify(this.decisions[item])) );
 
-                    itemMismatches.map( mismatch => ({
-                        review_status: 'hola'
-                    }) );
+                    // TODO: do I need to encode the url with encodeURIComponent since it's a web endpoint?
+                    this.$inertia.put( '/mismatch-review?decisions=' + encodeURIComponent(JSON.stringify(this.decisions[item])) );
+                    // remove decision from this.decisions after it has been sent to the server to avoid sending 
+                    // them twice
+                    delete this.decisions[item];
                 }
-                
-                // console.log('send!!!' + JSON.stringify(itemMismatches) + '\n=====\n\n' + JSON.stringify(this.decisions) );
-                // //this.$inertia.get( '/mismatch-review );
+            },
+            buttonDisabled( item: string, idx: number ) {
+                // TODO: figure out how to disable buttons in a v-for loop and make two way binding work
+                return this.decisions.hasOwnProperty(item) && idx == 0 ;
             },
         }
     });

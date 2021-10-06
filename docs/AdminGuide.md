@@ -48,3 +48,24 @@ Example User 4
 Example User 5
 Example User 6
 ```
+
+## Log Track of Users' Review Decisions
+
+Review decisions are written to mismatch entries in the database directly, without recording an edit history. Thus, for sanity reasons, a record of review decisions is kept on the filesystem in `storage/logs/mismatch_updates.log`.
+
+Example entry:
+```
+{
+    "username": "zakary.johnson",
+    "mw_userid": 63812352,
+    "mismatch_id": 1,
+    "item_id": "Q3570615",
+    "property_id": "P5474221",
+    "statement_guid": "Q3570615$7b22f0c9-7f5b-386b-a2da-92f1dd7d01c8",
+    "wikidata_value": "404509851"
+    "external_value": "482752654",
+    "review_status_old": "pending",
+    "review_status_new": "wikidata",
+    "time": "2021-10-05 14:44:59",
+}
+```

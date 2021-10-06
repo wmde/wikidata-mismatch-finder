@@ -31,7 +31,6 @@
                             variant="primary"
                             type="progressive"
                             native-type="submit"
-                            :disabled="buttonDisabled(item, idx)"
                         >
                             {{ $i18n('result-form-submit') }}
                         </wikit-button>
@@ -52,6 +51,7 @@
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
+import { FormDataConvertible, RequestPayload } from '@inertiajs/inertia';
 
     interface MismatchDecision {
         id: number,
@@ -139,18 +139,11 @@
 
                 if(this.decisions && this.decisions.hasOwnProperty(item)){
 
-                    console.log( '/mismatch-review?decisions=' + encodeURIComponent(JSON.stringify(this.decisions[item])) );
-
-                    // TODO: do I need to encode the url with encodeURIComponent since it's a web endpoint?
-                    this.$inertia.put( '/mismatch-review?decisions=' + encodeURIComponent(JSON.stringify(this.decisions[item])) );
+                    this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
                     // remove decision from this.decisions after it has been sent to the server to avoid sending 
                     // them twice
                     delete this.decisions[item];
                 }
-            },
-            buttonDisabled( item: string, idx: number ) {
-                // TODO: figure out how to disable buttons in a v-for loop and make two way binding work
-                return this.decisions.hasOwnProperty(item) && idx == 0 ;
             },
         }
     });

@@ -51,7 +51,7 @@
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
-import { FormDataConvertible, RequestPayload } from '@inertiajs/inertia';
+import { RequestPayload } from '@inertiajs/inertia';
 
     interface MismatchDecision {
         id: number,
@@ -137,7 +137,7 @@ import { FormDataConvertible, RequestPayload } from '@inertiajs/inertia';
             },
             send( item: string ): void {
 
-                if(this.decisions && this.decisions.hasOwnProperty(item)){
+                if(this.decisions && Object.prototype.hasOwnProperty.call(this.decisions, item)){
 
                     this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
                     // remove decision from this.decisions after it has been sent to the server to avoid sending 

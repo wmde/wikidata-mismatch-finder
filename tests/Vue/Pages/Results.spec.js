@@ -15,6 +15,9 @@ describe('Results.vue', () => {
         $page: {
             props: { flash: {} }
         },
+        $inertia: () => ({
+            put: () => jest.fn() // TODO: how to do this? 
+        })
     }
 
     it('accepts and renders item ids', () => {
@@ -147,4 +150,44 @@ describe('Results.vue', () => {
 
         expect(wrapper.vm.decisions['Q321'][123]).toEqual(emitted)
     });
+
+    it('Sends a put request with the selected decisions on click of "Apply changes" button', () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: 'Q1986',
+                external_value: 'Another Value',
+                review_status: 'pending',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
+
+        const decisions = { Q321:{1:{id:1,item_id:"Q321",review_status: ReviewDecision.Wikidata}}};
+
+        const wrapper = mount(Results, {
+            propsData: { results },
+            mocks,
+            data() {
+                return {
+                    decisions
+                }
+            },
+        });
+
+        wrapper.vm.send('Q321');
+
+        //TODO: mock $inertia to make it work with put method
+
+        //the decisions object will be empty after sending the put request on one item
+        expect(wrapper.vm.decisions).toEqual({});
+
+    });
+
 })

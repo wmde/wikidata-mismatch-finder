@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
 class ResultsController extends Controller
 {
+    use Traits\ReviewMismatch;
 
     /**
      * Instantiate a new controller instance.
@@ -85,27 +85,8 @@ class ResultsController extends Controller
             $mismatch = Mismatch::findorFail($mismatch_id);
 
             $old_status = $mismatch->review_status;
-            $mismatch->review_status = $decision['review_status'];
-            $mismatch->user()->associate($request->user());
-            $mismatch->save();
-
-            Log::channel("mismatch_updates")
-            ->info(
-                __('logging.mismatch-updated'),
-                [
-                    "username" => $request->user()->username,
-                    "mw_userid" => $request->user()->mw_userid,
-                    "mismatch_id" => $mismatch->id,
-                    "item_id" => $mismatch->item_id,
-                    "property_id" => $mismatch->property_id,
-                    "statement_guid" => $mismatch->statement_guid,
-                    "wikidata_value" => $mismatch->wikidata_value,
-                    "external_value" => $mismatch->external_value,
-                    "review_status_old" => $old_status,
-                    "review_status_new" => $mismatch->review_status,
-                    "time" => $mismatch->updated_at
-                ]
-            );
+            $this->saveToDb($mismatch, $request->user(), $decision['review_status']);
+            $this->logToFile($mismatch, $request->user(), $old_status);
         }
 
         return back();

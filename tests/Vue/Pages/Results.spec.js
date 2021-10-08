@@ -149,10 +149,13 @@ describe('Results.vue', () => {
     });
 
     it('Sends a put request with the selected decisions on click of "Apply changes" button', () => {
+        
+        const item_id = 'Q321';
+        
         const results = {
-            'Q321': [{
+            [item_id]: [{
                 id: 123,
-                item_id: 'Q321',
+                item_id,
                 property_id: 'P123',
                 wikidata_value: 'Q1986',
                 external_value: 'Another Value',
@@ -166,7 +169,7 @@ describe('Results.vue', () => {
             }]
         };
 
-        const decisions = { Q321:{1:{id:1,item_id:"Q321",review_status: ReviewDecision.Wikidata}}};
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
 
         const inertiaPut = jest.fn();
 
@@ -183,11 +186,11 @@ describe('Results.vue', () => {
             },
         });
 
-        wrapper.vm.send('Q321');
-
-        // TODO use toHaveBeenCalledWith to properly test what's being submitted
-        expect( inertiaPut ).toHaveBeenCalled();
-
+        const decisionsBeforeDelete = decisions[item_id];
+        wrapper.vm.send( item_id );
+     
+        expect( inertiaPut ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
+        
         //the decisions object will be empty after sending the put request on one item
         expect(wrapper.vm.decisions).toEqual({});
 

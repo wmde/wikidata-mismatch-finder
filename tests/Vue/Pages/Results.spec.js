@@ -147,4 +147,55 @@ describe('Results.vue', () => {
 
         expect(wrapper.vm.decisions['Q321'][123]).toEqual(emitted)
     });
+
+    it('Sends a put request with the selected decisions on click of "Apply changes" button', () => {
+        
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const inertiaPut = jest.fn();
+
+        const wrapper = mount(Results, {
+            mocks: {
+                ... mocks,
+                $inertia: { put: inertiaPut },
+            },
+            data() {
+                return {
+                    decisions
+                }
+            },
+        });
+
+        const decisionsBeforeDelete = decisions[item_id];
+        wrapper.vm.send( item_id );
+     
+        expect( inertiaPut ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
+        
+        //the decisions object will be empty after sending the put request on one item
+        expect(wrapper.vm.decisions).toEqual({});
+
+    });
+
+
+    it('Does not send a put request without any decisions', () => {
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const inertiaPut = jest.fn();
+        const wrapper = mount(Results, {
+            mocks: {
+                ... mocks,
+                $inertia: { put: inertiaPut },
+            },
+            data() {
+                return {
+                    decisions
+                }
+            },
+        });
+        wrapper.vm.send( 'Q42' );     
+        expect( inertiaPut ).not.toHaveBeenCalled();
+        
+        //the decisions object will be untouched
+        expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
+    });
 })

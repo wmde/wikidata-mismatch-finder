@@ -22,9 +22,20 @@
                 <h2 class="h4">
                     <wikit-link :href="`http://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
                 </h2>
-                <mismatches-table :mismatches="addLabels(mismatches)"
-                    @decision="recordDecision"
-                />
+                <form @submit.prevent="send(item)">
+                    <mismatches-table :mismatches="addLabels(mismatches)"
+                        @decision="recordDecision"
+                    />
+                    <div class="form-buttons">
+                        <wikit-button
+                            variant="primary"
+                            type="progressive"
+                            native-type="submit"
+                        >
+                            {{ $i18n('result-form-submit') }}
+                        </wikit-button>
+                    </div>
+                </form>
             </section>
         </section>
     </div>
@@ -35,10 +46,12 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,
+        Button as WikitButton,
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
+    import { RequestPayload } from '@inertiajs/inertia';
 
     interface MismatchDecision {
         id: number,
@@ -73,6 +86,7 @@
             Head,
             MismatchesTable,
             WikitLink,
+            WikitButton,
             Message
         },
         props: {
@@ -96,7 +110,7 @@
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
-            },
+            }
         },
         data(): ResultsState {
             return {
@@ -120,7 +134,17 @@
                     ...itemDecisions,
                     [decision.id]: decision
                 };
-            }
+            },
+            send( item: string ): void {
+
+                if(this.decisions && Object.prototype.hasOwnProperty.call(this.decisions, item)){
+
+                    this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
+                    // remove decision from this.decisions after it has been sent to the server to avoid sending 
+                    // them twice
+                    delete this.decisions[item];
+                }
+            },
         }
     });
 </script>
@@ -146,5 +170,10 @@ h2 {
     &:last-child::after {
         content: "";
     }
+}
+
+.form-buttons {
+    text-align: end;
+    margin-top: $dimension-layout-xsmall;
 }
 </style>

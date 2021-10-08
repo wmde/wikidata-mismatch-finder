@@ -30,5 +30,6 @@
     "review-status-wikidata": "Mismatch on Wikidata",
     "review-status-external": "Mismatch on external data source",
     "review-status-both": "Both are wrong",
-    "review-status-none": "None of the above"
+    "review-status-none": "None of the above",
+    "result-form-submit": "Apply changes"
 }

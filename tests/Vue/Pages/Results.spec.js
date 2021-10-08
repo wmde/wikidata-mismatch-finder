@@ -151,30 +151,10 @@ describe('Results.vue', () => {
     it('Sends a put request with the selected decisions on click of "Apply changes" button', () => {
         
         const item_id = 'Q321';
-        
-        const results = {
-            [item_id]: [{
-                id: 123,
-                item_id,
-                property_id: 'P123',
-                wikidata_value: 'Q1986',
-                external_value: 'Another Value',
-                review_status: 'pending',
-                import_meta: {
-                    user: {
-                        username: 'some_user_name'
-                    },
-                    created_at: '2021-09-23'
-                },
-            }]
-        };
-
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-
         const inertiaPut = jest.fn();
 
         const wrapper = mount(Results, {
-            propsData: { results },
             mocks: {
                 ... mocks,
                 $inertia: { put: inertiaPut },
@@ -196,4 +176,26 @@ describe('Results.vue', () => {
 
     });
 
+
+    it('Does not send a put request without any decisions', () => {
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const inertiaPut = jest.fn();
+        const wrapper = mount(Results, {
+            mocks: {
+                ... mocks,
+                $inertia: { put: inertiaPut },
+            },
+            data() {
+                return {
+                    decisions
+                }
+            },
+        });
+        wrapper.vm.send( 'Q42' );     
+        expect( inertiaPut ).not.toHaveBeenCalled();
+        
+        //the decisions object will be untouched
+        expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
+    });
 })

@@ -34,7 +34,7 @@
                         >
                             {{ $i18n('result-form-submit') }}
                         </wikit-button>
-                </div>
+                    </div>
                 </form>
             </section>
         </section>
@@ -51,7 +51,7 @@
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import defineComponent from '../types/defineComponent';
-import { RequestPayload } from '@inertiajs/inertia';
+    import { RequestPayload } from '@inertiajs/inertia';
 
     interface MismatchDecision {
         id: number,

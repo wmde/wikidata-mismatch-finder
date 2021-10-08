@@ -15,9 +15,6 @@ describe('Results.vue', () => {
         $page: {
             props: { flash: {} }
         },
-        $inertia: () => ({
-            put: () => jest.fn() // TODO: how to do this? 
-        })
     }
 
     it('accepts and renders item ids', () => {
@@ -171,9 +168,14 @@ describe('Results.vue', () => {
 
         const decisions = { Q321:{1:{id:1,item_id:"Q321",review_status: ReviewDecision.Wikidata}}};
 
+        const inertiaPut = jest.fn();
+
         const wrapper = mount(Results, {
             propsData: { results },
-            mocks,
+            mocks: {
+                ... mocks,
+                $inertia: { put: inertiaPut },
+            },
             data() {
                 return {
                     decisions
@@ -183,7 +185,8 @@ describe('Results.vue', () => {
 
         wrapper.vm.send('Q321');
 
-        //TODO: mock $inertia to make it work with put method
+        // TODO use toHaveBeenCalledWith to properly test what's being submitted
+        expect( inertiaPut ).toHaveBeenCalled();
 
         //the decisions object will be empty after sending the put request on one item
         expect(wrapper.vm.decisions).toEqual({});

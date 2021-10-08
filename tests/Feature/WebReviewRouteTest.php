@@ -29,6 +29,56 @@ class WebReviewRouteTest extends TestCase
     }
 
     /**
+     * Test that sending a review decision for a non-existing mismatch
+     * will return a 404 "Not found" response
+     *
+     * @return void
+     */
+    public function test_non_existing_mismatch_returns_404()
+    {
+        $this->actingAs(User::factory()->create())
+            ->put(
+                route('mismatch-review'),
+                [
+                    '42' => [
+                        'id' => '42',
+                        'item_id' => 'Q123',
+                        'review_status' => 'wikidata'
+                    ]
+                ]
+            )->assertStatus(404);
+    }
+
+    /**
+     * Test that invalid input generates validation errors
+     *
+     * @return void
+     */
+    public function test_invalid_input_yields_validation_error()
+    {
+        Mismatch::factory()
+            ->for(
+                ImportMeta::factory()
+                    ->for(User::factory()->uploader())
+                    ->create()
+            )
+            ->create();
+
+        $this->actingAs(User::factory()->create())
+            ->put(
+                route('mismatch-review'),
+                [
+                    '1' => [
+                        'item_id' => 'Q123',
+                        'review_status' => 'invalid'
+                    ]
+                ]
+            )
+            ->assertSessionHasErrors(['1.id'])
+            ->assertSessionHasErrors(['1.review_status']);
+    }
+
+    /**
      * Test store mismatch review decisions
      *
      * @return void
@@ -44,25 +94,24 @@ class WebReviewRouteTest extends TestCase
 
         $reviewer = User::factory()->create();
 
-        $putRequestPayload =
-            [
-                $mismatch1->id => [
-                    'id' => $mismatch1->id,
-                    'item_id' => $mismatch1->item_id,
-                    'review_status' => 'wikidata'
-                ],
-                $mismatch2->id => [
-                    'id' => $mismatch2->id,
-                    'item_id' => $mismatch2->item_id,
-                    'review_status' => 'both'
-                ]
-            ];
-
         $this->actingAs($reviewer)
             ->put(
                 route('mismatch-review'),
-                $putRequestPayload
-            )->assertRedirect();
+                [
+                    $mismatch1->id => [
+                        'id' => $mismatch1->id,
+                        'item_id' => $mismatch1->item_id,
+                        'review_status' => 'wikidata'
+                    ],
+                    $mismatch2->id => [
+                        'id' => $mismatch2->id,
+                        'item_id' => $mismatch2->item_id,
+                        'review_status' => 'both'
+                    ]
+                ]
+            )->assertSessionHasNoErrors()
+            ->assertRedirect();
+
 
         $mismatch1->refresh();
         $this->assertNotEmpty($mismatch1->user);

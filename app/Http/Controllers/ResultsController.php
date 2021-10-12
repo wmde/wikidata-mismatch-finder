@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BulkReviewsPutRequest;
 use App\Http\Requests\MismatchGetRequest;
 use App\Services\WikibaseAPIClient;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
 class ResultsController extends Controller
 {
+    use Traits\ReviewMismatch;
 
     /**
      * Instantiate a new controller instance.
@@ -78,8 +79,16 @@ class ResultsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(BulkReviewsPutRequest $request)
     {
+        foreach ($request->input() as $mismatch_id => $decision) {
+            $mismatch = Mismatch::findorFail($mismatch_id);
+
+            $old_status = $mismatch->review_status;
+            $this->saveToDb($mismatch, $request->user(), $decision['review_status']);
+            $this->logToFile($mismatch, $request->user(), $old_status);
+        }
+
         return back();
     }
 }

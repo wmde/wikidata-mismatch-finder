@@ -8,61 +8,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Inertia\Testing\Assert;
 use App\Models\User;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Collection;
 
-class WebRouteTest extends TestCase
+class WebResultsRouteTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * Test the / route
-     *
-     *  @return void
-     */
-    public function test_home_route()
-    {
-        $response = $this->get(route('home'));
-
-        $response->assertSuccessful();
-        $response->assertViewIs('app')
-            ->assertInertia(function (Assert $page) {
-                $page->component('Home');
-            });
-    }
-
-     /**
-     * Test the / route when authenticated
-     *
-     *  @return void
-     */
-    public function test_home_page_has_user()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route('home'));
-
-        $response->assertSuccessful();
-        $response->assertViewIs('app')
-            ->assertInertia(function (Assert $page) use ($user) {
-                $page->component('Home')
-                    ->where('user.name', $user->username);
-            });
-    }
-
-    /**
-     * Test the / route with a language code
-     *
-     *  @return void
-     */
-    public function test_home_page_accepts_translated_locales()
-    {
-        // qqq should always exist
-        $response = $this->get(route('home', ['uselang' => 'qqq']));
-
-        $response->assertSuccessful();
-        $this->assertSame(App::currentLocale(), 'qqq');
-    }
 
     /**
      * Test the /results route
@@ -166,58 +116,6 @@ class WebRouteTest extends TestCase
     }
 
     /**
-     * Test the / route with a non translated language code
-     *
-     *  @return void
-     */
-    public function test_home_page_locale_falls_back_to_english()
-    {
-        // xtravagent-test is not a language
-        $response = $this->get(route('home', ['uselang' => 'xtravagent-test']));
-
-        $response->assertSuccessful();
-        $this->assertSame(App::currentLocale(), 'en');
-    }
-
-    /**
-     * Test the /store route
-     *
-     *  @return void
-     */
-    public function test_store_home()
-    {
-        $response = $this->get(route('store.home'));
-
-        $response->assertRedirect(route('store.api-settings'));
-    }
-
-    /**
-     * Test the authenticated /store/api-settings route
-     *
-     *  @return void
-     */
-    public function test_store_api_settings()
-    {
-        $response = $this->get(route('store.api-settings'));
-
-        $response->assertSuccessful();
-        $response->assertViewIs('showToken');
-    }
-
-    /**
-     * Test the store/imports route
-     *
-     *  @return void
-     */
-    public function test_store_import_status()
-    {
-        $response = $this->get(route('store.import-status'));
-
-        $response->assertSuccessful();
-        $response->assertViewIs('importStatus');
-    }
-
-    /**
      * Test results error response handling
      *
      * @return void
@@ -234,30 +132,6 @@ class WebRouteTest extends TestCase
         $this->get($redirect->headers->get('Location'))
             ->assertInertia(function (Assert $page) {
                 $page->component('Home')
-                    ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
-            });
-    }
-
-    /**
-     * Test mismatch review error response handling
-     *
-     * @return void
-     */
-    public function test_mismatch_review_error_response_handling()
-    {
-        // start from results
-        $this->get(route('results', ['ids' => 'Q1']));
-        $redirect = $this
-            ->put(
-                route('mismatch-review'),
-                [ "some" => "data" ],
-                ['X-Mismatch-Finder-Error' => 'mismatch-review']  // force error response on this path
-            )->assertRedirect(route('results', ['ids' => 'Q1']));
-
-        // follow the redirect
-        $this->get($redirect->headers->get('Location'))
-            ->assertInertia(function (Assert $page) {
-                $page->component('Results')
                     ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
             });
     }

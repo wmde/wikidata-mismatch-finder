@@ -36,6 +36,7 @@ Route::get('/results', [ResultsController::class, 'index'])
     ->name('results');
 
 Route::put('/mismatch-review', [ResultsController::class, 'update'])
+    ->middleware('auth')
     ->name('mismatch-review');
 
 // Mismatch store manager routes, might be converted to inertia routes in the future

@@ -217,10 +217,8 @@ class ApiMismatchRoutePutTest extends TestCase
 
         $mismatch = Mismatch::factory()
             ->for(User::factory()->create())
-            ->reviewed()
             ->for($import)
             ->state([
-                 'review_status' => 'pending',
                  'updated_at' => now()->subDay() // created yesterday
                  ])
             ->create();

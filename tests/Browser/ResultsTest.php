@@ -10,6 +10,7 @@ use App\Models\Mismatch;
 use App\Models\ImportMeta;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Facebook\WebDriver\WebDriverKeys;
 
 class ResultsTest extends DuskTestCase
 {
@@ -100,6 +101,48 @@ class ResultsTest extends DuskTestCase
                     ->assertSeeLink($mismatch->importMeta->user->username)
                     ->assertSee($mismatch->importMeta->created_at->toDateString());
             }
+        });
+    }
+
+    public function test_apply_changes_button_submits_new_review_status()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        //first element is our test case, second one is the expected
+        Mismatch::factory()
+            ->for($import)
+            ->state(new Sequence(
+                [
+                    'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
+                    'property_id' => 'P610',
+                    'wikidata_value' => 'Q513',
+                    'review_status' => 'wikidata'
+                ]
+            ))
+            ->create();
+
+
+        $mismatches = Mismatch::all();
+
+        $this->browse(function (Browser $browser) use ($mismatches) {
+            $idsQuery = $mismatches->implode('item_id', '|');
+            $browser->visit(new ResultsPage($idsQuery));
+            
+            // make sure first value is displayed as it should
+            $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on Wikidata');
+        
+            $browser->click('.wikit-Dropdown__select');
+            
+            // value is then changed
+            $browser->keys('.wikit-Dropdown__select', WebDriverKeys::ARROW_DOWN, WebDriverKeys::ENTER);
+            $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
+            $browser->press('Apply changes');
+            //load the page again
+            $browser->visit(new ResultsPage($idsQuery));
+            //TODO: display the new value when reloading the page
+            $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
         });
     }
 }

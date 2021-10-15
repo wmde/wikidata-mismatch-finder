@@ -4,14 +4,17 @@
         <section id="error-section" v-if="unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
         </section>
-        <section id="message-section" v-if="notFoundItemIds.length">
-            <Message type="notice">
+        <section id="message-section">
+            <Message type="notice" v-if="notFoundItemIds.length">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link
                         :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
+            </Message>
+            <Message type="warning" v-if="!user">
+                <span v-i18n-html:log-in-message="['/auth/login']"></span>
             </Message>
         </section>
         <section id="results" v-if="Object.keys(results).length">

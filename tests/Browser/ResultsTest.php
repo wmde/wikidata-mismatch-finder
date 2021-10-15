@@ -110,27 +110,19 @@ class ResultsTest extends DuskTestCase
         ->for(User::factory()->uploader())
         ->create();
 
-        //first element is our test case, second one is the expected
-        Mismatch::factory()
+        $mismatch = Mismatch::factory()
             ->for($import)
-            ->state(new Sequence(
-                [
-                    'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
-                    'property_id' => 'P610',
-                    'wikidata_value' => 'Q513',
-                    'review_status' => 'wikidata'
-                ]
-            ))
+            ->state([
+                'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
+                'property_id' => 'P610',
+                'wikidata_value' => 'Q513',
+                'review_status' => 'wikidata'
+            ])
             ->create();
 
-
-        $mismatches = Mismatch::all();
-
-        $this->browse(function (Browser $browser) use ($mismatches) {
-            $idsQuery = $mismatches->implode('item_id', '|');
-
+        $this->browse(function (Browser $browser) use ($mismatch) {
             $browser->loginAs(User::factory()->create());
-            $browser->visit(new ResultsPage($idsQuery));
+            $browser->visit(new ResultsPage($mismatch->item_id));
 
             // make sure first value is displayed as it should
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on Wikidata');
@@ -142,7 +134,7 @@ class ResultsTest extends DuskTestCase
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
             $browser->press('Apply changes');
             //load the page again
-            $browser->visit(new ResultsPage($idsQuery));
+            $browser->visit(new ResultsPage($mismatch->item_id));
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
         });
     }

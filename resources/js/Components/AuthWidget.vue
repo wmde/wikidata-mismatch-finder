@@ -1,9 +1,9 @@
 <template>
     <div v-if="user">
         <Link :href="`https://www.wikidata.org/wiki/User:${user.name}`">
-            <img src="../../img/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
+            <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
         </Link>
-        <Link href="/auth/logout">{{ $i18n('log-out') }}</Link>      
+        <Link href="/auth/logout">{{ $i18n('log-out') }}</Link>
     </div>
     <Link v-else href="/auth/login">{{ $i18n('log-in') }}</Link>
 </template>

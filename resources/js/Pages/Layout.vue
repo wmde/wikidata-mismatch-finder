@@ -1,7 +1,7 @@
 <template>
   <main class="website">
     <header>
-      <img src="../../img/wikidata-logo.svg" class="wikidata-logo" alt="Wikidata-logo" width="160" />
+      <img src="images/wikidata-logo.svg" class="wikidata-logo" alt="Wikidata-logo" width="160" />
       <div class="auth-widget">
         <AuthWidget :user="user" />
       </div>

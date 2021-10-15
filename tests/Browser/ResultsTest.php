@@ -123,15 +123,18 @@ class ResultsTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($mismatch) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
-                // make sure first value is displayed as it should
-                ->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on Wikidata')
-                ->click('.wikit-Dropdown__select')
-                ->keys('.wikit-Dropdown__select', WebDriverKeys::ARROW_DOWN, WebDriverKeys::ENTER)
-                ->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source')
-                ->press('Apply changes')
-                //load the page again
-                ->refresh()
-                ->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
+                // ensure all following operations are scoped to the current mismatch's section
+                ->with("#item-mismatches-$mismatch->item_id", function ($section) {
+                    // make sure first value is displayed as it should
+                    $section->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on Wikidata')
+                        ->click('.wikit-Dropdown__select')
+                        ->keys('.wikit-Dropdown__select', WebDriverKeys::ARROW_DOWN, WebDriverKeys::ENTER)
+                        ->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source')
+                        ->press('Apply changes')
+                        //load the page again
+                        ->refresh()
+                        ->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
+                });
         });
     }
 }

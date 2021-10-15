@@ -62,4 +62,8 @@ class DecisionDropdown extends BaseComponent
     {
         $browser->assertSeeIn('@selected', $option);
     }
+
+    public function assertDropdownDisabled(Browser $browser){
+        $browser->assertVue('disabled', true);
+    }
 }

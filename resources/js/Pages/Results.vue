@@ -24,10 +24,12 @@
                 </h2>
                 <form @submit.prevent="send(item)">
                     <mismatches-table :mismatches="addLabels(mismatches)"
+                        :disabled="!user"
                         @decision="recordDecision"
                     />
                     <div class="form-buttons">
                         <wikit-button
+                            :disabled="!user"
                             variant="primary"
                             type="progressive"
                             native-type="submit"

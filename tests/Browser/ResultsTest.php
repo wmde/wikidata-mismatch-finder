@@ -134,7 +134,7 @@ class ResultsTest extends DuskTestCase
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
             $browser->press('Apply changes');
             //load the page again
-            $browser->visit(new ResultsPage($mismatch->item_id));
+            $browser->refresh();
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
         });
     }

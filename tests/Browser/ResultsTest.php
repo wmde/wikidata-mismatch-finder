@@ -128,20 +128,21 @@ class ResultsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($mismatches) {
             $idsQuery = $mismatches->implode('item_id', '|');
+
+            $browser->loginAs(User::factory()->create());
             $browser->visit(new ResultsPage($idsQuery));
-            
+
             // make sure first value is displayed as it should
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on Wikidata');
-        
+
             $browser->click('.wikit-Dropdown__select');
-            
+
             // value is then changed
             $browser->keys('.wikit-Dropdown__select', WebDriverKeys::ARROW_DOWN, WebDriverKeys::ENTER);
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
             $browser->press('Apply changes');
             //load the page again
             $browser->visit(new ResultsPage($idsQuery));
-            //TODO: display the new value when reloading the page
             $browser->assertSeeIn('.wikit-Dropdown__selectedOption', 'Mismatch on external data source');
         });
     }

@@ -11,6 +11,7 @@
         </thead>
         <tbody>
             <mismatch-row v-for="mismatch in mismatches"
+                :disabled="disabled"
                 :key="mismatch.id"
                 :mismatch="mismatch"
                 :id="`mismatch-${mismatch.id}`"
@@ -33,7 +34,11 @@ export default Vue.extend({
         WikitTable,
     },
     props: {
-        mismatches: Array as PropType<LabelledMismatch[]>
+        mismatches: Array as PropType<LabelledMismatch[]>,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     }
 });
 </script>

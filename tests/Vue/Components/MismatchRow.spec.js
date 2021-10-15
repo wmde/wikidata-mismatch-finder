@@ -6,6 +6,35 @@ import { ReviewDecision } from '@/types/Mismatch.ts';
 import MismatchRow from '@/Components/MismatchRow.vue';
 
 describe('MismatchesRow.vue', () => {
+    it('accepts a disabled property', () => {
+        const disabled = true;
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                created_at: '2021-09-23'
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch, disabled },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const dropdown = wrapper.findComponent(Dropdown);
+
+        expect( wrapper.props().disabled ).toBe( disabled );
+        expect( dropdown.props().disabled ).toBe( disabled );
+    });
+
     it('accepts a mismatch property', () => {
         const mismatch = {
             property_label: 'Hey hey',

@@ -17,6 +17,7 @@
             <dropdown
                 :menuItems="Object.values(statusOptions)"
                 :placeholder="$i18n('review-status-pending')"
+                :disabled="disabled"
                 v-model="decision"
                 @input="$bubble('decision', {
                     id: mismatch.id,
@@ -66,7 +67,11 @@ export default Vue.extend({
     Dropdown,
     },
     props: {
-        mismatch: Object as PropType<LabelledMismatch>
+        mismatch: Object as PropType<LabelledMismatch>,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         uploadDate(): string {

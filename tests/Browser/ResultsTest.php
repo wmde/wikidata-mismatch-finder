@@ -10,6 +10,7 @@ use App\Models\Mismatch;
 use App\Models\ImportMeta;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Tests\Browser\Components\DecisionDropdown;
 
 class ResultsTest extends DuskTestCase
 {
@@ -100,6 +101,45 @@ class ResultsTest extends DuskTestCase
                     ->assertSeeLink($mismatch->importMeta->user->username)
                     ->assertSee($mismatch->importMeta->created_at->toDateString());
             }
+        });
+    }
+
+    public function test_apply_changes_button_submits_new_review_status()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->state([
+                'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
+                'property_id' => 'P610',
+                'wikidata_value' => 'Q513',
+                'review_status' => 'wikidata'
+            ])
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $dropdownComponent = new DecisionDropdown($mismatch->id);
+
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->within($dropdownComponent, function ($dropdown) {
+                    // make sure first value is displayed as it should
+                    $dropdown->assertOption('Mismatch on Wikidata')
+                        // select and assert option
+                        ->selectPosition(2, 'Mismatch on external data source');
+                })
+                // ensure the correct apply button is pressed
+                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
+                    $section->press('Apply changes');
+                })
+                //load the page again
+                ->refresh()
+                ->within($dropdownComponent, function ($dropdown) {
+                    $dropdown->assertOption('Mismatch on external data source');
+                });
         });
     }
 }

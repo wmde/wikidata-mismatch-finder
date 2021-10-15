@@ -10,7 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <mismatch-row v-for="mismatch in mismatches" :key="mismatch.id" :mismatch="mismatch" />
+            <mismatch-row v-for="mismatch in mismatches"
+                :key="mismatch.id"
+                :mismatch="mismatch"
+                :id="`mismatch-${mismatch.id}`"
+            />
         </tbody>
     </wikit-table>
 </template>

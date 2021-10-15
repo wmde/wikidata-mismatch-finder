@@ -50,6 +50,7 @@
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
+    import User from '../types/User';
     import defineComponent from '../types/defineComponent';
     import { RequestPayload } from '@inertiajs/inertia';
 
@@ -90,6 +91,10 @@
             Message
         },
         props: {
+            user: {
+                type: Object as PropType<User|null>,
+                default: null
+            },
             item_ids: {
                 type: Array as PropType<string[]>,
                 default: () => []
@@ -140,7 +145,7 @@
                 if(this.decisions && Object.prototype.hasOwnProperty.call(this.decisions, item)){
 
                     this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
-                    // remove decision from this.decisions after it has been sent to the server to avoid sending 
+                    // remove decision from this.decisions after it has been sent to the server to avoid sending
                     // them twice
                     delete this.decisions[item];
                 }

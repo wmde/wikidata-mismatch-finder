@@ -15,7 +15,7 @@ jobs:
           run: |
             php artisan key:generate
         - name: phpunit
-          uses: php-actions/phpunit@v3
+          uses: php-actions/phpunit@v9
           with:
             php_version: 7.3
 

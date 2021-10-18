@@ -3,6 +3,8 @@ module.exports = {
     "roots": [
         "<rootDir>/tests/Vue"
     ],
+    // Make sure tests are run in a browser-like environment
+    "testEnvironment": "jsdom",
     // vue: transform vue with vue-jest to make jest understand Vue's syntax
     // js: transform js files with babel, we can now use import statements in tests
     // ts: transform ts files with babel, to import ts files into js specs

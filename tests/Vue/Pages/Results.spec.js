@@ -113,6 +113,20 @@ describe('Results.vue', () => {
         Object.values(labels).forEach(label => expect(wrapper.text()).toContain(label));
     });
 
+    it('accepts a user prop', () => {
+        const user = {
+            name: 'test',
+            id: '123'
+        };
+
+        const wrapper = mount(Results, {
+            propsData: { user },
+            mocks
+        });
+
+        expect(wrapper.props().user).toBe(user);
+    })
+
     it('Updates decisions mismatches on emitted decision events', () => {
         const results = {
             'Q321': [{
@@ -149,7 +163,7 @@ describe('Results.vue', () => {
     });
 
     it('Sends a put request with the selected decisions on click of "Apply changes" button', () => {
-        
+
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
         const inertiaPut = jest.fn();
@@ -168,14 +182,13 @@ describe('Results.vue', () => {
 
         const decisionsBeforeDelete = decisions[item_id];
         wrapper.vm.send( item_id );
-     
+
         expect( inertiaPut ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
-        
+
         //the decisions object will be empty after sending the put request on one item
         expect(wrapper.vm.decisions).toEqual({});
 
     });
-
 
     it('Does not send a put request without any decisions', () => {
         const item_id = 'Q321';
@@ -192,9 +205,9 @@ describe('Results.vue', () => {
                 }
             },
         });
-        wrapper.vm.send( 'Q42' );     
+        wrapper.vm.send( 'Q42' );
         expect( inertiaPut ).not.toHaveBeenCalled();
-        
+
         //the decisions object will be untouched
         expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
     });

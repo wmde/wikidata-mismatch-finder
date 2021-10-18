@@ -4,14 +4,17 @@
         <section id="error-section" v-if="unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
         </section>
-        <section id="message-section" v-if="notFoundItemIds.length">
-            <Message type="notice">
+        <section id="message-section">
+            <Message type="notice" v-if="notFoundItemIds.length">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link
                         :href="`http://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
+            </Message>
+            <Message type="warning" v-if="!user">
+                <span v-i18n-html:log-in-message="['/auth/login']"></span>
             </Message>
         </section>
         <section id="results" v-if="Object.keys(results).length">
@@ -24,10 +27,12 @@
                 </h2>
                 <form @submit.prevent="send(item)">
                     <mismatches-table :mismatches="addLabels(mismatches)"
+                        :disabled="!user"
                         @decision="recordDecision"
                     />
                     <div class="form-buttons">
                         <wikit-button
+                            :disabled="!user"
                             variant="primary"
                             type="progressive"
                             native-type="submit"
@@ -50,6 +55,7 @@
         Message } from '@wmde/wikit-vue-components';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
+    import User from '../types/User';
     import defineComponent from '../types/defineComponent';
     import { RequestPayload } from '@inertiajs/inertia';
 
@@ -90,6 +96,10 @@
             Message
         },
         props: {
+            user: {
+                type: Object as PropType<User|null>,
+                default: null
+            },
             item_ids: {
                 type: Array as PropType<string[]>,
                 default: () => []
@@ -140,7 +150,7 @@
                 if(this.decisions && Object.prototype.hasOwnProperty.call(this.decisions, item)){
 
                     this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
-                    // remove decision from this.decisions after it has been sent to the server to avoid sending 
+                    // remove decision from this.decisions after it has been sent to the server to avoid sending
                     // them twice
                     delete this.decisions[item];
                 }

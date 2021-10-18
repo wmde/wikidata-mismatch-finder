@@ -31,5 +31,6 @@
     "review-status-external": "Mismatch on external data source",
     "review-status-both": "Both are wrong",
     "review-status-none": "None of the above",
-    "result-form-submit": "Apply changes"
+    "result-form-submit": "Apply changes",
+    "log-in-message": "Please <a href=\"$1\">log in</a> to be able to make any changes."
 }

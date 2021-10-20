@@ -110,7 +110,7 @@ class WebReviewRouteTest extends TestCase
                     ]
                 ]
             )->assertSessionHasNoErrors()
-            ->assertRedirect();
+            ->assertSuccessful();
 
 
         $mismatch1->refresh();
@@ -155,7 +155,7 @@ class WebReviewRouteTest extends TestCase
                         'review_status' => 'wikidata'
                     ]
                 ]
-            )->assertRedirect();
+            )->assertSuccessful();
 
         // refresh mismatch to get correct updated_at timestamp
         $mismatch->refresh();

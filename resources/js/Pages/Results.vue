@@ -57,7 +57,7 @@
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
     import defineComponent from '../types/defineComponent';
-    import { RequestPayload } from '@inertiajs/inertia';
+    import axios from 'axios';
 
     interface MismatchDecision {
         id: number,
@@ -145,11 +145,11 @@
                     [decision.id]: decision
                 };
             },
-            send( item: string ): void {
+            async send( item: string ): Promise<void> {
 
-                if(this.decisions && Object.prototype.hasOwnProperty.call(this.decisions, item)){
-
-                    this.$inertia.put( '/mismatch-review', this.decisions[item] as unknown as RequestPayload );
+                if(this.decisions[item]){
+                    // use axios in order to preserve saved mismatches
+                    axios.put('/mismatch-review', this.decisions[item]);
                     // remove decision from this.decisions after it has been sent to the server to avoid sending
                     // them twice
                     delete this.decisions[item];

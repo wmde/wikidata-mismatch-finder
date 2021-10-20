@@ -113,6 +113,33 @@ class WebResultsRouteTest extends TestCase
     }
 
     /**
+     * Test that the /results response does not contain expired mismatches
+     *
+     *  @return void
+     */
+    public function test_results_route_does_not_retrieve_expired_mismatches()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->expired()
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->state([
+                'statement_guid' => 'Q1$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0'
+            ])
+            ->create();
+
+        $response = $this->get(route('results', [ 'ids' => $mismatch->item_id ]));
+        $response->assertSuccessful();
+        $response->assertViewIs('app')->assertInertia(function (Assert $page) {
+            $page->component('Results')
+                ->where('results', [ ]);
+        });
+    }
+
+    /**
      * Test the /results redirects when no ids provided
      *
      *  @return void

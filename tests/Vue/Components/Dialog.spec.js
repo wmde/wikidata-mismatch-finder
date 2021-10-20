@@ -48,7 +48,26 @@ describe('Dialog.vue', () => {
         });
     });
 
-    test.todo('accepts dismissible prop');
+    it('accepts dismissible prop', () => {
+        const wrapper = mount(Dialog, {
+            propsData: {
+                title: 'Hello World!',
+                actions: [
+                    {
+                        label: 'Primary Test!',
+                        namespace: 'primary-test'
+                    }
+                ],
+                dismissible: true
+            }
+        });
+
+        const closeButton = wrapper.find('.wikit-Dialog__close');
+
+        expect(wrapper.props().dismissible).toBe(true);
+        expect(closeButton.exists()).toBe(true);
+    });
+
     test.todo('accepts open prop');
 
     // Slots

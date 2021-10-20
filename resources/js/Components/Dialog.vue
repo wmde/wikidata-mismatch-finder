@@ -5,7 +5,18 @@
     ]">
         <div class="wikit-Dialog__overlay"></div>
         <div class="wikit-Dialog__modal">
-            <header class="wikit-Dialog__header">{{title}}</header>
+            <header class="wikit-Dialog__header">
+                <span class="wikit-Dialog__title">{{title}}</span>
+                <wikit-button v-if="dismissible"
+                    class="wikit-Dialog__close"
+                    variant="quiet"
+                    type="neutral"
+                    aria-label="close"
+                    icon-only
+                >
+                    <icon type="clear" />
+                </wikit-button>
+            </header>
             <footer class="wikit-Dialog__footer">
                 <wikit-button v-for="(action, i) in actions"
                     :key="i"
@@ -27,7 +38,7 @@
 import { PropType } from 'vue';
 import defineComponent from '../types/defineComponent';
 
-import { Button as WikitButton } from '@wmde/wikit-vue-components';
+import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
 
 interface DialogAction {
     label: string,
@@ -36,7 +47,8 @@ interface DialogAction {
 
 export default defineComponent({
     components: {
-        WikitButton
+        WikitButton,
+        Icon
     },
     props: {
         title: {
@@ -46,6 +58,10 @@ export default defineComponent({
         actions: {
             type: Array as PropType<DialogAction[]>,
             required: true
+        },
+        dismissible: {
+            type: Boolean,
+            default: false
         }
     }
 });
@@ -123,18 +139,26 @@ export default defineComponent({
     }
 
     #{$base}__header {
-        color: $wikit-Dialog-header-color;
+        display: flex;
+        justify-content: space-between;
 
-        font-family: $wikit-Dialog-header-font-family;
-        font-size: $wikit-Dialog-header-font-size;
-        font-weight: $wikit-Dialog-header-font-weight;
-        line-height: $wikit-Dialog-header-line-height;
+        color: $wikit-Dialog-header-color;
 
         padding-block-start: $wikit-Dialog-header-spacing-top;
         padding-block-end: $wikit-Dialog-header-spacing-bottom-complex;
         padding-inline-start: $wikit-Dialog-header-spacing-left;
         padding-inline-end: $wikit-Dialog-header-spacing-left;
 
+        #{$base}__title {
+            font-family: $wikit-Dialog-header-font-family;
+            font-size: $wikit-Dialog-header-font-size;
+            font-weight: $wikit-Dialog-header-font-weight;
+            line-height: $wikit-Dialog-header-line-height;
+        }
+
+        #{$base}__close.wikit.wikit-Button--iconOnly {
+            padding: 0;
+        }
         // $wikit-Dialog-header-box-shadow: inset 0 1px 0 0 #c8ccd1; // only for complex dialogs: divider to be displayed when scroll is activated
     }
 
@@ -146,19 +170,19 @@ export default defineComponent({
     }
 
     #{$base}__footer {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+
         box-shadow: $wikit-Dialog-footer-box-shadow;
 
         padding-block-start: $wikit-Dialog-footer-spacing-top-complex;
         padding-inline-start: $wikit-Dialog-footer-spacing-left;
         padding-inline-end: $wikit-Dialog-footer-spacing-left;
 
-        display: flex;
-        flex-direction: row-reverse;
-        flex-wrap: wrap;
-
         #{$base}__action {
             margin-block-end: $wikit-Dialog-footer-spacing-bottom-complex;
-            margin-inline-end: $wikit-Dialog-footer-spacing;
+            margin-inline-start: $wikit-Dialog-footer-spacing;
         }
     }
 </style>

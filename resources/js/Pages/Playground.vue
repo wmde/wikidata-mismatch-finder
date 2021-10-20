@@ -16,7 +16,8 @@
                 label: 'Test Secondary',
                 namespace: 'secondary'
             }
-        ]">
+        ]"
+        dismissible>
         I am a dialog!
     </wikit-dialog>
   </div>

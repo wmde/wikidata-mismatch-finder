@@ -4,7 +4,19 @@
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
 
-    <wikit-dialog title="Fancy Dialog">I am a dialog!</wikit-dialog>
+    <wikit-dialog title="Fancy Dialog"
+        :actions="[
+            {
+                label: 'Test Primary',
+                namespace: 'primary'
+            },
+            {
+                label: 'Test Secondary',
+                namespace: 'secondary'
+            }
+        ]">
+        I am a dialog!
+    </wikit-dialog>
   </div>
 </template>
 

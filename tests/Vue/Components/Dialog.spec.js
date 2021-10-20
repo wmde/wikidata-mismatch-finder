@@ -18,7 +18,36 @@ describe('Dialog.vue', () => {
         expect(header.text()).toContain(title);
     });
 
-    test.todo('accepts and renders actions prop');
+    it('accepts and renders actions prop', () => {
+        const actions = [
+            {
+                label: 'Primary Test!',
+                namespace: 'primary-test'
+            },
+            {
+                label: 'Secondary Test!',
+                namespace: 'secondary-test'
+            }
+        ];
+
+        const wrapper = mount(Dialog, {
+            propsData: {
+                title: 'Hello World!',
+                actions
+            }
+        });
+
+        const footer = wrapper.find('footer');
+
+        expect(wrapper.props().actions).toBe(actions);
+
+        actions.forEach(({label, namespace}) => {
+            const button = footer.find(`.${namespace}`);
+
+            expect(button.text()).toBe(label);
+        });
+    });
+
     test.todo('accepts dismissible prop');
     test.todo('accepts open prop');
 

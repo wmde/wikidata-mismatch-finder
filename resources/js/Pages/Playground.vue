@@ -4,38 +4,20 @@
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
 
-    <wikit-table id="some-table" linearize="desktop">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Calories</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="dessert in desserts" :key="dessert.name">
-                <!-- When using the table make sure to include the
-                    data-header for linearization and accesibility -->
-                <td data-header="Name">
-                    <Link v-if="dessert.url" :href="dessert.url">{{dessert.name}}</Link>
-                    <div v-else>{{dessert.name}}</div>
-                </td>
-                <td data-header="Calories">{{dessert.calories}}</td>
-            </tr>
-        </tbody>
-    </wikit-table>
+    <dialog>I am a dialog!</dialog>
   </div>
 </template>
 
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
     import defineComponent from '../types/defineComponent';
+    import Dialog from '../Components/Dialog.vue';
     import { Link, Table as WikitTable } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {
             Head,
-            Link,
-            WikitTable
+            Dialog
         },
         props: {
             user: Object,

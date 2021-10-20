@@ -3,7 +3,21 @@ import Dialog from '@/Components/Dialog.vue';
 
 describe('Dialog.vue', () => {
     // Props
-    test.todo('accepts and renders title prop');
+    it('accepts and renders title prop', () => {
+        const title = 'Hello World!';
+
+        const wrapper = mount(Dialog, {
+            propsData: {
+                title
+            }
+        });
+
+        const header = wrapper.find('header');
+
+        expect(wrapper.props().title).toBe(title);
+        expect(header.text()).toContain(title);
+    });
+
     test.todo('accepts and renders actions prop');
     test.todo('accepts open prop');
 

@@ -4,20 +4,20 @@
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
 
-    <dialog>I am a dialog!</dialog>
+    <wikit-dialog title="Fancy Dialog">I am a dialog!</wikit-dialog>
   </div>
 </template>
 
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
     import defineComponent from '../types/defineComponent';
-    import Dialog from '../Components/Dialog.vue';
+    import WikitDialog from '../Components/Dialog.vue';
     import { Link, Table as WikitTable } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {
             Head,
-            Dialog
+            WikitDialog
         },
         props: {
             user: Object,

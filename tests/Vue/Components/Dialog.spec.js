@@ -19,6 +19,7 @@ describe('Dialog.vue', () => {
     });
 
     test.todo('accepts and renders actions prop');
+    test.todo('accepts dismissible prop');
     test.todo('accepts open prop');
 
     // Slots

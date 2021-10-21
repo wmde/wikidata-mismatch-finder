@@ -48,6 +48,16 @@ class ImportController extends Controller
                 'string',
                 'max:' . config('imports.description.max_length')
             ],
+            'external_source' => [
+                'required',
+                'string',
+                'max:' . config('imports.external_source.max_length')
+            ],
+            'external_source_url' => [
+                'nullable',
+                'string',
+                'max:' . config('imports.external_source_url.max_length')
+            ],
             'expires' => [
                 'nullable',
                 'date',
@@ -66,6 +76,8 @@ class ImportController extends Controller
 
         $meta = ImportMeta::make([
             'filename' => $filename,
+            'external_source' => $request->external_source,
+            'external_source_url' => $request->external_source_url,
             'description' => $request->description,
             'expires' => $expires
         ])->user()->associate($request->user());

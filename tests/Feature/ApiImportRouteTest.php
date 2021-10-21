@@ -42,14 +42,28 @@ class ApiImportRouteTest extends TestCase
             ':userid' => $user->getAttribute('mw_userid')
         ]);
 
-        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatch_file' => $file]);
+        $response = $this->postJson(
+            self::IMPORTS_ROUTE,
+            [
+                'mismatch_file' => $file,
+                'description' => 'some description',
+                'external_source' => 'some source',
+                'external_source_url' => 'some source_url'
+            ]
+        );
         $response->assertCreated()
             ->assertJsonStructure([
                 'id',
                 'description',
+                'external_source',
+                'external_source_url',
                 'expires',
                 'created',
                 'uploader' => ['username']
+            ])->assertJson([
+                'description' => 'some description',
+                'external_source' => 'some source',
+                'external_source_url' => 'some source_url'
             ]);
 
         $this->assertDatabaseHas('import_meta', [
@@ -152,6 +166,62 @@ class ApiImportRouteTest extends TestCase
     }
 
     /**
+     * Test missing external_source field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_missing_external_source()
+    {
+        $user = User::factory()->uploader()->create();
+        $file = UploadedFile::fake()->create('mismatchFile.csv');
+
+        Bus::fake();
+        Storage::fake('local');
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatch_file' => $file]);
+
+        $response
+            ->assertJsonValidationErrors([
+                'external_source' => __('validation.required', [
+                    'attribute' => 'external source'
+                ])
+            ]);
+    }
+
+    /**
+     * Test long external_source field in /api/imports
+     *
+     *  @return void
+     */
+    public function test_import_long_external_source()
+    {
+        $maxLength = config('imports.external_source.max_length');
+        $user = User::factory()->uploader()->create();
+        $file = UploadedFile::fake()->create('mismatchFile.csv');
+
+        Bus::fake();
+        Storage::fake('local');
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson(
+            self::IMPORTS_ROUTE,
+            [
+                'mismatch_file' => $file,
+                'external_source' => $this->faker->realTextBetween($maxLength + 10, $maxLength + 100),
+            ]
+        );
+
+        $response
+            ->assertJsonValidationErrors([
+                'external_source' => __('validation.max.string', [
+                    'attribute' => 'external source',
+                    'max' => $maxLength
+                ])
+            ]);
+    }
+
+    /**
      * Test long description field in /api/imports
      *
      *  @return void
@@ -201,7 +271,7 @@ class ApiImportRouteTest extends TestCase
     }
 
     /**
-     * Test single import
+     * Test get single import
      *
      *  @return void
      */
@@ -217,6 +287,9 @@ class ApiImportRouteTest extends TestCase
             ->assertJson([
                 'id' => $import->id,
                 'status' => $import->status,
+                'description' => $import->description,
+                'external_source' => $import->external_source,
+                'external_source_url' => $import->external_source_url,
                 'expires' => $import->expires->toJSON(),
                 'created' => $import->created_at->toJSON(),
                 'uploader' => [
@@ -226,7 +299,7 @@ class ApiImportRouteTest extends TestCase
     }
 
     /**
-     * Test single import
+     * Test get failed import
      *
      *  @return void
      */
@@ -242,20 +315,11 @@ class ApiImportRouteTest extends TestCase
 
         $response
             ->assertSuccessful()
-            ->assertJson([
-                'id' => $import->id,
-                'status' => $import->status,
-                'expires' => $import->expires->toJSON(),
-                'created' => $import->created_at->toJSON(),
-                'uploader' => [
-                    'username' => $import->user->username
-                ],
-                'error' => $failure->message
-            ]);
+            ->assertJson(['error' => $failure->message]);
     }
 
     /**
-     * Test import list
+     * Test get list of all imports
      *
      *  @return void
      */

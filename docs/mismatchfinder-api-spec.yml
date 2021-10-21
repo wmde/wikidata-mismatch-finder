@@ -89,7 +89,7 @@ paths:
             schema:
               type: object
               properties:
-                mismatchFile:
+                mismatch_file:
                   type: string
                   format: binary
                 description:

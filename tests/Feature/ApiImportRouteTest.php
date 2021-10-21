@@ -42,7 +42,7 @@ class ApiImportRouteTest extends TestCase
             ':userid' => $user->getAttribute('mw_userid')
         ]);
 
-        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatch_file' => $file]);
         $response->assertCreated()
             ->assertJsonStructure([
                 'id',
@@ -95,11 +95,11 @@ class ApiImportRouteTest extends TestCase
         Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatch_file' => $file]);
 
         $response
             ->assertJsonValidationErrors([
-                'mismatchFile' => __('validation.max.file', [
+                'mismatch_file' => __('validation.max.file', [
                     'attribute' => 'mismatch file',
                     'max' => $maxSize
                 ])
@@ -119,11 +119,11 @@ class ApiImportRouteTest extends TestCase
         Storage::fake('local');
         Sanctum::actingAs($user);
 
-        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatchFile' => $file]);
+        $response = $this->postJson(self::IMPORTS_ROUTE, ['mismatch_file' => $file]);
 
         $response
             ->assertJsonValidationErrors([
-                'mismatchFile' => __('validation.mimes', [
+                'mismatch_file' => __('validation.mimes', [
                     'attribute' => 'mismatch file',
                     'values' => 'csv, txt'
                 ])
@@ -145,7 +145,7 @@ class ApiImportRouteTest extends TestCase
 
         $response
             ->assertJsonValidationErrors([
-                'mismatchFile' => __('validation.required', [
+                'mismatch_file' => __('validation.required', [
                     'attribute' => 'mismatch file'
                 ])
             ]);

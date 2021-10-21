@@ -71,7 +71,7 @@ The request should include the `Authorization` header with a personal [access to
 
 The request body should include the following fields:
 
-* `mismatchFile` - The CSV file containing mismatches to import to Mismatch Finder.
+* `mismatch_file` - The CSV file containing mismatches to import to Mismatch Finder.
 * `description` - _(Optional)_ A short text (up to 350 characters) to describe this import.
 * `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default.
 

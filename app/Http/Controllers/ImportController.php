@@ -37,7 +37,7 @@ class ImportController extends Controller
         Gate::authorize('upload-import');
 
         $request->validate([
-            'mismatchFile' => [
+            'mismatch_file' => [
                 'required',
                 'file',
                 'max:' . config('filesystems.uploads.max_size'),
@@ -60,7 +60,7 @@ class ImportController extends Controller
             ':userid' => $request->user()->mw_userid
         ]);
 
-        $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
+        $request->file('mismatch_file')->storeAs('mismatch-files', $filename);
 
         $expires = $request->expires ?? now()->add(6, 'months')->toDateString();
 

@@ -2,7 +2,7 @@
     <div :class="[
         'wikit',
         'wikit-Dialog'
-    ]" v-show="open">
+    ]" v-show="visible">
         <div class="wikit-Dialog__overlay"></div>
         <div class="wikit-Dialog__modal">
             <header class="wikit-Dialog__header">
@@ -66,7 +66,7 @@ export default defineComponent({
             type: Boolean,
             default: false
         },
-        open: {
+        visible: {
             type: Boolean,
             default: false
         }

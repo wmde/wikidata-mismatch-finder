@@ -7,7 +7,7 @@ describe('Dialog.vue', () => {
 
         const container = wrapper.find('.wikit-Dialog');
 
-        expect(wrapper.props().open).toBe(false);
+        expect(wrapper.props().visible).toBe(false);
         expect(container.isVisible()).toBe(false);
     });
 
@@ -65,14 +65,14 @@ describe('Dialog.vue', () => {
         expect(closeButton.exists()).toBe(true);
     });
 
-    it('accepts open prop and shows dialog', () => {
+    it('accepts visible prop and shows dialog', () => {
         const wrapper = mount(Dialog, {
-            propsData: { open: true }
+            propsData: { visible: true }
         });
 
         const container = wrapper.find('.wikit-Dialog');
 
-        expect(wrapper.props().open).toBe(true);
+        expect(wrapper.props().visible).toBe(true);
         expect(container.isVisible()).toBe(true);
     });
 

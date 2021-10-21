@@ -114,7 +114,7 @@ class ApiImportRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'mismatch_file' => __('validation.max.file', [
-                    'attribute' => 'mismatch file',
+                    'attribute' => 'mismatch_file',
                     'max' => $maxSize
                 ])
             ]);
@@ -138,7 +138,7 @@ class ApiImportRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'mismatch_file' => __('validation.mimes', [
-                    'attribute' => 'mismatch file',
+                    'attribute' => 'mismatch_file',
                     'values' => 'csv, txt'
                 ])
             ]);
@@ -160,7 +160,7 @@ class ApiImportRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'mismatch_file' => __('validation.required', [
-                    'attribute' => 'mismatch file'
+                    'attribute' => 'mismatch_file'
                 ])
             ]);
     }
@@ -184,7 +184,7 @@ class ApiImportRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'external_source' => __('validation.required', [
-                    'attribute' => 'external source'
+                    'attribute' => 'external_source'
                 ])
             ]);
     }
@@ -215,7 +215,7 @@ class ApiImportRouteTest extends TestCase
         $response
             ->assertJsonValidationErrors([
                 'external_source' => __('validation.max.string', [
-                    'attribute' => 'external source',
+                    'attribute' => 'external_source',
                     'max' => $maxLength
                 ])
             ]);

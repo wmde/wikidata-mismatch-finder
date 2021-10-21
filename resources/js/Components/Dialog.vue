@@ -14,7 +14,7 @@
                     aria-label="close"
                     icon-only
                 >
-                    <icon type="clear" />
+                    <icon type="clear" size="medium" />
                 </wikit-button>
             </header>
             <section class="wikit-Dialog__content">
@@ -148,13 +148,14 @@ export default defineComponent({
     #{$base}__header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         color: $wikit-Dialog-header-color;
 
         padding-block-start: $wikit-Dialog-header-spacing-top;
         padding-block-end: $wikit-Dialog-header-spacing-bottom-complex;
         padding-inline-start: $wikit-Dialog-header-spacing-left;
-        padding-inline-end: $wikit-Dialog-header-spacing-left;
+        padding-inline-end: $wikit-Dialog-header-spacing-right;
 
         #{$base}__title {
             font-family: $wikit-Dialog-header-font-family;
@@ -163,9 +164,6 @@ export default defineComponent({
             line-height: $wikit-Dialog-header-line-height;
         }
 
-        #{$base}__close.wikit.wikit-Button--iconOnly {
-            padding: 0;
-        }
         // $wikit-Dialog-header-box-shadow: inset 0 1px 0 0 #c8ccd1; // only for complex dialogs: divider to be displayed when scroll is activated
     }
 

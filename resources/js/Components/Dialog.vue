@@ -29,6 +29,7 @@
                     ]"
                     :variant="i === 0 ? 'primary' : 'normal'"
                     :type="i === 0 ? 'progressive' : 'neutral'"
+                    @click.native="$emit('action', action.namespace)"
                 >
                     {{action.label}}
                 </wikit-button>
@@ -69,6 +70,14 @@ export default defineComponent({
         visible: {
             type: Boolean,
             default: false
+        }
+    },
+    methods: {
+        hide(){
+            this.$emit('update:visible', false);
+        },
+        show(){
+            this.$emit('update:visible', true);
         }
     }
 });

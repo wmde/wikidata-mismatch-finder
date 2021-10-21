@@ -18,7 +18,7 @@
                 namespace: 'secondary'
             }
         ]"
-        :open="dialogShown"
+        :visible.sync="dialogShown"
         dismissible>
         <h2>I am a dialog!</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis provident impedit iste iure perferendis, necessitatibus enim, laboriosam tempora odio sed voluptatum modi doloribus error soluta dignissimos obcaecati. Ad laborum vero ipsa accusamus a? Doloribus, aliquid impedit, rem modi perspiciatis id omnis, quis nemo fuga repellendus adipisci? Soluta molestiae ullam doloremque aspernatur delectus rerum aliquid. Culpa dolores dicta qui, tenetur odio placeat facilis enim fugiat sunt doloribus cupiditate officia facere corporis unde? Recusandae eaque, id molestias porro velit mollitia similique exercitationem totam rem. Nisi quisquam commodi velit tempore pariatur, esse voluptate architecto dolor mollitia? Eligendi minus ipsum aliquam voluptate vitae eveniet.</p>

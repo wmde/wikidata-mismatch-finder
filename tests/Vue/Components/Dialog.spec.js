@@ -91,20 +91,59 @@ describe('Dialog.vue', () => {
     });
 
     // Events
-    test.todo('emits closed event');
-    test.todo('emits action event');
+    it('emits update:visible event when hiding dialog', () => {
+        const wrapper = mount(Dialog);
 
-    // Methods
-    test.todo('exposes show method');
+        wrapper.vm.hide();
 
-    // Bindings
-    test.todo('binds visibility state to v-model');
+        expect(wrapper.emitted()['update:visible']).toBeTruthy();
+        expect(wrapper.emitted()['update:visible'][0]).toEqual([false]);
+    });
+
+    it('emits update:visible event when showing dialog', () => {
+        const wrapper = mount(Dialog);
+
+        wrapper.vm.show();
+
+        expect(wrapper.emitted()['update:visible']).toBeTruthy();
+        expect(wrapper.emitted()['update:visible'][0]).toEqual([true]);
+    });
+
+    it('emits action event when pressing an action button', () => {
+        const actions = [
+            {
+                label: 'CLICK ME!!!',
+                namespace: 'clickety-clack'
+            },
+            {
+                label: 'ME CLACK!!!',
+                namespace: 'clackety-click'
+            }
+        ];
+
+        const wrapper = mount(Dialog, {
+            propsData: { actions }
+        });
+
+        actions.forEach( ({_, namespace}, i) => {
+            const button = wrapper.find(`.${namespace}`);
+
+            // Trigger click event
+            button.trigger('click');
+
+            const emitted = wrapper.emitted().action;
+
+            expect(emitted).toBeTruthy();
+            expect(emitted[i]).toEqual([namespace]);
+        });
+    });
 
     // Behaviour
     test.todo('closes when pressing the close button');
+    test.todo('closes when pressing the overlay');
+    test.todo('closes when pressing an action');
 
-    // Future iterations
-    test.todo('exposes hide method');
+     // Future iterations
     test.todo('exposes toggle method');
     test.todo('accepts loading prop');
     test.todo('accepts responsive breakpoint prop');

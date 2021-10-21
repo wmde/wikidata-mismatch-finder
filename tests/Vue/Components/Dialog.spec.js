@@ -40,10 +40,7 @@ describe('Dialog.vue', () => {
         ];
 
         const wrapper = mount(Dialog, {
-            propsData: {
-                title: 'Hello World!',
-                actions
-            }
+            propsData: { actions }
         });
 
         const footer = wrapper.find('footer');
@@ -59,16 +56,7 @@ describe('Dialog.vue', () => {
 
     it('accepts dismissible prop', () => {
         const wrapper = mount(Dialog, {
-            propsData: {
-                title: 'Hello World!',
-                actions: [
-                    {
-                        label: 'Primary Test!',
-                        namespace: 'primary-test'
-                    }
-                ],
-                dismissible: true
-            }
+            propsData: { dismissible: true }
         });
 
         const closeButton = wrapper.find('.wikit-Dialog__close');
@@ -99,7 +87,10 @@ describe('Dialog.vue', () => {
     test.todo('exposes show method');
 
     // Bindings
-    test.todo('bind visibility state to v-model');
+    test.todo('binds visibility state to v-model');
+
+    // Behaviour
+    test.todo('closes when pressing the close button');
 
     // Future iterations
     test.todo('exposes hide method');

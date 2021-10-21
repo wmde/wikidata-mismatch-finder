@@ -17,6 +17,7 @@
                 namespace: 'secondary'
             }
         ]"
+        open
         dismissible>
         I am a dialog!
     </wikit-dialog>

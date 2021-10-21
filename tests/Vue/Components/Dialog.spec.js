@@ -2,6 +2,15 @@ import { mount } from '@vue/test-utils';
 import Dialog from '@/Components/Dialog.vue';
 
 describe('Dialog.vue', () => {
+    it('doesn\'t show dialog by default', () => {
+        const wrapper = mount(Dialog);
+
+        const container = wrapper.find('.wikit-Dialog');
+
+        expect(wrapper.props().open).toBe(false);
+        expect(container.isVisible()).toBe(false);
+    });
+
     // Props
     it('accepts and renders title prop', () => {
         const title = 'Hello World!';
@@ -68,7 +77,16 @@ describe('Dialog.vue', () => {
         expect(closeButton.exists()).toBe(true);
     });
 
-    test.todo('accepts open prop');
+    it('accepts open prop and shows dialog', () => {
+        const wrapper = mount(Dialog, {
+            propsData: { open: true }
+        });
+
+        const container = wrapper.find('.wikit-Dialog');
+
+        expect(wrapper.props().open).toBe(true);
+        expect(container.isVisible()).toBe(true);
+    });
 
     // Slots
     test.todo('renders content slot');

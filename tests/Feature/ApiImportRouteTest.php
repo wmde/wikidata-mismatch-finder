@@ -73,10 +73,7 @@ class ApiImportRouteTest extends TestCase
      */
     public function test_unauthorized_import()
     {
-        $user = User::factory()->create();
-        $file = UploadedFile::fake()->create('mismatchFile.csv');
-
-        Sanctum::actingAs($user);
+        Sanctum::actingAs(User::factory()->create());
 
         $response = $this->postJson(self::IMPORTS_ROUTE);
 

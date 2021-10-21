@@ -95,6 +95,12 @@ paths:
                 description:
                   type: string
                   maxLength: 350
+                external_source:
+                  type: string
+                  maxLength: 100
+                external_source_url:
+                  type: string
+                  maxLength: 1500
                 expires:
                   type: string
                   format: date

@@ -17,6 +17,9 @@
                     <icon type="clear" />
                 </wikit-button>
             </header>
+            <section class="wikit-Dialog__content">
+                <slot></slot>
+            </section>
             <footer class="wikit-Dialog__footer">
                 <wikit-button v-for="(action, i) in actions"
                     :key="i"

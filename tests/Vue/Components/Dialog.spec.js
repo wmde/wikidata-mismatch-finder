@@ -77,7 +77,18 @@ describe('Dialog.vue', () => {
     });
 
     // Slots
-    test.todo('renders content slot');
+    it('renders content slot', () => {
+        const content = '<p>Hello World</p>';
+        const wrapper = mount(Dialog, {
+            slots: {
+                default: content
+            }
+        });
+
+        const slot = wrapper.find('.wikit-Dialog__content');
+
+        expect(slot.element.innerHTML).toBe(content);
+    });
 
     // Events
     test.todo('emits closed event');

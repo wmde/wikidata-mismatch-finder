@@ -11,7 +11,7 @@ jest.mock('@inertiajs/inertia-vue', () => ({}));
 
 jest.mock("axios", () => ({
     put: jest.fn()
-  }));
+}));
 
 describe('Results.vue', () => {
 

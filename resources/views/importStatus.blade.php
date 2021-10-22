@@ -17,9 +17,6 @@
                 <dd>{{ $import->description }}</dd>
             @endif
 
-            <dt>{{__('import-status.item:upload_date')}}</dt>
-            <dd>{{ $import->created_at->format(__('import-status.date_format')) }}</dd>
-
             <dt>{{__('import-status.item:external_source')}}</dt>
             <dd>
                 @if($import->external_source_url)
@@ -30,6 +27,9 @@
                     {{ $import->external_source }}                
                 @endif
             </dd>
+
+            <dt>{{__('import-status.item:upload_date')}}</dt>
+            <dd>{{ $import->created_at->format(__('import-status.date_format')) }}</dd>
 
             <dt>{{__('import-status.item:expiring_date')}}</dt>
             <dd>{{ $import->expires->format(__('import-status.date_format')) }}</dd>

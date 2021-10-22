@@ -6,11 +6,12 @@
         v-show="open"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="dialog-title"
     >
         <div class="wikit-Dialog__overlay" @click="hide"></div>
         <div class="wikit-Dialog__modal">
             <header class="wikit-Dialog__header">
-                <span class="wikit-Dialog__title">{{title}}</span>
+                <span id="dialog-title" class="wikit-Dialog__title">{{title}}</span>
                 <wikit-button v-if="dismissible"
                     ref="closeButton"
                     class="wikit-Dialog__close"
@@ -90,8 +91,6 @@ export default defineComponent({
         if (this.visible) {
             this.show()
         }
-
-        this.focusable = this._collectFocusable();
     },
     beforeUpdate(){
         this.focusable = this._collectFocusable();
@@ -169,9 +168,12 @@ export default defineComponent({
                 });
 
             const buttonElements = [
-                ...actions.map(component => component.$el),
-                dismiss.$el
+                ...actions.map(component => component.$el)
             ];
+
+            if(dismiss) {
+                buttonElements.push(dismiss.$el);
+            }
 
             return [
                 ...focusable,

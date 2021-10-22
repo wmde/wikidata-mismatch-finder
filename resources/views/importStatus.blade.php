@@ -24,7 +24,7 @@
                         {{ $import->external_source }}
                     </a>
                 @else
-                    {{ $import->external_source }}                
+                    {{ $import->external_source }}
                 @endif
             </dd>
 

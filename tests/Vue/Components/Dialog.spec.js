@@ -65,15 +65,16 @@ describe('Dialog.vue', () => {
         expect(closeButton.exists()).toBe(true);
     });
 
-    it('accepts visible prop and shows dialog', () => {
+    it('accepts visible prop and shows dialog', async () => {
         const wrapper = mount(Dialog, {
             propsData: { visible: true }
         });
 
-        const container = wrapper.find('.wikit-Dialog');
-
         expect(wrapper.props().visible).toBe(true);
-        expect(container.isVisible()).toBe(true);
+        expect(wrapper.isVisible()).toBe(true);
+
+        await wrapper.setProps({ visible: false });
+        expect(wrapper.isVisible()).toBe(false);
     });
 
     // Slots
@@ -88,6 +89,29 @@ describe('Dialog.vue', () => {
         const slot = wrapper.find('.wikit-Dialog__content');
 
         expect(slot.element.innerHTML).toBe(content);
+    });
+
+    // Methods
+    it('opens when calling the show method', async () => {
+        const wrapper = mount(Dialog, {
+            visible: false
+        });
+
+        wrapper.vm.show();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.isVisible()).toBe(true);
+    });
+
+    it('closes when calling the hide method', async () => {
+        const wrapper = mount(Dialog, {
+            visible: true
+        });
+
+        wrapper.vm.hide();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.isVisible()).toBe(false);
     });
 
     // Events
@@ -134,14 +158,41 @@ describe('Dialog.vue', () => {
             const emitted = wrapper.emitted().action;
 
             expect(emitted).toBeTruthy();
-            expect(emitted[i]).toEqual([namespace]);
+            expect(emitted[i]).toEqual([namespace, wrapper.vm]);
         });
     });
 
     // Behaviour
-    test.todo('closes when pressing the close button');
-    test.todo('closes when pressing the overlay');
-    test.todo('closes when pressing an action');
+    it('closes when pressing the close button', async () => {
+        const wrapper = mount(Dialog, {
+            propsData: {
+                visible: true,
+                dismissible: true
+            }
+        });
+
+        const container = wrapper.find('.wikit-Dialog');
+        const button = wrapper.find(`.wikit-Dialog__close`);
+        // Trigger click event
+        button.trigger('click');
+
+        await wrapper.vm.$nextTick();
+        expect(container.isVisible()).toBe(false);
+    });
+
+    it('closes when pressing the overlay', async () => {
+        const wrapper = mount(Dialog, {
+            propsData: { visible: true }
+        });
+
+        const container = wrapper.find('.wikit-Dialog');
+        const overlay = wrapper.find(`.wikit-Dialog__overlay`);
+        // Trigger click event
+        overlay.trigger('click');
+
+        await wrapper.vm.$nextTick();
+        expect(container.isVisible()).toBe(false);
+    });
 
      // Future iterations
     test.todo('exposes toggle method');

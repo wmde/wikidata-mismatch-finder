@@ -2,8 +2,8 @@
     <div :class="[
         'wikit',
         'wikit-Dialog'
-    ]" v-show="visible">
-        <div class="wikit-Dialog__overlay"></div>
+    ]" v-show="open">
+        <div class="wikit-Dialog__overlay" @click="hide"></div>
         <div class="wikit-Dialog__modal">
             <header class="wikit-Dialog__header">
                 <span class="wikit-Dialog__title">{{title}}</span>
@@ -13,6 +13,7 @@
                     type="neutral"
                     aria-label="close"
                     icon-only
+                    @click.native="hide"
                 >
                     <icon type="clear" size="medium" />
                 </wikit-button>
@@ -29,7 +30,7 @@
                     ]"
                     :variant="i === 0 ? 'primary' : 'normal'"
                     :type="i === 0 ? 'progressive' : 'neutral'"
-                    @click.native="$emit('action', action.namespace)"
+                    @click.native="dispatch(action.namespace)"
                 >
                     {{action.label}}
                 </wikit-button>
@@ -72,12 +73,27 @@ export default defineComponent({
             default: false
         }
     },
+    data() {
+        return {
+            open: this.visible
+        }
+    },
+    watch: {
+        visible(){
+            this.open = this.visible
+        }
+    },
     methods: {
         hide(){
-            this.$emit('update:visible', false);
+            this.open = false;
+            this.$emit('update:visible', this.open);
         },
         show(){
-            this.$emit('update:visible', true);
+            this.open = true;
+            this.$emit('update:visible', this.open);
+        },
+        dispatch(namespace: string){
+            this.$emit('action', namespace, this)
         }
     }
 });

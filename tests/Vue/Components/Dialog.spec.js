@@ -204,6 +204,12 @@ describe('Dialog.vue', () => {
         expect(wrapper.isVisible()).toBe(false);
     });
 
+    /**
+     * Additional Behaviour Browser tests to add to WiKit:
+     * - Traps page focus, so that only visually focused elements are tab-able
+     * -
+     */
+
      // Future iterations
     test.todo('exposes toggle method');
     test.todo('accepts loading prop');

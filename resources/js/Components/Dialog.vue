@@ -12,6 +12,7 @@
             <header class="wikit-Dialog__header">
                 <span class="wikit-Dialog__title">{{title}}</span>
                 <wikit-button v-if="dismissible"
+                    ref="closeButton"
                     class="wikit-Dialog__close"
                     variant="quiet"
                     type="neutral"
@@ -22,11 +23,12 @@
                     <icon type="clear" size="medium" />
                 </wikit-button>
             </header>
-            <section class="wikit-Dialog__content">
+            <section class="wikit-Dialog__content" ref="content">
                 <slot></slot>
             </section>
             <footer class="wikit-Dialog__footer">
                 <wikit-button v-for="(action, i) in actions"
+                    ref="actionButtons"
                     :key="i"
                     :class="[
                         'wikit-Dialog__action',
@@ -34,7 +36,7 @@
                     ]"
                     :variant="i === 0 ? 'primary' : 'normal'"
                     :type="i === 0 ? 'progressive' : 'neutral'"
-                    @click.native="dispatch(action.namespace)"
+                    @click.native="_dispatch(action.namespace)"
                 >
                     {{action.label}}
                 </wikit-button>
@@ -79,36 +81,133 @@ export default defineComponent({
     },
     data() {
         return {
-            open: this.visible
+            open: this.visible,
+            focusable: [] as Element[],
+            lastFocus: null as Element | null
         }
     },
     mounted(){
-        document.addEventListener('keydown', this._handleEsc);
+        if (this.visible) {
+            this.show()
+        }
+
+        this.focusable = this._collectFocusable();
+    },
+    beforeUpdate(){
+        this.focusable = this._collectFocusable();
     },
     beforeDestroy(){
-         document.removeEventListener('keydown', this._handleEsc);
+        if (this.open) {
+            this.hide()
+        }
     },
     watch: {
         visible(open: boolean){
-            this.open = open;
+            open ? this.show() : this.hide();
         }
     },
     methods: {
-        _handleEsc({ key } : KeyboardEvent){
-            if (key === 'Escape') {
-                this.hide();
-            }
-        },
         hide(){
+            document.removeEventListener('keydown', this._handleKeydown);
             this.open = false;
             this.$emit('update:visible', this.open);
+
+            if(this.lastFocus){
+                (this.lastFocus as HTMLElement).focus();
+            }
         },
         show(){
+            document.addEventListener('keydown', this._handleKeydown);
             this.open = true;
             this.$emit('update:visible', this.open);
+
+            this.lastFocus = document.activeElement;
+            this.$nextTick(this._trapFocus);
         },
-        dispatch(namespace: string){
+        _dispatch(namespace: string){
             this.$emit('action', namespace, this)
+        },
+        _handleKeydown(event : KeyboardEvent){
+            switch (event.key) {
+                case 'Escape':
+                    this.hide();
+                    break;
+                case 'Tab':
+                    this._cycleFocus(event.shiftKey)
+                    event.preventDefault();
+                    break;
+            }
+        },
+        _collectFocusable(): Element[] {
+            const selectors = [
+                '[contenteditable]',
+                '[href]',
+                '[tabindex]',
+                'button',
+                'details',
+                'iframe',
+                'select',
+                'summary',
+                'textarea',
+                'audio[controls]',
+                'video[controls]',
+                'input[type=radio]:checked',
+                'input:not([type=radio]):not([type=hidden])',
+            ];
+
+            const content = this.$refs.content as HTMLElement;
+            const actions = this.$refs.actionButtons as WikitButton[];
+            const dismiss = this.$refs.closeButton as WikitButton;
+
+            const focusable = Array.from(content.querySelectorAll(selectors.join(', ')))
+                .filter((element: Element) => {
+                    const tabindex = parseInt(element.getAttribute('tabindex') ?? "0");
+
+                    return !element.hasAttribute('disabled')
+                        && !element.hasAttribute('hidden')
+                        && tabindex > -1;
+                });
+
+            const buttonElements = [
+                ...actions.map(component => component.$el),
+                dismiss.$el
+            ];
+
+            return [
+                ...focusable,
+                ...buttonElements
+            ];
+        },
+        _cycleFocus(shifted: boolean): void {
+            const focusable = this.focusable;
+            const indices = {
+                current: focusable.indexOf(document.activeElement!),
+                offset: shifted ? -1 : 1,
+                last: focusable.length - 1,
+                next(){ return this.current + this.offset }
+            };
+
+            if (indices.next() > indices.last){
+                (focusable[0] as HTMLElement).focus();
+
+                return;
+            }
+
+            if (indices.next() < 0){
+                (focusable[indices.last] as HTMLElement).focus();
+
+                return;
+            }
+
+            (focusable[indices.next()] as HTMLElement).focus();
+        },
+        _trapFocus(){
+            const content = this.$refs.content as HTMLElement;
+            const target: HTMLElement = content.querySelector('[autofocus]') || content;
+
+            if(target) {
+                target.focus();
+            }
         }
     }
 });

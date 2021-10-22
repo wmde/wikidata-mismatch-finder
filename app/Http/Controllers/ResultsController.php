@@ -8,6 +8,7 @@ use App\Services\WikibaseAPIClient;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
@@ -35,6 +36,10 @@ class ResultsController extends Controller
 
         $mismatches = Mismatch::with('importMeta.user')
             ->whereIn('item_id', $itemIds)
+            ->where('review_status', 'pending')
+            ->whereHas('importMeta', function ($import) {
+                $import->where('expires', '>=', now());
+            })
             ->lazy();
 
         $entityIds = $this->extractEntityIds($mismatches, $itemIds);
@@ -88,7 +93,5 @@ class ResultsController extends Controller
             $this->saveToDb($mismatch, $request->user(), $decision['review_status']);
             $this->logToFile($mismatch, $request->user(), $old_status);
         }
-
-        return back();
     }
 }

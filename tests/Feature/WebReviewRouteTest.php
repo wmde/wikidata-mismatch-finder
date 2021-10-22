@@ -110,7 +110,7 @@ class WebReviewRouteTest extends TestCase
                     ]
                 ]
             )->assertSessionHasNoErrors()
-            ->assertRedirect();
+            ->assertSuccessful();
 
 
         $mismatch1->refresh();
@@ -155,7 +155,7 @@ class WebReviewRouteTest extends TestCase
                         'review_status' => 'wikidata'
                     ]
                 ]
-            )->assertRedirect();
+            )->assertSuccessful();
 
         // refresh mismatch to get correct updated_at timestamp
         $mismatch->refresh();
@@ -182,27 +182,36 @@ class WebReviewRouteTest extends TestCase
     }
 
     /**
-     * Test mismatch review error response handling
+     * Test mismatch review not found response handling
      *
      * @return void
      */
-    public function test_mismatch_review_error_response_handling()
+    public function test_mismatch_review_mismatch_not_found()
     {
         // start from results
         $this->actingAs(User::factory()->create())
             ->get(route('results', ['ids' => 'Q1']));
-        $redirect = $this
-            ->put(
-                route('mismatch-review'),
-                [ "some" => "data" ],
-                ['X-Mismatch-Finder-Error' => 'mismatch-review']  // force error response on this path
-            )->assertRedirect(route('results', ['ids' => 'Q1']));
+        $this->put(
+            route('mismatch-review'),
+            [ "some" => "data" ],
+            ['X-Mismatch-Finder-Not-Found' => 'mismatch-review']  // force not-found response on this path
+        )->assertStatus(404);
+    }
 
-        // follow the redirect
-        $this->get($redirect->headers->get('Location'))
-            ->assertInertia(function (Assert $page) {
-                $page->component('Results')
-                    ->where('flash.errors', [ 'unexpected' => 'Unexpected error']);
-            });
+    /**
+     * Test mismatch review unknown error response handling
+     *
+     * @return void
+     */
+    public function test_mismatch_review_unknown_error_response_handling()
+    {
+        // start from results
+        $this->actingAs(User::factory()->create())
+            ->get(route('results', ['ids' => 'Q1']));
+        $this->put(
+            route('mismatch-review'),
+            [ "some" => "data" ],
+            ['X-Mismatch-Finder-Error' => 'mismatch-review']  // force error response on this path
+        )->assertStatus(500);
     }
 }

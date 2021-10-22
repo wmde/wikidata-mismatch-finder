@@ -116,7 +116,7 @@ class ResultsTest extends DuskTestCase
                 'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
                 'property_id' => 'P610',
                 'wikidata_value' => 'Q513',
-                'review_status' => 'wikidata'
+                'review_status' => 'pending'
             ])
             ->create();
 
@@ -143,12 +143,6 @@ class ResultsTest extends DuskTestCase
 
         $mismatch = Mismatch::factory()
             ->for($import)
-            ->state([
-                'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
-                'property_id' => 'P610',
-                'wikidata_value' => 'Q513',
-                'review_status' => 'wikidata'
-            ])
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
@@ -157,8 +151,8 @@ class ResultsTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->within($dropdownComponent, function ($dropdown) {
-                    // make sure first value is displayed as it should
-                    $dropdown->assertOption('Mismatch on Wikidata')
+                    // make sure the item's initial review_status is 'pending'
+                    $dropdown->assertVue('value', null)
                         // select and assert option
                         ->selectPosition(2, 'Mismatch on external data source');
                 })
@@ -168,9 +162,10 @@ class ResultsTest extends DuskTestCase
                 })
                 //load the page again
                 ->refresh()
-                ->within($dropdownComponent, function ($dropdown) {
-                    $dropdown->assertOption('Mismatch on external data source');
-                });
+                // a 'notice' message indicates that the review status has been submitted
+                // and thus the mismatch can no longer be found when refreshing the results
+                ->assertSee('No mismatches have been found for')
+                ->assertSeeLink($mismatch->item_id);
         });
     }
 }

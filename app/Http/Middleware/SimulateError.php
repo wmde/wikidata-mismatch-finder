@@ -26,6 +26,8 @@ class SimulateError
     {
         if ($request->header('X-Mismatch-Finder-Error') == $request->path()) {
             throw new RuntimeException("Simulated Server Error");
+        } elseif ($request->header('X-Mismatch-Finder-Not-Found') == $request->path()) {
+            abort(404);
         }
 
         return $next($request);

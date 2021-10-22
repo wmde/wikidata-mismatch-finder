@@ -37,7 +37,7 @@ class ImportController extends Controller
         Gate::authorize('upload-import');
 
         $request->validate([
-            'mismatchFile' => [
+            'mismatch_file' => [
                 'required',
                 'file',
                 'max:' . config('filesystems.uploads.max_size'),
@@ -47,6 +47,16 @@ class ImportController extends Controller
                 'nullable',
                 'string',
                 'max:' . config('imports.description.max_length')
+            ],
+            'external_source' => [
+                'required',
+                'string',
+                'max:' . config('imports.external_source.max_length')
+            ],
+            'external_source_url' => [
+                'nullable',
+                'string',
+                'max:' . config('imports.external_source_url.max_length')
             ],
             'expires' => [
                 'nullable',
@@ -60,12 +70,14 @@ class ImportController extends Controller
             ':userid' => $request->user()->mw_userid
         ]);
 
-        $request->file('mismatchFile')->storeAs('mismatch-files', $filename);
+        $request->file('mismatch_file')->storeAs('mismatch-files', $filename);
 
         $expires = $request->expires ?? now()->add(6, 'months')->toDateString();
 
         $meta = ImportMeta::make([
             'filename' => $filename,
+            'external_source' => $request->external_source,
+            'external_source_url' => $request->external_source_url,
             'description' => $request->description,
             'expires' => $expires
         ])->user()->associate($request->user());

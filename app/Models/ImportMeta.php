@@ -23,6 +23,8 @@ class ImportMeta extends Model
      */
     protected $fillable = [
         'description',
+        'external_source',
+        'external_source_url',
         'status',
         'expires',
         'filename'

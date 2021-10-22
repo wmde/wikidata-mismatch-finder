@@ -30,6 +30,8 @@ class ImportMetaFactory extends Factory
                 'pending',
                 'completed'
             ]),
+            'external_source' => $this->faker->realText(100),
+            'external_source_url' => $this->faker->optional(0.6)->url(),
             'expires' => $this->faker->dateTimeBetween('+1 day', '+6 months')->format('Y-m-d'),
             'filename' => 'test_file.csv'
         ];

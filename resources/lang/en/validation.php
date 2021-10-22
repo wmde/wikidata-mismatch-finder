@@ -156,6 +156,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'mismatch_file' => 'mismatch_file',
+        'external_source' => 'external_source'
+    ],
 
 ];

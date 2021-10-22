@@ -189,6 +189,27 @@ describe('Results.vue', () => {
 
     });
 
+    it('Handles errors on axios put requests gracefully', async () => {
+        // mock axios error response
+        axios.put = jest.fn().mockRejectedValue('Error');
+
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mount(Results, {
+            mocks,
+            data() {
+                return {
+                    decisions
+                }
+            },
+        });
+
+        await wrapper.vm.send( item_id );
+
+        //the decisions object will remain untouched after the failed put request
+        expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
+    });
+
     it('Does not send a put request without any decisions', () => {
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};

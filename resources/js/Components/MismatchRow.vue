@@ -26,6 +26,16 @@
                 })"
             />
         </td>
+        <td :data-header="$i18n('column-external-source')">
+            <wikit-link v-if="mismatch.import_meta.external_source_url" class="external-source-link"
+              :href="`${mismatch.import_meta.external_source_url}`"
+            >
+              {{mismatch.import_meta.external_source}}
+            </wikit-link>
+            <span v-else>
+              {{mismatch.import_meta.external_source}}
+            </span>
+        </td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
                 <wikit-link class="uploader"

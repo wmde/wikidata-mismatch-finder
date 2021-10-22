@@ -6,6 +6,7 @@
                 <th class="column-wikidata-value">{{$i18n('column-wikidata-value')}}</th>
                 <th class="column-external-value">{{$i18n('column-external-value')}}</th>
                 <th class="column-review-status">{{$i18n('column-review-status')}}</th>
+                <th class="column-external-source">{{$i18n('column-external-source')}}</th>
                 <th class="column-upload-info">{{$i18n('column-upload-info')}}</th>
             </tr>
         </thead>

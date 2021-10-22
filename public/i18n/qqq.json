@@ -22,6 +22,7 @@
     "column-external-value": "External source column on mismatches table",
     "column-review-status": "The mismatch review decision column on mismatches table",
     "column-upload-info": "Upload Info column on mismatches table",
+    "column-external-source": "External source column on mismatches table",
     "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids",
     "review-status-pending": "Label for pending review status. Used as placeholder in the review decision dropdown",
     "review-status-wikidata": "Label that indicates that the data mismatch is on Wikidata. Used as an option in the review decision dropdown",

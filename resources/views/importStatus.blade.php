@@ -24,12 +24,10 @@
             <dd>
                 @if($import->external_source_url)
                     <a href="{{ $import->external_source_url }}" target="_blank">
-                @endif
-                
-                {{ $import->external_source }}
-                
-                @if($import->external_source_url)
+                        {{ $import->external_source }}
                     </a>
+                @else
+                    {{ $import->external_source }}                
                 @endif
             </dd>
 

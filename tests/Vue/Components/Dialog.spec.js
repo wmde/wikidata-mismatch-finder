@@ -2,15 +2,6 @@ import { mount } from '@vue/test-utils';
 import Dialog from '@/Components/Dialog.vue';
 
 describe('Dialog.vue', () => {
-    it('doesn\'t show dialog by default', () => {
-        const wrapper = mount(Dialog);
-
-        const container = wrapper.find('.wikit-Dialog');
-
-        expect(wrapper.props().visible).toBe(false);
-        expect(container.isVisible()).toBe(false);
-    });
-
     // Props
     it('accepts and renders title prop', () => {
         const title = 'Hello World!';
@@ -163,6 +154,13 @@ describe('Dialog.vue', () => {
     });
 
     // Behaviour
+    it('doesn\'t show dialog by default', () => {
+        const wrapper = mount(Dialog);
+
+        expect(wrapper.props().visible).toBe(false);
+        expect(wrapper.isVisible()).toBe(false);
+    });
+
     it('closes when pressing the close button', async () => {
         const wrapper = mount(Dialog, {
             propsData: {
@@ -171,13 +169,12 @@ describe('Dialog.vue', () => {
             }
         });
 
-        const container = wrapper.find('.wikit-Dialog');
         const button = wrapper.find(`.wikit-Dialog__close`);
         // Trigger click event
         button.trigger('click');
 
         await wrapper.vm.$nextTick();
-        expect(container.isVisible()).toBe(false);
+        expect(wrapper.isVisible()).toBe(false);
     });
 
     it('closes when pressing the overlay', async () => {
@@ -185,14 +182,15 @@ describe('Dialog.vue', () => {
             propsData: { visible: true }
         });
 
-        const container = wrapper.find('.wikit-Dialog');
         const overlay = wrapper.find(`.wikit-Dialog__overlay`);
         // Trigger click event
         overlay.trigger('click');
 
         await wrapper.vm.$nextTick();
-        expect(container.isVisible()).toBe(false);
+        expect(wrapper.isVisible()).toBe(false);
     });
+
+    test.todo('closes when pressing the esc key');
 
      // Future iterations
     test.todo('exposes toggle method');

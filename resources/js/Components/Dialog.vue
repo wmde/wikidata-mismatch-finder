@@ -1,8 +1,12 @@
 <template>
     <div :class="[
-        'wikit',
-        'wikit-Dialog'
-    ]" v-show="open">
+            'wikit',
+            'wikit-Dialog'
+        ]"
+        v-show="open"
+        role="dialog"
+        aria-modal="true"
+    >
         <div class="wikit-Dialog__overlay" @click="hide"></div>
         <div class="wikit-Dialog__modal">
             <header class="wikit-Dialog__header">
@@ -78,12 +82,23 @@ export default defineComponent({
             open: this.visible
         }
     },
+    mounted(){
+        document.addEventListener('keydown', this._handleEsc);
+    },
+    beforeDestroy(){
+         document.removeEventListener('keydown', this._handleEsc);
+    },
     watch: {
-        visible(){
-            this.open = this.visible
+        visible(open: boolean){
+            this.open = open;
         }
     },
     methods: {
+        _handleEsc({ key } : KeyboardEvent){
+            if (key === 'Escape') {
+                this.hide();
+            }
+        },
         hide(){
             this.open = false;
             this.$emit('update:visible', this.open);

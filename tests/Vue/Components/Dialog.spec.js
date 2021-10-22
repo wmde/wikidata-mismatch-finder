@@ -190,7 +190,19 @@ describe('Dialog.vue', () => {
         expect(wrapper.isVisible()).toBe(false);
     });
 
-    test.todo('closes when pressing the esc key');
+    it('closes when pressing the esc key', async () => {
+        const wrapper = mount(Dialog, {
+            propsData: { visible: true },
+            attachTo: document.body
+        });
+
+        wrapper.trigger('keydown', {
+            key: 'Escape'
+        });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.isVisible()).toBe(false);
+    });
 
      // Future iterations
     test.todo('exposes toggle method');

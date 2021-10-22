@@ -1,7 +1,7 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
-        <section id="error-section" v-if="unexpectedError">
+        <section id="error-section" v-if="putError || unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
         </section>
         <section id="message-section">
@@ -84,7 +84,8 @@
     }
 
     interface ResultsState {
-        decisions: DecisionMap
+        decisions: DecisionMap,
+        putError: string
     }
 
     export default defineComponent({
@@ -124,7 +125,8 @@
         },
         data(): ResultsState {
             return {
-                decisions: {}
+                decisions: {},
+                putError: ''
             }
         },
         methods: {
@@ -146,10 +148,13 @@
                 };
             },
             async send( item: string ): Promise<void> {
-
                 if(this.decisions[item]){
                     // use axios in order to preserve saved mismatches
-                    axios.put('/mismatch-review', this.decisions[item]);
+                    try {
+                        await axios.put('/mismatch-review', this.decisions[item]);
+                    } catch(e) {
+                        this.putError = item;
+                    }
                     // remove decision from this.decisions after it has been sent to the server to avoid sending
                     // them twice
                     delete this.decisions[item];

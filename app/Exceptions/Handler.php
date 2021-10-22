@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
-        if ($response->status() >= 500) {
+        if ($request->method() == 'GET' && $response->status() >= 500) {
             return back()
                 ->with('serverErrors', [ 'unexpected' => 'Unexpected error' ]);
         }

@@ -49,4 +49,13 @@ export default Vue.extend({
         // Ensures that the dropdowns are evenly wide
         width: 35%;
     }
+    .column-external-source {
+        width: 20%;
+    }
+    .column-property {
+        width: 15%;
+    }
+    .column-wikidata-value {
+        width: 15%;
+    }
 </style>

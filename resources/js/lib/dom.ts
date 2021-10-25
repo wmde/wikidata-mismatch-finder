@@ -3,6 +3,22 @@ interface Dimensions {
     height: number
 };
 
+export const INTERACTIVE_SELECTORS = [
+    '[contenteditable]',
+    '[href]',
+    '[tabindex]',
+    'button',
+    'details',
+    'iframe',
+    'select',
+    'summary',
+    'textarea',
+    'audio[controls]',
+    'video[controls]',
+    'input[type=radio]:checked',
+    'input:not([type=radio]):not([type=hidden])',
+];
+
 
 /**
  * Inserts a test element into the document to sample the width and height of
@@ -31,4 +47,15 @@ export function getScrollbarDimensions(): Dimensions {
         width: scrollbarWidth,
         height: scrollbarHeight
     };
+}
+
+export function getInteractiveDescendants(parent : Element): Element[] {
+    return Array.from(parent.querySelectorAll(INTERACTIVE_SELECTORS.join(', ')))
+        .filter((element: Element) => {
+            const tabindex = parseInt(element.getAttribute('tabindex') ?? "0");
+
+            return !element.hasAttribute('disabled')
+                && !element.hasAttribute('hidden')
+                && tabindex > -1;
+        });
 }

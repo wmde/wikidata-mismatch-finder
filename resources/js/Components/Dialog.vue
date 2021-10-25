@@ -57,7 +57,7 @@ import { PropType } from 'vue';
 import throttle from 'lodash/throttle';
 import defineComponent from '../types/defineComponent';
 
-import { getScrollbarDimensions } from '../lib/dom';
+import { getScrollbarDimensions, getInteractiveDescendants } from '../lib/dom';
 import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
 
 interface DialogAction {
@@ -192,34 +192,11 @@ export default defineComponent({
             this.scrolled = target.scrollTop > 0;
         }, 300),
         _collectFocusable(): Element[] {
-            const selectors = [
-                '[contenteditable]',
-                '[href]',
-                '[tabindex]',
-                'button',
-                'details',
-                'iframe',
-                'select',
-                'summary',
-                'textarea',
-                'audio[controls]',
-                'video[controls]',
-                'input[type=radio]:checked',
-                'input:not([type=radio]):not([type=hidden])',
-            ];
-
             const content = this.$refs.content as HTMLElement;
             const actions = this.$refs.actionButtons as WikitButton[];
             const dismiss = this.$refs.closeButton as WikitButton;
 
-            const focusable = Array.from(content.querySelectorAll(selectors.join(', ')))
-                .filter((element: Element) => {
-                    const tabindex = parseInt(element.getAttribute('tabindex') ?? "0");
-
-                    return !element.hasAttribute('disabled')
-                        && !element.hasAttribute('hidden')
-                        && tabindex > -1;
-                });
+            const focusable = getInteractiveDescendants(content);
 
             const buttonElements = [
                 ...actions.map(component => component.$el)

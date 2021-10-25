@@ -111,16 +111,13 @@ export default defineComponent({
             this.open = false;
             this.$emit('update:visible', this.open);
 
-            if(this.lastFocus){
-                (this.lastFocus as HTMLElement).focus();
-            }
+            this._restoreFocus();
         },
         show(){
             document.addEventListener('keydown', this._handleKeydown);
             this.open = true;
             this.$emit('update:visible', this.open);
 
-            this.lastFocus = document.activeElement;
             this.$nextTick(this._trapFocus);
         },
         _dispatch(namespace: string){
@@ -205,10 +202,16 @@ export default defineComponent({
         },
         _trapFocus(){
             const content = this.$refs.content as HTMLElement;
-            const target: HTMLElement = content.querySelector('[autofocus]') || content;
+            const target: HTMLElement = content.querySelector('[autofocus]') ?? content;
 
-            if(target) {
+            this.lastFocus = document.activeElement;
+            if(target !== null) {
                 target.focus();
+            }
+        },
+        _restoreFocus(){
+            if(this.lastFocus !== null){
+                (this.lastFocus as HTMLElement).focus();
             }
         }
     }

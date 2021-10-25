@@ -207,7 +207,7 @@ describe('Dialog.vue', () => {
     /**
      * Additional Behaviour Browser tests to add to WiKit:
      * - Traps page focus, so that only visually focused elements are tab-able
-     * -
+     * - Prevents underlying page from scrolling
      */
 
      // Future iterations

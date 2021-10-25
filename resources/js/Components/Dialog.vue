@@ -57,6 +57,7 @@ import { PropType } from 'vue';
 import throttle from 'lodash/throttle';
 import defineComponent from '../types/defineComponent';
 
+import { getScrollbarDimensions } from '../lib/dom';
 import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
 
 interface DialogAction {
@@ -64,10 +65,25 @@ interface DialogAction {
     namespace: string
 }
 
+interface DocumentData {
+    cache: {
+        activeElement: Element | null,
+        overflow: string,
+        padding: {
+            x: string,
+            y: string
+        }
+    },
+    scrollbars: {
+        width: number,
+        height: number
+    }
+}
+
 interface DialogState {
-    open: boolean,
+    document: DocumentData,
     focusable: Element[],
-    lastFocus: Element | null,
+    open: boolean,
     scrolled: boolean
 }
 
@@ -96,13 +112,28 @@ export default defineComponent({
     },
     data(): DialogState {
         return {
-            open: this.visible,
             focusable: [],
-            lastFocus: null,
+            document: {
+                cache: {
+                    activeElement: null,
+                    overflow: 'auto',
+                    padding: {
+                        x: 'auto',
+                        y: 'auto'
+                    }
+                },
+                scrollbars: {
+                    width: 0,
+                    height: 0
+                }
+            },
+            open: this.visible,
             scrolled: false
         }
     },
     mounted(){
+        this.document.scrollbars = getScrollbarDimensions();
+
         if (this.visible) {
             this.show()
         }
@@ -127,13 +158,17 @@ export default defineComponent({
             this.$emit('update:visible', this.open);
 
             this._restoreFocus();
+            this._restoreScroll();
         },
         show(){
             document.addEventListener('keydown', this._handleKeydown);
             this.open = true;
             this.$emit('update:visible', this.open);
 
-            this.$nextTick(this._trapFocus);
+            this.$nextTick(() => {
+                this._trapScroll();
+                this._trapFocus();
+            });
         },
         _dispatch(namespace: string){
             this.$emit('action', namespace, this)
@@ -154,9 +189,6 @@ export default defineComponent({
         // The actual first argument of the function is `event`
         _handleScroll: throttle(function (this: DialogState, event: Event) {
             const target = event.target as HTMLElement;
-
-            console.log(target.scrollTop);
-
             this.scrolled = target.scrollTop > 0;
         }, 300),
         _collectFocusable(): Element[] {
@@ -229,15 +261,34 @@ export default defineComponent({
             const content = this.$refs.content as HTMLElement;
             const target: HTMLElement = content.querySelector('[autofocus]') ?? content;
 
-            this.lastFocus = document.activeElement;
+            this.document.cache.activeElement = document.activeElement;
             if(target !== null) {
                 target.focus();
             }
         },
+        _trapScroll(){
+            const documentStyles = window.getComputedStyle(document.documentElement);
+
+            this.document.cache.overflow = documentStyles.overflow;
+            this.document.cache.padding = {
+                x: documentStyles.paddingInlineEnd,
+                y: documentStyles.paddingBlockEnd
+            };
+
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
+            document.documentElement.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
+        },
         _restoreFocus(){
-            if(this.lastFocus !== null){
-                (this.lastFocus as HTMLElement).focus();
+            const lastFocused = this.document.cache.activeElement as HTMLElement;
+            if( lastFocused !== null ){
+                lastFocused.focus();
             }
+        },
+        _restoreScroll(){
+            document.documentElement.style.overflow = this.document.cache.overflow;
+            document.documentElement.style.paddingInlineEnd = this.document.cache.padding.x;
+            document.documentElement.style.paddingInlineEnd = this.document.cache.padding.y;
         }
     }
 });

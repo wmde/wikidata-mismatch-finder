@@ -1,55 +1,64 @@
 <template>
-    <div :class="[
-            'wikit',
-            'wikit-Dialog'
-        ]"
-        v-show="open"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="dialog-title"
+    <transition name="fade-zoom"
+        @before-enter="_trapScroll"
+        @after-enter="_trapFocus"
+        @enter-cancelled="_restoreScroll"
+        @before-leave="_restoreFocus"
+        @after-leave="_restoreScroll"
+        @leave-cancelled="_trapFocus"
     >
-        <div class="wikit-Dialog__overlay" @click="hide"></div>
-        <div class="wikit-Dialog__modal">
-            <header class="wikit-Dialog__header">
-                <span id="dialog-title" class="wikit-Dialog__title">{{title}}</span>
-                <wikit-button v-if="dismissible"
-                    ref="closeButton"
-                    class="wikit-Dialog__close"
-                    variant="quiet"
-                    type="neutral"
-                    aria-label="close"
-                    icon-only
-                    @click.native="hide"
-                >
-                    <icon type="clear" size="medium" />
-                </wikit-button>
-            </header>
-            <section :class="[
-                    'wikit-Dialog__content',
-                    scrolled ? 'wikit-Dialog__content--scrolled' : ''
-                ]"
-                ref="content"
-                @scroll="_handleScroll"
-            >
-                <slot></slot>
-            </section>
-            <footer class="wikit-Dialog__footer">
-                <wikit-button v-for="(action, i) in actions"
-                    ref="actionButtons"
-                    :key="i"
-                    :class="[
-                        'wikit-Dialog__action',
-                        action.namespace
+        <div :class="[
+                'wikit',
+                'wikit-Dialog'
+            ]"
+            v-show="open"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dialog-title"
+        >
+            <div class="wikit-Dialog__overlay" @click="hide"></div>
+            <div class="wikit-Dialog__modal">
+                <header class="wikit-Dialog__header">
+                    <span id="dialog-title" class="wikit-Dialog__title">{{title}}</span>
+                    <wikit-button v-if="dismissible"
+                        ref="closeButton"
+                        class="wikit-Dialog__close"
+                        variant="quiet"
+                        type="neutral"
+                        aria-label="close"
+                        icon-only
+                        @click.native="hide"
+                    >
+                        <icon type="clear" size="medium" />
+                    </wikit-button>
+                </header>
+                <section :class="[
+                        'wikit-Dialog__content',
+                        scrolled ? 'wikit-Dialog__content--scrolled' : ''
                     ]"
-                    :variant="i === 0 ? 'primary' : 'normal'"
-                    :type="i === 0 ? 'progressive' : 'neutral'"
-                    @click.native="_dispatch(action.namespace)"
+                    ref="content"
+                    @scroll="_handleScroll"
                 >
-                    {{action.label}}
-                </wikit-button>
-            </footer>
+                    <slot></slot>
+                </section>
+                <footer class="wikit-Dialog__footer">
+                    <wikit-button v-for="(action, i) in actions"
+                        ref="actionButtons"
+                        :key="i"
+                        :class="[
+                            'wikit-Dialog__action',
+                            action.namespace
+                        ]"
+                        :variant="i === 0 ? 'primary' : 'normal'"
+                        :type="i === 0 ? 'progressive' : 'neutral'"
+                        @click.native="_dispatch(action.namespace)"
+                    >
+                        {{action.label}}
+                    </wikit-button>
+                </footer>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script lang="ts">
@@ -154,9 +163,6 @@ export default defineComponent({
             document.removeEventListener('keydown', this._handleKeydown);
             this.open = false;
             this.$emit('update:visible', this.open);
-
-            this._restoreFocus();
-            this._restoreScroll();
         },
         show(){
             document.addEventListener('keydown', this._handleKeydown);
@@ -164,8 +170,7 @@ export default defineComponent({
             this.$emit('update:visible', this.open);
 
             this.$nextTick(() => {
-                this._trapScroll();
-                this._trapFocus();
+                (this.$refs.content as HTMLElement).scrollTop = 0;
             });
         },
         _dispatch(namespace: string){
@@ -257,8 +262,6 @@ export default defineComponent({
             document.documentElement.style.overflow = 'hidden';
             document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
             document.documentElement.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
-
-            (this.$refs.content as HTMLElement).scrollTop = 0;
         },
         _restoreFocus(){
             const lastFocused = this.document.cache.activeElement as HTMLElement;
@@ -309,8 +312,6 @@ export default defineComponent({
         */
         background-color: $wikit-Dialog-overlay-background-color;
         opacity: $wikit-Dialog-overlay-opacity;
-
-        // $wikit-Dialog-overlay-transition-duration: 250ms;
     }
 
     #{$base}__modal {
@@ -350,8 +351,6 @@ export default defineComponent({
         border-width: $wikit-Dialog-border-width;
         border-radius: $wikit-Dialog-border-radius;
         box-shadow: $wikit-Dialog-elevation;
-
-        // $wikit-Dialog-transition-duration: 250ms;
     }
 
     #{$base}__header {
@@ -404,6 +403,36 @@ export default defineComponent({
         #{$base}__action {
             margin-block-end: $wikit-Dialog-footer-spacing-bottom-complex;
             margin-inline-start: $wikit-Dialog-footer-spacing;
+        }
+    }
+
+    /**
+    * Animations
+    */
+    .fade-zoom-enter-active, .fade-zoom-leave-active {
+        // A default transition duration needs to be added, in order to allow
+        // vue to add the crrect classes
+        transition-duration: $wikit-Dialog-transition-duration;
+
+        #{$base}__overlay {
+            transition-property: opacity;
+            transition-duration: $wikit-Dialog-overlay-transition-duration;
+        }
+
+        #{$base}__modal {
+            transition-property: opacity, transform;
+            transition-duration: $wikit-Dialog-transition-duration;
+        }
+    }
+
+    .fade-zoom-enter, .fade-zoom-leave-to {
+        #{$base}__overlay {
+            opacity: 0;
+        }
+
+        #{$base}__modal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.7);
         }
     }
 </style>

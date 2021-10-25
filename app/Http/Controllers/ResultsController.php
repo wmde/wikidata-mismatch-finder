@@ -44,13 +44,18 @@ class ResultsController extends Controller
 
         $entityIds = $this->extractEntityIds($mismatches, $itemIds);
 
-        return inertia('Results', [
-            'user' => $user,
-            'item_ids' => $itemIds,
-            'results' => $mismatches->groupBy('item_id'),
-            // Use wikidata to fetch labels for found entity ids
-            'labels' => $wikidata->getLabels($entityIds, App::getLocale())
-        ]);
+        $props = array_merge(
+            [
+                'user' => $user,
+                'item_ids' => $itemIds,
+                // Use wikidata to fetch labels for found entity ids
+                'labels' => $wikidata->getLabels($entityIds, App::getLocale())
+            ],
+            // only add 'results' prop if mismatches have been found
+            $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []
+        );
+
+        return inertia('Results', $props);
     }
 
     private function extractEntityIds(LazyCollection $mismatches, array $initialIds): array

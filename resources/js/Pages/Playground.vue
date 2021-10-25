@@ -117,5 +117,9 @@
         p {
             margin-bottom: 1.25em;
         }
+
+        .wikit-Dialog__close {
+            margin-bottom: 0;
+        }
     }
 </style>

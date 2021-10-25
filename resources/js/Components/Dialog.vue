@@ -292,7 +292,7 @@ export default defineComponent({
     #{$base}__header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
 
         color: $wikit-Dialog-header-color;
 
@@ -306,6 +306,10 @@ export default defineComponent({
             font-size: $wikit-Dialog-header-font-size;
             font-weight: $wikit-Dialog-header-font-weight;
             line-height: $wikit-Dialog-header-line-height;
+        }
+
+        #{$base}__close.wikit.wikit-Button.wikit-Button--iconOnly {
+            line-height: 0;
         }
 
         // $wikit-Dialog-header-box-shadow: inset 0 1px 0 0 #c8ccd1; // only for complex dialogs: divider to be displayed when scroll is activated

@@ -57,8 +57,13 @@ import { PropType } from 'vue';
 import throttle from 'lodash/throttle';
 import defineComponent from '../types/defineComponent';
 
-import { getScrollbarDimensions, getInteractiveDescendants } from '../lib/dom';
+import { ScrollbarDimensions, getScrollbarDimensions, getInteractiveDescendants } from '../lib/dom';
 import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
+
+interface Axes<T> {
+    x: T,
+    y: T
+}
 
 interface DialogAction {
     label: string,
@@ -69,15 +74,10 @@ interface DocumentData {
     cache: {
         activeElement: Element | null,
         overflow: string,
-        padding: {
-            x: string,
-            y: string
-        }
+        padding: Axes<string>,
+        scroll: Axes<number>
     },
-    scrollbars: {
-        width: number,
-        height: number
-    }
+    scrollbars: ScrollbarDimensions
 }
 
 interface DialogState {
@@ -117,10 +117,8 @@ export default defineComponent({
                 cache: {
                     activeElement: null,
                     overflow: 'auto',
-                    padding: {
-                        x: 'auto',
-                        y: 'auto'
-                    }
+                    padding: { x: 'auto', y: 'auto' },
+                    scroll: { x: 0,  y: 0}
                 },
                 scrollbars: {
                     width: 0,
@@ -251,10 +249,16 @@ export default defineComponent({
                 x: documentStyles.paddingInlineEnd,
                 y: documentStyles.paddingBlockEnd
             };
+            this.document.cache.scroll = {
+                x: window.scrollX,
+                y: window.scrollY
+            }
 
             document.documentElement.style.overflow = 'hidden';
             document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
             document.documentElement.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
+
+            (this.$refs.content as HTMLElement).scrollTop = 0;
         },
         _restoreFocus(){
             const lastFocused = this.document.cache.activeElement as HTMLElement;
@@ -263,9 +267,13 @@ export default defineComponent({
             }
         },
         _restoreScroll(){
-            document.documentElement.style.overflow = this.document.cache.overflow;
-            document.documentElement.style.paddingInlineEnd = this.document.cache.padding.x;
-            document.documentElement.style.paddingInlineEnd = this.document.cache.padding.y;
+            const {overflow, padding, scroll} = this.document.cache;
+
+            document.documentElement.style.overflow = overflow;
+            document.documentElement.style.paddingInlineEnd = padding.x;
+            document.documentElement.style.paddingBlockEnd = padding.y;
+
+            window.scrollTo(scroll.x, scroll.y);
         }
     }
 });

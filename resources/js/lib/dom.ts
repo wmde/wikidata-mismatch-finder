@@ -1,7 +1,9 @@
-interface Dimensions {
-    width: number,
-    height: number
+interface Dimensions<T> {
+    width: T,
+    height: T
 };
+
+export type ScrollbarDimensions = Dimensions<number>;
 
 export const INTERACTIVE_SELECTORS = [
     '[contenteditable]',
@@ -24,7 +26,7 @@ export const INTERACTIVE_SELECTORS = [
  * Inserts a test element into the document to sample the width and height of
  * scrollbars in the particular browser.
  */
-export function getScrollbarDimensions(): Dimensions {
+export function getScrollbarDimensions(): ScrollbarDimensions {
     const { body } = document;
     const scrollDiv : HTMLElement = document.createElement('div');
 

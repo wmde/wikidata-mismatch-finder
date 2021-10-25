@@ -19,5 +19,6 @@ return [
     'item:description' => 'Short Description',
     'item:upload_date' => 'Upload Date',
     'item:expiring_date' => 'Expiring Date',
+    'item:external_source' => 'External Source',
     'date_format' => 'd-m-Y'
 ];

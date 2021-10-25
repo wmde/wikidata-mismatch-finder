@@ -17,6 +17,17 @@
                 <dd>{{ $import->description }}</dd>
             @endif
 
+            <dt>{{__('import-status.item:external_source')}}</dt>
+            <dd>
+                @if($import->external_source_url)
+                    <a href="{{ $import->external_source_url }}" target="_blank">
+                        {{ $import->external_source }}
+                    </a>
+                @else
+                    {{ $import->external_source }}
+                @endif
+            </dd>
+
             <dt>{{__('import-status.item:upload_date')}}</dt>
             <dd>{{ $import->created_at->format(__('import-status.date_format')) }}</dd>
 

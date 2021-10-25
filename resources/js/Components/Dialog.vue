@@ -24,7 +24,13 @@
                     <icon type="clear" size="medium" />
                 </wikit-button>
             </header>
-            <section class="wikit-Dialog__content" ref="content">
+            <section :class="[
+                    'wikit-Dialog__content',
+                    scrolled ? 'wikit-Dialog__content--scrolled' : ''
+                ]"
+                ref="content"
+                @scroll="_handleScroll"
+            >
                 <slot></slot>
             </section>
             <footer class="wikit-Dialog__footer">
@@ -48,6 +54,7 @@
 
 <script lang="ts">
 import { PropType } from 'vue';
+import throttle from 'lodash/throttle';
 import defineComponent from '../types/defineComponent';
 
 import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
@@ -55,6 +62,13 @@ import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
 interface DialogAction {
     label: string,
     namespace: string
+}
+
+interface DialogState {
+    open: boolean,
+    focusable: Element[],
+    lastFocus: Element | null,
+    scrolled: boolean
 }
 
 export default defineComponent({
@@ -80,11 +94,12 @@ export default defineComponent({
             default: false
         }
     },
-    data() {
+    data(): DialogState {
         return {
             open: this.visible,
-            focusable: [] as Element[],
-            lastFocus: null as Element | null
+            focusable: [],
+            lastFocus: null,
+            scrolled: false
         }
     },
     mounted(){
@@ -134,6 +149,16 @@ export default defineComponent({
                     break;
             }
         },
+        // In the following function we have to annotate `this` as TS doesn't
+        // understand the context of higher order functions such as throttle.
+        // The actual first argument of the function is `event`
+        _handleScroll: throttle(function (this: DialogState, event: Event) {
+            const target = event.target as HTMLElement;
+
+            console.log(target.scrollTop);
+
+            this.scrolled = target.scrollTop > 0;
+        }, 300),
         _collectFocusable(): Element[] {
             const selectors = [
                 '[contenteditable]',
@@ -256,9 +281,13 @@ export default defineComponent({
         /**
         * Layout
         */
+        display: flex;
+        flex-direction: column;
+
         width: $wikit-Dialog-width-complex;
         max-width: 75%;
         max-height: 90%;
+
         position: absolute;
         top: 50%;
         left: 50%;
@@ -311,15 +340,18 @@ export default defineComponent({
         #{$base}__close.wikit.wikit-Button.wikit-Button--iconOnly {
             line-height: 0;
         }
-
-        // $wikit-Dialog-header-box-shadow: inset 0 1px 0 0 #c8ccd1; // only for complex dialogs: divider to be displayed when scroll is activated
     }
 
     #{$base}__content {
+        overflow-y: auto;
         padding-block-start: $wikit-Dialog-body-spacing-top-complex;
         padding-block-end: $wikit-Dialog-body-spacing-bottom-complex;
         padding-inline-start: $wikit-Dialog-body-spacing-left;
         padding-inline-end: $wikit-Dialog-body-spacing-left;
+
+        &--scrolled {
+            box-shadow: $wikit-Dialog-header-box-shadow;
+        }
     }
 
     #{$base}__footer {

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="MediaWikiCodeSniffer">
+ <description>The MediaWiki Coding standard.</description>
+</ruleset>

@@ -218,8 +218,9 @@ export default defineComponent({
         },
         _cycleFocus(shifted: boolean): void {
             const focusable = this.focusable;
+            const active = document.activeElement;
             const indices = {
-                current: focusable.indexOf(document.activeElement!),
+                current: active ? focusable.indexOf(active) : 0,
                 offset: shifted ? -1 : 1,
                 last: focusable.length - 1,
                 next(){ return this.current + this.offset }

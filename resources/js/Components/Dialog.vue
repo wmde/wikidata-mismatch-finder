@@ -293,6 +293,10 @@ export default defineComponent({
     @import '~@wmde/wikit-tokens/dist/_variables.scss';
     $base: '.wikit-Dialog';
 
+    // This token was missed, and will be fixed in WiKit.
+    // TODO: Replace this with the fixed component token when porting to WiKit
+    $wikit-Dialog-border-color: $border-color-base-subtle;
+
     #{$base} {
         /**
         * Layout
@@ -354,6 +358,7 @@ export default defineComponent({
         /**
         * Borders
         */
+        border-color: $wikit-Dialog-border-color;
         border-style: $wikit-Dialog-border-style;
         border-width: $wikit-Dialog-border-width;
         border-radius: $wikit-Dialog-border-radius;

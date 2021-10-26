@@ -14,12 +14,12 @@
             v-show="open"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="dialog-title"
+            :aria-labelledby="`dialog-title-${uid}`"
         >
             <div class="wikit-Dialog__overlay" @click="hide"></div>
             <div class="wikit-Dialog__modal">
                 <header class="wikit-Dialog__header">
-                    <span id="dialog-title" class="wikit-Dialog__title">{{title}}</span>
+                    <span :id="`dialog-title-${uid}`" class="wikit-Dialog__title">{{title}}</span>
                     <wikit-button v-if="dismissible"
                         ref="closeButton"
                         class="wikit-Dialog__close"
@@ -64,6 +64,8 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import throttle from 'lodash/throttle';
+import { v4 as uuid } from 'uuid';
+
 import defineComponent from '../types/defineComponent';
 
 import { ScrollbarDimensions, getScrollbarDimensions, getInteractiveDescendants } from '../lib/dom';
@@ -93,7 +95,8 @@ interface DialogState {
     document: DocumentData,
     focusable: Element[],
     open: boolean,
-    scrolled: boolean
+    scrolled: boolean,
+    uid: string
 }
 
 export default defineComponent({
@@ -135,7 +138,8 @@ export default defineComponent({
                 }
             },
             open: this.visible,
-            scrolled: false
+            scrolled: false,
+            uid: uuid()
         }
     },
     mounted(){

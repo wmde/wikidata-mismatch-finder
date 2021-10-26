@@ -4,10 +4,6 @@ use App\Models\ImportMeta;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\MismatchGetRequest;
-use App\Models\Mismatch;
-use App\Services\WikibaseAPIClient;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\ResultsController;
 
 /*

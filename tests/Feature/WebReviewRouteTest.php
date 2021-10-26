@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
-use Inertia\Testing\Assert;
 use TiMacDonald\Log\LogFake;
 
 class WebReviewRouteTest extends TestCase

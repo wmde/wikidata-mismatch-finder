@@ -7,6 +7,7 @@
     <wikit-button @click.native="$refs.standalone.show()">Standalone Dialog!</wikit-button>
     <wikit-button @click.native="$refs.indismissible.show()">Indissmissable Dialog!</wikit-button>
     <wikit-button @click.native="$refs.long.show()">Very Long Dialog!</wikit-button>
+    <wikit-button @click.native="$refs.closes.show()">Button Closed Dialog!</wikit-button>
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore in nostrum ad autem enim cupiditate, facilis
         recusandae vel adipisci, est nisi, consequatur explicabo sit quisquam eos cumque unde! Quaerat aliquam quis
@@ -157,7 +158,7 @@
     </wikit-dialog>
 
     <wikit-dialog class="fancy-dialog"
-        title="Very LongDialog"
+        title="Very Long Dialog"
         :actions="[
             {
                 label: 'Test Primary',
@@ -233,6 +234,30 @@
         facilis iure eaque deserunt recusandae, quam reprehenderit repudiandae voluptatibus id non, autem accusantium
         sint expedita. Incidunt tempore vel vitae debitis, nostrum quas accusamus. Consequatur aspernatur praesentium
         neque aliquam recusandae velit repellat perferendis unde explicabo.</p>
+    </wikit-dialog>
+
+    <wikit-dialog class="fancy-dialog"
+        title="Very Long Dialog"
+        :actions="[
+            {
+                label: 'Boopy',
+                namespace: 'primary-boop'
+            },
+            {
+                label: 'Schmoopy',
+                namespace: 'secondary-schmoop'
+            }
+        ]"
+        @action="(namespace, dialog) => namespace === 'primary-boop' ? dialog.hide() : ''"
+        ref="closes">
+        <h2>I am a dialog!</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis provident impedit iste iure perferendis,
+        necessitatibus enim, laboriosam tempora odio sed voluptatum modi doloribus error soluta dignissimos obcaecati.
+        Ad laborum vero ipsa accusamus a? Doloribus, aliquid impedit, rem modi perspiciatis id omnis, quis nemo fuga
+        repellendus adipisci? Soluta molestiae ullam doloremque aspernatur delectus rerum aliquid. Culpa dolores dicta
+        qui, tenetur odio placeat facilis enim fugiat sunt doloribus cupiditate officia facere corporis unde? Recusandae
+        eaque, id molestias porro velit mollitia similique exercitationem totam rem. Nisi quisquam commodi velit tempore
+        pariatur, esse voluptate architecto dolor mollitia? Eligendi minus ipsum aliquam voluptate vitae eveniet.</p>
     </wikit-dialog>
   </div>
 </template>

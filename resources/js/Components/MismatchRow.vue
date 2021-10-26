@@ -1,12 +1,14 @@
 <template>
     <tr>
         <td :data-header="$i18n('column-property')">
-            <wikit-link style="width:100%" :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
+            <wikit-link
+              class="break-line-link"
+              :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
-            <wikit-link style="width:100%" :href="statementUrl">
+            <wikit-link class="break-line-link" :href="statementUrl">
                 {{mismatch.value_label || mismatch.wikidata_value}}
             </wikit-link>
         </td>
@@ -27,7 +29,7 @@
             />
         </td>
         <td :data-header="$i18n('column-external-source')">
-            <wikit-link v-if="mismatch.import_meta.external_source_url" class="external-source-link" style="width:100%"
+            <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
               :href="`${mismatch.import_meta.external_source_url}`"
             >
               {{mismatch.import_meta.external_source}}
@@ -116,7 +118,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-    .wikit-Link {
+    .wikit-Link.break-line-link {
       width: 100%;
     }
     .wikit-Link__content {

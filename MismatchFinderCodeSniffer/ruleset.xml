@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="MismatchFinderCodeSniffer">
+ <description>Mismatch Finder Custom Coding standard</description>
+</ruleset>

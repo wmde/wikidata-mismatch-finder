@@ -8,7 +8,6 @@ use App\Services\WikibaseAPIClient;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 

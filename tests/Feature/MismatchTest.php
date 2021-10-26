@@ -6,7 +6,6 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class MismatchTest extends TestCase

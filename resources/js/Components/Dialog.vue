@@ -173,9 +173,7 @@ export default defineComponent({
             this.open = true;
             this.$emit('update:visible', this.open);
 
-            this.$nextTick(() => {
-                (this.$refs.content as HTMLElement).scrollTop = 0;
-            });
+            this.$nextTick(this._resetScroll);
         },
         _dispatch(namespace: string){
             this.$emit('action', namespace, this)
@@ -266,6 +264,10 @@ export default defineComponent({
             document.documentElement.style.overflow = 'hidden';
             document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
             document.documentElement.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
+        },
+        _resetScroll(){
+            (this.$refs.content as HTMLElement).scrollTop = 0;
+                this.scrolled = false;
         },
         _restoreFocus(){
             const lastFocused = this.document.cache.activeElement as HTMLElement;

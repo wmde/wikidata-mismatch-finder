@@ -109,6 +109,10 @@ export default defineComponent({
             type: String,
             required: true
         },
+        /**
+         * An array of action buttons, the first item in  this list will always
+         * appear as a primary button.
+         */
         actions: {
             type: Array as PropType<DialogAction[]>,
             required: true
@@ -397,6 +401,10 @@ export default defineComponent({
         padding-inline-end: $wikit-Dialog-body-spacing-left;
 
         &--scrolled {
+            // This token was actually supposed to go on the header but was
+            // included here due to a token value mistake which will be fixed
+            // in WiKit.
+            // TODO: After porting to wikit move this to `#{$base}__header`
             box-shadow: $wikit-Dialog-header-box-shadow;
         }
     }

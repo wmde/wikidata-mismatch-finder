@@ -61,11 +61,13 @@ describe('Dialog.vue', () => {
             propsData: { visible: true }
         });
 
+        const content = wrapper.find('.wikit-Dialog');
+
         expect(wrapper.props().visible).toBe(true);
-        expect(wrapper.isVisible()).toBe(true);
+        expect(content.isVisible()).toBe(true);
 
         await wrapper.setProps({ visible: false });
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     // Slots
@@ -88,10 +90,12 @@ describe('Dialog.vue', () => {
             visible: false
         });
 
+        const content = wrapper.find('.wikit-Dialog');
+
         wrapper.vm.show();
         await wrapper.vm.$nextTick();
 
-        expect(wrapper.isVisible()).toBe(true);
+        expect(content.isVisible()).toBe(true);
     });
 
     it('closes when calling the hide method', async () => {
@@ -99,10 +103,12 @@ describe('Dialog.vue', () => {
             visible: true
         });
 
+        const content = wrapper.find('.wikit-Dialog');
+
         wrapper.vm.hide();
         await wrapper.vm.$nextTick();
 
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     // Events
@@ -156,9 +162,10 @@ describe('Dialog.vue', () => {
     // Behaviour
     it('doesn\'t show dialog by default', () => {
         const wrapper = mount(Dialog);
+        const content = wrapper.find('.wikit-Dialog');
 
         expect(wrapper.props().visible).toBe(false);
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     it('closes when pressing the close button', async () => {
@@ -168,26 +175,28 @@ describe('Dialog.vue', () => {
                 dismissible: true
             }
         });
+        const content = wrapper.find('.wikit-Dialog');
 
         const button = wrapper.find(`.wikit-Dialog__close`);
         // Trigger click event
         button.trigger('click');
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     it('closes when pressing the overlay', async () => {
         const wrapper = mount(Dialog, {
             propsData: { visible: true }
         });
+        const content = wrapper.find('.wikit-Dialog');
 
-        const overlay = wrapper.find(`.wikit-Dialog__overlay`);
+        const overlay = content.find(`.wikit-Dialog__overlay`);
         // Trigger click event
         overlay.trigger('click');
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     it('closes when pressing the esc key', async () => {
@@ -195,13 +204,14 @@ describe('Dialog.vue', () => {
             propsData: { visible: true },
             attachTo: document.body
         });
+        const content = wrapper.find('.wikit-Dialog');
 
         wrapper.trigger('keydown', {
             key: 'Escape'
         });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.isVisible()).toBe(false);
+        expect(content.isVisible()).toBe(false);
     });
 
     /**

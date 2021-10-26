@@ -29,7 +29,7 @@
                         icon-only
                         @click.native="hide"
                     >
-                        <icon type="clear" size="medium" />
+                        <icon type="close" size="medium" />
                     </wikit-button>
                 </header>
                 <section :class="[

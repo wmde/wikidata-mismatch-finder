@@ -104,12 +104,13 @@ class WebResultsRouteTest extends TestCase
             ])
             ->create();
 
-        $response = $this->get(route('results', [ 'ids' => $mismatch->item_id ]));
-        $response->assertSuccessful();
-        $response->assertViewIs('app')->assertInertia(function (Assert $page) {
-            $page->component('Results')
-                ->where('results', [ ]);
-        });
+        $this->get(route('results', [ 'ids' => $mismatch->item_id ]))
+            ->assertSuccessful()
+            ->assertViewIs('app')
+            ->assertInertia(function (Assert $page) {
+                $page->component('Results')
+                    ->missing('results');
+            });
     }
 
     /**
@@ -131,12 +132,13 @@ class WebResultsRouteTest extends TestCase
             ])
             ->create();
 
-        $response = $this->get(route('results', [ 'ids' => $mismatch->item_id ]));
-        $response->assertSuccessful();
-        $response->assertViewIs('app')->assertInertia(function (Assert $page) {
-            $page->component('Results')
-                ->where('results', [ ]);
-        });
+        $this->get(route('results', [ 'ids' => $mismatch->item_id ]))
+            ->assertSuccessful()
+            ->assertViewIs('app')
+            ->assertInertia(function (Assert $page) {
+                $page->component('Results')
+                    ->missing('results');
+            });
     }
 
     /**

@@ -51,6 +51,9 @@ export function getScrollbarDimensions(): ScrollbarDimensions {
     };
 }
 
+/**
+ * Retrieves all interactive descendants of a DOM Node
+ */
 export function getInteractiveDescendants(parent : Element): Element[] {
     return Array.from(parent.querySelectorAll(INTERACTIVE_SELECTORS.join(', ')))
         .filter((element: Element) => {

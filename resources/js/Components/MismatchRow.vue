@@ -1,12 +1,14 @@
 <template>
     <tr>
         <td :data-header="$i18n('column-property')">
-            <wikit-link :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
+            <wikit-link
+              class="break-line-link"
+              :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
-            <wikit-link :href="statementUrl">
+            <wikit-link class="break-line-link" :href="statementUrl">
                 {{mismatch.value_label || mismatch.wikidata_value}}
             </wikit-link>
         </td>
@@ -25,6 +27,16 @@
                     review_status: $event.value
                 })"
             />
+        </td>
+        <td :data-header="$i18n('column-external-source')">
+            <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
+              :href="`${mismatch.import_meta.external_source_url}`"
+            >
+              {{mismatch.import_meta.external_source}}
+            </wikit-link>
+            <span v-else>
+              {{mismatch.import_meta.external_source}}
+            </span>
         </td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
@@ -104,3 +116,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+    .wikit-Link.break-line-link {
+      width: 100%;
+    }
+    .wikit-Link__content {
+      word-break: break-word;
+    }
+</style>

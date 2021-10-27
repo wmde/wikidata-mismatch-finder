@@ -45,6 +45,8 @@ describe('MismatchesRow.vue', () => {
                 user: {
                     username: 'some_user_name'
                 },
+                external_source: 'some external source',
+                external_source_url: 'http://www.whatever.com',
                 created_at: '2021-09-23'
             },
         };
@@ -66,8 +68,40 @@ describe('MismatchesRow.vue', () => {
             mismatch.external_value,
             `review-status-${mismatch.review_status}`,
             mismatch.import_meta.user.username,
-            mismatch.import_meta.created_at
+            mismatch.import_meta.created_at,
+            mismatch.import_meta.external_source
         ].forEach(value => expect(rowText).toContain(value));
+    });
+
+    it('displays a link in the External Source column with external_source_url is provided', () => {
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                external_source_url: 'http://www.whatever.com',
+                created_at: '2021-09-23'
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-source' ).at(0);
+        const linkUrl = td.find('a').attributes('href');
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( linkUrl ).toEqual( mismatch.import_meta.external_source_url );
     });
 
     it('shows wikidata label over value when available', () => {

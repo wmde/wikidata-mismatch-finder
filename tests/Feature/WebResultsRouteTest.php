@@ -60,6 +60,7 @@ class WebResultsRouteTest extends TestCase
                 'wikidata_value' => (string) $mismatch->wikidata_value,
                 'external_value' => (string) $mismatch->external_value,
                 'review_status' => (string) $mismatch->review_status,
+                'import_meta.external_source' => (string) $import->external_source,
                 'import_meta.user.username' => (string) $import->user->username,
                 'import_meta.created_at' => $import->created_at->toISOString()
             ])->etc();

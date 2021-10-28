@@ -273,7 +273,7 @@ export default defineComponent({
         },
         _resetScroll(){
             (this.$refs.content as HTMLElement).scrollTop = 0;
-                this.scrolled = false;
+            this.scrolled = false;
         },
         _restoreFocus(){
             const lastFocused = this.document.cache.activeElement as HTMLElement;

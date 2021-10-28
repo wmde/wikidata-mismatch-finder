@@ -248,7 +248,8 @@ export default defineComponent({
             }
         },
         _trapScroll(){
-            const documentStyles = window.getComputedStyle(document.documentElement);
+            const root = document.documentElement;
+            const documentStyles = window.getComputedStyle(root);
 
             this.document.cache.overflow = documentStyles.overflow;
             this.document.cache.padding = {
@@ -256,9 +257,15 @@ export default defineComponent({
                 y: documentStyles.paddingBlockEnd
             };
 
-            document.documentElement.style.overflow = 'hidden';
-            document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
-            document.documentElement.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
+            root.style.overflow = 'hidden';
+
+            if(root.scrollHeight > root.clientHeight){
+                root.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
+            }
+
+            if(root.scrollWidth > root.clientWidth){
+                root.style.paddingBlockEnd = `${this.document.scrollbars.height}px`;
+            }
         },
         _resetScroll(){
             (this.$refs.content as HTMLElement).scrollTop = 0;

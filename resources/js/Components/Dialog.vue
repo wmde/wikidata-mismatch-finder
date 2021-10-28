@@ -277,8 +277,9 @@ export default defineComponent({
         },
         _restoreFocus(){
             const lastFocused = this.document.cache.activeElement as HTMLElement;
+
             if( lastFocused !== null ){
-                lastFocused.focus();
+                lastFocused.focus({preventScroll: true});
             }
         },
         _restoreScroll(){

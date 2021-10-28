@@ -168,4 +168,37 @@ class ResultsTest extends DuskTestCase
                 ->assertSeeLink($mismatch->item_id);
         });
     }
+
+    public function test_new_review_status_submit_prompts_confirmation_dialog()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $dropdownComponent = new DecisionDropdown($mismatch->id);
+
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->within($dropdownComponent, function ($dropdown) {
+                    // make sure the item's initial review_status is 'pending'
+                    $dropdown->assertVue('value', null)
+                        // select and assert option
+                        ->selectPosition(2, 'Mismatch on external data source');
+                })
+                // ensure the correct apply button is pressed
+                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
+                    $section->press('Apply changes');
+                })
+                ->waitFor('.confirmation-dialog', 1)
+                ->assertSee('Next steps')
+                ->press('Proceed')
+                ->waitUntilMissing('.confirmation-dialog')
+                ->assertDontSee('Next Steps');
+        });
+    }
 }

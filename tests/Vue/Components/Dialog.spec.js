@@ -38,8 +38,12 @@ describe('Dialog.vue', () => {
 
         expect(wrapper.props().actions).toBe(actions);
 
-        actions.forEach(({label, namespace}) => {
+        actions.forEach(({label, namespace}, i) => {
+            const variants = (i === 0) ? ['primary', 'progressive'] : ['normal', 'neutral'];
             const button = footer.find(`.${namespace}`);
+
+            variants.map(variant => `wikit-Button--${variant}`)
+                .forEach(expect(button.classes()).toContain);
 
             expect(button.text()).toBe(label);
         });

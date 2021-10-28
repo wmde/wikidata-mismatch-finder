@@ -237,7 +237,7 @@
     </wikit-dialog>
 
     <wikit-dialog class="fancy-dialog"
-        title="Very Long Dialog"
+        title="Button Closed Dialog"
         :actions="[
             {
                 label: 'Boopy',

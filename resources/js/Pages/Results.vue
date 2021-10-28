@@ -1,6 +1,10 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
+        <section id="description-section">
+            <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
+            <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+        </section>
         <section id="error-section" v-if="unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
         </section>
@@ -190,4 +194,10 @@ h2 {
     text-align: end;
     margin-top: $dimension-layout-xsmall;
 }
+
+#about-description {
+    max-width: 705px;
+    margin-top: 8px;
+}
+
 </style>

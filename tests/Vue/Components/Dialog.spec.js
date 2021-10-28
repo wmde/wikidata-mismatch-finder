@@ -49,14 +49,14 @@ describe('Dialog.vue', () => {
         });
     });
 
-    it('accepts dismissible prop', () => {
+    it('accepts dismiss-button prop', () => {
         const wrapper = mount(Dialog, {
-            propsData: { dismissible: true }
+            propsData: { dismissButton: true }
         });
 
         const closeButton = wrapper.find('.wikit-Dialog__close');
 
-        expect(wrapper.props().dismissible).toBe(true);
+        expect(wrapper.props().dismissButton).toBe(true);
         expect(closeButton.exists()).toBe(true);
     });
 
@@ -176,7 +176,7 @@ describe('Dialog.vue', () => {
         const wrapper = mount(Dialog, {
             propsData: {
                 visible: true,
-                dismissible: true
+                dismissButton: true
             }
         });
         const content = wrapper.find('.wikit-Dialog');

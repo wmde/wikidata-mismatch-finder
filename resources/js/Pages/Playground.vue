@@ -95,7 +95,7 @@
         ]"
         ref="controlledDialog"
         :visible.sync="controlled"
-        dismissible>
+        dismiss-button>
         <h2>I am a dialog!</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis provident impedit iste iure perferendis,
         necessitatibus enim, laboriosam tempora odio sed voluptatum modi doloribus error soluta dignissimos obcaecati.
@@ -121,7 +121,7 @@
         ]"
         ref="standalone"
         :visible="standalone"
-        dismissible>
+        dismiss-button>
         <h2>I am a dialog!</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis provident impedit iste iure perferendis,
         necessitatibus enim, laboriosam tempora odio sed voluptatum modi doloribus error soluta dignissimos obcaecati.

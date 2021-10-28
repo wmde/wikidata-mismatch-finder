@@ -20,7 +20,7 @@
             <div class="wikit-Dialog__modal">
                 <header class="wikit-Dialog__header">
                     <span :id="`dialog-title-${uid}`" class="wikit-Dialog__title">{{title}}</span>
-                    <wikit-button v-if="dismissible"
+                    <wikit-button v-if="dismissButton"
                         ref="closeButton"
                         class="wikit-Dialog__close"
                         variant="quiet"
@@ -117,7 +117,7 @@ export default defineComponent({
             type: Array as PropType<DialogAction[]>,
             required: true
         },
-        dismissible: {
+        dismissButton: {
             type: Boolean,
             default: false
         },

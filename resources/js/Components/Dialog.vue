@@ -71,11 +71,6 @@ import defineComponent from '../types/defineComponent';
 import { ScrollbarDimensions, getScrollbarDimensions, getInteractiveDescendants } from '../lib/dom';
 import { Button as WikitButton, Icon } from '@wmde/wikit-vue-components';
 
-interface Axes<T> {
-    x: T,
-    y: T
-}
-
 interface DialogAction {
     label: string,
     namespace: string
@@ -85,8 +80,7 @@ interface DocumentData {
     cache: {
         activeElement: Element | null,
         overflow: string,
-        padding: Axes<string>,
-        scroll: Axes<number>
+        padding: { x: string, y: string }
     },
     scrollbars: ScrollbarDimensions
 }
@@ -133,8 +127,7 @@ export default defineComponent({
                 cache: {
                     activeElement: null,
                     overflow: 'auto',
-                    padding: { x: 'auto', y: 'auto' },
-                    scroll: { x: 0,  y: 0}
+                    padding: { x: 'auto', y: 'auto' }
                 },
                 scrollbars: {
                     width: 0,
@@ -262,10 +255,6 @@ export default defineComponent({
                 x: documentStyles.paddingInlineEnd,
                 y: documentStyles.paddingBlockEnd
             };
-            this.document.cache.scroll = {
-                x: window.scrollX,
-                y: window.scrollY
-            }
 
             document.documentElement.style.overflow = 'hidden';
             document.documentElement.style.paddingInlineEnd = `${this.document.scrollbars.width}px`;
@@ -283,13 +272,11 @@ export default defineComponent({
             }
         },
         _restoreScroll(){
-            const {overflow, padding, scroll} = this.document.cache;
+            const {overflow, padding} = this.document.cache;
 
             document.documentElement.style.overflow = overflow;
             document.documentElement.style.paddingInlineEnd = padding.x;
             document.documentElement.style.paddingBlockEnd = padding.y;
-
-            window.scrollTo(scroll.x, scroll.y);
         }
     }
 });

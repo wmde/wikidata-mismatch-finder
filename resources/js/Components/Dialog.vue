@@ -150,7 +150,8 @@ export default defineComponent({
         this.document.scrollbars = getScrollbarDimensions();
 
         if (this.visible) {
-            this.show()
+            this._trapScroll();
+            this.show();
         }
     },
     beforeUpdate(){

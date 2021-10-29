@@ -15,6 +15,8 @@
     },
     "devDependencies": {
         "@types/jest": "^27.0.2",
+        "@types/lodash": "^4.14.176",
+        "@types/uuid": "^8.3.1",
         "@typescript-eslint/eslint-plugin": "^4.33.0",
         "@typescript-eslint/parser": "^4.33.0",
         "@vue/eslint-config-typescript": "^7.0.0",
@@ -27,7 +29,6 @@
         "grunt-banana-checker": "^0.9.0",
         "jest": "^27.3.1",
         "laravel-mix": "^6.0.37",
-        "lodash": "^4.17.19",
         "postcss": "^8.3.11",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.43.4",
@@ -45,7 +46,9 @@
         "@wmde/wikit-tokens": "^2.1.0-alpha.6",
         "@wmde/wikit-vue-components": "^2.1.0-alpha.6",
         "date-fns": "^2.25.0",
+        "lodash": "^4.17.21",
         "ress": "^4.0.0",
+        "uuid": "^3.4.0",
         "vue": "^2.6.14",
         "vue-banana-i18n": "1.5.0",
         "vuex": "^3.6.2"

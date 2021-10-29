@@ -195,9 +195,4 @@ h2 {
     margin-top: $dimension-layout-xsmall;
 }
 
-#about-description {
-    max-width: 705px;
-    margin-top: 8px;
-}
-
 </style>

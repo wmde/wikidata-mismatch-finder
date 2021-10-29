@@ -4,6 +4,8 @@ namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
+use Tests\Browser\Components\DecisionDropdown;
+use App\Models\Mismatch;
 
 class ResultsPage extends Page
 {
@@ -39,5 +41,27 @@ class ResultsPage extends Page
         $browser
             ->assertPathIs('/results')
             ->assertPresent('header');
+    }
+
+    public function elements()
+    {
+        return [
+            '@confirmation-dialog' => '.confirmation-dialog',
+            '@disable-confirmation' => '.disable-confirmation'
+        ];
+    }
+
+    public function decideAndApply(Browser $browser, Mismatch $mismatch, array $decision)
+    {
+        $dropdownComponent = new DecisionDropdown($mismatch->id);
+
+        $browser->within($dropdownComponent, function ($dropdown) use ($decision) {
+           // select and assert option
+            $dropdown->selectPosition($decision['option'], $decision['label']);
+        })
+        // ensure the correct apply button is pressed
+        ->within("#item-mismatches-$mismatch->item_id", function ($section) {
+            $section->press('Apply changes');
+        });
     }
 }

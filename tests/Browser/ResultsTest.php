@@ -146,20 +146,12 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
-            $dropdownComponent = new DecisionDropdown($mismatch->id);
-
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
-                ->within($dropdownComponent, function ($dropdown) {
-                    // make sure the item's initial review_status is 'pending'
-                    $dropdown->assertVue('value', null)
-                        // select and assert option
-                        ->selectPosition(2, 'Mismatch on external data source');
-                })
-                // ensure the correct apply button is pressed
-                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->press('Apply changes');
-                })
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
                 //load the page again
                 ->refresh()
                 // a 'notice' message indicates that the review status has been submitted
@@ -180,25 +172,18 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
-            $dropdownComponent = new DecisionDropdown($mismatch->id);
-
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
-                ->within($dropdownComponent, function ($dropdown) {
-                    // make sure the item's initial review_status is 'pending'
-                    $dropdown->assertVue('value', null)
-                        // select and assert option
-                        ->selectPosition(2, 'Mismatch on external data source');
-                })
-                // ensure the correct apply button is pressed
-                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->press('Apply changes');
-                })
-                ->waitFor('.confirmation-dialog', 1)
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog', 1)
                 ->assertSee('Next steps')
                 ->press('Proceed')
-                ->waitUntilMissing('.confirmation-dialog')
+                ->waitUntilMissing('@confirmation-dialog')
                 ->assertDontSee('Next Steps');
         });
     }
+
 }

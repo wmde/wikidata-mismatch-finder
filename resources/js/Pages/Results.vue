@@ -54,7 +54,7 @@
                 label: $i18n('confirmation-dialog-button'),
                 namespace: 'next-steps-confirm'
             }]"
-            @action="(_, dialog) => dialog.hide()"
+            @action="_handleConfirmation"
             dismiss-button
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
@@ -63,7 +63,10 @@
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
             </ul>
-            <checkbox :label="$i18n('confirmation-dialog-option-label')" :checked.sync="disableConfirmation" />
+            <checkbox class="disable-confirmation"
+                :label="$i18n('confirmation-dialog-option-label')"
+                :checked.sync="disableConfirmation"
+            />
         </wikit-dialog>
     </div>
 </template>
@@ -149,6 +152,23 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             }
         },
+        mounted(){
+            const storageData = this.user
+                ? window.localStorage.getItem(`mismatch-finder_user-settings_${this.user.id}`)
+                : null;
+
+            if (!storageData) {
+                return;
+            }
+
+            try {
+                const userSettings = JSON.parse(storageData);
+
+                this.disableConfirmation = userSettings.disableConfirmation;
+            } catch (e) {
+                console.error("failed to parse saved user settings", e);
+            }
+        },
         data(): ResultsState {
             return {
                 decisions: {},
@@ -200,6 +220,21 @@
                     console.error("saving review decisions has failed", e);
                 }
             },
+            // Anotating dialog as `any` since typescript doesn't fully
+            // understand component instances and complains about usage of the
+            // hide method otherwise.
+            _handleConfirmation(_ : string, dialog: any){
+                const { disableConfirmation } = this;
+
+                if(disableConfirmation){
+                    const storageData = JSON.stringify({ disableConfirmation });
+
+                    window.localStorage.setItem(`mismatch-finder_user-settings_${this.user!.id}`, storageData);
+                }
+
+                dialog.hide();
+            },
+            // Reset disable confirmation on dialog dismissal
         }
     });
 </script>

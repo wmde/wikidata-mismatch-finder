@@ -186,4 +186,42 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_can_disable_confirmation_dialog()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatches = Mismatch::factory(2)
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatches) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatches->implode('item_id', '|')))
+                ->decideAndApply($mismatches[0], [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog', 1)
+                ->within('@confirmation-dialog', function ($dialog) {
+                    $dialog->assertSee('Do not show again')
+                        ->assertVue('checked', false, '@disable-confirmation')
+                        ->click('@disable-confirmation')
+                        ->press('Proceed');
+                })
+                ->waitUntilMissing('@confirmation-dialog')
+                ->decideAndApply($mismatches[0], [
+                    'option' => 1,
+                    'label' => 'Mismatch on Wikidata'
+                ])
+                ->assertMissing('@confirmation-dialog')
+                ->refresh()
+                ->decideAndApply($mismatches[1], [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->assertMissing('@confirmation-dialog');
+        });
+    }
 }

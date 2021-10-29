@@ -79,6 +79,18 @@ li {
     }
 }
 
+.wikit.wikit-Dialog {
+    // Override global styles from media query below
+    header {
+        flex-direction: row;
+    }
+
+    // Ensure dialog is wider than 75% default
+    .wikit-Dialog__modal {
+        max-width: 90%;
+    }
+}
+
 .wikit.wikit-Message {
     border-radius: $border-radius-base;
 }

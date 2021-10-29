@@ -55,7 +55,7 @@
                 namespace: 'next-steps-confirm'
             }]"
             @action="(_, dialog) => dialog.hide()"
-            dismissible
+            dismiss-button
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>

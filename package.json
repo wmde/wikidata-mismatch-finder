@@ -26,7 +26,7 @@
         "eslint-plugin-vue": "^7.20.0",
         "grunt-banana-checker": "^0.9.0",
         "jest": "^27.3.1",
-        "laravel-mix": "^6.0.34",
+        "laravel-mix": "^6.0.37",
         "lodash": "^4.17.19",
         "postcss": "^8.3.11",
         "resolve-url-loader": "^4.0.0",

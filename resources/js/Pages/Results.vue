@@ -63,6 +63,7 @@
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
             </ul>
+            <checkbox :label="$i18n('confirmation-dialog-option-label')" :checked.sync="disableConfirmation" />
         </wikit-dialog>
     </div>
 </template>
@@ -73,6 +74,7 @@
     import {
         Link as WikitLink,
         Button as WikitButton,
+        Checkbox,
         Message } from '@wmde/wikit-vue-components';
     import WikitDialog from '../Components/Dialog.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
@@ -106,7 +108,8 @@
     }
 
     interface ResultsState {
-        decisions: DecisionMap
+        decisions: DecisionMap,
+        disableConfirmation: boolean
     }
 
     export default defineComponent({
@@ -116,6 +119,7 @@
             WikitLink,
             WikitButton,
             WikitDialog,
+            Checkbox,
             Message
         },
         props: {
@@ -147,7 +151,8 @@
         },
         data(): ResultsState {
             return {
-                decisions: {}
+                decisions: {},
+                disableConfirmation: false
             }
         },
         methods: {
@@ -169,6 +174,10 @@
                 };
             },
             async send( item: string ): Promise<void> {
+                if(!this.decisions[item]){
+                    return;
+                }
+
                 // Casting to `any` since TS cannot understand $refs as
                 // component instances and complains about the usage of `show`
                 // See: https://github.com/vuejs/vue-class-component/issues/94
@@ -176,19 +185,19 @@
                 // convoluted and unnecessary syntax.
                 const confirmationDialog = this.$refs.confirmation! as any;
 
-                if(this.decisions[item]){
-                    // use axios in order to preserve saved mismatches
-                    try {
-                        await axios.put('/mismatch-review', this.decisions[item]);
+                // use axios in order to preserve saved mismatches
+                try {
+                    await axios.put('/mismatch-review', this.decisions[item]);
 
-                        // remove decision from this.decisions after it has been
-                        // sent to the server successfully, to avoid sending them twice
-                        delete this.decisions[item];
+                    // remove decision from this.decisions after it has been
+                    // sent to the server successfully, to avoid sending them twice
+                    delete this.decisions[item];
 
+                    if(!this.disableConfirmation){
                         confirmationDialog.show();
-                    } catch(e) {
-                        console.error("saving review decisions has failed", e);
                     }
+                } catch(e) {
+                    console.error("saving review decisions has failed", e);
                 }
             },
         }

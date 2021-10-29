@@ -55,6 +55,30 @@ a {
     @include link;
 }
 
+p, ul, ol {
+    margin-block-end: 1rem;
+
+    .wikit-Dialog & {
+        margin-block-end: 1rem;
+    }
+}
+
+li + li {
+    margin-block-start: 1rem;
+
+    .wikit-Dialog & {
+        margin-block-start: 1rem;
+    }
+}
+
+li {
+    margin-inline-start: 1rem;
+
+    .wikit-Dialog & {
+        margin-inline-start: 1rem;
+    }
+}
+
 .wikit.wikit-Message {
     border-radius: $border-radius-base;
 }

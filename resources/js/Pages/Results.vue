@@ -55,6 +55,7 @@
                 namespace: 'next-steps-confirm'
             }]"
             @action="_handleConfirmation"
+            @update:visible="_handleVisibility"
             dismiss-button
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
@@ -235,6 +236,11 @@
                 dialog.hide();
             },
             // Reset disable confirmation on dialog dismissal
+            _handleVisibility(showing: boolean){
+                if (!showing){
+                    this.disableConfirmation = false;
+                }
+            }
         }
     });
 </script>

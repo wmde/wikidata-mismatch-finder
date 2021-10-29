@@ -224,4 +224,38 @@ class ResultsTest extends DuskTestCase
                 ->assertMissing('@confirmation-dialog');
         });
     }
+
+    public function test_disable_confirmation_checkbox_resets()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog', 1)
+                ->within('@confirmation-dialog', function ($dialog) {
+                    $dialog->assertSee('Do not show again')
+                        ->assertVue('checked', false, '@disable-confirmation')
+                        ->click('@disable-confirmation')
+                        ->click('.wikit-Dialog__close');
+                })
+                ->waitUntilMissing('@confirmation-dialog', 1)
+                ->decideAndApply($mismatch, [
+                    'option' => 1,
+                    'label' => 'Mismatch on Wikidata'
+                ])
+                ->waitFor('@confirmation-dialog', 1)
+                ->assertVue('checked', false, '@disable-confirmation');
+        });
+    }
 }

@@ -61,8 +61,9 @@ a {
 
 #intro-section,
 #error-section,
-#message-section {
-        max-width: 705px;
+#message-section,
+#about-description {
+    max-width: 705px;
 }
 
 // this ensures that there will be a space if there is more than one message

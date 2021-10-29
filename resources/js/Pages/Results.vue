@@ -190,9 +190,4 @@ h2 {
     text-align: end;
     margin-top: $dimension-layout-xsmall;
 }
-
-// this ensures that there will be a space if there is more than one message
-#message-section .wikit-Message:not(:nth-child(1)) {
-    margin-top: $dimension-layout-xsmall;
-}
 </style>

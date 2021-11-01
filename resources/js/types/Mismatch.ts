@@ -20,7 +20,8 @@ interface Mismatch {
         user: {
             username: string
         },
-        created_at: string
+        created_at: string,
+        description: string
     }
 }
 

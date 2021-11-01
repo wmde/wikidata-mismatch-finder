@@ -49,7 +49,7 @@
                 <div class="short-description">
                   {{uploadInfoDescription}}
                   <span v-if="isTruncatedDescription">
-                   <a href="#">{{$i18n('results-read-full-description-link')}}</a>
+                   <wikit-link class="full-description-link" href="#">{{$i18n('results-read-full-description-link')}}</wikit-link>
                   </span>
                 </div>
             </div>
@@ -142,5 +142,8 @@ export default Vue.extend({
     }
     .wikit-Link__content {
       word-break: break-word;
+    }
+    .wikit-Link.full-description-link {
+      display: inline;
     }
 </style>

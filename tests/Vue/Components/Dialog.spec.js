@@ -115,6 +115,19 @@ describe('Dialog.vue', () => {
         expect(content.isVisible()).toBe(false);
     });
 
+    it('closes when calling the dismiss method', async () => {
+        const wrapper = mount(Dialog, {
+            propsData: { visible: true }
+        });
+
+        const content = wrapper.find('.wikit-Dialog');
+
+        wrapper.vm.dismiss();
+        await wrapper.vm.$nextTick();
+
+        expect(content.isVisible()).toBe(false);
+    });
+
     // Events
     it('emits update:visible event when hiding dialog', () => {
         const wrapper = mount(Dialog);
@@ -132,6 +145,14 @@ describe('Dialog.vue', () => {
 
         expect(wrapper.emitted()['update:visible']).toBeTruthy();
         expect(wrapper.emitted()['update:visible'][0]).toEqual([true]);
+    });
+
+    it('emits dismissed event when dismissed', () => {
+        const wrapper = mount(Dialog);
+
+        wrapper.vm.dismiss();
+
+        expect(wrapper.emitted()['dismissed']).toBeTruthy();
     });
 
     it('emits action event when pressing an action button', () => {
@@ -172,7 +193,7 @@ describe('Dialog.vue', () => {
         expect(content.isVisible()).toBe(false);
     });
 
-    it('closes when pressing the close button', async () => {
+    it('dismisses when pressing the close button', async () => {
         const wrapper = mount(Dialog, {
             propsData: {
                 visible: true,
@@ -186,10 +207,11 @@ describe('Dialog.vue', () => {
         button.trigger('click');
 
         await wrapper.vm.$nextTick();
+        expect(wrapper.emitted()['dismissed']).toBeTruthy();
         expect(content.isVisible()).toBe(false);
     });
 
-    it('closes when pressing the overlay', async () => {
+    it('dismisses when pressing the overlay', async () => {
         const wrapper = mount(Dialog, {
             propsData: { visible: true }
         });
@@ -200,10 +222,11 @@ describe('Dialog.vue', () => {
         overlay.trigger('click');
 
         await wrapper.vm.$nextTick();
+        expect(wrapper.emitted()['dismissed']).toBeTruthy();
         expect(content.isVisible()).toBe(false);
     });
 
-    it('closes when pressing the esc key', async () => {
+    it('dismisses when pressing the esc key', async () => {
         const wrapper = mount(Dialog, {
             propsData: { visible: true },
             attachTo: document.body
@@ -215,6 +238,7 @@ describe('Dialog.vue', () => {
         });
 
         await wrapper.vm.$nextTick();
+        expect(wrapper.emitted()['dismissed']).toBeTruthy();
         expect(content.isVisible()).toBe(false);
     });
 

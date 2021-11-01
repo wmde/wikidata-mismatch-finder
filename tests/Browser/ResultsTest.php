@@ -16,6 +16,8 @@ class ResultsTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    private const ANIMATION_WAIT_MS = 500;
+
     public function test_shows_item_ids()
     {
         $this->browse(function (Browser $browser) {
@@ -172,13 +174,14 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->script('localStorage.clear()');
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 2,
                     'label' => 'Mismatch on external data source'
                 ])
-                ->waitFor('@confirmation-dialog', 1)
+                ->waitFor('@confirmation-dialog')
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -197,17 +200,19 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatches) {
+            $browser->script('localStorage.clear()');
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatches->implode('item_id', '|')))
                 ->decideAndApply($mismatches[0], [
                     'option' => 2,
                     'label' => 'Mismatch on external data source'
                 ])
-                ->waitFor('@confirmation-dialog', 1)
+                ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
-                        ->click('@disable-confirmation')
+                        ->click('@disable-confirmation-label')
+                        ->assertVue('checked', true, '@disable-confirmation')
                         ->press('Proceed');
                 })
                 ->waitUntilMissing('@confirmation-dialog')
@@ -215,12 +220,14 @@ class ResultsTest extends DuskTestCase
                     'option' => 1,
                     'label' => 'Mismatch on Wikidata'
                 ])
+                ->pause(self::ANIMATION_WAIT_MS)
                 ->assertMissing('@confirmation-dialog')
                 ->refresh()
                 ->decideAndApply($mismatches[1], [
                     'option' => 2,
                     'label' => 'Mismatch on external data source'
                 ])
+                ->pause(self::ANIMATION_WAIT_MS)
                 ->assertMissing('@confirmation-dialog');
         });
     }
@@ -236,25 +243,27 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->script('localStorage.clear()');
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 2,
                     'label' => 'Mismatch on external data source'
                 ])
-                ->waitFor('@confirmation-dialog', 1)
+                ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
-                        ->click('@disable-confirmation')
+                        ->click('@disable-confirmation-label')
                         ->click('.wikit-Dialog__close');
                 })
-                ->waitUntilMissing('@confirmation-dialog', 1)
+                ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatch, [
                     'option' => 1,
                     'label' => 'Mismatch on Wikidata'
                 ])
-                ->waitFor('@confirmation-dialog', 1)
+                ->pause(self::ANIMATION_WAIT_MS)
+                ->assertVisible('@confirmation-dialog')
                 ->assertVue('checked', false, '@disable-confirmation');
         });
     }

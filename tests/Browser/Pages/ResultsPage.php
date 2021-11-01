@@ -47,7 +47,8 @@ class ResultsPage extends Page
     {
         return [
             '@confirmation-dialog' => '.confirmation-dialog',
-            '@disable-confirmation' => '.disable-confirmation'
+            '@disable-confirmation' => '.disable-confirmation',
+            '@disable-confirmation-label' => '.disable-confirmation>.wikit-checkbox__label'
         ];
     }
 

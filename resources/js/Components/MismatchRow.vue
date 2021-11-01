@@ -48,9 +48,9 @@
                 <span class="upload-date">{{uploadDate}}</span>
                 <div class="short-description">
                   {{uploadInfoDescription}}
-                  <span v-if="isTruncatedDescription">
-                   <wikit-link class="full-description-link" href="#">{{$i18n('results-read-full-description-link')}}</wikit-link>
-                  </span>
+                   <wikit-link v-if="isTruncatedDescription" class="full-description-link" href="#">
+                     {{$i18n('results-read-full-description-link')}}
+                  </wikit-link>
                 </div>
             </div>
         </td>
@@ -106,14 +106,24 @@ export default Vue.extend({
             const desiredLength = 80;
             const suffix = "...";
             if (text && text.length > desiredLength) {
-              this.isTruncatedDescription = true;
+              // TODO: handle these side effects somehow
+              // this.isTruncatedDescription = true
               return text.substring(0, desiredLength) + suffix;
             } else {
-                this.isTruncatedDescription = false;
+                // this.isTruncatedDescription = false;
                 return text;
             }
         },
   },
+  // TODO: maybe handle side effects with watch?
+  // watch: {
+  //   uploadInfoDescription: {
+  //     deep: true,
+  //     handler: function(text){
+  //       this.isTruncatedDescription = true;
+  //     }
+  //   }
+  // },
   data(): MismatchRowState {
     // The following reducer generates the list of dropdown options based on a list of allowed status values
     const statusOptions: ReviewOptionMap = Object.values(ReviewDecision).reduce(

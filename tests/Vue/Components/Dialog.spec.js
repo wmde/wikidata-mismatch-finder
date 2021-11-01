@@ -91,7 +91,7 @@ describe('Dialog.vue', () => {
     // Methods
     it('opens when calling the show method', async () => {
         const wrapper = mount(Dialog, {
-            visible: false
+            propsData: { visible: false }
         });
 
         const content = wrapper.find('.wikit-Dialog');
@@ -104,7 +104,7 @@ describe('Dialog.vue', () => {
 
     it('closes when calling the hide method', async () => {
         const wrapper = mount(Dialog, {
-            visible: true
+            propsData: { visible: true }
         });
 
         const content = wrapper.find('.wikit-Dialog');

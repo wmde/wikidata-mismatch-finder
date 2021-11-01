@@ -39,5 +39,6 @@
     "confirmation-dialog-message-tip-2": "Tip to followup on a mismatch that was discovered in the external source",
     "confirmation-dialog-message-tip-3": "Tip to followup on a mismatch that was discovered in both wikidata and the external source",
     "confirmation-dialog-button": "A button to confirm that the confirmation dialog was seen",
-    "confirmation-dialog-option-label": "Checkbox label to determine whether to disable the confirmation dialog in the future"
+    "confirmation-dialog-option-label": "Checkbox label to determine whether to disable the confirmation dialog in the future",
+    "results-read-full-description-link": "The link in the Upload info column to see a full description"
 }

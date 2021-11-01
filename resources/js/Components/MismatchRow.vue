@@ -46,6 +46,15 @@
                     {{mismatch.import_meta.user.username}}
                 </wikit-link>
                 <span class="upload-date">{{uploadDate}}</span>
+                <div class="short-description" 
+                  v-html="$options.filters.truncate( 
+                    mismatch.import_meta.description,
+                    100, 
+                    '... ',
+                    '#',
+                    $i18n('results-read-full-description-link')
+                  )" 
+                />
             </div>
         </td>
     </tr>
@@ -114,6 +123,21 @@ export default Vue.extend({
       decision: statusOptions[this.mismatch.review_status],
     };
   },
+  filters: {
+    truncate: function (text: string, length: number, suffix: string, link: string, linkText: string) {
+            if (text && text.length > length) {
+                return text.substring(0, length) + suffix + 
+                `<a href=${link}>${linkText}</a>`; 
+                // TODO: find out how to render component here instead of <a> tag
+                // this is slightly complex. We need to find another way of doing 
+                // this probably that doesn't involve v-html.
+                // A suggested solution is to use https://vuejs.org/v2/api/#Vue-compile
+                // but it would introduce XSS vulnerabilities in our code. 
+            } else {
+                return text;
+            }
+        },
+  }
 });
 </script>
 

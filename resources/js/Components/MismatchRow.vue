@@ -118,13 +118,13 @@ export default Vue.extend({
     },
     computed: {
       uploadDate(): string {
-          return formatISO(new Date(this.mismatch.import_meta.created_at), {
-              representation: 'date'
-          });
+        return formatISO(new Date(this.mismatch.import_meta.created_at), {
+            representation: 'date'
+        });
       },
       statementUrl(): string {
-    return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
-    },
+        return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
+      },
       shouldTruncate(): boolean {
         const text = this.mismatch.import_meta.description;
         return text ? text.length > truncateLength : false;

@@ -11,6 +11,7 @@ module.exports = {
 	parser: 'vue-eslint-parser',
 	rules: {
 		'max-len': [ 'error', 120 ],
-		"no-multiple-empty-lines" : ["error", { "max": 1 }],
+		'no-multiple-empty-lines' : ['error', { 'max': 1 }],
+		'vue/multi-word-component-names' : [ 'off' ]
 		},	
 };

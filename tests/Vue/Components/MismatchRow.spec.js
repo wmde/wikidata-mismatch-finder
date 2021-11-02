@@ -104,6 +104,82 @@ describe('MismatchesRow.vue', () => {
         expect( linkUrl ).toEqual( mismatch.import_meta.external_source_url );
     });
 
+    it('truncates the upload info description and adds "see full description" link when longer than 100 chars ', () => {
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                external_source_url: 'http://www.whatever.com',
+                created_at: '2021-09-23',
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
+                sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const desiredTruncateLength = 100;
+
+        const truncateSuffixLength = '...'.length;
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-upload-info' ).at(0);
+        const descriptionElementText = td.find('.description').text();
+
+        // workaround pseudo selector :not(.full-description-link) not working
+        const descriptionLinkText = td.find('.full-description-link').text();
+        const renderedDescriptionText = descriptionElementText.replace(descriptionLinkText, '').trim();
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( renderedDescriptionText.length - truncateSuffixLength ).toEqual( desiredTruncateLength );
+        expect( descriptionElementText ).toContain( descriptionLinkText );
+    });
+
+    it('does not truncate upload info description when description shorter than 100 chars ', () => {
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                external_source_url: 'http://www.whatever.com',
+                created_at: '2021-09-23',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' //text length is less than 100
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-upload-info' ).at(0);
+        const descriptionElementText = td.find('.description').text();
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( descriptionElementText ).toEqual( mismatch.import_meta.description );
+    });
+
     it('shows wikidata label over value when available', () => {
         const mismatch = {
             wikidata_value: 'Some value',

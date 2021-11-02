@@ -231,4 +231,46 @@ describe('Results.vue', () => {
         //the decisions object will be untouched
         expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
     });
+
+    it('Shows confirmation dialog after successful put requests', async () => {
+        // Ensure a successful response (axios throws on any failed response from 400 up)
+        axios.put.mockImplementationOnce(() => true);
+
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mount(Results, {
+            mocks,
+            data() {
+                return {
+                    decisions
+                }
+            }
+        });
+        const dialog = wrapper.find('.confirmation-dialog .wikit-Dialog');
+
+        await wrapper.vm.send(item_id);
+
+        expect(dialog.isVisible()).toBe(true);
+    });
+
+    it('Doesn\'t show confirmation dialog after failed put requests', async () => {
+        // Ensure a failed response (axios throws on any failed response from 400 up)
+        axios.put.mockImplementationOnce(() => { throw new Error() });
+
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mount(Results, {
+            mocks,
+            data() {
+                return {
+                    decisions
+                }
+            }
+        });
+        const dialog = wrapper.find('.confirmation-dialog .wikit-Dialog');
+
+        await wrapper.vm.send(item_id);
+
+        expect(dialog.isVisible()).toBe(false);
+    });
 })

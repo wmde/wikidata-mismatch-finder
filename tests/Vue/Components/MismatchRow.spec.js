@@ -180,6 +180,42 @@ describe('MismatchesRow.vue', () => {
         expect( descriptionElementText ).toEqual( mismatch.import_meta.description );
     });
 
+    it('Shows dialog after clicking "see full description" in Upload Info column', async () => {
+
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                external_source_url: 'http://www.whatever.com',
+                created_at: '2021-09-23',
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
+                sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        await wrapper.find('.full-description-link').trigger('click');
+        
+        const dialog = wrapper.find('.full-description-dialog .wikit-Dialog');
+
+        expect(dialog.isVisible()).toBe(true);
+    });
+
     it('shows wikidata label over value when available', () => {
         const mismatch = {
             wikidata_value: 'Some value',

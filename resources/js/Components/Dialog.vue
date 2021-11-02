@@ -16,7 +16,7 @@
             aria-modal="true"
             :aria-labelledby="`dialog-title-${uid}`"
         >
-            <div class="wikit-Dialog__overlay" @click="hide"></div>
+            <div class="wikit-Dialog__overlay" @click="dismiss"></div>
             <div class="wikit-Dialog__modal">
                 <header class="wikit-Dialog__header">
                     <span :id="`dialog-title-${uid}`" class="wikit-Dialog__title">{{title}}</span>
@@ -27,7 +27,7 @@
                         type="neutral"
                         aria-label="close"
                         icon-only
-                        @click.native="hide"
+                        @click.native="dismiss"
                     >
                         <icon type="close" size="medium" />
                     </wikit-button>
@@ -173,13 +173,17 @@ export default defineComponent({
 
             this.$nextTick(this._resetScroll);
         },
+        dismiss(){
+            this.$emit('dismissed');
+            this.hide();
+        },
         _dispatch(namespace: string){
             this.$emit('action', namespace, this)
         },
         _handleKeydown(event : KeyboardEvent){
             switch (event.key) {
                 case 'Escape':
-                    this.hide();
+                    this.dismiss();
                     break;
                 case 'Tab':
                     this._cycleFocus(event.shiftKey)

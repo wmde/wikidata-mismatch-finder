@@ -16,6 +16,8 @@ class ResultsTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    private const ANIMATION_WAIT_MS = 500;
+
     public function test_shows_item_ids()
     {
         $this->browse(function (Browser $browser) {
@@ -146,20 +148,12 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
-            $dropdownComponent = new DecisionDropdown($mismatch->id);
-
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
-                ->within($dropdownComponent, function ($dropdown) {
-                    // make sure the item's initial review_status is 'pending'
-                    $dropdown->assertVue('value', null)
-                        // select and assert option
-                        ->selectPosition(2, 'Mismatch on external data source');
-                })
-                // ensure the correct apply button is pressed
-                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->press('Apply changes');
-                })
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
                 //load the page again
                 ->refresh()
                 // a 'notice' message indicates that the review status has been submitted
@@ -180,25 +174,97 @@ class ResultsTest extends DuskTestCase
             ->create();
 
         $this->browse(function (Browser $browser) use ($mismatch) {
-            $dropdownComponent = new DecisionDropdown($mismatch->id);
-
+            $browser->script('localStorage.clear()');
             $browser->loginAs(User::factory()->create())
                 ->visit(new ResultsPage($mismatch->item_id))
-                ->within($dropdownComponent, function ($dropdown) {
-                    // make sure the item's initial review_status is 'pending'
-                    $dropdown->assertVue('value', null)
-                        // select and assert option
-                        ->selectPosition(2, 'Mismatch on external data source');
-                })
-                // ensure the correct apply button is pressed
-                ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->press('Apply changes');
-                })
-                ->waitFor('.confirmation-dialog', 1)
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog')
                 ->assertSee('Next steps')
                 ->press('Proceed')
-                ->waitUntilMissing('.confirmation-dialog')
+                ->waitUntilMissing('@confirmation-dialog')
                 ->assertDontSee('Next Steps');
+        });
+    }
+
+    public function test_can_disable_confirmation_dialog()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatches = Mismatch::factory(2)
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatches) {
+            $browser->script('localStorage.clear()');
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatches->implode('item_id', '|')))
+                ->decideAndApply($mismatches[0], [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog')
+                ->within('@confirmation-dialog', function ($dialog) {
+                    $dialog->assertSee('Do not show again')
+                        ->assertVue('checked', false, '@disable-confirmation')
+                        ->click('@disable-confirmation-label')
+                        ->assertVue('checked', true, '@disable-confirmation')
+                        ->press('Proceed');
+                })
+                ->waitUntilMissing('@confirmation-dialog')
+                ->decideAndApply($mismatches[0], [
+                    'option' => 1,
+                    'label' => 'Mismatch on Wikidata'
+                ])
+                ->pause(self::ANIMATION_WAIT_MS)
+                ->assertMissing('@confirmation-dialog')
+                ->refresh()
+                ->decideAndApply($mismatches[1], [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->pause(self::ANIMATION_WAIT_MS)
+                ->assertMissing('@confirmation-dialog');
+        });
+    }
+
+    public function test_disable_confirmation_checkbox_resets()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->script('localStorage.clear()');
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->decideAndApply($mismatch, [
+                    'option' => 2,
+                    'label' => 'Mismatch on external data source'
+                ])
+                ->waitFor('@confirmation-dialog')
+                ->within('@confirmation-dialog', function ($dialog) {
+                    $dialog->assertSee('Do not show again')
+                        ->assertVue('checked', false, '@disable-confirmation')
+                        ->click('@disable-confirmation-label')
+                        ->click('.wikit-Dialog__close');
+                })
+                ->waitUntilMissing('@confirmation-dialog')
+                ->decideAndApply($mismatch, [
+                    'option' => 1,
+                    'label' => 'Mismatch on Wikidata'
+                ])
+                ->pause(self::ANIMATION_WAIT_MS)
+                ->assertVisible('@confirmation-dialog')
+                ->assertVue('checked', false, '@disable-confirmation');
         });
     }
 }

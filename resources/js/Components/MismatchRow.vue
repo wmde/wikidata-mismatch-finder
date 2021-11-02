@@ -48,12 +48,32 @@
                 <span class="upload-date">{{uploadDate}}</span>
                 <div class="description">
                   {{uploadInfoDescription}}
-                  <wikit-link v-if="shouldTruncate" class="full-description-link" href="#">
+                  <wikit-link v-if="shouldTruncate" class="full-description-link" href="#" @click.native="showDialog">
                     {{$i18n('results-read-full-description-link')}}
                   </wikit-link>
                 </div>
                 
             </div>
+            <wikit-dialog class="full-description-dialog"
+              :title="$i18n('column-upload-info')"
+              ref="fullDescriptionDialog"
+              :actions="[{
+                  label: $i18n('confirm-dialog-button'),
+                  namespace: 'next-steps-confirm'
+              }]"
+              @action="(_, dialog) => dialog.hide()"
+              dismiss-button
+            >
+            <wikit-link class="uploader"
+                    :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+            >
+                {{mismatch.import_meta.user.username}}
+            </wikit-link>
+            <span class="upload-date">{{uploadDate}}</span>
+            <div class="description">
+              {{this.mismatch.import_meta.description}}
+            </div>
+          </wikit-dialog>
         </td>
     </tr>
 </template>
@@ -64,6 +84,7 @@ import { formatISO } from 'date-fns';
 import Vue, { PropType } from 'vue';
 import { Dropdown, Link as WikitLink } from '@wmde/wikit-vue-components';
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
+import WikitDialog from '../Components/Dialog.vue';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
 
@@ -85,6 +106,7 @@ interface MismatchRowState {
 export default Vue.extend({
     components: {
     WikitLink,
+    WikitDialog,
     Dropdown,
     },
     props: {
@@ -131,6 +153,12 @@ export default Vue.extend({
       decision: statusOptions[this.mismatch.review_status],
     };
   },
+  methods: {
+    showDialog() {
+      const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
+      descriptionDialog.show();
+    } 
+  }
 });
 </script>
 

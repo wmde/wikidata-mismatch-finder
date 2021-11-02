@@ -33,6 +33,7 @@
     "log-in-message": "A message to notify users to log in to make any changes",
     "results-page-description": "The description of the Results page",
     "results-page-title": "The title of the Results page",
+    "results-read-full-description-link": "The link in the Upload info column to see a full description",
     "confirmation-dialog-title": "A title for the dialog that appears after changed have been successfully submitted",
     "confirmation-dialog-message-intro": "Short test to segue into possible followup actions to submitting a review decision",
     "confirmation-dialog-message-tip-1": "Tip to followup on a mismatch that was discovered in wikidata",
@@ -40,5 +41,5 @@
     "confirmation-dialog-message-tip-3": "Tip to followup on a mismatch that was discovered in both wikidata and the external source",
     "confirmation-dialog-button": "A button to confirm that the confirmation dialog was seen",
     "confirmation-dialog-option-label": "Checkbox label to determine whether to disable the confirmation dialog in the future",
-    "results-read-full-description-link": "The link in the Upload info column to see a full description"
+    "confirm-dialog-button": "A button to confirm that the upload info description dialog was seen"
 }

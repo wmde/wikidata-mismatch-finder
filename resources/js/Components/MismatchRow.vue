@@ -46,12 +46,13 @@
                     {{mismatch.import_meta.user.username}}
                 </wikit-link>
                 <span class="upload-date">{{uploadDate}}</span>
-                <div class="short-description">
+                <div class="description">
                   {{uploadInfoDescription}}
-                   <wikit-link v-if="isTruncatedDescription" class="full-description-link" href="#">
-                     {{$i18n('results-read-full-description-link')}}
+                  <wikit-link v-if="shouldTruncate" class="full-description-link" href="#">
+                    {{$i18n('results-read-full-description-link')}}
                   </wikit-link>
                 </div>
+                
             </div>
         </td>
     </tr>
@@ -66,6 +67,8 @@ import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
 
+const truncateLength = 100;
+
 interface ReviewMenuItem extends MenuItem {
   value: ReviewDecision;
 }
@@ -77,7 +80,6 @@ type ReviewOptionMap = {
 interface MismatchRowState {
   statusOptions: ReviewOptionMap;
   decision: ReviewMenuItem;
-  isTruncatedDescription: boolean;
 }
 
 export default Vue.extend({
@@ -101,29 +103,16 @@ export default Vue.extend({
       statementUrl(): string {
     return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
     },
+      shouldTruncate(): boolean {
+        const text = this.mismatch.import_meta.description;
+        return text ? text.length > truncateLength : false;
+      },
       uploadInfoDescription(): string {
-            const text = this.mismatch.import_meta.description;
-            const desiredLength = 80;
-            const suffix = "...";
-            if (text && text.length > desiredLength) {
-              // TODO: handle these side effects somehow
-              // this.isTruncatedDescription = true
-              return text.substring(0, desiredLength) + suffix;
-            } else {
-                // this.isTruncatedDescription = false;
-                return text;
-            }
-        },
+        const text = this.mismatch.import_meta.description;
+        return this.shouldTruncate ? 
+          text.substring(0, truncateLength) + '...' : text;
+      }
   },
-  // TODO: maybe handle side effects with watch?
-  // watch: {
-  //   uploadInfoDescription: {
-  //     deep: true,
-  //     handler: function(text){
-  //       this.isTruncatedDescription = true;
-  //     }
-  //   }
-  // },
   data(): MismatchRowState {
     // The following reducer generates the list of dropdown options based on a list of allowed status values
     const statusOptions: ReviewOptionMap = Object.values(ReviewDecision).reduce(
@@ -140,7 +129,6 @@ export default Vue.extend({
     return {
       statusOptions,
       decision: statusOptions[this.mismatch.review_status],
-      isTruncatedDescription : false
     };
   },
 });

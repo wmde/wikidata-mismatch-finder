@@ -47,6 +47,23 @@
                 </form>
             </section>
         </section>
+        <wikit-dialog class="confirmation-dialog"
+            :title="$i18n('confirmation-dialog-title')"
+            ref="confirmation"
+            :actions="[{
+                label: $i18n('confirmation-dialog-button'),
+                namespace: 'next-steps-confirm'
+            }]"
+            @action="(_, dialog) => dialog.hide()"
+            dismiss-button
+        >
+            <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
+            <ul>
+                <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
+                <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
+                <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
+            </ul>
+        </wikit-dialog>
     </div>
 </template>
 
@@ -57,6 +74,7 @@
         Link as WikitLink,
         Button as WikitButton,
         Message } from '@wmde/wikit-vue-components';
+    import WikitDialog from '../Components/Dialog.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
@@ -97,6 +115,7 @@
             MismatchesTable,
             WikitLink,
             WikitButton,
+            WikitDialog,
             Message
         },
         props: {
@@ -150,6 +169,13 @@
                 };
             },
             async send( item: string ): Promise<void> {
+                // Casting to `any` since TS cannot understand $refs as
+                // component instances and complains about the usage of `show`
+                // See: https://github.com/vuejs/vue-class-component/issues/94
+                // Defaulting to any, as the alternative presents us with
+                // convoluted and unnecessary syntax.
+                const confirmationDialog = this.$refs.confirmation! as any;
+
                 if(this.decisions[item]){
                     // use axios in order to preserve saved mismatches
                     try {
@@ -158,6 +184,8 @@
                         // remove decision from this.decisions after it has been
                         // sent to the server successfully, to avoid sending them twice
                         delete this.decisions[item];
+
+                        confirmationDialog.show();
                     } catch(e) {
                         console.error("saving review decisions has failed", e);
                     }

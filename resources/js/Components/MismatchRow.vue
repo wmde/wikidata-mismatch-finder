@@ -46,7 +46,34 @@
                     {{mismatch.import_meta.user.username}}
                 </wikit-link>
                 <span class="upload-date">{{uploadDate}}</span>
+                <div class="description">
+                  {{uploadInfoDescription}}
+                  <wikit-link v-if="shouldTruncate" class="full-description-link" href="#" @click.native="showDialog">
+                    {{$i18n('results-read-full-description-link')}}
+                  </wikit-link>
+                </div>
+                
             </div>
+            <wikit-dialog class="full-description-dialog"
+              :title="$i18n('column-upload-info')"
+              ref="fullDescriptionDialog"
+              :actions="[{
+                  label: $i18n('confirm-dialog-button'),
+                  namespace: 'next-steps-confirm'
+              }]"
+              @action="(_, dialog) => dialog.hide()"
+              dismiss-button
+            >
+            <wikit-link class="uploader"
+                    :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+            >
+                {{mismatch.import_meta.user.username}}
+            </wikit-link>
+            <span class="upload-date">{{uploadDate}}</span>
+            <div class="description">
+              {{this.mismatch.import_meta.description}}
+            </div>
+          </wikit-dialog>
         </td>
     </tr>
 </template>
@@ -57,8 +84,11 @@ import { formatISO } from 'date-fns';
 import Vue, { PropType } from 'vue';
 import { Dropdown, Link as WikitLink } from '@wmde/wikit-vue-components';
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
+import WikitDialog from '../Components/Dialog.vue';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
+
+const truncateLength = 100;
 
 interface ReviewMenuItem extends MenuItem {
   value: ReviewDecision;
@@ -76,6 +106,7 @@ interface MismatchRowState {
 export default Vue.extend({
     components: {
     WikitLink,
+    WikitDialog,
     Dropdown,
     },
     props: {
@@ -86,14 +117,23 @@ export default Vue.extend({
         }
     },
     computed: {
-        uploadDate(): string {
-            return formatISO(new Date(this.mismatch.import_meta.created_at), {
-                representation: 'date'
-            });
-        },
-        statementUrl(): string {
-      return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
-    },
+      uploadDate(): string {
+        return formatISO(new Date(this.mismatch.import_meta.created_at), {
+            representation: 'date'
+        });
+      },
+      statementUrl(): string {
+        return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
+      },
+      shouldTruncate(): boolean {
+        const text = this.mismatch.import_meta.description;
+        return text ? text.length > truncateLength : false;
+      },
+      uploadInfoDescription(): string {
+        const text = this.mismatch.import_meta.description;
+        return this.shouldTruncate ? 
+          text.substring(0, truncateLength) + '...' : text;
+      }
   },
   data(): MismatchRowState {
     // The following reducer generates the list of dropdown options based on a list of allowed status values
@@ -108,12 +148,19 @@ export default Vue.extend({
       }),
       {}
     );
-
     return {
       statusOptions,
       decision: statusOptions[this.mismatch.review_status],
     };
   },
+  methods: {
+    showDialog(e: Event) {
+      e.preventDefault();
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
+      const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
+      descriptionDialog.show();
+    } 
+  }
 });
 </script>
 
@@ -123,5 +170,8 @@ export default Vue.extend({
     }
     .wikit-Link__content {
       word-break: break-word;
+    }
+    .wikit-Link.full-description-link {
+      display: inline;
     }
 </style>

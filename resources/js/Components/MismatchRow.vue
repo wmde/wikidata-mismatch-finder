@@ -154,7 +154,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    showDialog() {
+    showDialog(e: Event) {
+      e.preventDefault();
       const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
       descriptionDialog.show();
     } 

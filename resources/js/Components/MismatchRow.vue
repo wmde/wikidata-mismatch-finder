@@ -156,6 +156,7 @@ export default Vue.extend({
   methods: {
     showDialog(e: Event) {
       e.preventDefault();
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
       const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
       descriptionDialog.show();
     } 

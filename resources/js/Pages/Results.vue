@@ -204,7 +204,8 @@
                 // See: https://github.com/vuejs/vue-class-component/issues/94
                 // Defaulting to any, as the alternative presents us with
                 // convoluted and unnecessary syntax.
-                const confirmationDialog = this.$refs.confirmation! as any;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const confirmationDialog = this.$refs.confirmation as any;
 
                 // use axios in order to preserve saved mismatches
                 try {
@@ -224,13 +225,18 @@
             // Anotating dialog as `any` since typescript doesn't fully
             // understand component instances and complains about usage of the
             // hide method otherwise.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             _handleConfirmation(_ : string, dialog: any){
-                const { disableConfirmation } = this;
+                const { disableConfirmation, user } = this;
+
+                // Do nothing if there is no user
+                if ( !user ){
+                    return;
+                }
 
                 if(disableConfirmation){
                     const storageData = JSON.stringify({ disableConfirmation });
-
-                    window.localStorage.setItem(`mismatch-finder_user-settings_${this.user!.id}`, storageData);
+                    window.localStorage.setItem(`mismatch-finder_user-settings_${user.id}`, storageData);
                 }
 
                 dialog.hide();

@@ -83,7 +83,7 @@
             @dismissed="disableConfirmation = false"
             dismiss-button
         >
-            <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
+            <p class="list-intro">{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>
                 <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>

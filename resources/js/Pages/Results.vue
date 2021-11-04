@@ -3,7 +3,32 @@
         <Head title="Mismatch Finder - Results" />
         <section id="description-section">
             <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-            <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+            <p id="about-description" >
+                {{ $i18n('results-page-description') }}
+                <wikit-link class="consult-instructions-link" href="#" @click.native="showInstructionsDialog">
+                    {{$i18n('results-consult-instructions-link')}}
+                </wikit-link>
+
+                <wikit-dialog class="instructions-dialog"
+                    :title="$i18n('instructions-dialog-title')"
+                    ref="inctructionsDialog"
+                    :actions="[{
+                        label: $i18n('confirm-dialog-button'),
+                        namespace: 'instructions-confirm'
+                    }]"
+                    @action="(_, dialog) => dialog.hide()"
+                    dismiss-button
+                >
+                    <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
+                    <p class="list-intro">{{ $i18n('instructions-dialog-message-intro') }}</p>
+                    <ul>
+                        <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
+                        <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
+                        <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
+                        <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
+                    </ul>
+                </wikit-dialog>
+            </p>
         </section>
         <section id="error-section" v-if="unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
@@ -177,6 +202,12 @@
             }
         },
         methods: {
+            showInstructionsDialog(e: Event) {
+                e.preventDefault();
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                const dialog = this.$refs.inctructionsDialog as any;
+                dialog.show();
+            },
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended
                 // mismatch objects which include labels, by looking up any
@@ -267,4 +298,11 @@ h2 {
     margin-top: $dimension-layout-xsmall;
 }
 
+.wikit-Link.consult-instructions-link {
+    display: inline;
+}
+
+p.list-intro {
+    margin-bottom: 0
+}
 </style>

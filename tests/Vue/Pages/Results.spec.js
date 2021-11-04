@@ -22,6 +22,24 @@ describe('Results.vue', () => {
         },
     }
 
+    it('displays intro text with instructions link', () => {
+        const wrapper = mount(Results, { mocks });
+
+        const intro = wrapper.find('#about-description');
+        expect(intro.isVisible()).toBe(true);
+
+        const instructionsLink = intro.find('.consult-instructions-link');
+        expect(instructionsLink.isVisible()).toBe(true);
+    });
+
+    it('Shows dialog after clicking "consult instructions" in intro text', async () => {
+        const wrapper = mount(Results, { mocks });
+        await wrapper.find('.consult-instructions-link').trigger('click');
+
+        const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
+        expect(dialog.isVisible()).toBe(true);
+    });
+
     it('accepts and renders item ids', () => {
         const item_ids =  ['Q1', 'Q2']
         const wrapper = mount(Results, {

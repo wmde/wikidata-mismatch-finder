@@ -33,7 +33,7 @@
     "log-in-message": "A message to notify users to log in to make any changes",
     "results-page-description": "The description of the Results page",
     "results-page-title": "The title of the Results page",
-    "results-consult-instructions-link": "The link in the Intro text to consult further instructions",
+    "results-instructions-button": "The quiet button in the intro section to consult further instructions",
     "results-read-full-description-link": "The link in the Upload info column to see a full description",
     "confirmation-dialog-title": "A title for the dialog that appears after changed have been successfully submitted",
     "confirmation-dialog-message-intro": "Short text to segue into possible followup actions to submitting a review decision",

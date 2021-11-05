@@ -22,19 +22,20 @@ describe('Results.vue', () => {
         },
     }
 
-    it('displays intro text with instructions link', () => {
+    it('displays intro text and instructions button', () => {
         const wrapper = mount(Results, { mocks });
 
         const intro = wrapper.find('#about-description');
         expect(intro.isVisible()).toBe(true);
 
-        const instructionsLink = intro.find('.consult-instructions-link');
-        expect(instructionsLink.isVisible()).toBe(true);
+        const instructionsButton = wrapper.find('.instructions-button');
+        expect(instructionsButton.isVisible()).toBe(true);
+
     });
 
-    it('Shows dialog after clicking "consult instructions" in intro text', async () => {
+    it('shows dialog after clicking the instructions button', async () => {
         const wrapper = mount(Results, { mocks });
-        await wrapper.find('.consult-instructions-link').trigger('click');
+        await wrapper.find('.instructions-button').trigger('click');
 
         const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
         expect(dialog.isVisible()).toBe(true);

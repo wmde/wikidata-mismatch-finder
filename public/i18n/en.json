@@ -36,7 +36,7 @@
     "log-in-message": "Please <a href=\"$1\">log in</a> to be able to make any changes.",
     "results-page-description": "You can fix them! The table below presents you with links to the statement on Wikidata and to the entry on the external source. You can compare the values and manually fix the mismatch, editing Wikidata or the external data source. After investigating and fixing the mismatch, you can indicate their status using the options from the drop-down.",
     "results-page-title": "What should I do with the mismatches?",
-    "results-consult-instructions-link": "Consult the instructions",
+    "results-instructions-button": "Instructions",
     "confirmation-dialog-title": "Next steps",
     "results-read-full-description-link": "read the full description",
     "confirmation-dialog-message-intro": "Now that the changes are submitted successfully, remember:",

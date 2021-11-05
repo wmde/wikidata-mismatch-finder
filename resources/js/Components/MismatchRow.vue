@@ -3,12 +3,13 @@
         <td :data-header="$i18n('column-property')">
             <wikit-link
               class="break-line-link"
+              target="blank"
               :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
-            <wikit-link class="break-line-link" :href="statementUrl">
+            <wikit-link class="break-line-link" :href="statementUrl" target="_blank">
                 {{mismatch.value_label || mismatch.wikidata_value}}
             </wikit-link>
         </td>
@@ -37,7 +38,7 @@
         </td>
         <td :data-header="$i18n('column-external-source')">
             <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
-              :href="`${mismatch.import_meta.external_source_url}`"
+              :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
             >
               {{mismatch.import_meta.external_source}}
             </wikit-link>
@@ -49,6 +50,7 @@
             <div class="upload-details">
                 <wikit-link class="uploader"
                     :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+                    target="_blank"
                 >
                     {{mismatch.import_meta.user.username}}
                 </wikit-link>
@@ -73,6 +75,7 @@
             >
             <wikit-link class="uploader"
                     :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+                    target="_blank"
             >
                 {{mismatch.import_meta.user.username}}
             </wikit-link>

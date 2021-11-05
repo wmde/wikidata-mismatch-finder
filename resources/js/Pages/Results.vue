@@ -13,7 +13,8 @@
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link
-                        :href="`https://www.wikidata.org/wiki/${item_id}`">{{labels[item_id]}} ({{item_id}})
+                        :href="`https://www.wikidata.org/wiki/${item_id}`" target="_blank">
+                        {{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
             </Message>
@@ -27,7 +28,9 @@
                 :id="`item-mismatches-${item}`"
                 :key="idx">
                 <h2 class="h4">
-                    <wikit-link :href="`https://www.wikidata.org/wiki/${item}`">{{labels[item]}} ({{item}})</wikit-link>
+                    <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                        {{labels[item]}} ({{item}})
+                    </wikit-link>
                 </h2>
                 <form @submit.prevent="send(item)">
                     <mismatches-table :mismatches="addLabels(mismatches)"

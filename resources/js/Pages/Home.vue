@@ -113,7 +113,7 @@
                     return;
                 }
 
-                this.$inertia.get( '/results?ids=' + this.serializeInput() );
+                this.$inertia.get( '/results?ids=' + this.serializeInput());
             },
         },
         computed: {

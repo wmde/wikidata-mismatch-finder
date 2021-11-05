@@ -86,4 +86,17 @@ class ItemsFormTest extends DuskTestCase
                     ->assertQueryStringHas('ids', 'Q100|Q2');
         });
     }
+
+    public function test_retains_text_after_submittal()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
+                ->press('button')
+                ->waitFor('.results-page')
+                ->press('.back-button')
+                ->waitFor('.home-page')
+                ->assertInputValue('@items-input', 'Q23\nQ42');
+        });
+    }
 }

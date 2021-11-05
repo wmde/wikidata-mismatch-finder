@@ -46,6 +46,7 @@ class ResultsPage extends Page
     public function elements()
     {
         return [
+            '@back-button' => '.back-button',
             '@confirmation-dialog' => '.confirmation-dialog',
             '@disable-confirmation' => '.disable-confirmation',
             '@disable-confirmation-label' => '.disable-confirmation>.wikit-checkbox__label'

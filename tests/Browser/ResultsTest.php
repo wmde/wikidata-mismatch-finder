@@ -27,6 +27,16 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_return_to_home_page_when_clicking_back()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new ResultsPage())
+                ->click('@back-button')
+                ->waitFor('.home-page')
+                ->assertVisible('#items-form');
+        });
+    }
+
     public function test_shows_message_for_non_existing_item_ids()
     {
         $this->browse(function (Browser $browser) {

@@ -73,6 +73,66 @@ describe('MismatchesRow.vue', () => {
         ].forEach(value => expect(rowText).toContain(value));
     });
 
+    it('displays a link in the External Value column when external_url is provided', () => {
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            external_url: 'http://www.external.com',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                created_at: '2021-09-23'
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-value' ).at(0);
+        const linkUrl = td.find('a').attributes('href');
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( linkUrl ).toEqual( mismatch.external_url );
+    });
+
+    it('does not display a link in the External Value column when external_url is not provided', () => {
+        const mismatch = {
+            property_label: 'Hey hey',
+            wikidata_value: 'Some value',
+            external_value: 'Another Value',
+            review_status: 'pending',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                external_source: 'some external source',
+                created_at: '2021-09-23'
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-value' ).at(0);
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( td.contains('a')).toBe(false);
+    });
+
     it('displays a link in the External Source column with external_source_url is provided', () => {
         const mismatch = {
             property_label: 'Hey hey',

@@ -13,7 +13,14 @@
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-external-value')">
-            {{mismatch.external_value}}
+          <wikit-link v-if="mismatch.external_url" class="break-line-link"
+              :href="`${mismatch.external_url}`" target="_blank"
+            >
+              {{mismatch.external_value}}
+            </wikit-link>
+            <span v-else>
+              {{mismatch.external_value}}
+            </span>
         </td>
         <td :data-header="$i18n('column-review-status')">
             <dropdown

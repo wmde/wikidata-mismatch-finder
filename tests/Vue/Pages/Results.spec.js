@@ -22,6 +22,25 @@ describe('Results.vue', () => {
         },
     }
 
+    it('displays intro text and instructions button', () => {
+        const wrapper = mount(Results, { mocks });
+
+        const intro = wrapper.find('#about-description');
+        expect(intro.isVisible()).toBe(true);
+
+        const instructionsButton = wrapper.find('.instructions-button');
+        expect(instructionsButton.isVisible()).toBe(true);
+
+    });
+
+    it('shows dialog after clicking the instructions button', async () => {
+        const wrapper = mount(Results, { mocks });
+        await wrapper.find('.instructions-button').trigger('click');
+
+        const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
+        expect(dialog.isVisible()).toBe(true);
+    });
+
     it('accepts and renders item ids', () => {
         const item_ids =  ['Q1', 'Q2']
         const wrapper = mount(Results, {
@@ -230,27 +249,6 @@ describe('Results.vue', () => {
 
         //the decisions object will be untouched
         expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
-    });
-
-    it('Shows confirmation dialog after successful put requests', async () => {
-        // Ensure a successful response (axios throws on any failed response from 400 up)
-        axios.put.mockImplementationOnce(() => true);
-
-        const item_id = 'Q321';
-        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mount(Results, {
-            mocks,
-            data() {
-                return {
-                    decisions
-                }
-            }
-        });
-        const dialog = wrapper.find('.confirmation-dialog .wikit-Dialog');
-
-        await wrapper.vm.send(item_id);
-
-        expect(dialog.isVisible()).toBe(true);
     });
 
     it('Doesn\'t show confirmation dialog after failed put requests', async () => {

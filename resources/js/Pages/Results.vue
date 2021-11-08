@@ -2,8 +2,43 @@
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
         <section id="description-section">
-            <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-            <p id="about-description" >{{ $i18n('results-page-description') }}</p>
+            <div class="description-header">
+                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
+                <wikit-button
+                    class="instructions-button"
+                    variant="quiet"
+                    type="progressive"
+                    @click.native="showInstructionsDialog"
+                >
+                    <template #prefix>
+                        <icon type="info-outlined" size="medium" color="inherit"/>
+                    </template>
+                    {{$i18n('results-instructions-button')}}
+                </wikit-button>
+            </div>
+
+            <wikit-dialog class="instructions-dialog"
+                :title="$i18n('instructions-dialog-title')"
+                ref="inctructionsDialog"
+                :actions="[{
+                    label: $i18n('confirm-dialog-button'),
+                    namespace: 'instructions-confirm'
+                }]"
+                @action="(_, dialog) => dialog.hide()"
+                dismiss-button
+            >
+                <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
+                <p class="list-intro">{{ $i18n('instructions-dialog-message-intro') }}</p>
+                <ul>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
+                </ul>
+            </wikit-dialog>
+            <p id="about-description" >
+                {{ $i18n('results-page-description') }}
+            </p>
         </section>
         <section id="error-section" v-if="unexpectedError">
             <Message type="error">{{ $i18n('server-error') }}</Message>
@@ -58,7 +93,7 @@
             @dismissed="disableConfirmation = false"
             dismiss-button
         >
-            <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
+            <p class="list-intro">{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>
                 <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
@@ -79,6 +114,7 @@
         Link as WikitLink,
         Button as WikitButton,
         Checkbox,
+        Icon,
         Message } from '@wmde/wikit-vue-components';
     import WikitDialog from '../Components/Dialog.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
@@ -119,6 +155,7 @@
     export default defineComponent({
         components: {
             Head,
+            Icon,
             MismatchesTable,
             WikitLink,
             WikitButton,
@@ -177,6 +214,11 @@
             }
         },
         methods: {
+            showInstructionsDialog() {
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                const dialog = this.$refs.inctructionsDialog as any;
+                dialog.show();
+            },
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended
                 // mismatch objects which include labels, by looking up any
@@ -273,4 +315,17 @@ h2 {
     margin-top: $dimension-layout-xsmall;
 }
 
+p.list-intro {
+    margin-bottom: 0
+}
+
+#description-section {
+
+    .description-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
 </style>

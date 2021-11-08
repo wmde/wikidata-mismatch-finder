@@ -36,6 +36,7 @@
     "log-in-message": "Please <a href=\"$1\">log in</a> to be able to make any changes.",
     "results-page-description": "You can fix them! The table below presents you with links to the statement on Wikidata and to the entry on the external source. You can compare the values and manually fix the mismatch, editing Wikidata or the external data source. After investigating and fixing the mismatch, you can indicate their status using the options from the drop-down.",
     "results-page-title": "What should I do with the mismatches?",
+    "results-instructions-button": "Instruction",
     "confirmation-dialog-title": "Next steps",
     "results-read-full-description-link": "read the full description",
     "confirmation-dialog-message-intro": "Now that the changes are submitted successfully, remember:",
@@ -44,5 +45,13 @@
     "confirmation-dialog-message-tip-3": "If the mismatch is on both sides, please use the link to the Wikidata statement to correct it and/or inform the data source’s maintainers of the error.",
     "confirmation-dialog-button": "Proceed",
     "confirmation-dialog-option-label": "Do not show again",
-    "confirm-dialog-button": "Confirm"
+    "confirm-dialog-button": "Confirm",
+    "instructions-dialog-title": "Instruction on mismatches",
+    "instructions-dialog-message-upload-info-description": "In the “Upload Info” column, you can find additional information for each upload that might be valuable when investigating the mismatches. This includes the username of the person who uploaded the mismatch, the date of the upload and a short description of it.",
+    "instructions-dialog-message-intro": "After investigating the mismatches, please choose one of the following status from the the drop-down:",
+    "instructions-dialog-message-instruction-wikidata": "Mismatch on Wikidata: use this option if Wikidata's data is inaccurate. Please use the link to the Wikidata statement and edit it there to correct the mismatch.",
+    "instructions-dialog-message-instruction-external": "Mismatch on external data source: use this option if the error lies in the external data source. When possible, please inform the data source's maintainers of the error or correct the mismatch yourself.",
+    "instructions-dialog-message-instruction-both": "Both are wrong: use this option if you find there are errors on both sides. When possible, please use the link to the Wikidata statement to correct the mismatch and/or inform the data source’s maintainers of the error.",
+    "instructions-dialog-message-instruction-none": "None of the above: use this option if none of the other options are applicable. This might for example be the case if the mismatch has already been resolved by someone else."
+
 }

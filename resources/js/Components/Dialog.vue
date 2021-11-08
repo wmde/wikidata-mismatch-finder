@@ -310,6 +310,7 @@ export default defineComponent({
         right: 0;
         bottom: 0;
         left: 0;
+        z-index: 1;
     }
 
     #{$base}__overlay {

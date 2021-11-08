@@ -38,7 +38,7 @@
     "results-page-title": "What should I do with the mismatches?",
     "results-instructions-button": "Instruction",
     "confirmation-dialog-title": "Next steps",
-    "results-read-full-description-link": "read the full description",
+    "results-full-description-button": "read the full description",
     "confirmation-dialog-message-intro": "Now that the changes are submitted successfully, remember:",
     "confirmation-dialog-message-tip-1": "If the mismatch is on Wikidata, please use the link to the statement and edit it there to correct the mismatch.",
     "confirmation-dialog-message-tip-2": "If the mismatch is on the external source, please inform the data source's maintainers of the error or correct the mismatch yourself, if possible.",

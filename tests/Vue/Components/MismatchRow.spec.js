@@ -200,7 +200,7 @@ describe('MismatchesRow.vue', () => {
         const descriptionElementText = td.find('.description').text();
 
         // workaround pseudo selector :not(.full-description-link) not working
-        const descriptionLinkText = td.find('.full-description-link').text();
+        const descriptionLinkText = td.find('.full-description-button').text();
         const renderedDescriptionText = descriptionElementText.replace(descriptionLinkText, '').trim();
 
         expect( wrapper.props().mismatch ).toBe( mismatch );
@@ -269,7 +269,7 @@ describe('MismatchesRow.vue', () => {
             }
         });
 
-        await wrapper.find('.full-description-link').trigger('click');
+        await wrapper.find('.full-description-button').trigger('click');
         
         const dialog = wrapper.find('.full-description-dialog .wikit-Dialog');
 

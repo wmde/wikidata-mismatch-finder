@@ -214,8 +214,7 @@
             }
         },
         methods: {
-            showInstructionsDialog(e: Event) {
-                e.preventDefault();
+            showInstructionsDialog() {
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                 const dialog = this.$refs.inctructionsDialog as any;
                 dialog.show();
@@ -315,20 +314,12 @@ p.list-intro {
 }
 
 #description-section {
-    position:relative;
 
     .description-header {
         display: flex;
         flex-direction: row;
         align-items: center;
-
-        h2 {
-            width: 100%;
-        }
-
-        .instructions-button {
-            padding: 6px 13px;
-        }
+        justify-content: space-between;
     }
 }
 </style>

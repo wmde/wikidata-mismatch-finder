@@ -3,7 +3,7 @@
         <td :data-header="$i18n('column-property')">
             <wikit-link
               class="break-line-link"
-              target="<span class="x x-first x-last">_blank</span>"
+              target="_blank"
               :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
             </wikit-link>

@@ -57,11 +57,16 @@
                 <span class="upload-date">{{uploadDate}}</span>
                 <div class="description">
                   {{uploadInfoDescription}}
-                  <wikit-link v-if="shouldTruncate" class="full-description-link" href="#" @click.native="showDialog">
-                    {{$i18n('results-read-full-description-link')}}
-                  </wikit-link>
+                  <wikit-button
+                      v-if="shouldTruncate"
+                      class="full-description-button"
+                      variant="quiet"
+                      type="progressive"
+                      @click.native="showDialog"
+                  >
+                      {{$i18n('results-full-description-button')}}
+                  </wikit-button>
                 </div>
-                
             </div>
             <wikit-dialog class="full-description-dialog"
               :title="$i18n('column-upload-info')"
@@ -92,7 +97,7 @@
 import { formatISO } from 'date-fns';
 
 import Vue, { PropType } from 'vue';
-import { Dropdown, Link as WikitLink } from '@wmde/wikit-vue-components';
+import { Button as WikitButton, Dropdown, Link as WikitLink } from '@wmde/wikit-vue-components';
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 import WikitDialog from '../Components/Dialog.vue';
 
@@ -115,6 +120,7 @@ interface MismatchRowState {
 
 export default Vue.extend({
     components: {
+    WikitButton,
     WikitLink,
     WikitDialog,
     Dropdown,
@@ -181,7 +187,8 @@ export default Vue.extend({
     .wikit-Link__content {
       word-break: break-word;
     }
-    .wikit-Link.full-description-link {
-      display: inline;
+    .wikit-Button.full-description-button {
+      padding: 0px 2px;
+      font-weight: 400;
     }
 </style>

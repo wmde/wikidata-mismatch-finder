@@ -74,4 +74,16 @@ class ItemsFormTest extends DuskTestCase
             $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
         });
     }
+
+    public function test_sends_sanitized_input_when_given_empty_line_breaks()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)
+                    ->keys('@items-input', '{return_key}', 'Q100', '{return_key}', '{return_key}', 'Q2')
+                    ->press('button')
+                    ->waitFor('.results-page')
+                    ->assertPathIs('/results')
+                    ->assertQueryStringHas('ids', 'Q100|Q2');
+        });
+    }
 }

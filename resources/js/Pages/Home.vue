@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-    import { mapState } from 'vuex';
+    import { mapState, mapMutations } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -79,8 +79,11 @@
                 // see: https://stackoverflow.com/a/281335/1619792
                 return this.splitInput().filter(x => x);
             },
-            serializeInput: function(): string {
+            serializeInputUrl: function(): string {
                 return this.sanitizeArray().join('|');
+            },
+            serializeInputText: function(): string {
+                return this.splitInput().join('\n');
             },
             checkEmpty(): void {
                 if( !this.form.itemsInput ) {
@@ -113,7 +116,8 @@
                     return;
                 }
 
-                this.$inertia.get( '/results?ids=' + this.serializeInput());
+                this.$store.commit('saveSearchedIds', this.serializeInputText());
+                this.$inertia.get( '/results?ids=' + this.serializeInputUrl());
             },
         },
         computed: {
@@ -123,7 +127,8 @@
             },
             // spread to combine with local computed props
             ...mapState({
-                loading: 'loading'
+                loading: 'loading',
+                lastSearchedIds: 'lastSearchedIds'
             }),
         },
         data(): HomeState {
@@ -133,6 +138,9 @@
                 },
                 validationError: null
             }
+        },
+        mounted(){
+            this.form.itemsInput = this.$store.state.lastSearchedIds;
         }
     });
 </script>

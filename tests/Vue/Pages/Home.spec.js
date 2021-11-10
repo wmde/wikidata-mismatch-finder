@@ -32,7 +32,7 @@ describe('Home.vue', () => {
             },
         });
 
-        expect( wrapper.vm.serializeInput() ).toEqual('Q1|Q2');
+        expect( wrapper.vm.serializeInputUrl() ).toEqual('Q1|Q2');
     });
 
 })

@@ -74,8 +74,13 @@
             splitInput: function(): Array<string> {
                 return this.form.itemsInput.split( '\n' );
             },
+            sanitizeArray: function(): Array<string> {
+                // this filter function removes all falsy values
+                // see: https://stackoverflow.com/a/281335/1619792
+                return this.splitInput().filter(x => x);
+            },
             serializeInput: function(): string {
-                return this.splitInput().join('|');
+                return this.sanitizeArray().join('|');
             },
             checkEmpty(): void {
                 if( !this.form.itemsInput ) {
@@ -89,9 +94,9 @@
                 this.validationError = null;
                 this.checkEmpty();
 
-                let valid = this.splitInput().every( function( currentValue: string ) {
+                let valid = this.sanitizeArray().every( function( currentValue: string ) {
                     let trimmedLine = currentValue.trim();
-                    return trimmedLine == '' || trimmedLine.match( /^[Qq]\d+$/ );
+                    return trimmedLine.match( /^[Qq]\d+$/ );
                 });
 
                 if( !valid ) {

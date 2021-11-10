@@ -75,6 +75,8 @@
                 return this.form.itemsInput.split( '\n' );
             },
             sanitizeArray: function(): Array<string> {
+                // this filter function removes all falsy values
+                // see: https://stackoverflow.com/a/281335/1619792
                 return this.splitInput().filter(x => x);
             },
             serializeInput: function(): string {

@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
+    import { mapState } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,

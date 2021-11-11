@@ -53,5 +53,5 @@
     "instructions-dialog-message-instruction-external": "Mismatch on external data source: use this option if the error lies in the external data source. When possible, please inform the data source's maintainers of the error or correct the mismatch yourself.",
     "instructions-dialog-message-instruction-both": "Both are wrong: use this option if you find there are errors on both sides. When possible, please use the link to the Wikidata statement to correct the mismatch and/or inform the data source’s maintainers of the error.",
     "instructions-dialog-message-instruction-none": "None of the above: use this option if none of the other options are applicable. This might for example be the case if the mismatch has already been resolved by someone else.",
-    "results-back-button": "Refine Search Results"
+    "results-back-button": "Refine Item Selection"
 }

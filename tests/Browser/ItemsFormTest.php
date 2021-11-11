@@ -97,8 +97,7 @@ class ItemsFormTest extends DuskTestCase
                 ->press('.back-button')
                 ->waitFor('.home-page')
                 ->assertInputValue('@items-input', "Q23\nQ42"); //double quotes needed here
-                // tslint:disable-next-line:max-line-length
-                // See: https://stackoverflow.com/questions/67690990/is-there-a-way-to-input-a-newline-in-a-textarea-with-laravel-dusk#comment119647867_67690990
+                // See: https://stackoverflow.com/q/67690990#comment119647867_67690990
         });
     }
 }

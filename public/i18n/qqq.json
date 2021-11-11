@@ -49,5 +49,6 @@
     "instructions-dialog-message-instruction-wikidata": "Instruction when to choose the review status 'wikidata'",
     "instructions-dialog-message-instruction-external": "Instruction when to choose the review status 'external source'",
     "instructions-dialog-message-instruction-both": "Instruction when to choose the review status 'both'",
-    "instructions-dialog-message-instruction-none": "Instruction when to choose the review status 'none'"
+    "instructions-dialog-message-instruction-none": "Instruction when to choose the review status 'none'",
+    "results-back-button": "A button to return back to the item query page and refine search results"
 }

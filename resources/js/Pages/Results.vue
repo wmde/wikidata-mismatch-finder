@@ -1,6 +1,9 @@
 <template>
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
+        <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
+            {{ $i18n('results-back-button') }}
+        </wikit-button>
         <section id="description-section">
             <div class="description-header">
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>

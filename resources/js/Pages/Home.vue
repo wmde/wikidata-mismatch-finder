@@ -113,7 +113,8 @@
                     return;
                 }
 
-                this.$inertia.get( '/results?ids=' + this.serializeInput() );
+                this.$store.commit('saveSearchedIds', this.form.itemsInput);
+                this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
         },
         computed: {
@@ -122,14 +123,12 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            ...mapState({
-                loading: 'loading'
-            }),
+            ...mapState(['loading','lastSearchedIds']),
         },
         data(): HomeState {
             return {
                 form: {
-                    itemsInput: ''
+                    itemsInput: this.$store.state.lastSearchedIds
                 },
                 validationError: null
             }

@@ -17,15 +17,24 @@ describe('Home.vue', () => {
 
     const localVue = createLocalVue();
     localVue.use(Vuex);
+    
+    const store = new Vuex.Store({});
 
     it('sanitises input with empty lines', async () => {
 
-        const store = new Vuex.Store({state: { lastSearchedIds: 'Q1\n\nQ2\n' }});
+        const itemsInput = 'Q1\n\nQ2\n';
 
         const wrapper = mount(Home, { 
             mocks,
             localVue,
-            store
+            store,
+            data() {
+                return {
+                    form: {
+                        itemsInput
+                    }
+                }
+            }
         });
 
         expect( wrapper.vm.serializeInput() ).toEqual('Q1|Q2');

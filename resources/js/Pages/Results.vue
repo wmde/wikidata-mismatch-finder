@@ -3,7 +3,7 @@
         <Head title="Mismatch Finder - Results" />
         <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
             <template #prefix>
-                <icon type="arrowprevious" size="medium" color="inherit" dir="ltr"/>
+                <icon type="arrowprevious" size="medium" color="inherit" :dir="iconDirection"/>
             </template>
             {{ $i18n('results-back-button') }}
         </wikit-button>
@@ -197,6 +197,9 @@
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
+            },
+            iconDirection() {
+                return document.querySelector('html')?.getAttribute('dir');
             }
         },
         mounted(){

@@ -42,7 +42,8 @@ describe('Home.vue', () => {
 
     it('restores lastSearchIds value from store on page load', async () => {
 
-        const store = new Vuex.Store({state: {lastSearchedIds: 'Q4\nQ55'} });
+        const itemsInput = 'Q1\n\nQ2\n';
+        const store = new Vuex.Store({state: {lastSearchedIds: itemsInput} });
 
         const wrapper = mount(Home, { 
             mocks,
@@ -50,7 +51,7 @@ describe('Home.vue', () => {
             store
         });
 
-        expect( wrapper.vm.form.itemsInput ).toEqual('Q4\nQ55');
+        expect( wrapper.vm.form.itemsInput ).toEqual(itemsInput);
     });
 
 })

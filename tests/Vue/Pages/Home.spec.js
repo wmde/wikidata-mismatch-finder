@@ -17,12 +17,12 @@ describe('Home.vue', () => {
 
     const localVue = createLocalVue();
     localVue.use(Vuex);
-    
-    const store = new Vuex.Store({});
 
     it('sanitises input with empty lines', async () => {
 
         const itemsInput = 'Q1\n\nQ2\n';
+
+        const store = new Vuex.Store({});
 
         const wrapper = mount(Home, { 
             mocks,
@@ -38,6 +38,19 @@ describe('Home.vue', () => {
         });
 
         expect( wrapper.vm.serializeInput() ).toEqual('Q1|Q2');
+    });
+
+    it('restores lastSearchIds value from store on page load', async () => {
+
+        const store = new Vuex.Store({state: {lastSearchedIds: 'Q4\nQ55'} });
+
+        const wrapper = mount(Home, { 
+            mocks,
+            localVue,
+            store
+        });
+
+        expect( wrapper.vm.form.itemsInput ).toEqual('Q4\nQ55');
     });
 
 })

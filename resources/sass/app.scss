@@ -99,11 +99,19 @@ li {
     border-radius: $border-radius-base;
 }
 
-#intro-section,
 #error-section,
 #message-section,
 #description-section {
     max-width: 705px;
+}
+
+#description-section {
+    .description-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 // this ensures that there will be a space if there is more than one message

@@ -1,8 +1,7 @@
 <template>
     <div class="page-container home-page">
         <Head title="Mismatch Finder" />
-        <section id="intro-section">
-            <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
+        <section id="description-section">
             <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
         </section>
 

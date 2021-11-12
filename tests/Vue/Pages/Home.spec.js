@@ -24,7 +24,7 @@ describe('Home.vue', () => {
 
         const store = new Vuex.Store({});
 
-        const wrapper = mount(Home, { 
+        const wrapper = mount(Home, {
             mocks,
             localVue,
             store,
@@ -45,13 +45,23 @@ describe('Home.vue', () => {
         const itemsInput = 'Q1\n\nQ2\n';
         const store = new Vuex.Store({state: {lastSearchedIds: itemsInput} });
 
-        const wrapper = mount(Home, { 
+        const wrapper = mount(Home, {
             mocks,
             localVue,
             store
         });
 
         expect( wrapper.vm.form.itemsInput ).toEqual(itemsInput);
+    });
+
+    it('shows dialog after clicking the more info button', async () => {
+        const store = new Vuex.Store();
+
+        const wrapper = mount(Home, { mocks, localVue, store });
+        await wrapper.find('.instructions-button').trigger('click');
+
+        const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
+        expect(dialog.isVisible()).toBe(true);
     });
 
 })

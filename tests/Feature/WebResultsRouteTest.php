@@ -63,7 +63,7 @@ class WebResultsRouteTest extends TestCase
                 'import_meta.external_source' => (string) $import->external_source,
                 'import_meta.user.username' => (string) $import->user->username,
                 'import_meta.created_at' => $import->created_at->toISOString(),
-                'import_meta.description' => (string) $import->description
+                'import_meta.description' => $import->description
             ])->etc();
         };
 

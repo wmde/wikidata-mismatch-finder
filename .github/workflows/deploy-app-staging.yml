@@ -1,9 +1,10 @@
-name: Build and Deploy to production on Toolforge
+name: Build and Deploy to staging on Toolforge
 
 on:
   push:
    branches:
     - main
+    - staging/**
     - gh-actions/**
 
 jobs:
@@ -29,7 +30,7 @@ jobs:
       run: "npm run prod"
     - name: Remove node_modules before syncing
       run: "rm -rf node_modules"
-    - name: Syncing code to Toolforge-Production
+    - name: Syncing code to Toolforge-Staging
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -37,7 +38,7 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         source: "./"
-        target: "mismatch-finder-repo"
+        target: "mismatch-finder-repo-next"
         rm: true
 
     - name: Deploy code
@@ -48,10 +49,10 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          # Make sure ~tools.mismatch-finder/mismatch-finder-repo is group writable
-          become mismatch-finder chmod -R g+rwx ~tools.mismatch-finder/mismatch-finder-repo
-          # Change group of ~/mismatch-finder-repo (including symlinks) to tools.mismatch-finder
-          chgrp --no-dereference -R tools.mismatch-finder ~/mismatch-finder-repo
-          rsync -rlgD --delete --delay-updates --exclude '.nfs*' --exclude .env --exclude storage/app/ ~/mismatch-finder-repo ~tools.mismatch-finder/
+          # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
+          become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
+          # Change group of ~/mismatch-finder-repo-next (including symlinks) to tools.mismatch-finder-staging
+          chgrp --no-dereference -R tools.mismatch-finder-staging ~/mismatch-finder-repo-next
+          rsync -rlgD --delete --delay-updates --exclude '.nfs*' --exclude .env --exclude storage/app/ ~/mismatch-finder-repo-next ~tools.mismatch-finder-staging/
           # take aborts recursion whenever it encounters a symlink, thus we use find+xargs to make sure all folders and file ares handled.
-          find ~tools.mismatch-finder/mismatch-finder-repo -type d,f \! -user tools.mismatch-finder -print0 | become mismatch-finder xargs -r --null take 2>&1 | { grep -vF 'will not follow or touch symlinks' || true; }
+          find ~tools.mismatch-finder-staging/mismatch-finder-repo-next -type d,f \! -user tools.mismatch-finder-staging -print0 | become mismatch-finder-staging xargs -r --null take 2>&1 | { grep -vF 'will not follow or touch symlinks' || true; }

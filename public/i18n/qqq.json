@@ -50,5 +50,18 @@
     "instructions-dialog-message-instruction-external": "Instruction when to choose the review status 'external source'",
     "instructions-dialog-message-instruction-both": "Instruction when to choose the review status 'both'",
     "instructions-dialog-message-instruction-none": "Instruction when to choose the review status 'none'",
-    "results-back-button": "A button to return back to the item query page and refine search results"
+    "results-back-button": "A button to return back to the item query page and refine search results",
+    "faq-button": "A button to trigger the mismatch finder FAQ dialog",
+    "faq-dialog-title": "FAQ Dialog title",
+    "faq-dialog-question-finding-mismatches": "A question regarding mismatch sources",
+    "faq-dialog-answer-finding-mismatches": "Answer introducing various sources for mismatches",
+    "faq-dialog-answer-finding-mismatches-sources-1": "A source for mismatches",
+    "faq-dialog-answer-finding-mismatches-sources-2": "A source for mismatches",
+    "faq-dialog-answer-finding-mismatches-sources-3": "A source for mismatches",
+    "faq-dialog-question-relevance": "A question regarding the age and relevance of mismatches",
+    "faq-dialog-answer-relevance": "An answer regarding the age of mismatches",
+    "faq-dialog-question-contributing": "A question about how to contribute mismatches to the tool",
+    "faq-dialog-answer-contributing": "An answer describing how to contribute mismatches to the tool, using a link to the relevant phabricator board",
+    "faq-dialog-question-more-info": "A question about where to find additional information on the mismatch finder",
+    "faq-dialog-answer-more-info": "An answer listing various links with more information about the mismatch finder tool"
 }

@@ -32,7 +32,7 @@ class ItemsFormTest extends DuskTestCase
 
             $browser->visit(new HomePage)
                     ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->waitFor('.results-page')
                     ->assertTitle('Mismatch Finder - Results')
                     ->assertSee("Q23")
@@ -44,7 +44,7 @@ class ItemsFormTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->assertSee('Please provide the Item identifiers in order to perform the check.');
 
             $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
@@ -55,10 +55,10 @@ class ItemsFormTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->assertSee('Please provide the Item identifiers in order to perform the check.')
                     ->keys('@items-input', 'Q1', '{return_key}', 'Q2')
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->assertDontSee('Please provide the Item identifiers in order to perform the check.');
         });
     }
@@ -68,7 +68,7 @@ class ItemsFormTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->keys('@items-input', 'Q1234-invalid')
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->assertSee('One or more Item identifiers couldn\'t be processed.');
 
             $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
@@ -80,7 +80,7 @@ class ItemsFormTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->keys('@items-input', '{return_key}', 'Q100', '{return_key}', '{return_key}', 'Q2')
-                    ->press('button')
+                    ->press('.submit-ids')
                     ->waitFor('.results-page')
                     ->assertPathIs('/results')
                     ->assertQueryStringHas('ids', 'Q100|Q2');
@@ -92,7 +92,7 @@ class ItemsFormTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                 ->keys('@items-input', 'Q23', '{return_key}', 'Q42')
-                ->press('button')
+                ->press('.submit-ids')
                 ->waitFor('.results-page')
                 ->press('.back-button')
                 ->waitFor('.home-page')

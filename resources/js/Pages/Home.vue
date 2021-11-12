@@ -73,6 +73,7 @@
                 />
                 <div class="form-buttons">
                     <wikit-button
+                        class="submit-ids"
                         variant="primary"
                         type="progressive"
                         native-type="submit"

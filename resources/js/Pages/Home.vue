@@ -42,11 +42,17 @@
                 </section>
                 <section>
                     <h3 class="h5">{{ $i18n('faq-dialog-question-contributing') }}</h3>
-                    <p v-i18n-html:faq-dialog-answer-contributing></p>
+                    <p v-i18n-html:faq-dialog-answer-contributing="[
+                        'https://phabricator.wikimedia.org/'
+                    ]"></p>
                 </section>
                 <section>
                     <h3 class="h5">{{ $i18n('faq-dialog-question-more-info') }}</h3>
-                    <p v-i18n-html:faq-dialog-answer-more-info></p>
+                    <p v-i18n-html:faq-dialog-answer-more-info="[
+                        'https://github.com/wmde/wikidata-mismatch-finder',
+                        'https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder',
+                        'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
+                    ]"></p>
                 </section>
             </wikit-dialog>
             <p id="about-description" >

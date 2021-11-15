@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Tests\Browser\Pages\HomePage;
+use Tests\Browser\Pages\ResultsPage;
 
 class ItemsFormTest extends DuskTestCase
 {
@@ -97,6 +98,18 @@ class ItemsFormTest extends DuskTestCase
                 ->press('.back-button')
                 ->waitFor('.home-page')
                 ->assertInputValue('@items-input', "Q23\nQ42"); //double quotes needed here
+                // See: https://stackoverflow.com/q/67690990#comment119647867_67690990
+        });
+    }
+
+    public function test_retains_text_from_direct_results_url()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new ResultsPage('Q23|Q42'))
+                ->press('.back-button')
+                ->waitFor('.home-page')
+                // the HomePage's selector doesn't work here, because it is not loaded
+                ->assertInputValue('#items-form textarea', "Q23\nQ42");
                 // See: https://stackoverflow.com/q/67690990#comment119647867_67690990
         });
     }

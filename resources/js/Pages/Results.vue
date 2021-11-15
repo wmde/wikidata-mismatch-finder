@@ -201,6 +201,10 @@
             }
         },
         mounted(){
+            if(!this.$store.state.lastSearchedIds) {
+                this.$store.commit('saveSearchedIds', this.item_ids.join('\n'));
+            }
+
             this.pageDirection = window.getComputedStyle(document.body).direction;
             const storageData = this.user
                 ? window.localStorage.getItem(`mismatch-finder_user-settings_${this.user.id}`)

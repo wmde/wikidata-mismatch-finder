@@ -1,9 +1,63 @@
 <template>
     <div class="page-container home-page">
         <Head title="Mismatch Finder" />
-        <section id="intro-section">
-            <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
-            <p id="about-description" >{{ $i18n('about-mismatch-finder-description') }}</p>
+        <section id="description-section">
+            <header class="description-header">
+                <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
+                <wikit-button
+                    id="faq-button"
+                    variant="quiet"
+                    type="progressive"
+                    @click.native="$refs.faq.show()"
+                >
+                    <template #prefix>
+                        <icon type="info-outlined" size="medium" color="inherit"/>
+                    </template>
+                    {{ $i18n('faq-button') }}
+                </wikit-button>
+            </header>
+
+            <wikit-dialog id="faq-dialog"
+                :title="$i18n('faq-dialog-title')"
+                ref="faq"
+                :actions="[{
+                    label: $i18n('confirm-dialog-button'),
+                    namespace: 'faq-confirm'
+                }]"
+                @action="(_, dialog) => dialog.hide()"
+                dismiss-button
+            >
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-finding-mismatches' )}}</h3>
+                    <p>{{ $i18n('faq-dialog-answer-finding-mismatches') }}</p>
+                    <ul>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-1') }}</li>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-2') }}</li>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-3') }}</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-relevance') }}</h3>
+                    <p>{{ $i18n('faq-dialog-answer-relevance') }}</p>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-contributing') }}</h3>
+                    <p v-i18n-html:faq-dialog-answer-contributing="[
+                        'https://phabricator.wikimedia.org/'
+                    ]"></p>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-more-info') }}</h3>
+                    <p v-i18n-html:faq-dialog-answer-more-info="[
+                        'https://github.com/wmde/wikidata-mismatch-finder',
+                        'https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder',
+                        'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
+                    ]"></p>
+                </section>
+            </wikit-dialog>
+            <p id="about-description" >
+                {{ $i18n('about-mismatch-finder-description') }}
+            </p>
         </section>
 
         <section id="message-section">
@@ -25,6 +79,7 @@
                 />
                 <div class="form-buttons">
                     <wikit-button
+                        class="submit-ids"
                         variant="primary"
                         type="progressive"
                         native-type="submit"
@@ -43,10 +98,12 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
+        Icon,
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
 
+    import WikitDialog from '../Components/Dialog.vue';
     import defineComponent from '../types/defineComponent';
 
     interface HomeState {
@@ -66,9 +123,11 @@
     export default defineComponent({
         components: {
             Head,
+            Icon,
             Message,
             TextArea,
-            WikitButton
+            WikitButton,
+            WikitDialog
         },
         methods: {
             splitInput: function(): Array<string> {

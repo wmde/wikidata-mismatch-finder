@@ -8,10 +8,10 @@
             {{ $i18n('results-back-button') }}
         </wikit-button>
         <section id="description-section">
-            <div class="description-header">
+            <header class="description-header">
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
                 <wikit-button
-                    class="instructions-button"
+                    id="instructions-button"
                     variant="quiet"
                     type="progressive"
                     @click.native="showInstructionsDialog"
@@ -21,9 +21,9 @@
                     </template>
                     {{$i18n('results-instructions-button')}}
                 </wikit-button>
-            </div>
+            </header>
 
-            <wikit-dialog class="instructions-dialog"
+            <wikit-dialog id="instructions-dialog"
                 :title="$i18n('instructions-dialog-title')"
                 ref="inctructionsDialog"
                 :actions="[{
@@ -34,7 +34,7 @@
                 dismiss-button
             >
                 <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
-                <p class="list-intro">{{ $i18n('instructions-dialog-message-intro') }}</p>
+                <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
                 <ul>
                     <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
@@ -102,7 +102,7 @@
             @dismissed="disableConfirmation = false"
             dismiss-button
         >
-            <p class="list-intro">{{ $i18n('confirmation-dialog-message-intro') }}</p>
+            <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>
                 <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
@@ -325,19 +325,5 @@ h2 {
 .form-buttons {
     text-align: end;
     margin-top: $dimension-layout-xsmall;
-}
-
-p.list-intro {
-    margin-bottom: 0
-}
-
-#description-section {
-
-    .description-header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
 }
 </style>

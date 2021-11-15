@@ -13,7 +13,7 @@ body {
     padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
     @include body-text;
-    
+
     &.app-container {
         max-width: 1168px;
     }
@@ -99,11 +99,19 @@ li {
     border-radius: $border-radius-base;
 }
 
-#intro-section,
 #error-section,
 #message-section,
 #description-section {
     max-width: 705px;
+}
+
+#description-section {
+    .description-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 // this ensures that there will be a space if there is more than one message
@@ -118,39 +126,7 @@ li {
     text-decoration: none;
 }
 
-.store header{
-    flex-direction: row;
-
-    @media (max-width: $width-breakpoint-tablet) {
-        flex-direction: column-reverse;
-    }
-
-    h1 {
-        margin: 0;
-    }
-
-    .auth-widget {
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-xsmall;
-        }
-    }
-}
-
-.website {
-    header {
-        .wikidata-logo {
-            @media (max-width: $width-breakpoint-tablet) {
-                margin-bottom: $dimension-layout-small;
-            }
-        }
-
-        @media (max-width: $width-breakpoint-tablet) {
-            flex-direction: column;
-        }
-    }
-}
-
-header {
+main > header {
     display: flex;
     justify-content: space-between;
     margin: $dimension-layout-small 0;
@@ -178,6 +154,38 @@ header {
         }
     }
 }
+
+.store > main > header{
+    flex-direction: row;
+
+    @media (max-width: $width-breakpoint-tablet) {
+        flex-direction: column-reverse;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    .auth-widget {
+        @media (max-width: $width-breakpoint-tablet) {
+            margin-bottom: $dimension-layout-xsmall;
+        }
+    }
+}
+
+.website > main > header {
+        .wikidata-logo {
+        @media (max-width: $width-breakpoint-tablet) {
+            margin-bottom: $dimension-layout-small;
+        }
+    }
+
+    @media (max-width: $width-breakpoint-tablet) {
+        flex-direction: column;
+    }
+}
+
+
 
 nav.tabs {
     display: flex;

@@ -2,6 +2,9 @@
     <div class="page-container results-page">
         <Head title="Mismatch Finder - Results" />
         <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
+            <template #prefix>
+                <icon type="arrowprevious" size="medium" color="inherit" :dir="pageDirection"/>
+            </template>
             {{ $i18n('results-back-button') }}
         </wikit-button>
         <section id="description-section">
@@ -155,7 +158,8 @@
 
     interface ResultsState {
         decisions: DecisionMap,
-        disableConfirmation: boolean
+        disableConfirmation: boolean,
+        pageDirection: string
     }
 
     export default defineComponent({
@@ -197,6 +201,7 @@
             }
         },
         mounted(){
+            this.pageDirection = window.getComputedStyle(document.body).direction;
             const storageData = this.user
                 ? window.localStorage.getItem(`mismatch-finder_user-settings_${this.user.id}`)
                 : null;
@@ -216,7 +221,8 @@
         data(): ResultsState {
             return {
                 decisions: {},
-                disableConfirmation: false
+                disableConfirmation: false,
+                pageDirection: 'ltr'
             }
         },
         methods: {

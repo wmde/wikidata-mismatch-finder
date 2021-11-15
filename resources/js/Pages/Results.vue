@@ -8,7 +8,7 @@
             <header class="description-header">
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
                 <wikit-button
-                    class="instructions-button"
+                    id="instructions-button"
                     variant="quiet"
                     type="progressive"
                     @click.native="showInstructionsDialog"
@@ -20,7 +20,7 @@
                 </wikit-button>
             </header>
 
-            <wikit-dialog class="instructions-dialog"
+            <wikit-dialog id="instructions-dialog"
                 :title="$i18n('instructions-dialog-title')"
                 ref="inctructionsDialog"
                 :actions="[{

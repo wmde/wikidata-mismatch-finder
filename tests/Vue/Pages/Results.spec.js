@@ -28,16 +28,16 @@ describe('Results.vue', () => {
         const intro = wrapper.find('#about-description');
         expect(intro.isVisible()).toBe(true);
 
-        const instructionsButton = wrapper.find('.instructions-button');
+        const instructionsButton = wrapper.find('#instructions-button');
         expect(instructionsButton.isVisible()).toBe(true);
 
     });
 
     it('shows dialog after clicking the instructions button', async () => {
         const wrapper = mount(Results, { mocks });
-        await wrapper.find('.instructions-button').trigger('click');
+        await wrapper.find('#instructions-button').trigger('click');
 
-        const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
+        const dialog = wrapper.find('#instructions-dialog .wikit-Dialog');
         expect(dialog.isVisible()).toBe(true);
     });
 

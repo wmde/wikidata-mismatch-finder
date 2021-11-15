@@ -58,9 +58,9 @@ describe('Home.vue', () => {
         const store = new Vuex.Store();
 
         const wrapper = mount(Home, { mocks, localVue, store });
-        await wrapper.find('.instructions-button').trigger('click');
+        await wrapper.find('#faq-button').trigger('click');
 
-        const dialog = wrapper.find('.instructions-dialog .wikit-Dialog');
+        const dialog = wrapper.find('#faq-dialog .wikit-Dialog');
         expect(dialog.isVisible()).toBe(true);
     });
 

@@ -5,7 +5,7 @@
             <header class="description-header">
                 <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
                 <wikit-button
-                    class="instructions-button"
+                    id="faq-button"
                     variant="quiet"
                     type="progressive"
                     @click.native="$refs.faq.show()"
@@ -17,7 +17,7 @@
                 </wikit-button>
             </header>
 
-            <wikit-dialog class="instructions-dialog"
+            <wikit-dialog id="faq-dialog"
                 :title="$i18n('faq-dialog-title')"
                 ref="faq"
                 :actions="[{

@@ -1,0 +1,31 @@
+---
+# Run the mismatch finder job queue on kubernetes
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mismatch-finder-staging.queue
+  namespace: tool-mismatch-finder-staging
+  labels:
+    name: mismatch-finder-staging.queue
+    toolforge: tool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mismatch-finder-staging.queue
+      toolforge: tool
+  template:
+    metadata:
+      labels:
+        name: mismatch-finder-staging.queue
+        toolforge: tool
+    spec:
+      containers:
+        - name: artisan-queue
+          image: docker-registry.tools.wmflabs.org/toolforge-php73-sssd-base:latest
+          command: [ "php", "artisan", "queue:work" ]
+          workingDir: /data/project/mismatch-finder-staging/mismatch-finder-repo-next
+          env:
+            - name: HOME
+              value: /data/project/mismatch-finder-staging
+          imagePullPolicy: Always

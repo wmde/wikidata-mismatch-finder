@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
+import Vuex from 'vuex';
 import Results from '@/Pages/Results.vue';
 import MismatchesTable from '@/Components/MismatchesTable.vue';
 
@@ -14,16 +15,38 @@ jest.mock("axios", () => ({
 }));
 
 describe('Results.vue', () => {
+    function mountWithMocks({
+        props = {},
+        data = {},
+        state = {},
+        mocks = {}
+    } = {}){
+        const globalMocks = {
+            $i18n: key => key,
+            $page: {
+                props: { flash: {} }
+            },
+        };
+        const localVue = createLocalVue();
 
-    const mocks = {
-        $i18n: key => key,
-        $page: {
-            props: { flash: {} }
-        },
+        localVue.use(Vuex);
+
+        return mount(Results, {
+            propsData: props,
+            data(){
+                return data;
+            },
+            mocks: {
+                ...globalMocks,
+                mocks
+            },
+            localVue,
+            store: new Vuex.Store({ state })
+        })
     }
 
     it('displays intro text and instructions button', () => {
-        const wrapper = mount(Results, { mocks });
+        const wrapper = mountWithMocks();
 
         const intro = wrapper.find('#about-description');
         expect(intro.isVisible()).toBe(true);
@@ -34,7 +57,7 @@ describe('Results.vue', () => {
     });
 
     it('shows dialog after clicking the instructions button', async () => {
-        const wrapper = mount(Results, { mocks });
+        const wrapper = mountWithMocks();
         await wrapper.find('#instructions-button').trigger('click');
 
         const dialog = wrapper.find('#instructions-dialog .wikit-Dialog');
@@ -43,9 +66,8 @@ describe('Results.vue', () => {
 
     it('accepts and renders item ids', () => {
         const item_ids =  ['Q1', 'Q2']
-        const wrapper = mount(Results, {
-            propsData: { item_ids },
-            mocks
+        const wrapper = mountWithMocks({
+            props: { item_ids }
         });
 
         expect(wrapper.props().item_ids).toBe(item_ids);
@@ -86,9 +108,8 @@ describe('Results.vue', () => {
             }]
         };
 
-        const wrapper = mount(Results, {
-            propsData: { results },
-            mocks
+        const wrapper = mountWithMocks({
+            props: { results }
         });
 
         const tables = wrapper.findAllComponents(MismatchesTable);
@@ -127,9 +148,8 @@ describe('Results.vue', () => {
             'Q1986': 'Some Value'
         }
 
-        const wrapper = mount(Results, {
-            propsData: { results, labels },
-            mocks
+        const wrapper = mountWithMocks({
+            props: { results, labels }
         });
 
         expect(wrapper.props().labels).toBe(labels);
@@ -143,9 +163,8 @@ describe('Results.vue', () => {
             id: '123'
         };
 
-        const wrapper = mount(Results, {
-            propsData: { user },
-            mocks
+        const wrapper = mountWithMocks({
+            props: { user }
         });
 
         expect(wrapper.props().user).toBe(user);
@@ -169,9 +188,8 @@ describe('Results.vue', () => {
             }]
         };
 
-        const wrapper = mount(Results, {
-            propsData: { results },
-            mocks
+        const wrapper = mountWithMocks({
+            props: { results }
         });
 
         const tables = wrapper.findAllComponents(MismatchesTable);
@@ -190,13 +208,8 @@ describe('Results.vue', () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mount(Results, {
-            mocks,
-            data() {
-                return {
-                    decisions
-                }
-            },
+        const wrapper = mountWithMocks({
+            data: { decisions }
         });
 
         const decisionsBeforeDelete = decisions[item_id];
@@ -214,13 +227,8 @@ describe('Results.vue', () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mount(Results, {
-            mocks,
-            data() {
-                return {
-                    decisions
-                }
-            },
+        const wrapper = mountWithMocks({
+            data: { decisions }
         });
 
         await wrapper.vm.send( item_id );
@@ -233,16 +241,9 @@ describe('Results.vue', () => {
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
         const inertiaPut = jest.fn();
-        const wrapper = mount(Results, {
-            mocks: {
-                ... mocks,
-                $inertia: { put: inertiaPut },
-            },
-            data() {
-                return {
-                    decisions
-                }
-            },
+        const wrapper = mountWithMocks({
+            mocks: { $inertia: { put: inertiaPut } },
+            data: { decisions }
         });
         wrapper.vm.send( 'Q42' );
         expect( inertiaPut ).not.toHaveBeenCalled();
@@ -257,13 +258,8 @@ describe('Results.vue', () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mount(Results, {
-            mocks,
-            data() {
-                return {
-                    decisions
-                }
-            }
+        const wrapper = mountWithMocks({
+            data: { decisions }
         });
         const dialog = wrapper.find('.confirmation-dialog .wikit-Dialog');
 

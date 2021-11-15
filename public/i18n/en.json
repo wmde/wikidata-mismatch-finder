@@ -58,13 +58,13 @@
     "faq-dialog-title": "More on the Mismatch Finder",
     "faq-dialog-question-finding-mismatches": "How are mismatches found?",
     "faq-dialog-answer-finding-mismatches": "The Mismatch Finder shows you the origin of each mismatch in the results table. The mismatches come from a variety of sources, notably:",
-    "faq-dialog-answer-finding-mismatches-sources-1": "Researchers that are analyzing Wikidata’s data;",
-    "faq-dialog-answer-finding-mismatches-sources-2": "Large reusers of Wikidata’s data;",
-    "faq-dialog-answer-finding-mismatches-sources-3": "Invdividual contributors working with Wikidata’s data;",
+    "faq-dialog-answer-finding-mismatches-sources-1": "Researchers that are analyzing Wikidata's data;",
+    "faq-dialog-answer-finding-mismatches-sources-2": "Large reusers of Wikidata's data;",
+    "faq-dialog-answer-finding-mismatches-sources-3": "Individual contributors working with Wikidata's data;",
     "faq-dialog-question-relevance": "How fresh are the mismatches?",
     "faq-dialog-answer-relevance": "It depends! Inspecting external databases, catalogs and websites takes a lot of time and resources; the checks are performed periodically in batches. We try hard to remove outdated mismatches, but you might still find some.",
     "faq-dialog-question-contributing": "How can I contribute new mismatches?",
     "faq-dialog-answer-contributing": "If you've compared Wikidata's data against an external data source and have found mismatches, you can open a ticket in <a href=\"$1\">Phabricator</a>.",
     "faq-dialog-question-more-info": "Where can I find more information?",
-    "faq-dialog-answer-more-info": "This tool’s documentation and the source code are available on <a href=\"$1\">GitHub</a>. You can read more about Mismatch Finder on <a href=\"$2\">Wikidata</a> or you can <a href=\"$3\">give us feedback.</a>"
+    "faq-dialog-answer-more-info": "This tool’s documentation and the source code are available on <a href=\"$1\">GitHub</a>. You can read more about Mismatch Finder on <a href=\"$2\">Wikidata</a> or you can <a href=\"$3\">give us feedback</a>."
 }

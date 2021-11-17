@@ -16,19 +16,18 @@ main {
     max-width: 1090px;
     padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
-    @include body-text;
-
-    @media(min-width: $width-breakpoint-tablet){
-        padding: 0 $dimension-layout-small;
-    }
 
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: $dimension-layout-small 0;
+        margin: $dimension-layout-xsmall 0;
+    }
 
-        @media (max-width: $width-breakpoint-tablet) {
-            margin: $dimension-layout-xsmall 0;
+    @media(min-width: $width-breakpoint-tablet){
+        padding: 0 $dimension-layout-small;
+
+        & > header {
+            margin: $dimension-layout-small 0;
         }
     }
 }
@@ -251,10 +250,6 @@ dl.import-meta dd {
 
 dl.import-meta dd:not(:last-child) {
     padding-bottom: 16px;
-}
-
-p {
-    margin: 0 0 16px 0;
 }
 
 .button {

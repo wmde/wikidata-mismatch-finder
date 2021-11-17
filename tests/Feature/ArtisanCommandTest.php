@@ -2,11 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\UploadUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 
-class SetUploadUsersTest extends TestCase
+class ArtisanCommandTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,13 +26,25 @@ class SetUploadUsersTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_fails_on_not_found()
+    public function test_fails_on_upload_users_file_not_found()
     {
-        $filename = 'nonexistant.txt';
+        $filename = 'nonexistent.txt';
 
         $this->artisan('uploadUsers:set', ['allowlist' => $filename])
             ->expectsOutput(__('admin.uploaders:reading', ['file' => $filename]))
             ->expectsOutput(__('admin.uploaders:not_found'))
             ->assertExitCode(1);
+    }
+
+    public function test_shows_upload_users_table(): void
+    {
+        $uploaders = UploadUser::factory(5)->create();
+
+        $this->artisan('uploadUsers:show')
+            ->expectsTable(
+                ['ID', 'Username'],
+                $uploaders->map->only('id', 'username')->toArray()
+            )
+            ->assertExitCode(0);
     }
 }

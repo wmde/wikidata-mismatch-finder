@@ -5,6 +5,10 @@
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 
+body {
+    @include body-text;
+}
+
 /**
 * Layout
 */

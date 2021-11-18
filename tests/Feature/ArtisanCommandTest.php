@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\ImportMeta;
 use App\Models\UploadUser;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
@@ -47,4 +49,30 @@ class ArtisanCommandTest extends TestCase
             )
             ->assertExitCode(0);
     }
+
+    public function test_show_upload(): void
+    {
+        $imports = ImportMeta::factory(5)
+        ->for(User::factory()->uploader())
+        ->state(['status' => 'completed'])
+        ->create()
+        ->map(function ($import) {
+            return [
+                $import->id,
+                $import->created_at->toDateString(),
+                $import->external_source,
+                $import->user->username,
+                $import->expires->toDateString(),
+                0
+            ];
+        });
+
+        $this->artisan('uploads:show')
+            ->expectsTable(
+                ['ID', 'Upload Date', 'External Source', 'User', 'Expires at', '# of Mismatches'],
+                $imports
+            )
+            ->assertExitCode(0);
+    }
+
 }

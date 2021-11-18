@@ -16,7 +16,9 @@ You can log in to the Mismatch Finder website using your MediaWiki account on `w
 
 ## Accessing the API <a id="apiAccess"></a>
 
-Once you have logged in and have started to use the Mismatch Finder web interface, you may want to access the REST API as well. In order to perform some actions with the REST api, such as uploading files, you will need a [personal access token](#apiToken). 
+Once you have logged in and have started to use the Mismatch Finder web interface, you may want to access the REST API as well. The available operations you can perform with the REST API can be checked in the [Wikidata Mismatch Finder OpenApi specification](https://mismatch-finder.toolforge.org/api-docs/index.html).
+
+In order to perform some actions with the REST api, such as uploading files, you will need a [personal access token](#apiToken).
 
 For each request that involves authorization, your personal token must be provided in the `Authorization` header of your request as such:
 

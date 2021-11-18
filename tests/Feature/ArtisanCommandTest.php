@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ImportMeta;
+use App\Models\Mismatch;
 use App\Models\UploadUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -75,4 +76,36 @@ class ArtisanCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function test_drop_upload_success(): void
+    {
+        // seed two uploads with mismatches, one to be deleted
+        $uploads = ImportMeta::factory(2)
+        ->for(User::factory()->uploader())
+        ->create()
+        ->each(function ($upload) {
+            Mismatch::factory(2)->for($upload)->create();
+        });
+
+        $idToDelete = $uploads[0]->id;
+        $this->artisan('uploads:drop', ["id" => $idToDelete])
+            ->expectsOutput(__('admin.dropUpload:dropping', ['id' => $idToDelete, 'mismatches' => 2]))
+            ->expectsConfirmation('Are you sure?', 'yes')
+            ->expectsOutput(__('admin.dropUpload:success', ['id' => $idToDelete, 'mismatches' => 2]))
+            ->assertExitCode(0);
+
+            // make sure the first upload has been deleted with all its mismatches
+            $this->assertDatabaseMissing('import_meta', [ 'id' => $idToDelete]);
+            $this->assertDatabaseMissing('mismatches', ['import_id' => $idToDelete]);
+
+            // make sure the second upload is still there with all its mismatches
+            $this->assertDatabaseHas('import_meta', [ 'id' => $uploads[1]->id]);
+            $this->assertDatabaseHas('mismatches', [ 'import_id' => $uploads[1]->id]);
+    }
+
+    public function test_drop_upload_notFound(): void
+    {
+        $this->artisan('uploads:drop', ['id' => 'nonexistent'])
+            ->expectsOutput(__('admin.dropUpload:notFound', ['id' => 'nonexistent']))
+            ->assertExitCode(1);
+    }
 }

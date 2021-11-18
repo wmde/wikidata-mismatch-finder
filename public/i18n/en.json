@@ -74,5 +74,11 @@
     "wikidata-tool-footer-about-us": "About us",
     "wikidata-tool-footer-privacy": "Privacy Policy",
     "wikidata-tool-footer-wmde": "Wikimedia Deutschland",
-    "wikidata-tool-footer-team": "Made with ♥ by the <a href=\"$1\">Wikidata Team</a>"
+    "wikidata-tool-footer-team": "Made with ♥ by the <a href=\"$1\">Wikidata Team</a>",
+    "mismatch-finder-license": "BSD 3-Clause License",
+    "mismatch-finder-footer-more-tools": "More Data Quality Tools",
+    "tool-query-builder": "Query Builder",
+    "tool-item-quality-evaluator": "Item Quality Evaluator",
+    "tool-curious-facts": "Curious Facts",
+    "tool-constraints-violation-checker": "Constraint Violation Checker"
 }

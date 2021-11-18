@@ -13,8 +13,8 @@
         <wikidata-tool-footer
             content-class="content-wrap"
             :labels="{
-                tool: 'Mismatch Finder',
-                license: 'BSD 3-Clause License'
+                tool: $i18n('mismatch-finder-title'),
+                license: $i18n('mismatch-finder-license'),
             }"
             :urls="{
                 license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/93e692f6310595f75dcb971d7fb42a7ed7479af0/LICENSE',
@@ -23,11 +23,11 @@
             }"
         >
             <section>
-                <h2 class="h5">More Data Quality Tools</h2>
-                <p><a href="#">Query Builder</a></p>
-                <p><a href="#">Item Quality Evaluator</a></p>
-                <p><a href="#">Curious Facts</a></p>
-                <p><a href="#">Constraint Violation Checker</a></p>
+                <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
+                <p><a href="#">{{ $i18n('tool-query-builder') }}</a></p>
+                <p><a href="#">{{ $i18n('tool-item-quality-evaluator') }}</a></p>
+                <p><a href="#">{{ $i18n('tool-curious-facts') }}</a></p>
+                <p><a href="#">{{ $i18n('tool-constraints-violation-checker') }}</a></p>
             </section>
         </wikidata-tool-footer>
     </div>

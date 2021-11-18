@@ -49,6 +49,45 @@ Example User 5
 Example User 6
 ```
 
+## Managing Uploaded Mismatches
+
+While users on the upload list may import their mismatches to Mismatch Finder, they are not allowed to delete the uploaded data again. As an administrator, you can drop entire file imports from Mismatch Finder's store.
+
+### Using Laravel's artisan console
+
+The following custom commands are provided to show and drop mismatch uploads:
+ * `php artisan uploads:show` will show you the list of all mismatch uploads whose import status is _completed_.
+ * `php artisan uploads:drop {id}` will delete an entire upload and all of its associated mismatches from Mismatch Finder's store.
+
+Instructions on how to use the commands can be displayed using:
+ * `php artisan help uploads:show` and
+ * `php artisan help uploads:drop`
+
+ **ATTENTION: Dropping an upload from the store will delete all its asociated mismatches, whether they have been reviewed or not.**
+
+**Examples**
+
+```bash
+$ cd wikidata-mismatch-finder/
+$ php artisan uploads:show
+
++----+-------------+-----------------+-----------------+------------+-----------------+
+| ID | Upload Date | External Source | User            | Expires at | # of Mismatches |
++----+-------------+-----------------+-----------------+------------+-----------------+
+| 11 | 2021-09-07  | internet        | raheem.eichmann | 2022-09-07 | 23              |
+| 12 | 2021-09-11  | internet        | raheem.eichmann | 2022-09-11 | 42              |
+| 13 | 2021-09-17  | internet        | raheem.eichmann | 2022-09-17 | 345             |
++----+-------------+-----------------+-----------------+------------+-----------------+
+
+$ php artisan uploads:drop 12
+Dropping upload ID 12 with 42 mismatches
+
+ Are you sure? (yes/no) [no]:
+ > y
+
+Successfully dropped upload ID 12 with 42 associated mismatches
+```
+
 ## Log Track of Users' Review Decisions
 
 Review decisions are written to mismatch entries in the database directly, without recording an edit history. Thus, for sanity reasons, a record of review decisions is kept on the filesystem in `storage/logs/mismatch_updates.log`.

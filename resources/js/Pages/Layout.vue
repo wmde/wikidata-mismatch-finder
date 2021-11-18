@@ -10,7 +10,18 @@
             <h1>{{ $i18n('mismatch-finder-title') }}</h1>
             <slot />
         </main>
-        <wikidata-tool-footer>
+        <wikidata-tool-footer
+            content-class="content-wrap"
+            :labels="{
+                tool: 'Mismatch Finder',
+                license: 'BSD 3-Clause License'
+            }"
+            :urls="{
+                license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/93e692f6310595f75dcb971d7fb42a7ed7479af0/LICENSE',
+                source: 'https://github.com/wmde/wikidata-mismatch-finder',
+                issues: 'https://phabricator.wikimedia.org/project/board/5385/'
+            }"
+        >
             <section>
                 <h2 class="h5">More Data Quality Tools</h2>
                 <p><a href="#">Query Builder</a></p>

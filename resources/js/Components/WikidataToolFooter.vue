@@ -1,13 +1,13 @@
 <template>
     <div class="footer-container">
-        <footer class="content-wrap">
+        <footer :class="contentClass">
             <section>
                 <h2 class="h5">
-                    {{ $i18n('wikidata-tool-footer-about-tool', "Mismatch Finder") }}
+                    {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
                 </h2>
-                <p v-i18n-html:wikidata-tool-footer-license="['#', 'BSD 3-Clause License' ]"/>
-                <p><a href="#">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
-                <p><a href="#">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
+                <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]"/>
+                <p><a :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+                <p><a :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
             </section>
             <section>
                 <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
@@ -24,7 +24,36 @@
 import Vue, { PropType } from 'vue';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
+interface FooterLabels {
+    tool: string;
+    license: string;
+}
+
+interface FooterUrls {
+    license: string;
+    source: string;
+    issues: string;
+}
+
 export default Vue.extend({
+    name: 'WikidataToolFooter',
+    components: {
+        WikitLink,
+    },
+    props: {
+        contentClass: {
+            type: String,
+            default: '',
+        },
+        labels: {
+            type: Object as PropType<FooterLabels>,
+            required: true,
+        },
+        urls: {
+            type: Object as PropType<FooterUrls>,
+            required: true,
+        },
+    }
 });
 </script>
 

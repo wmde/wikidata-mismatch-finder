@@ -2,16 +2,18 @@
     <div class="footer-container">
         <footer class="content-wrap">
             <section>
-                <h2 class="h5">About Mismatch Finder</h2>
-                <p>Licensed under <a href="#">BSD 3-Clause License</a></p>
-                <p><a href="#">View Source</a></p>
-                <p><a href="#">Report an issue</a></p>
+                <h2 class="h5">
+                    {{ $i18n('wikidata-tool-footer-about-tool', "Mismatch Finder") }}
+                </h2>
+                <p v-i18n-html:wikidata-tool-footer-license="['#', 'BSD 3-Clause License' ]"/>
+                <p><a href="#">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+                <p><a href="#">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
             </section>
             <section>
-                <h2 class="h5">About us</h2>
-                <p><a href="#">Privacy Policy</a></p>
-                <p><a href="#">Wikimedia Deutschland</a></p>
-                <p><a href="#">Made by the Wikidata team</a></p>
+                <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
+                <p><a href="#">{{ $i18n('wikidata-tool-footer-privacy') }}</a></p>
+                <p><a href="#">{{ $i18n('wikidata-tool-footer-wmde') }}</a></p>
+                <p v-i18n-html:wikidata-tool-footer-team="['#', 'Wikidata Team']" />
             </section>
             <slot />
         </footer>

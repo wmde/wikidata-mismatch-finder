@@ -27,8 +27,19 @@
 </script>
 
 <style lang="scss">
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
 
-.auth-widget div {
-    display: flex;
+.website {
+    max-width: 1168px;
+}
+
+@media (max-width: $width-breakpoint-tablet) {
+    .website > header {
+        flex-direction: column;
+    }
+
+    .wikidata-logo {
+        margin-bottom: $dimension-layout-small;
+    }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user">
+    <div class="auth-widget" v-if="user">
         <Link :href="`https://www.wikidata.org/wiki/User:${user.name}`">
             <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
         </Link>
@@ -23,3 +23,22 @@ export default Vue.extend({
     }
 });
 </script>
+
+<style lang="scss">
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+.auth-widget {
+    display: flex;
+    color: $color-base-50;
+
+    .username {
+        margin-inline-end: $dimension-spacing-xlarge;
+    }
+
+    .icon-user {
+        margin-inline-end: $dimension-spacing-small;
+        vertical-align: middle;
+    }
+}
+
+</style>

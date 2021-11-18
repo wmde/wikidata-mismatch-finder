@@ -5,21 +5,30 @@
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 
+body {
+    @include body-text;
+}
+
 /**
 * Layout
 */
-body {
+main {
     max-width: 1090px;
     padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
-    @include body-text;
 
-    &.app-container {
-        max-width: 1168px;
+    & > header {
+        display: flex;
+        justify-content: space-between;
+        margin: $dimension-layout-xsmall 0;
     }
 
     @media(min-width: $width-breakpoint-tablet){
         padding: 0 $dimension-layout-small;
+
+        & > header {
+            margin: $dimension-layout-small 0;
+        }
     }
 }
 
@@ -122,40 +131,7 @@ li {
 /**
 * Legacy
 */
-.tabs a:hover {
-    text-decoration: none;
-}
-
-main > header {
-    display: flex;
-    justify-content: space-between;
-    margin: $dimension-layout-small 0;
-
-    @media (max-width: $width-breakpoint-tablet) {
-        margin: $dimension-layout-xsmall 0;
-    }
-
-    .auth-widget {
-        font-family: 'Lato', sans-serif;
-        font-size: 16px;
-        line-height: 24px;
-        color: $color-base-50;
-
-        .username {
-            margin-right: 24px;
-        }
-    }
-    .icon-user {
-        margin-right: 8px;
-        margin-left: 16px;
-        vertical-align: middle;
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-left: 0;
-        }
-    }
-}
-
-.store > main > header{
+.store > header {
     flex-direction: row;
 
     @media (max-width: $width-breakpoint-tablet) {
@@ -167,25 +143,23 @@ main > header {
     }
 
     .auth-widget {
+        display: flex;
+        color: $color-base-50;
+
+        .username {
+            margin-inline-end: $dimension-spacing-xlarge;
+        }
+
+        .icon-user {
+            margin-inline-end: $dimension-spacing-small;
+            vertical-align: middle;
+        }
+
         @media (max-width: $width-breakpoint-tablet) {
             margin-bottom: $dimension-layout-xsmall;
         }
     }
 }
-
-.website > main > header {
-        .wikidata-logo {
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-small;
-        }
-    }
-
-    @media (max-width: $width-breakpoint-tablet) {
-        flex-direction: column;
-    }
-}
-
-
 
 nav.tabs {
     display: flex;
@@ -202,6 +176,7 @@ nav.tabs {
 
         li {
             outline: 0;
+            margin: 0;
 
             a {
                 border: 2px solid white;
@@ -216,6 +191,7 @@ nav.tabs {
                     outline: 0;
                 }
                 &:hover {
+                    text-decoration: none;
                     border-bottom-color: $color-modifier-lighten-accent-50;
                     color: $color-modifier-lighten-accent-50;
                 }
@@ -274,10 +250,6 @@ dl.import-meta dd {
 
 dl.import-meta dd:not(:last-child) {
     padding-bottom: 16px;
-}
-
-p {
-    margin: 0 0 16px 0;
 }
 
 .button {

@@ -8,7 +8,10 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - name: Install Composer Dependencies
-          run: composer install --no-progress --prefer-dist --optimize-autoloader
+          uses: php-actions/composer@v6
+          with:
+            php_version: 7.3
+            args: --no-progress --prefer-dist --optimize-autoloader
         - name: PHP Lint
           run: "composer run lint"
 

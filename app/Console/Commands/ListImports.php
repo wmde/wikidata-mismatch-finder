@@ -6,21 +6,21 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use Illuminate\Console\Command;
 
-class ShowUploads extends Command
+class ListImports extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'uploads:show';
+    protected $signature = 'import:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Show the list of uploaded mismatch files.';
+    protected $description = 'Show the list of imported mismatch files.';
 
     /**
      * Create a new command instance.
@@ -40,7 +40,7 @@ class ShowUploads extends Command
     public function handle()
     {
         $this->table(
-            ['ID', 'Upload Date', 'External Source', 'User', 'Expires at', '# of Mismatches'],
+            ['ID', 'Import Date', 'External Source', 'User', 'Expires at', '# of Mismatches'],
             ImportMeta::with('user')
             ->where('status', 'completed')
             ->get()

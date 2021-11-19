@@ -51,7 +51,7 @@ class ArtisanCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_show_upload(): void
+    public function test_list_imports(): void
     {
         $imports = ImportMeta::factory(5)
         ->for(User::factory()->uploader())
@@ -68,44 +68,44 @@ class ArtisanCommandTest extends TestCase
             ];
         });
 
-        $this->artisan('uploads:show')
+        $this->artisan('import:list')
             ->expectsTable(
-                ['ID', 'Upload Date', 'External Source', 'User', 'Expires at', '# of Mismatches'],
+                ['ID', 'Import Date', 'External Source', 'User', 'Expires at', '# of Mismatches'],
                 $imports
             )
             ->assertExitCode(0);
     }
 
-    public function test_drop_upload_success(): void
+    public function test_drop_import_success(): void
     {
-        // seed two uploads with mismatches, one to be deleted
-        $uploads = ImportMeta::factory(2)
+        // seed two imports with mismatches, one to be deleted
+        $imports = ImportMeta::factory(2)
         ->for(User::factory()->uploader())
         ->create()
-        ->each(function ($upload) {
-            Mismatch::factory(2)->for($upload)->create();
+        ->each(function ($import) {
+            Mismatch::factory(2)->for($import)->create();
         });
 
-        $idToDelete = $uploads[0]->id;
-        $this->artisan('uploads:drop', ["id" => $idToDelete])
-            ->expectsOutput(__('admin.dropUpload:dropping', ['id' => $idToDelete, 'mismatches' => 2]))
-            ->expectsConfirmation('Are you sure?', 'yes')
-            ->expectsOutput(__('admin.dropUpload:success', ['id' => $idToDelete, 'mismatches' => 2]))
+        $idToDelete = $imports[0]->id;
+        $this->artisan('import:drop', ["id" => $idToDelete])
+            ->expectsOutput(__('admin.dropImport:dropping', ['id' => $idToDelete, 'mismatches' => 2]))
+            ->expectsConfirmation(__('admin.dropImport:confirm'), 'yes')
+            ->expectsOutput(__('admin.dropImport:success', ['id' => $idToDelete, 'mismatches' => 2]))
             ->assertExitCode(0);
 
-            // make sure the first upload has been deleted with all its mismatches
+            // make sure the first import has been deleted with all its mismatches
             $this->assertDatabaseMissing('import_meta', [ 'id' => $idToDelete]);
             $this->assertDatabaseMissing('mismatches', ['import_id' => $idToDelete]);
 
-            // make sure the second upload is still there with all its mismatches
-            $this->assertDatabaseHas('import_meta', [ 'id' => $uploads[1]->id]);
-            $this->assertDatabaseHas('mismatches', [ 'import_id' => $uploads[1]->id]);
+            // make sure the second import is still there with all its mismatches
+            $this->assertDatabaseHas('import_meta', [ 'id' => $imports[1]->id]);
+            $this->assertDatabaseHas('mismatches', [ 'import_id' => $imports[1]->id]);
     }
 
-    public function test_drop_upload_notFound(): void
+    public function test_drop_import_notFound(): void
     {
-        $this->artisan('uploads:drop', ['id' => 'nonexistent'])
-            ->expectsOutput(__('admin.dropUpload:notFound', ['id' => 'nonexistent']))
+        $this->artisan('import:drop', ['id' => 'nonexistent'])
+            ->expectsOutput(__('admin.dropImport:notFound', ['id' => 'nonexistent']))
             ->assertExitCode(1);
     }
 }

@@ -5,22 +5,23 @@ namespace App\Console\Commands;
 use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
-class DropUpload extends Command
+class DropImport extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'uploads:drop {id : ID of the upload to drop}';
+    protected $signature = 'import:drop {id : ID of the import to drop}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Drop an uploaded mismatch file by ID.';
+    protected $description = 'Drop an imported mismatch file by ID.';
 
     /**
      * Create a new command instance.
@@ -41,31 +42,29 @@ class DropUpload extends Command
     {
         $import = ImportMeta::find($this->argument('id'));
         if (!$import) {
-            $this->error(__('admin.dropUpload:notFound', ['id' => $this->argument('id')]));
+            $this->error(__('admin.dropImport:notFound', ['id' => $this->argument('id')]));
 
             return 1;
         }
 
-        $mismatchesToDrop = Mismatch::where('import_id', '=', $import->id)->count();
+        $mismatchesToDrop = Mismatch::where('import_id', $import->id);
         $this->line(__(
-            'admin.dropUpload:dropping',
+            'admin.dropImport:dropping',
             [
                 'id' => $import->id,
-                'mismatches' => $mismatchesToDrop
+                'mismatches' => $mismatchesToDrop->count()
             ]
         ));
 
-        if ($this->confirm('Are you sure?')) {
-            Mismatch::where('import_id', '=', $import->id)->delete();
-            $import->delete();
-            $this->line(__(
-                'admin.dropUpload:success',
-                [
-                    'id' => $import->id,
-                    'mismatches' => $mismatchesToDrop
-                ]
-            ));
+        if ($this->confirm(__('admin.dropImport:confirm'))) {
+            DB::transaction(function () use ($mismatchesToDrop, $import) {
+                $mismatchesToDrop->delete();
+                $import->delete();
+            });
+
+            $this->line(__('admin.dropImport:success', ['id' => $import->id]));
         }
+
         return 0;
     }
 }

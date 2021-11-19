@@ -84,7 +84,11 @@ export default Vue.extend({
         }
 
         section {
-            margin-block-end: $dimension-layout-small;
+            margin-block-end: 0;
+        }
+
+        section + section {
+            margin-block-start: $dimension-layout-small;
         }
 
         p {
@@ -99,8 +103,12 @@ export default Vue.extend({
             flex-direction: row;
             padding: $dimension-layout-small;
 
-            & section {
+            section {
                 margin-inline-end: $dimension-layout-large;
+            }
+
+            section + section {
+                margin-block-start: 0;
             }
         }
     }

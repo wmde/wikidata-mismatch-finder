@@ -15,4 +15,9 @@ return [
     'uploaders:not_found' => 'File not found',
     'uploaders:success' => 'Successfully imported :count upload users',
 
+    'dropImport:confirm' => 'Are you sure?',
+    'dropImport:dropping' => 'Dropping import ID :id with :mismatches associated mismatches',
+    'dropImport:notFound' => 'ERROR: Import ID :id not found',
+    'dropImport:success' => 'Successfully dropped import ID :id',
+
 ];

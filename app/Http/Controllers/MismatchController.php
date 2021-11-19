@@ -7,6 +7,9 @@ use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
 
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
+
+#[OpenApi\PathItem]
 class MismatchController extends Controller
 {
     use Traits\ReviewMismatch;
@@ -29,6 +32,7 @@ class MismatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    #[OpenApi\Operation]
     public function index(MismatchGetRequest $request)
     {
         $query = Mismatch::whereIn('item_id', $request->ids);
@@ -55,6 +59,7 @@ class MismatchController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\Response
      */
+    #[OpenApi\Operation]
     public function update(MismatchPutRequest $request, $id)
     {
         $mismatch = Mismatch::findorFail($id);

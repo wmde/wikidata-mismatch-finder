@@ -65,8 +65,6 @@ You can consult this [mismatch file](exampleMismatchFile.csv) for a valid exampl
 
 ### Uploading an import file
 
-<!-- TODO: Replace this description with a link to our API Specification, once deployed (See T287948). -->
-
 To upload an import file, users may send a request to our `POST /api/imports` api endpoint. 
 
 The request should include the `Authorization` header with a personal [access token](#apiAccess). Additionally, the request should include a `Content-Type: multipart/form-data` header.
@@ -80,3 +78,6 @@ The request body should include the following fields:
 * `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default.
 
 Once an import is submitted, the newly created import status will be included in the response, alongside an api link to check its status again. Additionally, the status of the last 10 imports in to Mismatch Finder can be checked at our [import status page](https://mismatch-finder.toolforge.org/store/imports).
+
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/post_imports).
+

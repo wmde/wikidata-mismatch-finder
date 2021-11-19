@@ -79,31 +79,31 @@ The request body should include the following fields:
 
 Once an import is submitted, the newly created import status will be included in the response, alongside an api link to check its status again. Additionally, the status of the last 10 imports in to Mismatch Finder can be checked at our [import status page](https://mismatch-finder.toolforge.org/store/imports).
 
-For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/post_imports).
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs/index.html#/store/post_imports).
 
 ### Reviewing Mismatches
 
 
 #### Review
 
-To review mismatches by Item ID, users may send a request to our `GET /mismatches` api endpoint.
+To review mismatches by Item ID, users may send a request to our `GET /api/mismatches` api endpoint.
 
 The request should include the required `ids` query parameter to specify Item IDs. For example, the following request will retrieve all mismatches for Items `Q1` and `Q2`:
 
 ```
-GET /mismatches?ids=Q1|Q2
+GET /api/mismatches?ids=Q1|Q2
 ```
 
-For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/get_mismatches).
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs/index.html#/store/get_mismatches).
 
 #### Submit decisions
 
-To submit a decision regarding a particular mismatch, users may send a request to `PUT /mismatches/{mismatchId}`.
+To submit a decision regarding a particular mismatch, users may send a request to `PUT /api/mismatches/{mismatchId}`.
 
 The decision regarding a mismatch should be sent using the mismatch's id. For example, to submit a decision regarding mismatch `42` we will send the following request:
 
 ```
-PUT /mismatches/42
+PUT /api/mismatches/42
 ```
 
 The request body should include the decision itself as a json object. That is, to decide that the mismatch in data is on the external source, the user would send:
@@ -118,10 +118,11 @@ _**Note**: any other fields related to a mismatch and included in the request wi
 
 The only possible values for a review status are:
 
+- `"pending"` - The mismatch is awaiting a review decision.
 - `"wikidata"` - The mismatching information is on Wikidata.
 - `"external"` - The mismatching information is on the external source.
 - `"both"` - Both sources are incorrect.
 - `"none"` - None of the above.
 
-For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/put_mismatches__mismatchId_).
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs/index.html#/store/put_mismatches__mismatchId_).
 

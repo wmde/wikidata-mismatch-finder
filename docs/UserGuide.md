@@ -81,3 +81,47 @@ Once an import is submitted, the newly created import status will be included in
 
 For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/post_imports).
 
+### Reviewing Mismatches
+
+
+#### Review
+
+To review mismatches by Item ID, users may send a request to our `GET /mismatches` api endpoint.
+
+The request should include the required `ids` query parameter to specify Item IDs. For example, the following request will retrieve all mismatches for Items `Q1` and `Q2`:
+
+```
+GET /mismatches?ids=Q1|Q2
+```
+
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/get_mismatches).
+
+#### Submit decisions
+
+To submit a decision regarding a particular mismatch, users may send a request to `PUT /mismatches/{mismatchId}`.
+
+The decision regarding a mismatch should be sent using the mismatch's id. For example, to submit a decision regarding mismatch `42` we will send the following request:
+
+```
+PUT /mismatches/42
+```
+
+The request body should include the decision itself as a json object. That is, to decide that the mismatch in data is on the external source, the user would send:
+
+```json
+{
+    "review_status": "external"
+}
+```
+
+_**Note**: any other fields related to a mismatch and included in the request will be prohibited and result in a validation error._
+
+The only possible values for a review status are:
+
+- `"wikidata"` - The mismatching information is on Wikidata.
+- `"external"` - The mismatching information is on the external source.
+- `"both"` - Both sources are incorrect.
+- `"none"` - None of the above.
+
+For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs#/store/put_mismatches__mismatchId_).
+

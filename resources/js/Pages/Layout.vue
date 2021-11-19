@@ -17,8 +17,7 @@
                 license: $i18n('mismatch-finder-license'),
             }"
             :urls="{
-                // eslint-disable-next-line max-len
-                license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/93e692f6310595f75dcb971d7fb42a7ed7479af0/LICENSE',
+                license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/license/bsd-3-clause/LICENSE',
                 source: 'https://github.com/wmde/wikidata-mismatch-finder',
                 issues: 'https://phabricator.wikimedia.org/project/board/5385/'
             }"

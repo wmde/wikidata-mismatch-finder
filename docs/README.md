@@ -9,7 +9,8 @@
   - [Start the application server](#start-the-application-server)
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#working-with-oauth)
+- [Working with OAuth](#oauth)
+- [Regenerating the OpenApi Specs](#regenerate-openapi-spec)
 - [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
 - [Linting](#linting)
     - [PHP Linting](#php-linting)
@@ -137,6 +138,17 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 
 1. As soon as you receive the email from the WMF team that your consumer is approved, you may start testing your application by logging in through your local instance's home page.
 
+## Regenerating the openapi spec <a id="regenerate-openapi-spec">
+
+There is a [Swagger OpenApi Specification](https://mismatch-finder.toolforge.org/api-docs/index.html) available for this project. If there are changes to the api endpoints, the Specification needs to be regenerated to reflect the new state of the api.
+
+To regenerate the openapi specification run the command:
+
+```
+sail artisan l5-swagger:generate
+```
+
+This will overwrite the contents of the `/public/api-docs/mismatchfinder-api-spec.json` file.
 ## Frontend - Working with CSS and JS <a id="frontend"></a>
 
 Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.

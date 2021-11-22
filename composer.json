@@ -17,7 +17,7 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "taavi/laravel-socialite-mediawiki": "^1.4",
-        "vyuldashev/laravel-openapi": "^0.24.1"
+        "vyuldashev/laravel-openapi": "^0.21.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -1,25 +1,70 @@
 <template>
-  <main class="website">
-    <header>
-      <img src="/images/wikidata-logo.svg" class="wikidata-logo" alt="Wikidata-logo" width="160" />
-      <div class="auth-widget">
-        <AuthWidget :user="user" />
-      </div>
-    </header>
-    <h1>{{ $i18n('mismatch-finder-title') }}</h1>
-    <slot />
-  </main>
+    <div class="website">
+        <main class="content-wrap">
+            <header>
+                <img src="/images/wikidata-logo.svg" class="wikidata-logo" alt="Wikidata-logo" width="160" />
+                <div class="auth-widget">
+                    <auth-widget :user="user" />
+                </div>
+            </header>
+            <h1>{{ $i18n('mismatch-finder-title') }}</h1>
+            <slot />
+        </main>
+        <wikidata-tool-footer
+            content-class="content-wrap"
+            :labels="{
+                tool: $i18n('mismatch-finder-title'),
+                license: $i18n('mismatch-finder-license'),
+            }"
+            :urls="{
+                license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/license/bsd-3-clause/LICENSE',
+                source: 'https://github.com/wmde/wikidata-mismatch-finder',
+                issues: 'https://phabricator.wikimedia.org/project/board/5385/'
+            }"
+        >
+            <section>
+                <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
+                <p>
+                    <wikit-link href="https://query.wikidata.org/querybuilder/">
+                        {{ $i18n('tool-query-builder') }}
+                    </wikit-link>
+                </p>
+                <p>
+                    <wikit-link href="https://item-quality-evaluator.toolforge.org/">
+                        {{ $i18n('tool-item-quality-evaluator') }}
+                    </wikit-link>
+                </p>
+                <p>
+                    <wikit-link href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
+                        {{ $i18n('tool-curious-facts') }}
+                    </wikit-link>
+                </p>
+                <p>
+                    <wikit-link href="https://github.com/wmde/wikidata-constraints-violation-checker">
+                        {{ $i18n('tool-constraints-violation-checker') }}
+                    </wikit-link>
+                </p>
+            </section>
+        </wikidata-tool-footer>
+    </div>
 </template>
 
 <script lang="ts">
     import { PropType } from 'vue';
+    import { Link as WikitLink } from '@wmde/wikit-vue-components';
+
     import AuthWidget from '../Components/AuthWidget.vue';
+    import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
 
     import defineComponent from '../types/defineComponent';
     import User from '../types/User';
 
     export default defineComponent({
-        components: { AuthWidget },
+        components: {
+            AuthWidget,
+            WikidataToolFooter,
+            WikitLink
+        },
         props: {
             user: Object as PropType<User>
         }
@@ -30,16 +75,26 @@
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
 .website {
-    max-width: 1168px;
-}
-
-@media (max-width: $width-breakpoint-tablet) {
-    .website > header {
-        flex-direction: column;
+    .content-wrap {
+        max-width: 1168px;
     }
 
     .wikidata-logo {
-        margin-bottom: $dimension-layout-small;
+        margin-block-end: $dimension-layout-small;
+    }
+
+    main > header {
+        flex-direction: column;
+    }
+
+    @media (min-width: $width-breakpoint-tablet) {
+        main > header {
+            flex-direction: row;
+        }
+
+        .wikidata-logo {
+            margin-block-end: 0;
+        }
     }
 }
 </style>

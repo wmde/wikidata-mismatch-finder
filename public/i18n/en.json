@@ -66,5 +66,19 @@
     "faq-dialog-question-contributing": "How can I contribute new mismatches?",
     "faq-dialog-answer-contributing": "If you've compared Wikidata's data against an external data source and have found mismatches, you can open a ticket in <a href=\"$1\">Phabricator</a>.",
     "faq-dialog-question-more-info": "Where can I find more information?",
-    "faq-dialog-answer-more-info": "This tool’s documentation and the source code are available on <a href=\"$1\">GitHub</a>. You can read more about Mismatch Finder on <a href=\"$2\">Wikidata</a> or you can <a href=\"$3\">give us feedback</a>."
+    "faq-dialog-answer-more-info": "This tool’s documentation and the source code are available on <a href=\"$1\">GitHub</a>. You can read more about Mismatch Finder on <a href=\"$2\">Wikidata</a> or you can <a href=\"$3\">give us feedback</a>.",
+    "wikidata-tool-footer-about-tool": "About $1",
+    "wikidata-tool-footer-license": "Licensed under <a href=\"$1\">$2</a>",
+    "wikidata-tool-footer-source": "View Source",
+    "wikidata-tool-footer-issues": "Report an issue",
+    "wikidata-tool-footer-about-us": "About us",
+    "wikidata-tool-footer-privacy": "Privacy Policy",
+    "wikidata-tool-footer-wmde": "Wikimedia Deutschland",
+    "wikidata-tool-footer-team": "Made with ♥ by the <a href=\"$1\">Wikidata Team</a>",
+    "mismatch-finder-license": "BSD 3-Clause License",
+    "mismatch-finder-footer-more-tools": "More Data Quality Tools",
+    "tool-query-builder": "Query Builder",
+    "tool-item-quality-evaluator": "Item Quality Evaluator",
+    "tool-curious-facts": "Curious Facts",
+    "tool-constraints-violation-checker": "Constraint Violation Checker"
 }

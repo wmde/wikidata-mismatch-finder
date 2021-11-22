@@ -63,5 +63,19 @@
     "faq-dialog-question-contributing": "A question about how to contribute mismatches to the tool",
     "faq-dialog-answer-contributing": "An answer describing how to contribute mismatches to the tool, using a link to the relevant phabricator board",
     "faq-dialog-question-more-info": "A question about where to find additional information on the mismatch finder",
-    "faq-dialog-answer-more-info": "An answer listing various links with more information about the mismatch finder tool"
+    "faq-dialog-answer-more-info": "An answer listing various links with more information about the mismatch finder tool",
+    "wikidata-tool-footer-about-tool": "Footer section title about the tool itself. Accepts tool name as $1",
+    "wikidata-tool-footer-license": "Footer sentence denoting the license accepts license url as $1 and license name as $2",
+    "wikidata-tool-footer-source": "Footer link to view source code",
+    "wikidata-tool-footer-issues": "Footer link to report an issue",
+    "wikidata-tool-footer-about-us": "Footer section title about the Wikimedia Organization",
+    "wikidata-tool-footer-privacy": "Footer link to view the privacy policy",
+    "wikidata-tool-footer-wmde": "Footer link to Wikimedia Deutschland's homepage",
+    "wikidata-tool-footer-team": "Footer sentence denoting the creators of the tool. Accepts team url as $1 and team name as $2",
+    "mismatch-finder-license": "Name of the license used by mismatch finder",
+    "mismatch-finder-footer-more-tools": "Title of the more data quality tools footer section",
+    "tool-query-builder": "Query Builder tool name",
+    "tool-item-quality-evaluator": "Item Quality Evaluator tool name",
+    "tool-curious-facts": "Curious Facts tool name",
+    "tool-constraints-violation-checker": "Constraint Violation Checker tool name"
 }

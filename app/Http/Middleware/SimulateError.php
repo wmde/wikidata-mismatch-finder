@@ -25,12 +25,14 @@ class SimulateError
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!app()->environment('production')) {
-            if ($request->header('X-Mismatch-Finder-Error') == $request->path()) {
-                throw new RuntimeException("Simulated Server Error");
-            } elseif ($request->header('X-Mismatch-Finder-Not-Found') == $request->path()) {
-                abort(404);
-            }
+        if (app()->environment('production')) {
+            return $next($request);
+        }
+
+        if ($request->header('X-Mismatch-Finder-Error') == $request->path()) {
+            throw new RuntimeException("Simulated Server Error");
+        } elseif ($request->header('X-Mismatch-Finder-Not-Found') == $request->path()) {
+            abort(404);
         }
 
         return $next($request);

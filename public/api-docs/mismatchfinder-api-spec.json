@@ -10,18 +10,99 @@
         }
     ],
     "paths": {
-        "/mismatches": {
+        "/mismatches/": {
             "get": {
                 "tags": [
-                    "Mismatches"
+                    "store"
                 ],
-                "summary": "Display a listing of the resource",
+                "summary": "Get mismatches by item IDs",
                 "description": "Display a listing of the resource",
                 "operationId": "getMismatchesList",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "List of |-separated item IDs to get mismatches for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "include_reviewed",
+                        "in": "query",
+                        "description": "Include reviewed mismatches? (default: false)",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "include_expired",
+                        "in": "query",
+                        "description": "Include expired mismatches? (default: false)",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "A list of mismatches, potentially empty if none are found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListOfMismatches"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationErrors"
+                                }
+                            }
+                        }
                     }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ListOfMismatches": {
+                "title": "List of Mismatches",
+                "description": "List of Mismatches",
+                "properties": {
+                    "list": {
+                        "title": "List of Mismatches",
+                        "type": "array",
+                        "items": {
+                            "ref": null
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ListOfMismatchess"
+                }
+            },
+            "Mismatch": {
+                "title": "Mismatch",
+                "description": "Mismatch model",
+                "xml": {
+                    "name": "Mismatch"
+                }
+            },
+            "ValidationErrors": {
+                "title": "Validation Errors",
+                "description": "Invalid data in request body",
+                "xml": {
+                    "name": "ValidationErrors"
                 }
             }
         }

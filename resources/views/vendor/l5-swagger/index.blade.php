@@ -67,40 +67,17 @@
 
 <div id="swagger-ui"></div>
 
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-bundle.js') }}"> </script>
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-standalone-preset.js') }}"> </script>
-<script>
+<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-bundle.js') }}"> </script><script>
 window.onload = function() {
   // Build a system
   const ui = SwaggerUIBundle({
     dom_id: '#swagger-ui',
-
-    url: "{!! $urlToDocs !!}",
-    operationsSorter: {!! isset($operationsSorter) ? '"' . $operationsSorter . '"' : 'null' !!},
-    configUrl: {!! isset($configUrl) ? '"' . $configUrl . '"' : 'null' !!},
-    validatorUrl: {!! isset($validatorUrl) ? '"' . $validatorUrl . '"' : 'null' !!},
-    oauth2RedirectUrl: "{{ route('l5-swagger.'.$documentation.'.oauth2_callback', [], $useAbsolutePath) }}",
-
-    requestInterceptor: function(request) {
-      request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
-      return request;
-    },
-
-    presets: [
-      SwaggerUIBundle.presets.apis,
-      SwaggerUIStandalonePreset
-    ],
-
-    plugins: [
-      SwaggerUIBundle.plugins.DownloadUrl
-    ],
-
-    layout: "StandaloneLayout",
-
-    persistAuthorization: {!! config('l5-swagger.defaults.persist_authorization') ? 'true' : 'false' !!},
+    url: "/api-docs/mismatchfinder-api-spec.yml",
+            dom_id: '#swagger-ui',
+            presets: [
+              SwaggerUIBundle.presets.apis
+            ]
   })
-
-  window.ui = ui
 }
 </script>
 </body>

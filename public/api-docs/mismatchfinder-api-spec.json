@@ -78,7 +78,7 @@
                 "title": "List of Mismatches",
                 "description": "List of Mismatches",
                 "properties": {
-                    "list": {
+                    "data": {
                         "title": "List of Mismatches",
                         "type": "array",
                         "items": {
@@ -101,9 +101,15 @@
             "ValidationErrors": {
                 "title": "Validation Errors",
                 "description": "Invalid data in request body",
-                "xml": {
-                    "name": "ValidationErrors"
-                }
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
             }
         }
     },

@@ -1,0 +1,32 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Wikidata Mismatch Finder Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://mismatch-finder.toolforge.org"
+        }
+    ],
+    "paths": {
+        "/mismatches": {
+            "get": {
+                "tags": [
+                    "Mismatches"
+                ],
+                "summary": "Display a listing of the resource",
+                "description": "Display a listing of the resource",
+                "operationId": "getMismatchesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

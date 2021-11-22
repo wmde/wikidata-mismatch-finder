@@ -28,6 +28,18 @@ class MismatchController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *      path="/mismatches",
+     *      operationId="getMismatchesList",
+     *      tags={"Mismatches"},
+     *      summary="Display a listing of the resource",
+     *      description="Display a listing of the resource",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       )
+     *     )
      */
     public function index(MismatchGetRequest $request)
     {

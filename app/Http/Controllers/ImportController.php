@@ -103,8 +103,26 @@ class ImportController extends Controller
     }
 
     /**
-     * Display the list of imports (latest 10)
-     */
+    *   Display the list of imports (latest 10)
+    *
+    *
+    *   @OA\Get(
+    *       path="/imports/",
+    *       operationId="getImportsList",
+    *       tags={"store"},
+    *       summary="Get meta information on all mismatch imports",
+    *       @OA\Response(
+    *          response=200,
+    *          description="Meta information on mismatch imports",
+    *          @OA\JsonContent(ref="#/components/schemas/ListOfImportMeta")
+    *       ),
+    *       @OA\Response(
+    *           response=500,
+    *           description="Unexpected Error",
+    *           @OA\JsonContent(ref="#/components/schemas/UnexpectedError")
+    *       )
+    *   )
+    */
     public function index()
     {
         return ImportMetaResource::collection(ImportMeta::orderByDesc('id')->take(10)->get());

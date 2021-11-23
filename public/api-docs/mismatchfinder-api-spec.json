@@ -10,6 +10,38 @@
         }
     ],
     "paths": {
+        "/imports/": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Get meta information on all mismatch imports",
+                "description": "Display the list of imports (latest 10)",
+                "operationId": "getImportsList",
+                "responses": {
+                    "200": {
+                        "description": "Meta information on mismatch imports",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListOfImportMeta"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnexpectedError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/mismatches/": {
             "get": {
                 "tags": [

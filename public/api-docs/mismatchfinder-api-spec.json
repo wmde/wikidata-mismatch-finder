@@ -91,6 +91,21 @@
                     "name": "ListOfMismatchess"
                 }
             },
+            "FillableMismatch": {
+                "properties": {
+                    "review_status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "wikidata",
+                            "external",
+                            "both",
+                            "none"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
             "Mismatch": {
                 "title": "Mismatch",
                 "description": "Mismatch model",

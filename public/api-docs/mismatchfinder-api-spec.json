@@ -74,23 +74,6 @@
     },
     "components": {
         "schemas": {
-            "ListOfMismatches": {
-                "title": "List of Mismatches",
-                "description": "List of Mismatches",
-                "properties": {
-                    "data": {
-                        "title": "List of Mismatches",
-                        "type": "array",
-                        "items": {
-                            "ref": null
-                        }
-                    }
-                },
-                "type": "object",
-                "xml": {
-                    "name": "ListOfMismatchess"
-                }
-            },
             "FailedImportMeta": {
                 "allOf": [
                     {
@@ -161,6 +144,17 @@
                                     "$ref": "#/components/schemas/FailedImportMeta"
                                 }
                             ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ListOfMismatches": {
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Mismatch"
                         }
                     }
                 },

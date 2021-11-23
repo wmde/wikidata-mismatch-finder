@@ -106,6 +106,37 @@
                 },
                 "type": "object"
             },
+            "ImportMeta": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "failed",
+                            "completed"
+                        ]
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 350
+                    },
+                    "expires": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "uploader": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
             "Mismatch": {
                 "title": "Mismatch",
                 "description": "Mismatch model",

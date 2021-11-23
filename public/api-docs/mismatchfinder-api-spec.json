@@ -148,6 +148,24 @@
                 },
                 "type": "object"
             },
+            "ListOfImportMeta": {
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ImportMeta"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/FailedImportMeta"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Mismatch": {
                 "title": "Mismatch",
                 "description": "Mismatch model",

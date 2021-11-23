@@ -381,6 +381,19 @@
                 },
                 "type": "object"
             },
+            "NotFound": {
+                "title": "NotFound",
+                "description": "The specified resource was not found",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "UnexpectedError": {
                 "title": "UnexpectedError",
                 "description": "An unexpected error has occurred",

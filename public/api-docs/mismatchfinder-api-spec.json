@@ -246,7 +246,21 @@
                         "type": "string"
                     },
                     "errors": {
-                        "type": "object"
+                        "type": "object",
+                        "example": {
+                            "attribute_name": [
+                                "string"
+                            ]
+                        },
+                        "additionalProperties": [
+                            {
+                                "property": "items",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
                     }
                 },
                 "type": "object"

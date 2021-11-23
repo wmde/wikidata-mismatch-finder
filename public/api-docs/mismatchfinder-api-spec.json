@@ -70,6 +70,59 @@
                     }
                 }
             }
+        },
+        "/mismatches/{mismatchId}": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update Mismatch review status",
+                "description": "Update review_status of the resource.",
+                "operationId": "putMismatch",
+                "parameters": [
+                    {
+                        "name": "mismatchId",
+                        "in": "path",
+                        "description": "The ID of the Mismatch to update",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "An object with the new review status field.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FillableMismatch"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated mismatch.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mismatch"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationErrors"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {

@@ -50,7 +50,7 @@ paths:
             type: number
           required: true
       requestBody:
-        description: A object with the new review status field.
+        description: An object with the new review status field.
         content:
           application/json:
             schema:

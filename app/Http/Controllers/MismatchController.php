@@ -94,12 +94,43 @@ class MismatchController extends Controller
 
         return MismatchResource::collection($query->get());
     }
+
     /**
-     * Update review_status of the resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Update review_status of the resource.
+    * @param  \Illuminate\Http\Request  $request
+    * @param  string  $id
+    * @return \Illuminate\Http\Response
+    *
+    *   @OA\Put(
+    *       path="/mismatches/{mismatchId}",
+    *       operationId="putMismatch",
+    *       tags={"store"},
+    *       summary="Update Mismatch review status",
+    *       @OA\Parameter(
+    *          name="mismatchId",
+    *          description="The ID of the Mismatch to update",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="number"
+    *          )
+    *       ),
+    *       @OA\RequestBody(
+    *           description="An object with the new review status field.",
+    *           @OA\JsonContent(ref="#/components/schemas/FillableMismatch")
+    *       ),
+    *       @OA\Response(
+    *          response=200,
+    *          description="The updated mismatch.",
+    *          @OA\JsonContent(ref="#/components/schemas/Mismatch")
+    *       ),
+    *       @OA\Response(
+    *           response=422,
+    *           description="Validation errors",
+    *           @OA\JsonContent(ref="#/components/schemas/ValidationErrors")
+    *       )
+    *   )
+    */
     public function update(MismatchPutRequest $request, $id)
     {
         $mismatch = Mismatch::findorFail($id);

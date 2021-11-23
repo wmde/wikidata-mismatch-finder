@@ -306,6 +306,20 @@
                 },
                 "type": "object"
             },
+            "ClientError": {
+                "title": "ClientError",
+                "description": "Bad request",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "UnexpectedError": {
                 "title": "UnexpectedError",
                 "description": "An unexpected error has occurred",

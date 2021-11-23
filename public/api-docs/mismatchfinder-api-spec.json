@@ -98,6 +98,20 @@
                     "name": "Mismatch"
                 }
             },
+            "User": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "mw_userid": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
             "UnexpectedError": {
                 "title": "UnexpectedError",
                 "description": "An unexpected error has occurred",

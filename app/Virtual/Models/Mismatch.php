@@ -1,20 +1,56 @@
 <?php
 
-namespace App\Http\Api\Controllers;
-
-/* TODO: fillout */
-
 /**
  * @OA\Schema(
- *     title="Mismatch",
- *     description="Mismatch model",
- *     @OA\Xml(
- *         name="Mismatch"
- *     )
+ *      schema="Mismatch",
+ *      allOf={
+ *          @OA\Property(
+ *              property="id",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="item_id",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="statement_guid",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="property_id",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="wikidata_value",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="external_value",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="external_url",
+ *              type="string"
+ *          ),
+ *          @OA\Property(
+ *              property="import",
+ *              type="object",
+ *              @OA\Schema(ref="#/components/schemas/ImportMeta")
+ *          ),
+ *          @OA\Property(
+ *              property="updated_at",
+ *              type="string",
+ *              format="date-time"
+ *          ),
+ *          @OA\Property(
+ *              property="reviewer",
+ *              type="object",
+ *              ref="#/components/schemas/User"
+ *          ),
+ *          @OA\Schema(ref="#/components/schemas/FillableMismatch")
+ *      }
  * )
  */
 
-class Mismatch
-{
-/* TODO: find out how to translate current yml schema to this syntax */
-}
+ // TODO: check import and reviewer properties,
+ // property type and ref are not rendering at the same time

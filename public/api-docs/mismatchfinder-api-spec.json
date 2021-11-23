@@ -167,11 +167,51 @@
                 "type": "object"
             },
             "Mismatch": {
-                "title": "Mismatch",
-                "description": "Mismatch model",
-                "xml": {
-                    "name": "Mismatch"
-                }
+                "allOf": [
+                    {
+                        "property": "id",
+                        "type": "string"
+                    },
+                    {
+                        "property": "item_id",
+                        "type": "string"
+                    },
+                    {
+                        "property": "statement_guid",
+                        "type": "string"
+                    },
+                    {
+                        "property": "property_id",
+                        "type": "string"
+                    },
+                    {
+                        "property": "wikidata_value",
+                        "type": "string"
+                    },
+                    {
+                        "property": "external_value",
+                        "type": "string"
+                    },
+                    {
+                        "property": "external_url",
+                        "type": "string"
+                    },
+                    {
+                        "property": "import",
+                        "type": "object"
+                    },
+                    {
+                        "property": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    {
+                        "$ref": "#/components/schemas/FillableMismatch"
+                    }
+                ]
             },
             "User": {
                 "properties": {

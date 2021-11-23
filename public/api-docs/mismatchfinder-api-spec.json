@@ -91,6 +91,17 @@
                     "name": "ListOfMismatchess"
                 }
             },
+            "FailedImportMeta": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ImportMeta"
+                    },
+                    {
+                        "property": "error",
+                        "type": "string"
+                    }
+                ]
+            },
             "FillableMismatch": {
                 "properties": {
                     "review_status": {

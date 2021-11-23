@@ -153,6 +153,41 @@ class ImportController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\ImportMeta  $import
+     *
+     *
+     *   @OA\Get(
+     *       path="/imports/{import_id}",
+     *       operationId="getImportById",
+     *       tags={"store"},
+     *       summary="Get meta information on a single mismatch import.",
+     *       @OA\Parameter(
+     *          name="importId",
+     *          description="The ID of the Import to show",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *       ),
+     *       @OA\Response(
+     *          response=200,
+     *          description="Meta information on a mismatch import",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  oneOf={
+     *                      @OA\Schema(ref="#/components/schemas/ImportMeta"),
+     *                      @OA\Schema(ref="#/components/schemas/FailedImportMeta")
+     *                  }
+     *              )
+     *          ),
+     *       ),
+     *       @OA\Response(
+     *           response=404,
+     *           description="Not Found",
+     *           @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *       )
+     *   )
      */
     public function show(ImportMeta $import): JsonResource
     {

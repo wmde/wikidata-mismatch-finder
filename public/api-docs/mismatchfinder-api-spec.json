@@ -103,6 +103,56 @@
                 }
             }
         },
+        "/imports/{import_id}": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Get meta information on a single mismatch import.",
+                "description": "Display the specified resource.",
+                "operationId": "getImportById",
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "description": "The ID of the Import to show",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Meta information on a mismatch import",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ImportMeta"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/FailedImportMeta"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/mismatches/": {
             "get": {
                 "tags": [

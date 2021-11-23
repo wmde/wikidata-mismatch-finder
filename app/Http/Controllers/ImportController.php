@@ -30,6 +30,63 @@ class ImportController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
+     *
+     *   @OA\Post(
+     *       path="/imports/",
+     *       operationId="postImport",
+     *       tags={"store"},
+     *       summary="Upload a mismatch file to import",
+     *       @OA\RequestBody(
+     *           description="CSV file upload",
+     *           @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"mismatch_file"},
+     *                 @OA\Property(
+     *                     property="mismatch_file",
+     *                     type="string",
+     *                     format="binary"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     maxLength=350
+     *                 ),
+     *                 @OA\Property(
+     *                     property="external_source",
+     *                     type="string",
+     *                     maxLength=100
+     *                 ),
+     *                 @OA\Property(
+     *                     property="external_source_url",
+     *                     type="string",
+     *                     maxLength=1500
+     *                 ),
+     *                 @OA\Property(
+     *                     property="expires",
+     *                     type="string",
+     *                     format="date"
+     *                 ),
+     *             )
+     *           )
+     *       ),
+     *       @OA\Response(
+     *          response=201,
+     *          description="Upload successful, import resource created",
+     *          @OA\JsonContent(ref="#/components/schemas/Mismatch")
+     *       ),
+     *       @OA\Response(
+     *           response=400,
+     *           description="Validation errors",
+     *           ref="#/components/schemas/ClientError"
+     *       ),
+     *       @OA\Response(
+     *           response=422,
+     *           description="Validation errors",
+     *           ref="#/components/schemas/ValidationErrors"
+     *       )
+     *   )
      */
     public function store(Request $request): JsonResource
     {
@@ -103,26 +160,26 @@ class ImportController extends Controller
     }
 
     /**
-    *   Display the list of imports (latest 10)
-    *
-    *
-    *   @OA\Get(
-    *       path="/imports/",
-    *       operationId="getImportsList",
-    *       tags={"store"},
-    *       summary="Get meta information on all mismatch imports",
-    *       @OA\Response(
-    *          response=200,
-    *          description="Meta information on mismatch imports",
-    *          @OA\JsonContent(ref="#/components/schemas/ListOfImportMeta")
-    *       ),
-    *       @OA\Response(
-    *           response=500,
-    *           description="Unexpected Error",
-    *           @OA\JsonContent(ref="#/components/schemas/UnexpectedError")
-    *       )
-    *   )
-    */
+     *   Display the list of imports (latest 10)
+     *
+     *
+     *   @OA\Get(
+     *       path="/imports/",
+     *       operationId="getImportsList",
+     *       tags={"store"},
+     *       summary="Get meta information on all mismatch imports",
+     *       @OA\Response(
+     *          response=200,
+     *          description="Meta information on mismatch imports",
+     *          @OA\JsonContent(ref="#/components/schemas/ListOfImportMeta")
+     *       ),
+     *       @OA\Response(
+     *           response=500,
+     *           description="Unexpected Error",
+     *           @OA\JsonContent(ref="#/components/schemas/UnexpectedError")
+     *       )
+     *   )
+     */
     public function index()
     {
         return ImportMetaResource::collection(ImportMeta::orderByDesc('id')->take(10)->get());

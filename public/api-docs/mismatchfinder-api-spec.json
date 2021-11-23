@@ -40,6 +40,67 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Upload a mismatch file to import",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "postImport",
+                "requestBody": {
+                    "description": "CSV file upload",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "mismatch_file"
+                                ],
+                                "properties": {
+                                    "mismatch_file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "maxLength": 350
+                                    },
+                                    "external_source": {
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "external_source_url": {
+                                        "type": "string",
+                                        "maxLength": 1500
+                                    },
+                                    "expires": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Upload successful, import resource created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mismatch"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/schemas/ClientError"
+                    },
+                    "422": {
+                        "$ref": "#/components/schemas/ValidationErrors"
+                    }
+                }
             }
         },
         "/mismatches/": {

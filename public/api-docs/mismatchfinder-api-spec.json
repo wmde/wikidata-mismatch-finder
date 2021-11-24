@@ -359,44 +359,40 @@
             "Mismatch": {
                 "allOf": [
                     {
-                        "property": "id",
-                        "type": "string"
-                    },
-                    {
-                        "property": "item_id",
-                        "type": "string"
-                    },
-                    {
-                        "property": "statement_guid",
-                        "type": "string"
-                    },
-                    {
-                        "property": "property_id",
-                        "type": "string"
-                    },
-                    {
-                        "property": "wikidata_value",
-                        "type": "string"
-                    },
-                    {
-                        "property": "external_value",
-                        "type": "string"
-                    },
-                    {
-                        "property": "external_url",
-                        "type": "string"
-                    },
-                    {
-                        "property": "import",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "item_id": {
+                                "type": "string"
+                            },
+                            "statement_guid": {
+                                "type": "string"
+                            },
+                            "property_id": {
+                                "type": "string"
+                            },
+                            "wikidata_value": {
+                                "type": "string"
+                            },
+                            "external_value": {
+                                "type": "string"
+                            },
+                            "external_url": {
+                                "type": "string"
+                            },
+                            "import": {
+                                "$ref": "#/components/schemas/ImportMeta"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "reviewer": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        },
                         "type": "object"
-                    },
-                    {
-                        "property": "updated_at",
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    {
-                        "$ref": "#/components/schemas/User"
                     },
                     {
                         "$ref": "#/components/schemas/FillableMismatch"

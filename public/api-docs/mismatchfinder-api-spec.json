@@ -273,11 +273,15 @@
             "FailedImportMeta": {
                 "allOf": [
                     {
-                        "$ref": "#/components/schemas/ImportMeta"
+                        "properties": {
+                            "error": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
                     },
                     {
-                        "property": "error",
-                        "type": "string"
+                        "$ref": "#/components/schemas/ImportMeta"
                     }
                 ]
             },

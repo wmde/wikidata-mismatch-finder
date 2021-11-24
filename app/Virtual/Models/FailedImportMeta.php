@@ -5,10 +5,15 @@
  *      schema="FailedImportMeta",
  *      allOf={
  *          @OA\Schema(ref="#/components/schemas/ImportMeta"),
- *          @OA\Property(
- *              property="error",
- *              type="string"
+ *          @OA\Schema(
+ *              type="object",
+ *              properties={
+ *                  @OA\Property(
+ *                      property="error",
+ *                      type="string"
+ *                  )
+ *              }
  *          )
- *      }
+ *     }
  * )
  */

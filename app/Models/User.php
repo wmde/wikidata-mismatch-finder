@@ -10,6 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    /**
+     * @OA\Schema(
+     *      schema="User",
+     *      @OA\Property(property="id",type="number"),
+     *      @OA\Property(property="username",type="string"),
+     *      @OA\Property(property="mw_userid",type="number")
+     * )
+     **/
     use HasFactory, Notifiable, HasApiTokens;
 
     /**

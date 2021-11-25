@@ -270,36 +270,6 @@
     },
     "components": {
         "schemas": {
-            "FailedImportMeta": {
-                "allOf": [
-                    {
-                        "properties": {
-                            "error": {
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/components/schemas/ImportMeta"
-                    }
-                ]
-            },
-            "FillableMismatch": {
-                "properties": {
-                    "review_status": {
-                        "type": "string",
-                        "enum": [
-                            "pending",
-                            "wikidata",
-                            "external",
-                            "both",
-                            "none"
-                        ]
-                    }
-                },
-                "type": "object"
-            },
             "ImportMeta": {
                 "properties": {
                     "id": {
@@ -327,35 +297,6 @@
                     },
                     "uploader": {
                         "$ref": "#/components/schemas/User"
-                    }
-                },
-                "type": "object"
-            },
-            "ListOfImportMeta": {
-                "properties": {
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "$ref": "#/components/schemas/ImportMeta"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/FailedImportMeta"
-                                }
-                            ]
-                        }
-                    }
-                },
-                "type": "object"
-            },
-            "ListOfMismatches": {
-                "properties": {
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Mismatch"
-                        }
                     }
                 },
                 "type": "object"
@@ -413,6 +354,65 @@
                     },
                     "mw_userid": {
                         "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "FailedImportMeta": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "error": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/ImportMeta"
+                    }
+                ]
+            },
+            "FillableMismatch": {
+                "properties": {
+                    "review_status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "wikidata",
+                            "external",
+                            "both",
+                            "none"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "ListOfImportMeta": {
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/ImportMeta"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/FailedImportMeta"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ListOfMismatches": {
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Mismatch"
+                        }
                     }
                 },
                 "type": "object"

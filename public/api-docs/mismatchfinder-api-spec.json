@@ -220,7 +220,6 @@
                     "store"
                 ],
                 "summary": "Update Mismatch review status",
-                "description": "Update review_status of the resource.",
                 "operationId": "putMismatch",
                 "parameters": [
                     {

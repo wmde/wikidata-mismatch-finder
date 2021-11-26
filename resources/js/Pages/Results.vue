@@ -46,8 +46,8 @@
                 {{ $i18n('results-page-description') }}
             </p>
         </section>
-        <section id="error-section" v-if="unexpectedError">
-            <Message type="error">{{ $i18n('server-error') }}</Message>
+        <section id="error-section" v-if="unexpectedError || requestError">
+            <Message type="error" class="generic-error">{{ $i18n('server-error') }}</Message>
         </section>
         <section id="message-section">
             <Message type="notice" v-if="notFoundItemIds.length">
@@ -159,7 +159,8 @@
     interface ResultsState {
         decisions: DecisionMap,
         disableConfirmation: boolean,
-        pageDirection: string
+        pageDirection: string,
+        requestError: boolean
     }
 
     export default defineComponent({
@@ -226,7 +227,8 @@
             return {
                 decisions: {},
                 disableConfirmation: false,
-                pageDirection: 'ltr'
+                pageDirection: 'ltr',
+                requestError: false
             }
         },
         methods: {
@@ -277,6 +279,7 @@
                         confirmationDialog.show();
                     }
                 } catch(e) {
+                    this.requestError = true;
                     console.error("saving review decisions has failed", e);
                 }
             },

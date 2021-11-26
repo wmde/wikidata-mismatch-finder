@@ -277,4 +277,26 @@ class ResultsTest extends DuskTestCase
                 ->assertVue('checked', false, '@disable-confirmation');
         });
     }
+
+    public function test_shows_message_when_submitting_review_status_for_deleted_item(){
+        $import = ImportMeta::factory()
+            ->for(User::factory()->uploader())
+            ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $results = $browser->loginAs(User::factory()->create())->visit(new ResultsPage($mismatch->item_id));
+
+            $mismatch->delete();
+
+            $results->decideAndApply($mismatch, [
+                'option' => 2,
+                'label' => 'Mismatch on external data source'
+            ])->waitFor('@error-section', 500)
+                ->assertVisible('.generic-error');
+        });
+    }
 }

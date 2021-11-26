@@ -278,7 +278,8 @@ class ResultsTest extends DuskTestCase
         });
     }
 
-    public function test_shows_message_when_submitting_review_status_for_deleted_item(){
+    public function test_shows_message_when_submitting_review_status_for_deleted_item()
+    {
         $import = ImportMeta::factory()
             ->for(User::factory()->uploader())
             ->create();

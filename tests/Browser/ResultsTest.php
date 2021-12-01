@@ -173,6 +173,40 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_allow_reset_of_review_status_to_pending()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->state(['statement_guid' => 'Q1$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0'])
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->decideAndApply($mismatch, [
+                    'option' => 3,
+                    'label' => 'Wrong data on external source'
+                ])
+                ->waitFor('@confirmation-dialog')
+                ->assertSee('Next steps')
+                ->press('Proceed')
+                ->waitUntilMissing('@confirmation-dialog')
+                ->decideAndApply($mismatch, [
+                    'option' => 1,
+                    'label' => 'Awaiting Review'
+                ])
+                //load the page again
+                ->refresh()
+                // the review status has been reset to 'pending' and thus
+                // the mismatch is still displayed when refreshing the results
+                ->assertSeeIn('#results', 'Q1');
+        });
+    }
+
     public function test_new_review_status_submit_prompts_confirmation_dialog()
     {
         $import = ImportMeta::factory()

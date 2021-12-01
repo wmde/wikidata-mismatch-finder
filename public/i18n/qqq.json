@@ -46,6 +46,7 @@
     "instructions-dialog-title": "The title of the instructions dialog",
     "instructions-dialog-message-upload-info-description": "Short description of the 'Upload Info' column",
     "instructions-dialog-message-intro": "Short text to segue into the instructions",
+    "instructions-dialog-message-instruction-pending": "Instruction when to choose the review status 'pending'",
     "instructions-dialog-message-instruction-wikidata": "Instruction when to choose the review status 'wikidata'",
     "instructions-dialog-message-instruction-external": "Instruction when to choose the review status 'external source'",
     "instructions-dialog-message-instruction-both": "Instruction when to choose the review status 'both'",

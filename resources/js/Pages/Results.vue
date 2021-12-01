@@ -40,6 +40,7 @@
                     <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-pending') }}</li>
                 </ul>
             </wikit-dialog>
             <p id="about-description" >

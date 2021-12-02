@@ -162,7 +162,7 @@ class ResultsTest extends DuskTestCase
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 2,
-                    'label' => 'Mismatch on external data source'
+                    'label' => 'Wrong data on external source'
                 ])
                 //load the page again
                 ->refresh()
@@ -189,7 +189,7 @@ class ResultsTest extends DuskTestCase
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 2,
-                    'label' => 'Mismatch on external data source'
+                    'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
                 ->assertSee('Next steps')
@@ -215,7 +215,7 @@ class ResultsTest extends DuskTestCase
                 ->visit(new ResultsPage($mismatches->implode('item_id', '|')))
                 ->decideAndApply($mismatches[0], [
                     'option' => 2,
-                    'label' => 'Mismatch on external data source'
+                    'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
@@ -228,14 +228,14 @@ class ResultsTest extends DuskTestCase
                 ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatches[0], [
                     'option' => 1,
-                    'label' => 'Mismatch on Wikidata'
+                    'label' => 'Wrong data on Wikidata'
                 ])
                 ->pause(self::ANIMATION_WAIT_MS)
                 ->assertMissing('@confirmation-dialog')
                 ->refresh()
                 ->decideAndApply($mismatches[1], [
                     'option' => 2,
-                    'label' => 'Mismatch on external data source'
+                    'label' => 'Wrong data on external source'
                 ])
                 ->pause(self::ANIMATION_WAIT_MS)
                 ->assertMissing('@confirmation-dialog');
@@ -258,7 +258,7 @@ class ResultsTest extends DuskTestCase
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 2,
-                    'label' => 'Mismatch on external data source'
+                    'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
@@ -270,7 +270,7 @@ class ResultsTest extends DuskTestCase
                 ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatch, [
                     'option' => 1,
-                    'label' => 'Mismatch on Wikidata'
+                    'label' => 'Wrong data on Wikidata'
                 ])
                 ->pause(self::ANIMATION_WAIT_MS)
                 ->assertVisible('@confirmation-dialog')
@@ -295,7 +295,7 @@ class ResultsTest extends DuskTestCase
 
             $results->decideAndApply($mismatch, [
                 'option' => 2,
-                'label' => 'Mismatch on external data source'
+                'label' => 'Wrong data on external source'
             ])->waitFor('@error-section', 500)
                 ->assertVisible('.generic-error');
         });

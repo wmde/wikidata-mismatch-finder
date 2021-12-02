@@ -79,23 +79,27 @@
                         :disabled="!user"
                         @decision="recordDecision"
                     />
-                    <Message type="success" v-if="lastSubmitted === item">
-                        <span>{{ $i18n('changes-submitted-message') }}</span>
-                        <span class="message-link">
-                            <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
-                                {{labels[item]}} ({{item}})
-                            </wikit-link>
-                        </span>
-                    </Message>
-                    <div class="form-buttons">
-                        <wikit-button
-                            :disabled="!user"
-                            variant="primary"
-                            type="progressive"
-                            native-type="submit"
-                        >
-                            {{ $i18n('result-form-submit') }}
-                        </wikit-button>
+                    <div class="form-footer">
+                        <div class="form-success-message">
+                            <Message type="success" v-if="lastSubmitted === item">
+                                <span>{{ $i18n('changes-submitted-message') }}</span>
+                                <span class="message-link">
+                                    <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                                        {{labels[item]}} ({{item}})
+                                    </wikit-link>
+                                </span>
+                            </Message>
+                        </div>
+                        <div class="form-buttons">
+                            <wikit-button
+                                :disabled="!user"
+                                variant="primary"
+                                type="progressive"
+                                native-type="submit"
+                            >
+                                {{ $i18n('result-form-submit') }}
+                            </wikit-button>
+                        </div>
                     </div>
                 </form>
             </section>
@@ -350,8 +354,22 @@ h2 {
     }
 }
 
-.form-buttons {
-    text-align: end;
-    margin-top: $dimension-layout-xsmall;
+.form-footer {
+    padding-top: $dimension-layout-xsmall;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 4.75em;
+
+    .form-success-message {
+        width: 100%;
+        max-width: 705px;
+        margin-inline-end: $dimension-layout-xsmall;
+    }
+
+    .form-buttons {
+        text-align: end;
+    }
 }
+
 </style>

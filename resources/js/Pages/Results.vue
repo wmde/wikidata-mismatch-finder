@@ -79,6 +79,14 @@
                         :disabled="!user"
                         @decision="recordDecision"
                     />
+                    <Message type="success" v-if="lastSubmitted === item">
+                        <span>{{ $i18n('changes-submitted-message') }}</span>
+                        <span class="message-link">
+                            <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                                {{labels[item]}} ({{item}})
+                            </wikit-link>
+                        </span>
+                    </Message>
                     <div class="form-buttons">
                         <wikit-button
                             :disabled="!user"
@@ -161,7 +169,8 @@
         decisions: DecisionMap,
         disableConfirmation: boolean,
         pageDirection: string,
-        requestError: boolean
+        requestError: boolean,
+        lastSubmitted: string
     }
 
     export default defineComponent({
@@ -229,7 +238,8 @@
                 decisions: {},
                 disableConfirmation: false,
                 pageDirection: 'ltr',
-                requestError: false
+                requestError: false,
+                lastSubmitted: ''
             }
         },
         methods: {
@@ -260,6 +270,8 @@
                     return;
                 }
 
+                this.clearSubmitConfirmation();
+
                 // Casting to `any` since TS cannot understand $refs as
                 // component instances and complains about the usage of `show`
                 // See: https://github.com/vuejs/vue-class-component/issues/94
@@ -272,6 +284,8 @@
                 try {
                     await axios.put('/mismatch-review', this.decisions[item]);
 
+                    this.showSubmitConfirmation(item);
+
                     // remove decision from this.decisions after it has been
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
@@ -283,6 +297,12 @@
                     this.requestError = true;
                     console.error("saving review decisions has failed", e);
                 }
+            },
+            clearSubmitConfirmation() {
+                this.lastSubmitted = '';
+            },
+            showSubmitConfirmation( item: string ) {
+                this.lastSubmitted = item;
             },
             // Anotating dialog as `any` since typescript doesn't fully
             // understand component instances and complains about usage of the

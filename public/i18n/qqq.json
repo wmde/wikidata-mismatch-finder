@@ -30,6 +30,7 @@
     "review-status-both": "Label that indicates that the data mismatch is on both sources. Used as an option in the in review decision dropdown",
     "review-status-none": "Label that indicates that the data mismatch is not on any source. Used as an option in the in review decision dropdown",
     "result-form-submit": "The call to action on the Results Item Mismatches Table button",
+    "changes-submitted-message": "A confirmation message for successful mismatch review submissions",
     "log-in-message": "A message to notify users to log in to make any changes",
     "results-page-description": "The description of the Results page",
     "results-page-title": "The title of the Results page",

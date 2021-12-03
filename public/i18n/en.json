@@ -49,6 +49,7 @@
     "instructions-dialog-title": "Instruction on mismatches",
     "instructions-dialog-message-upload-info-description": "In the “Upload Info” column, you can find additional information for each upload that might be valuable when investigating the mismatches. This includes the username of the person who uploaded the mismatch, the date of the upload and a short description of it.",
     "instructions-dialog-message-intro": "After investigating the mismatches, please choose one of the following status from the the drop-down:",
+    "instructions-dialog-message-instruction-pending": "Awaiting Review: use this option if you want to reset the mismatch entry to its default 'un-reviewed' state.",
     "instructions-dialog-message-instruction-wikidata": "Wrong data on Wikidata: use this option if Wikidata's data is inaccurate. Please use the link to the Wikidata statement and edit it there to correct the mismatch.",
     "instructions-dialog-message-instruction-external": "Wrong data on external source: use this option if the error lies in the external data source. When possible, please inform the data source's maintainers of the error or correct the mismatch yourself.",
     "instructions-dialog-message-instruction-both": "Both are wrong: use this option if you find there are errors on both sides. When possible, please use the link to the Wikidata statement to correct the mismatch and/or inform the data source’s maintainers of the error.",

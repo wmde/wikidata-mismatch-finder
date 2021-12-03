@@ -1,12 +1,12 @@
 export enum ReviewDecision {
+    Pending = 'pending',
     Wikidata = 'wikidata',
     External = 'external',
     Both = 'both',
     None = 'none'
 }
 
-
-type ReviewStatus = ReviewDecision | 'pending';
+type ReviewStatus = ReviewDecision;
 
 interface Mismatch {
     id: number,

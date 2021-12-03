@@ -26,7 +26,6 @@
         <td :data-header="$i18n('column-review-status')">
             <dropdown
                 :menuItems="Object.values(statusOptions)"
-                :placeholder="$i18n('review-status-pending')"
                 :disabled="disabled"
                 v-model="decision"
                 @input="$bubble('decision', {

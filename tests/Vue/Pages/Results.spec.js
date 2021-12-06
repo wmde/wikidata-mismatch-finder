@@ -230,10 +230,12 @@ describe('Results.vue', () => {
             props: { results }
         });
 
+        // first decision
         wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Wikidata} );
-        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Pending} );
+        // revert decision
+        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Pending}, true );
 
-        expect( wrapper.vm.decisions['Q321'] ).toBeFalsy();
+        expect( wrapper.vm.decisions['Q321'] ).toEqual({});
     });
 
     it('Does record and send a reverted decision, when sent in between', async () => {
@@ -266,7 +268,7 @@ describe('Results.vue', () => {
 
         // revert the same review decision back to its previous value
         const revertDecision = { id:123, item_id: 'Q321', review_status:ReviewDecision.Pending };
-        wrapper.vm.recordDecision( revertDecision );
+        wrapper.vm.recordDecision( revertDecision, true );
         expect( wrapper.vm.decisions ).toEqual( { 'Q321': { '123': revertDecision } } );
 
         // send again

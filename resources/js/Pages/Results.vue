@@ -130,6 +130,7 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
+    import isEmpty from 'lodash/isEmpty';    
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,
@@ -256,15 +257,28 @@
                     ...mismatch
                 }));
             },
-            recordDecision( decision: MismatchDecision ): void {
-                const itemDecisions = this.decisions[decision.item_id]
-                this.decisions[decision.item_id] = {
-                    ...itemDecisions,
-                    [decision.id]: decision
-                };
+            recordDecision( decision: MismatchDecision, revert: boolean ): void {
+                const itemDecisions = this.decisions[decision.item_id];
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { [decision.id] : _, ...restDecisions } = itemDecisions || {};
+
+                // remove decision when the status has not changed and record otherwise
+                this.decisions[decision.item_id] = revert
+                    ? restDecisions
+                    : { ...itemDecisions, [decision.id]: decision };
+
+                // if( revert ) {
+                //     delete itemDecisions[decision.id];
+                // } else {
+                //     this.decisions[decision.item_id] = {
+                //         ...itemDecisions,
+                //         [decision.id]: decision
+                //     };
+                // }
             },
             async send( item: string ): Promise<void> {
-                if(!this.decisions[item]){
+                
+                if( !this.decisions[item] || isEmpty(this.decisions[item]) ){
                     return;
                 }
 

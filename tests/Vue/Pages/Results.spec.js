@@ -11,7 +11,7 @@ import axios from 'axios';
 jest.mock('@inertiajs/inertia-vue', () => ({}));
 
 jest.mock("axios", () => ({
-    put: jest.fn()
+    put: jest.fn(() => Promise.resolve())
 }));
 
 describe('Results.vue', () => {
@@ -259,7 +259,7 @@ describe('Results.vue', () => {
 
     it('Doesn\'t show confirmation dialog after failed put requests', async () => {
         // Ensure a failed response (axios throws on any failed response from 400 up)
-        axios.put.mockImplementationOnce(() => { throw new Error() });
+        axios.put.mockImplementationOnce(() => Promise.reject());
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};

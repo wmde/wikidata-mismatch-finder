@@ -173,6 +173,28 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_apply_changes_button_prompts_overlay_and_progress_bar_while_submitting_results()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->decideAndApply($mismatch, [
+                    'option' => 3,
+                    'label' => 'Wrong data on external source'
+                ])
+                ->assertVisible('.overlay')
+                ->assertVisible('.progressbar');
+        });
+    }
+
     public function test_allow_reset_of_review_status_to_pending()
     {
         $import = ImportMeta::factory()

@@ -208,6 +208,34 @@ describe('Results.vue', () => {
         expect(wrapper.vm.decisions['Q321'][123]).toEqual(emitted)
     });
 
+    it('Does not record a reverted decision', () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: 'Q1986',
+                external_value: 'Another Value',
+                review_status: 'pending',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
+
+        const wrapper = mountWithMocks({
+            props: { results }
+        });
+
+        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Wikidata} );
+        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Pending} );
+
+        expect( wrapper.vm.decisions['Q321'] ).toBeFalsy();
+    });
+
     it('Sends an axios put request with the selected decisions on click of "Apply changes" button', async () => {
 
         const item_id = 'Q321';

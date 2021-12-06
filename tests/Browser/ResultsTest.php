@@ -164,6 +164,11 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
+                ->waitUntilMissing('.overlay')
+                ->waitFor('@confirmation-dialog')
+                ->assertSee('Next steps')
+                ->press('Proceed')
+                ->waitUntilMissing('@confirmation-dialog')
                 //load the page again
                 ->refresh()
                 // a 'notice' message indicates that the review status has been submitted
@@ -297,6 +302,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
+                ->waitUntilMissing('.overlay')
                 ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
@@ -340,6 +346,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
+                ->waitUntilMissing('.overlay')
                 ->waitFor('@confirmation-dialog')
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')

@@ -27,7 +27,8 @@ function createStore(): Store<{loading: boolean}>{
     const store = new Store({
         state: {
             loading: false,
-            lastSearchedIds: ''
+            lastSearchedIds: '',
+            submitting: false,
         },
         mutations: {
             startLoader (state) {
@@ -38,7 +39,10 @@ function createStore(): Store<{loading: boolean}>{
             },
             saveSearchedIds (state, searchedIds) {
                 state.lastSearchedIds = searchedIds;
-            }
+            },
+            setSubmitting (state, submitting) {
+                state.submitting = submitting;
+            },
         }
     });
 

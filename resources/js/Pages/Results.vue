@@ -174,6 +174,7 @@
         pageDirection: string,
         requestError: boolean,
         lastSubmitted: string
+        //submitting: boolean,
     }
 
     export default defineComponent({
@@ -212,7 +213,7 @@
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
-            }
+            },
         },
         mounted(){
             if(!this.$store.state.lastSearchedIds) {
@@ -243,6 +244,7 @@
                 pageDirection: 'ltr',
                 requestError: false,
                 lastSubmitted: ''
+                //submitting: true,
             }
         },
         methods: {
@@ -283,23 +285,39 @@
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const confirmationDialog = this.$refs.confirmation as any;
 
+                this.$store.commit('setSubmitting', true);
+
+                this.showSubmitConfirmation(item);
+
+                // remove decision from this.decisions after it has been
+                // sent to the server successfully, to avoid sending them twice
+                delete this.decisions[item];
+                // we can't access the body tag from inside vue, because the inertia instance
+                // is declared inside it, so we call it from the DOM directly
+                document.body.classList.add('noscroll');
+
                 // use axios in order to preserve saved mismatches
-                try {
-                    await axios.put('/mismatch-review', this.decisions[item]);
+                await axios.put('/mismatch-review', this.decisions[item])
+                    .then(response => {
+                        // remove decision from this.decisions after it has been
+                        // sent to the server successfully, to avoid sending them twice
+                        delete this.decisions[item];
 
-                    this.showSubmitConfirmation(item);
-
-                    // remove decision from this.decisions after it has been
-                    // sent to the server successfully, to avoid sending them twice
-                    delete this.decisions[item];
-
-                    if(!this.disableConfirmation){
-                        confirmationDialog.show();
-                    }
-                } catch(e) {
-                    this.requestError = true;
-                    console.error("saving review decisions has failed", e);
-                }
+                        if(!this.disableConfirmation){
+                            confirmationDialog.show();
+                        }
+                    })
+                    .catch(e => {
+                        this.requestError = true;
+                        console.error("saving review decisions has failed", e);
+                    })
+                    .finally( () => {
+                        // adding a second of delay to avoid flashing if this operation occurs too fast
+                        setTimeout(() => { 
+                            this.$store.commit('setSubmitting', false);
+                            document.body.classList.remove('noscroll');
+                        }, 1000);
+                    });
             },
             clearSubmitConfirmation() {
                 this.lastSubmitted = '';
@@ -337,6 +355,10 @@ h2 {
     .wikit-Link.wikit {
         font-weight: bold;
     }
+}
+
+.noscroll {
+    overflow: hidden;
 }
 
 .message-link {

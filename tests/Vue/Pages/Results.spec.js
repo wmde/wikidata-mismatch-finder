@@ -238,15 +238,16 @@ describe('Results.vue', () => {
     });
 
     it('Does not send a put request without any decisions', () => {
+        // clear mock object
+        axios.put = jest.fn();
+
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const inertiaPut = jest.fn();
         const wrapper = mountWithMocks({
-            mocks: { $inertia: { put: inertiaPut } },
             data: { decisions }
         });
         wrapper.vm.send( 'Q42' );
-        expect( inertiaPut ).not.toHaveBeenCalled();
+        expect( axios.put ).not.toHaveBeenCalled();
 
         //the decisions object will be untouched
         expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});

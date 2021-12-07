@@ -359,7 +359,9 @@ h2 {
     justify-content: space-between;
     align-items: flex-start;
     gap: $dimension-layout-xsmall;
-    min-height: 4.75em;
+    // calculate the footer height to reserve space for
+    // messages with two lines (1.5 line height plus padding)
+    min-height: calc(2*1.5em + 2*$dimension-spacing-large);
 
     .form-success-message {
         max-width: 705px;

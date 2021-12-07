@@ -353,7 +353,7 @@ h2 {
 }
 
 .mismatches-form-footer {
-    padding-top: $dimension-layout-xsmall;
+    margin-top: $dimension-layout-xsmall;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -79,17 +79,15 @@
                         :disabled="!user"
                         @decision="recordDecision"
                     />
-                    <div class="form-footer">
-                        <div class="form-success-message">
-                            <Message type="success" v-if="lastSubmitted === item">
-                                <span>{{ $i18n('changes-submitted-message') }}</span>
-                                <span class="message-link">
-                                    <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
-                                        {{labels[item]}} ({{item}})
-                                    </wikit-link>
-                                </span>
-                            </Message>
-                        </div>
+                    <footer class="mismatches-form-footer">
+                        <Message class="form-success-message" type="success" v-if="lastSubmitted === item">
+                            <span>{{ $i18n('changes-submitted-message') }}</span>
+                            <span class="message-link">
+                                <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                                    {{labels[item]}} ({{item}})
+                                </wikit-link>
+                            </span>
+                        </Message>
                         <div class="form-buttons">
                             <wikit-button
                                 :disabled="!user"
@@ -100,7 +98,7 @@
                                 {{ $i18n('result-form-submit') }}
                             </wikit-button>
                         </div>
-                    </div>
+                    </footer>
                 </form>
             </section>
         </section>
@@ -354,7 +352,7 @@ h2 {
     }
 }
 
-.form-footer {
+.mismatches-form-footer {
     padding-top: $dimension-layout-xsmall;
     display: flex;
     flex-direction: row;

@@ -355,19 +355,17 @@ h2 {
 .mismatches-form-footer {
     margin-top: $dimension-layout-xsmall;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: $dimension-layout-xsmall;
     min-height: 4.75em;
 
     .form-success-message {
-        width: 100%;
         max-width: 705px;
-        margin-inline-end: $dimension-layout-xsmall;
-    }
-
-    .form-buttons {
-        text-align: end;
+        flex-shrink: 0;
+        flex-grow: 1;
+        order: 1;
     }
 }
-
 </style>

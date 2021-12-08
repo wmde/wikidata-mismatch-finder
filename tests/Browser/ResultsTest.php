@@ -207,6 +207,30 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_new_review_status_submit_triggers_confirmation_success_message()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        $mismatch = Mismatch::factory()
+            ->for($import)
+            ->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch) {
+            $browser->script('localStorage.clear()');
+            $browser->loginAs(User::factory()->create())
+                ->visit(new ResultsPage($mismatch->item_id))
+                ->decideAndApply($mismatch, [
+                    'option' => 3,
+                    'label' => 'Wrong data on external source'
+                ])
+                ->waitFor('@confirmation-dialog')
+                ->assertPresent("#item-mismatches-{$mismatch->item_id} .wikit-Message--success")
+                ->assertSee('Changes successfully submitted for');
+        });
+    }
+
     public function test_new_review_status_submit_prompts_confirmation_dialog()
     {
         $import = ImportMeta::factory()

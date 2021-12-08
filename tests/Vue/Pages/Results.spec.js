@@ -45,6 +45,10 @@ describe('Results.vue', () => {
         })
     }
 
+    beforeEach(async () => {
+        axios.put = jest.fn();
+    });
+
     it('displays intro text and instructions button', () => {
         const wrapper = mountWithMocks();
 
@@ -267,4 +271,84 @@ describe('Results.vue', () => {
 
         expect(dialog.isVisible()).toBe(false);
     });
+
+    it('Displays a confirmation message after submitting a review decision', async () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: 'Q1986',
+                external_value: 'Another Value',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
+
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mountWithMocks({
+            props: { results },
+            data: { decisions }
+        });
+
+        await wrapper.vm.send( item_id );
+
+        expect(wrapper.vm.lastSubmitted).toEqual('Q321');
+        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').isVisible()).toBe(true);
+    });
+
+    it('Removes first confirmation message before submitting a second review decision', async () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: 'Q1986',
+                external_value: 'Another Value',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }],
+            'Q987': [{
+                id: 654,
+                item_id: 'Q987',
+                property_id: 'p789',
+                property_label: 'some property',
+                wikidata_value: 'Some value',
+                value_label: null,
+                external_value: 'Another Value',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
+
+        const lastSubmitted = 'Q321';
+        const item_id = 'Q987';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mountWithMocks({
+            props: { results },
+            data: { decisions, lastSubmitted}
+        });
+
+        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').isVisible()).toBe(true);
+
+        await wrapper.vm.send( item_id );
+
+        expect(wrapper.vm.lastSubmitted).toEqual('Q987');
+        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').exists()).toBe(false);
+        expect(wrapper.find('#item-mismatches-Q987 .wikit-Message--success').isVisible()).toBe(true);
+    });
+
 })

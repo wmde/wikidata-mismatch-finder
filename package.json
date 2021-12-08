@@ -44,7 +44,7 @@
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-vue": "^0.7.2",
         "@wmde/wikit-tokens": "^2.1.0-alpha.8",
-        "@wmde/wikit-vue-components": "^2.1.0-alpha.7",
+        "@wmde/wikit-vue-components": "^2.1.0-alpha.8",
         "date-fns": "^2.27.0",
         "lodash": "^4.17.21",
         "ress": "^4.0.0",

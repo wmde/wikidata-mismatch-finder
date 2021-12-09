@@ -134,9 +134,10 @@
         Link as WikitLink,
         Button as WikitButton,
         Checkbox,
+        Dialog as WikitDialog,
         Icon,
         Message } from '@wmde/wikit-vue-components';
-    import WikitDialog from '../Components/Dialog.vue';
+
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';

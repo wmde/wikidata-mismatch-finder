@@ -265,8 +265,12 @@
 <script lang="ts">
     import { Head } from '@inertiajs/inertia-vue'
     import defineComponent from '../types/defineComponent';
-    import WikitDialog from '../Components/Dialog.vue';
-    import { Button as WikitButton, Checkbox as WikitCheckbox } from '@wmde/wikit-vue-components';
+
+    import {
+        Button as WikitButton,
+        Checkbox as WikitCheckbox,
+        Dialog as WikitDialog
+    } from '@wmde/wikit-vue-components';
 
     export default defineComponent({
         components: {

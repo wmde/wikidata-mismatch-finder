@@ -96,9 +96,13 @@
 import { formatISO } from 'date-fns';
 
 import Vue, { PropType } from 'vue';
-import { Button as WikitButton, Dropdown, Link as WikitLink } from '@wmde/wikit-vue-components';
+import {
+    Button as WikitButton,
+    Dialog as WikitDialog,
+    Dropdown,
+    Link as WikitLink
+} from '@wmde/wikit-vue-components';
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
-import WikitDialog from '../Components/Dialog.vue';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
 
@@ -146,7 +150,7 @@ export default Vue.extend({
       },
       uploadInfoDescription(): string {
         const text = this.mismatch.import_meta.description;
-        return this.shouldTruncate ? 
+        return this.shouldTruncate ?
           text.substring(0, truncateLength) + '...' : text;
       }
   },
@@ -174,7 +178,7 @@ export default Vue.extend({
       /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
       const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
       descriptionDialog.show();
-    } 
+    }
   }
 });
 </script>

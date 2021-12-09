@@ -312,7 +312,7 @@
                             confirmationDialog.show();
                         // the transition between the loading state 
                         // and the dialog looks better with a small delay between them    
-                        }, LOADING_DELAY_TIME + 100)};
+                        }, LOADING_DELAY_TIME + 100)}
 
                 } catch(e) {
                     this.requestError = true;

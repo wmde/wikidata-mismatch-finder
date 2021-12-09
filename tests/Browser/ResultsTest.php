@@ -164,8 +164,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
-                ->waitUntilMissing('.overlay')
-                ->waitFor('@confirmation-dialog')
+                ->waitFor('@confirmation-dialog', 10)
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -218,7 +217,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
-                ->waitFor('@confirmation-dialog')
+                ->waitFor('@confirmation-dialog', 10)
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -276,7 +275,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
-                ->waitFor('@confirmation-dialog')
+                ->waitFor('@confirmation-dialog', 10)
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -302,8 +301,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
-                ->waitUntilMissing('.overlay')
-                ->waitFor('@confirmation-dialog')
+                ->waitFor('@confirmation-dialog', 10)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
@@ -346,8 +344,7 @@ class ResultsTest extends DuskTestCase
                     'option' => 3,
                     'label' => 'Wrong data on external source'
                 ])
-                ->waitUntilMissing('.overlay')
-                ->waitFor('@confirmation-dialog')
+                ->waitFor('@confirmation-dialog', 10)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')

@@ -179,7 +179,7 @@
         submitting: boolean
     }
 
-    const LOADING_DELAY_TIME = 1000;
+    const SUBMITTING_DELAY_TIME = 1000;
 
     export default defineComponent({
         components: {
@@ -312,7 +312,7 @@
                             confirmationDialog.show();
                         // the transition between the loading state 
                         // and the dialog looks better with a small delay between them    
-                        }, LOADING_DELAY_TIME + 100)}
+                        }, SUBMITTING_DELAY_TIME + 100)}
 
                 } catch(e) {
                     this.requestError = true;
@@ -324,7 +324,7 @@
                 setTimeout(() => { 
                     this.submitting = false;
                     document.body.classList.remove('noscroll');
-                }, LOADING_DELAY_TIME);
+                }, SUBMITTING_DELAY_TIME);
             },
             clearSubmitConfirmation() {
                 this.lastSubmitted = '';

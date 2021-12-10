@@ -6,12 +6,14 @@ import MismatchesTable from '@/Components/MismatchesTable.vue';
 import { ReviewDecision } from '@/types/Mismatch.ts';
 import axios from 'axios';
 
+const SUBMITTING_DELAY_TIME = 1000;
+
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
 jest.mock('@inertiajs/inertia-vue', () => ({}));
 
 jest.mock("axios", () => ({
-    put: jest.fn(() => Promise.resolve())
+    put: jest.fn()
 }));
 
 describe('Results.vue', () => {
@@ -218,10 +220,14 @@ describe('Results.vue', () => {
 
         const decisionsBeforeDelete = decisions[item_id];
         await wrapper.vm.send( item_id );
-        expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
+        setTimeout(() => {
+            expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
 
-        //the decisions object will be empty after sending the put request on one item
-        expect(wrapper.vm.decisions).toEqual({});
+            //the decisions object will be empty after sending the put request on one item
+            expect(wrapper.vm.decisions).toEqual({});
+
+        }, SUBMITTING_DELAY_TIME );
+        
 
     });
 
@@ -237,8 +243,11 @@ describe('Results.vue', () => {
 
         await wrapper.vm.send( item_id );
 
-        //the decisions object will remain untouched after the failed put request
-        expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
+        setTimeout(() => {
+            //the decisions object will remain untouched after the failed put request
+            expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
+        }, SUBMITTING_DELAY_TIME );
+        
     });
 
     it('Does not send a put request without any decisions', () => {
@@ -259,7 +268,7 @@ describe('Results.vue', () => {
 
     it('Doesn\'t show confirmation dialog after failed put requests', async () => {
         // Ensure a failed response (axios throws on any failed response from 400 up)
-        axios.put.mockImplementationOnce(() => Promise.reject());
+        axios.put.mockImplementationOnce(() => { throw new Error() });
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};

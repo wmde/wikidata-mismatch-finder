@@ -98,12 +98,12 @@
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
+        Dialog as WikitDialog,
         Icon,
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
 
-    import WikitDialog from '../Components/Dialog.vue';
     import defineComponent from '../types/defineComponent';
 
     interface HomeState {

@@ -32,6 +32,22 @@ class WebResultsRouteTest extends TestCase
             });
     }
 
+    public function test_results_page_has_user()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get(route('results', [
+            'ids' => 'Q1|Q2'
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertViewIs('app')
+            ->assertInertia(function (Assert $page) use ($user) {
+                $page->component('Results')
+                    ->where('user.id', $user->mw_userid)
+                    ->where('user.name', $user->username);
+            });
+    }
+
     /**
      * Test that the /results response contains mismatch data
      *

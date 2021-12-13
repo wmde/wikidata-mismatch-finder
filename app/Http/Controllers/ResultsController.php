@@ -28,7 +28,8 @@ class ResultsController extends Controller
     public function index(MismatchGetRequest $request, WikibaseAPIClient $wikidata): Response
     {
         $user = Auth::user() ? [
-            'name' => Auth::user()->username
+            'name' => Auth::user()->username,
+            'id' => Auth::user()->mw_userid
         ] : null;
 
         $itemIds = $request->input('ids');

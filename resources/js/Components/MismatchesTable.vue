@@ -45,8 +45,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-    .column-review-status {
-        // Ensures that the dropdowns are evenly wide
-        width: 25%;
-    }
+    .column-property { width: 12.5%; }
+    .column-wikidata-value { width: 12.5%; }
+    .column-external-value { width: 13.5%; }
+    .column-review-status { width: 25%; }
+    .column-external-source { width: 11.5%; }
+    .column-upload-info { width: 25%; }
 </style>

@@ -179,7 +179,7 @@
         submitting: boolean
     }
 
-    const SUBMITTING_DELAY_TIME = 1000;
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     export default defineComponent({
         components: {
@@ -281,6 +281,11 @@
 
                 this.clearSubmitConfirmation();
 
+                this.submitting = true;
+                // we can't access the body tag from inside vue, because the inertia instance
+                // is declared inside it, so we call it from the DOM directly
+                document.body.classList.add('noscroll');
+
                 // Casting to `any` since TS cannot understand $refs as
                 // component instances and complains about the usage of `show`
                 // See: https://github.com/vuejs/vue-class-component/issues/94
@@ -289,42 +294,35 @@
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const confirmationDialog = this.$refs.confirmation as any;
 
-                this.submitting = true;
-
-                this.showSubmitConfirmation(item);
-
-                // remove decision from this.decisions after it has been
-                // sent to the server successfully, to avoid sending them twice
-                delete this.decisions[item];
-                // we can't access the body tag from inside vue, because the inertia instance
-                // is declared inside it, so we call it from the DOM directly
-                document.body.classList.add('noscroll');
-
                 // use axios in order to preserve saved mismatches
                 try {
                     await axios.put('/mismatch-review', this.decisions[item]);
+
                     // remove decision from this.decisions after it has been
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
 
-                    if(!this.disableConfirmation){
-                        setTimeout(() => { 
-                            confirmationDialog.show();
-                        // the transition between the loading state 
-                        // and the dialog looks better with a small delay between them    
-                        }, SUBMITTING_DELAY_TIME + 100)}
+                    // adding this delay because when the response from the request happens
+                    // too fast the overlay and progressbar flash
+                    await delay(250);
+                    this.submitting = false;
+                    document.body.classList.remove('noscroll');
 
+                    this.showSubmitConfirmation(item);
+
+                    if(!this.disableConfirmation){
+                        confirmationDialog.show();
+                    }
                 } catch(e) {
                     this.requestError = true;
                     console.error("saving review decisions has failed", e);
-                }
 
-                // adding this delay because when the response from the request happens 
-                // too fast the overlay and progressbar flash
-                setTimeout(() => { 
+                    // adding this delay because when the response from the request happens
+                    // too fast the overlay and progressbar flash
+                    await delay(250);
                     this.submitting = false;
                     document.body.classList.remove('noscroll');
-                }, SUBMITTING_DELAY_TIME);
+                }
             },
             clearSubmitConfirmation() {
                 this.lastSubmitted = '';
@@ -392,7 +390,7 @@ h2 {
     // For a proof of concept on how this can include also determinate loading, see:
     // https://codepen.io/xumium/pen/LYLZbva?editors=1100
     // We ensure semantic usage by only targeting generic elements that set the
-    // correct role 
+    // correct role
     &[role=progressbar] {
         position: fixed;
         top: 0;
@@ -410,7 +408,7 @@ h2 {
             background: $wikit-Progress-inline-background-color;
         }
 
-        // Indeterminate progress bars should not set the `aria-valuenow` 
+        // Indeterminate progress bars should not set the `aria-valuenow`
         // attribute
         &:not([aria-valuenow])::before {
             width: 30%;

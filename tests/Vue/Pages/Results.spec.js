@@ -6,8 +6,6 @@ import MismatchesTable from '@/Components/MismatchesTable.vue';
 import { ReviewDecision } from '@/types/Mismatch.ts';
 import axios from 'axios';
 
-const SUBMITTING_DELAY_TIME = 1000;
-
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
 jest.mock('@inertiajs/inertia-vue', () => ({}));
@@ -220,14 +218,10 @@ describe('Results.vue', () => {
 
         const decisionsBeforeDelete = decisions[item_id];
         await wrapper.vm.send( item_id );
-        setTimeout(() => {
-            expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
+        expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
 
-            //the decisions object will be empty after sending the put request on one item
-            expect(wrapper.vm.decisions).toEqual({});
-
-        }, SUBMITTING_DELAY_TIME );
-        
+        //the decisions object will be empty after sending the put request on one item
+        expect(wrapper.vm.decisions).toEqual({});
 
     });
 
@@ -243,11 +237,8 @@ describe('Results.vue', () => {
 
         await wrapper.vm.send( item_id );
 
-        setTimeout(() => {
-            //the decisions object will remain untouched after the failed put request
-            expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
-        }, SUBMITTING_DELAY_TIME );
-        
+        //the decisions object will remain untouched after the failed put request
+        expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
     });
 
     it('Does not send a put request without any decisions', () => {

@@ -179,6 +179,8 @@
         submitting: boolean
     }
 
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
     export default defineComponent({
         components: {
             Head,
@@ -296,32 +298,30 @@
                 try {
                     await axios.put('/mismatch-review', this.decisions[item]);
 
-                    this.showSubmitConfirmation(item);
-
                     // remove decision from this.decisions after it has been
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
 
                     // adding this delay because when the response from the request happens
                     // too fast the overlay and progressbar flash
-                    setTimeout(() => {
-                        this.submitting = false;
-                        document.body.classList.remove('noscroll');
+                    await delay(250);
+                    this.submitting = false;
+                    document.body.classList.remove('noscroll');
 
-                        if(!this.disableConfirmation){
-                            confirmationDialog.show();
-                        }
-                    }, 250);
+                    this.showSubmitConfirmation(item);
+
+                    if(!this.disableConfirmation){
+                        confirmationDialog.show();
+                    }
                 } catch(e) {
                     this.requestError = true;
                     console.error("saving review decisions has failed", e);
 
                     // adding this delay because when the response from the request happens
                     // too fast the overlay and progressbar flash
-                    setTimeout(() => {
-                        this.submitting = false;
-                        document.body.classList.remove('noscroll');
-                    }, 250);
+                    await delay(250);
+                    this.submitting = false;
+                    document.body.classList.remove('noscroll');
                 }
             },
             clearSubmitConfirmation() {

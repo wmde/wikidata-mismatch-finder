@@ -1,7 +1,6 @@
 <template>
     <div class="page-container results-page">
-        <div class="progressbar" v-if="submitting" role="progressbar" />
-        <div class="overlay" v-if="submitting" />
+        <loading-overlay ref="overlay" />
         <Head title="Mismatch Finder - Results" />
         <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
             <template #prefix>
@@ -140,6 +139,7 @@
         Icon,
         Message } from '@wmde/wikit-vue-components';
 
+    import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
@@ -175,16 +175,14 @@
         disableConfirmation: boolean,
         pageDirection: string,
         requestError: boolean,
-        lastSubmitted: string,
-        submitting: boolean
+        lastSubmitted: string
     }
-
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     export default defineComponent({
         components: {
             Head,
             Icon,
+            LoadingOverlay,
             MismatchesTable,
             WikitLink,
             WikitButton,
@@ -247,8 +245,7 @@
                 disableConfirmation: false,
                 pageDirection: 'ltr',
                 requestError: false,
-                lastSubmitted: '',
-                submitting: false
+                lastSubmitted: ''
             }
         },
         methods: {
@@ -281,11 +278,6 @@
 
                 this.clearSubmitConfirmation();
 
-                this.submitting = true;
-                // we can't access the body tag from inside vue, because the inertia instance
-                // is declared inside it, so we call it from the DOM directly
-                document.body.classList.add('noscroll');
-
                 // Casting to `any` since TS cannot understand $refs as
                 // component instances and complains about the usage of `show`
                 // See: https://github.com/vuejs/vue-class-component/issues/94
@@ -293,6 +285,10 @@
                 // convoluted and unnecessary syntax.
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const confirmationDialog = this.$refs.confirmation as any;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const overlay = this.$refs.overlay as any;
+
+                overlay.show();
 
                 // use axios in order to preserve saved mismatches
                 try {
@@ -302,12 +298,7 @@
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
 
-                    // adding this delay because when the response from the request happens
-                    // too fast the overlay and progressbar flash
-                    await delay(250);
-                    this.submitting = false;
-                    document.body.classList.remove('noscroll');
-
+                    await overlay.hide();
                     this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
@@ -316,12 +307,7 @@
                 } catch(e) {
                     this.requestError = true;
                     console.error("saving review decisions has failed", e);
-
-                    // adding this delay because when the response from the request happens
-                    // too fast the overlay and progressbar flash
-                    await delay(250);
-                    this.submitting = false;
-                    document.body.classList.remove('noscroll');
+                    await overlay.hide();
                 }
             },
             clearSubmitConfirmation() {
@@ -360,73 +346,6 @@ h2 {
     .wikit-Link.wikit {
         font-weight: bold;
     }
-}
-
-.noscroll {
-    overflow: hidden;
-}
-
-.overlay {
-    /**
-    * Layout
-    */
-    width: $wikit-Dialog-overlay-width;
-    height: $wikit-Dialog-overlay-height;
-    position: fixed;
-    top:0;
-    left:0;
-
-    z-index: 100;
-
-    /**
-    * Colors
-    */
-    background-color: $wikit-Dialog-overlay-background-color;
-    opacity: $wikit-Dialog-overlay-opacity;
-}
-
-.progressbar {
-    // Currently the inline progress bar only supports indeterminate loading mode.
-    // For a proof of concept on how this can include also determinate loading, see:
-    // https://codepen.io/xumium/pen/LYLZbva?editors=1100
-    // We ensure semantic usage by only targeting generic elements that set the
-    // correct role
-    &[role=progressbar] {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: $wikit-Progress-inline-track-width;
-        height: $wikit-Progress-inline-track-height;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-            height: 100%;
-            background: $wikit-Progress-inline-background-color;
-        }
-
-        // Indeterminate progress bars should not set the `aria-valuenow`
-        // attribute
-        &:not([aria-valuenow])::before {
-            width: 30%;
-            border-radius: $wikit-Progress-inline-indeterminate-border-radius;
-            animation-name: load-indeterminate;
-            animation-duration: $wikit-Progress-inline-animation-duration;
-            animation-timing-function: ease;
-            animation-iteration-count: infinite;
-            animation-delay: 0s;
-        }
-    }
-
-    @keyframes load-indeterminate {
-        0% { left: 0; }
-        50% { left: 70%; }
-        100% { left: 0; }
-    }
-    z-index: 101;
 }
 
 .message-link {

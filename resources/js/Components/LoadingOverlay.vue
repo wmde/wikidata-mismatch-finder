@@ -23,16 +23,28 @@ export default Vue.extend({
     data() {
         return {
             shown: this.visible,
+            document: {
+                overflow: 'auto'
+            }
         };
     },
     methods: {
         show(): void {
+            if (this.shown) {
+                return;
+            }
+
+            const bodyStyles = window.getComputedStyle(document.body);
             this.shown = true;
+
+            this.document.overflow = bodyStyles.overflow;
+            document.body.style.overflow = 'hidden';
         },
         hide(): Promise<void> {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     this.shown = false;
+                    document.body.style.overflow = this.document.overflow;
                     resolve();
                 }, this.delay);
             });
@@ -43,10 +55,6 @@ export default Vue.extend({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-
-.noscroll {
-    overflow: hidden;
-}
 
 $base: '.loading-indicator';
 

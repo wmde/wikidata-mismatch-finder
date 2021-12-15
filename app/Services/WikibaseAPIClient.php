@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 use App\Exceptions\WikibaseValueParserException;
 use Kevinrob\GuzzleCache\CacheMiddleware;
+use App\Exceptions\WikibaseAPIClientException;
 
 class WikibaseAPIClient
 {
@@ -28,29 +29,33 @@ class WikibaseAPIClient
 
     private function get(string $action, array $params): Response
     {
-        return Http::withMiddleware($this->cache)
+        $response = Http::withMiddleware($this->cache)
             ->get($this->baseUrl, array_merge([
                 'action' => $action,
                 'format' => 'json',
                 'maxage' => config('wikidata.response_cache.ttl')
             ], $params));
-    }
-
-    public function parseValue(string $property, $value): Response
-    {
-        $response = $this->get('wbparsevalue', [
-            'values' => $value,
-            'property' => $property,
-            'validate' => true
-        ]);
 
         // Checking for an errors field in the response, since Wikibase api
         // responds with 200 even for erroneous requests
         if (isset($response['error'])) {
-            throw new WikibaseValueParserException($response['error']['info']);
+            throw new WikibaseAPIClientException($response['error']['info']);
         }
 
         return $response;
+    }
+
+    public function parseValue(string $property, $value): Response
+    {
+        try {
+            return $this->get('wbparsevalue', [
+                'values' => $value,
+                'property' => $property,
+                'validate' => true
+            ]);
+        } catch (WikibaseAPIClientException $e) {
+            throw new WikibaseValueParserException($e->getMessage());
+        }
     }
 
     public function formatEntities(array $ids, string $lang): Response

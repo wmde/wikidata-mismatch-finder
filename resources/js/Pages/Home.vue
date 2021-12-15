@@ -150,6 +150,11 @@
                     message: this.$i18n('item-form-error-message-empty')
                 },
                 {
+                    check: (ids: Array<string>) => ids.length > 600,
+                    type: 'error',
+                    message: this.$i18n('item-form-error-message-max', 600)
+                },
+                {
                     check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
                     type: 'error',
                     message: this.$i18n('item-form-error-message-invalid')

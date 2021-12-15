@@ -18,6 +18,7 @@
     "log-out": "Log out",
     "mismatch-finder-title": "Mismatch Finder",
     "item-form-error-message-empty": "Please provide the Item identifiers in order to perform the check.",
+    "item-form-error-message-max": "Please reduce the number of item identifiers to fit the limit ($1)",
     "item-form-error-message-invalid": "One or more Item identifiers couldn't be processed. Please make sure to add only one identifier per line, without spaces or commas. Item identifiers should only be a set of valid numbers preceded by the letter Q (for example: Q1256).",
     "server-error": "The server encountered a temporary error and could not complete your request. Please try again.",
     "column-property": "Property",

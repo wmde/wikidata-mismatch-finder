@@ -120,6 +120,8 @@
         errors : { [ key : string ] : string }
     }
 
+    export const MAX_NUM_IDS = 600; 
+
     export default defineComponent({
         components: {
             Head,
@@ -150,9 +152,9 @@
                     message: this.$i18n('item-form-error-message-empty')
                 },
                 {
-                    check: (ids: Array<string>) => ids.length > 600,
+                    check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
                     type: 'error',
-                    message: this.$i18n('item-form-error-message-max', 600)
+                    message: this.$i18n('item-form-error-message-max', MAX_NUM_IDS)
                 },
                 {
                     check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),

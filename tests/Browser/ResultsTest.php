@@ -192,6 +192,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
+                ->pause(250)
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -226,6 +227,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
+                ->pause(250)
                 ->assertPresent("#item-mismatches-{$mismatch->item_id} .wikit-Message--success")
                 ->assertSee('Changes successfully submitted for');
         });
@@ -250,6 +252,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
+                ->pause(250)
                 ->assertSee('Next steps')
                 ->press('Proceed')
                 ->waitUntilMissing('@confirmation-dialog')
@@ -276,6 +279,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
+                ->pause(250)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
@@ -319,6 +323,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
+                ->pause(250)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')

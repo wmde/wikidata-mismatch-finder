@@ -1,5 +1,6 @@
 <template>
     <div class="page-container results-page">
+        <loading-overlay ref="overlay" />
         <Head title="Mismatch Finder - Results" />
         <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
             <template #prefix>
@@ -138,6 +139,7 @@
         Icon,
         Message } from '@wmde/wikit-vue-components';
 
+    import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
@@ -180,6 +182,7 @@
         components: {
             Head,
             Icon,
+            LoadingOverlay,
             MismatchesTable,
             WikitLink,
             WikitButton,
@@ -282,16 +285,21 @@
                 // convoluted and unnecessary syntax.
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const confirmationDialog = this.$refs.confirmation as any;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const overlay = this.$refs.overlay as any;
+
+                overlay.show();
 
                 // use axios in order to preserve saved mismatches
                 try {
                     await axios.put('/mismatch-review', this.decisions[item]);
 
-                    this.showSubmitConfirmation(item);
-
                     // remove decision from this.decisions after it has been
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
+
+                    await overlay.hide();
+                    this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
                         confirmationDialog.show();
@@ -299,6 +307,7 @@
                 } catch(e) {
                     this.requestError = true;
                     console.error("saving review decisions has failed", e);
+                    await overlay.hide();
                 }
             },
             clearSubmitConfirmation() {

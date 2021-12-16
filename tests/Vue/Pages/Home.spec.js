@@ -87,11 +87,3 @@ describe('Home.vue', () => {
     });
 
 })
-
-const rangeIds = (start, end, step = 1) => {
-    let output = [];
-    for (let i = start; i < end; i += step) {
-      output.push('Q' + i);
-    }
-    return output;
-  };

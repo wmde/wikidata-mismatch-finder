@@ -28,7 +28,11 @@
                 :menuItems="Object.values(statusOptions)"
                 :disabled="disabled"
                 v-model="decision"
-                @input="emitDecisionEvent"
+                @input="$bubble('decision', {
+                    id: mismatch.id,
+                    item_id: mismatch.item_id,
+                    review_status: $event.value
+                }, $event.value === mismatch.review_status)"
             />
         </td>
         <td :data-header="$i18n('column-external-source')">
@@ -89,8 +93,6 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-
 import { formatISO } from 'date-fns';
 
 import Vue, { PropType } from 'vue';
@@ -177,16 +179,6 @@ export default Vue.extend({
       /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
       const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
       descriptionDialog.show();
-    },
-    emitDecisionEvent(event: InputEvent) {
-      const { id, item_id, review_status} = this.mismatch;
-      const revert = (review_status === event.value);
-
-      this.$bubble(
-        'decision',
-        { id, item_id, review_status: event.value },
-        revert
-      );
     }
   }
 });

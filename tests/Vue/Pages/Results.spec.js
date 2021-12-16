@@ -242,8 +242,7 @@ describe('Results.vue', () => {
         // clear mock object
         axios.put = jest.fn();
 
-        const wrapper = mountWithMocks({
-            props: {
+        const results = {
             'Q321': [{
                 id: 123,
                 item_id: 'Q321',
@@ -258,7 +257,10 @@ describe('Results.vue', () => {
                     created_at: '2021-09-23'
                 },
             }]
-         },
+        };
+
+        const wrapper = mountWithMocks({
+            props: { results },
         });
 
         // select a review decision and send it

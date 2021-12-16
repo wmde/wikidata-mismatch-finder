@@ -238,47 +238,6 @@ describe('Results.vue', () => {
         expect( wrapper.vm.decisions['Q321'] ).toEqual({});
     });
 
-    it('Does record and send a reverted decision, when sent in between', async () => {
-        // clear mock object
-        axios.put = jest.fn();
-
-        const results = {
-            'Q321': [{
-                id: 123,
-                item_id: 'Q321',
-                property_id: 'P123',
-                wikidata_value: 'Q1986',
-                external_value: 'Another Value',
-                review_status: 'pending',
-                import_meta: {
-                    user: {
-                        username: 'some_user_name'
-                    },
-                    created_at: '2021-09-23'
-                },
-            }]
-        };
-
-        const wrapper = mountWithMocks({
-            props: { results },
-        });
-
-        // select a review decision and send it
-        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Wikidata} );
-        await wrapper.vm.send( 'Q321' );
-        expect( wrapper.vm.decisions['Q321'] ).toBeFalsy();
-
-        // revert the same review decision back to its previous value
-        const revertDecision = { id:123, item_id: 'Q321', review_status:ReviewDecision.Pending };
-        wrapper.vm.recordDecision( revertDecision, true );
-        expect( wrapper.vm.decisions ).toEqual( { 'Q321': { '123': revertDecision } } );
-
-        // send again
-        await wrapper.vm.send( 'Q321' );
-        expect( axios.put ).toHaveBeenCalledTimes( 2 );
-        expect( wrapper.vm.decisions['Q321'] ).toBeFalsy();
-    });
-
     it('Sends an axios put request with the selected decisions on click of "Apply changes" button', async () => {
 
         const item_id = 'Q321';

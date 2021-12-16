@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex'
-import Home from '@/Pages/Home.vue';
+import Home, { MAX_NUM_IDS } from '@/Pages/Home.vue'
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
@@ -62,6 +62,28 @@ describe('Home.vue', () => {
 
         const dialog = wrapper.find('#faq-dialog .wikit-Dialog');
         expect(dialog.isVisible()).toBe(true);
+    });
+
+    it('validates that items in textarea input dont exceed the maximum number of ids', async () => {
+        const store = new Vuex.Store();
+
+        const itemsInput = Array(MAX_NUM_IDS + 2).fill('Q21').join('\n');
+
+        const wrapper = mount(Home, {
+            mocks,
+            localVue,
+            store,
+            data() {
+                return {
+                    form: {
+                        itemsInput
+                    }
+                }
+            }
+        });
+
+        wrapper.vm.validate();
+        expect(wrapper.vm.validationError.message).toBe('item-form-error-message-max');
     });
 
 })

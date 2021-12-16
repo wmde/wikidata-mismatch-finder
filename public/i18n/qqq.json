@@ -15,6 +15,7 @@
     "log-out": "The call to action for user log out",
     "mismatch-finder-title": "The main title of the website",
     "item-form-error-message-empty": "A warning message when no Item ids are provided",
+    "item-form-error-message-max": "An error message when too many item ids are provided",
     "item-form-error-message-invalid": "An error message when invalid Item ids are provided",
     "server-error": "An error message when the server encountered an error retrieving results",
     "column-property": "Property column on mismatches table",

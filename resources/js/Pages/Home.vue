@@ -120,6 +120,8 @@
         errors : { [ key : string ] : string }
     }
 
+    export const MAX_NUM_IDS = 600; 
+
     export default defineComponent({
         components: {
             Head,
@@ -141,28 +143,32 @@
             serializeInput: function(): string {
                 return this.sanitizeArray().join('|');
             },
-            checkEmpty(): void {
-                if( !this.form.itemsInput ) {
-                    this.validationError = {
-                        type: 'warning',
-                        message: this.$i18n('item-form-error-message-empty')
-                    };
-                }
-            },
             validate(): void {
                 this.validationError = null;
-                this.checkEmpty();
 
-                let valid = this.sanitizeArray().every( function( currentValue: string ) {
-                    let trimmedLine = currentValue.trim();
-                    return trimmedLine.match( /^[Qq]\d+$/ );
-                });
+                const rules = [{
+                    check: (ids: Array<string>) => ids.length < 1,
+                    type: 'warning',
+                    message: this.$i18n('item-form-error-message-empty')
+                },
+                {
+                    check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
+                    type: 'error',
+                    message: this.$i18n('item-form-error-message-max', MAX_NUM_IDS)
+                },
+                {
+                    check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
+                    type: 'error',
+                    message: this.$i18n('item-form-error-message-invalid')
+                }];
 
-                if( !valid ) {
-                    this.validationError = {
-                        type: 'error',
-                        message: this.$i18n('item-form-error-message-invalid')
-                    };
+                const sanitized = this.sanitizeArray();
+
+                for(let {check, type, message} of rules){
+                    if(check(sanitized)){
+                        this.validationError = { type, message };
+                        return;
+                    }
                 }
             },
             send(): void {

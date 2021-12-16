@@ -23,7 +23,7 @@ export default Vue.extend({
     data() {
         return {
             shown: this.visible,
-            document: {
+            cachedStyles: {
                 overflow: 'auto'
             }
         };
@@ -34,17 +34,19 @@ export default Vue.extend({
                 return;
             }
 
+            // Determine the current styles for body, in order to cache the overflow
             const bodyStyles = window.getComputedStyle(document.body);
             this.shown = true;
 
-            this.document.overflow = bodyStyles.overflow;
+            this.cachedStyles.overflow = bodyStyles.overflow;
             document.body.style.overflow = 'hidden';
         },
         hide(): Promise<void> {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     this.shown = false;
-                    document.body.style.overflow = this.document.overflow;
+                    // Restore previous overflow value
+                    document.body.style.overflow = this.cachedStyles.overflow;
                     resolve();
                 }, this.delay);
             });

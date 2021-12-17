@@ -64,6 +64,32 @@ describe('Home.vue', () => {
         expect(dialog.isVisible()).toBe(true);
     });
 
+    it('validates that textarea input is not empty', async () => {
+        const itemsInput = '';
+
+        const store = new Vuex.Store({});
+
+        const wrapper = mount(Home, {
+            mocks,
+            localVue,
+            store,
+            data() {
+                return {
+                    form: {
+                        itemsInput
+                    }
+                 }
+            }
+        });
+
+        wrapper.vm.validate();
+
+        expect(wrapper.vm.validationError).toStrictEqual({
+            type: 'warning',
+            message: 'item-form-error-message-empty'}
+        );
+    });
+
     it('validates that items in textarea input dont exceed the maximum number of ids', async () => {
         const store = new Vuex.Store();
 
@@ -83,7 +109,34 @@ describe('Home.vue', () => {
         });
 
         wrapper.vm.validate();
-        expect(wrapper.vm.validationError.message).toBe('item-form-error-message-max');
+        expect(wrapper.vm.validationError).toStrictEqual({
+            type: 'error',
+            message: 'item-form-error-message-max'}
+        );
     });
 
+    it('validates that items in textarea input are well-formed', async () => {
+        const store = new Vuex.Store();
+
+        const itemsInput = 'L12345';
+
+        const wrapper = mount(Home, {
+            mocks,
+            localVue,
+            store,
+            data() {
+                return {
+                    form: {
+                        itemsInput
+                    }
+                }
+            }
+        });
+
+        wrapper.vm.validate();
+        expect(wrapper.vm.validationError).toStrictEqual({
+            type: 'error',
+            message: 'item-form-error-message-invalid'}
+        );
+    });
 })

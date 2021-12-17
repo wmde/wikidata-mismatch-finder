@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use App\Services\WikibaseAPIClient;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Str;
+use App\Exceptions\WikibaseAPIClientException;
 use App\Exceptions\WikibaseValueParserException;
 use Kevinrob\GuzzleCache\CacheMiddleware;
 use Mockery;
@@ -85,6 +86,31 @@ class WikibaseAPIClientTest extends TestCase
 
         $this->assertActionRequest(self::FAKE_API_URL, 'wbformatentities', $fakePayload);
         $this->assertSame($fakeResponseBody, $response->json());
+    }
+
+    public function test_format_entity_throws_on_error_response()
+    {
+        $fakeIds = ['P1234', 'Q4321'];
+        $fakePayload = [
+            'ids' => implode('|', $fakeIds),
+            'uselang' => 'en'
+        ];
+        $fakeErrorResponse = ['error' => [
+            'info' => 'not okay'
+        ]];
+
+        Http::fake(function (Request $req) use ($fakeErrorResponse) {
+            return Http::response($fakeErrorResponse, 200);
+        });
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+
+        $this->expectException(WikibaseAPIClientException::class);
+        $this->expectExceptionMessage($fakeErrorResponse['error']['info']);
+
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client->formatEntities($fakeIds, $fakePayload['uselang']);
+
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbformatentities', $fakePayload);
     }
 
     public function test_get_labels_returns_label_array(): void

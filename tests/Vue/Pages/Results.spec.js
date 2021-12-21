@@ -225,7 +225,7 @@ describe('Results.vue', () => {
 
     });
 
-    it('Handles errors on axios put requests gracefully', async () => {
+    it('Handles errors on axios PUT requests gracefully', async () => {
         // mock axios error response
         axios.put = jest.fn().mockRejectedValue('Error');
 
@@ -239,6 +239,15 @@ describe('Results.vue', () => {
 
         //the decisions object will remain untouched after the failed put request
         expect(Object.keys(wrapper.vm.decisions)).toContain(item_id);
+    });
+
+    it('Shows error message on failed axios PUT request', async () => {
+        const wrapper = mountWithMocks({
+            data: { 'requestError' : true }
+        });
+
+        const errorMessage = wrapper.find('#error-section .wikit-Message--error.wikit');
+        expect(errorMessage.isVisible()).toBe(true);
     });
 
     it('Does not send a put request without any decisions', () => {

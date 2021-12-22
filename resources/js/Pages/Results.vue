@@ -48,7 +48,7 @@
                 {{ $i18n('results-page-description') }}
             </p>
         </section>
-        <section id="error-section" v-if="unexpectedError || requestError">
+        <section id="error-section" v-if="requestError">
             <Message type="error" class="generic-error">{{ $i18n('server-error') }}</Message>
         </section>
         <section id="message-section">
@@ -160,10 +160,6 @@
         [entityId: string]: string
     }
 
-    interface FlashMessages {
-        errors : { [ key : string ] : string }
-    }
-
     interface DecisionMap {
         [entityId: string]: {
             [id: number]: MismatchDecision
@@ -212,10 +208,6 @@
             notFoundItemIds() {
                 return this.item_ids.filter( id => !this.results[id] )
             },
-            unexpectedError() {
-                const flashMessages = this.$page.props.flash as FlashMessages;
-                return (flashMessages.errors && flashMessages.errors.unexpected);
-            }
         },
         mounted(){
             if(!this.$store.state.lastSearchedIds) {

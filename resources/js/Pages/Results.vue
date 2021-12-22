@@ -289,6 +289,7 @@
                     // remove decision from this.decisions after it has been
                     // sent to the server successfully, to avoid sending them twice
                     delete this.decisions[item];
+                    this.requestError = false;
 
                     await overlay.hide();
                     this.showSubmitConfirmation(item);

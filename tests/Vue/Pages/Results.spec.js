@@ -250,6 +250,23 @@ describe('Results.vue', () => {
         expect(errorMessage.isVisible()).toBe(true);
     });
 
+    it('Clears error message on successful axios PUT request', async () => {
+
+        const item_id = 'Q321';
+        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const wrapper = mountWithMocks({
+            data: {
+                decisions,
+                'requestError' : true
+            }
+        });
+
+        await wrapper.vm.send( item_id );
+
+        const errorMessage = wrapper.find('#error-section .wikit-Message--error.wikit');
+        expect(errorMessage.exists()).toBe(false);
+    });
+
     it('Does not send a put request without any decisions', () => {
         // clear mock object
         axios.put = jest.fn();

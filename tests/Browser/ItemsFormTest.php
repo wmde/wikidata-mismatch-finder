@@ -113,4 +113,16 @@ class ItemsFormTest extends DuskTestCase
                 // See: https://stackoverflow.com/q/67690990#comment119647867_67690990
         });
     }
+
+    public function test_shows_error_message_from_results_url_with_invalid_input()
+    {
+        $this->browse(function (Browser $browser) {
+            // browse to Homepage so that Laravel has something to redirect back to
+            $browser->visit('/');
+
+            $browser->visit('/results?ids=Q42|L123')
+                ->waitFor('.home-page')
+                ->assertVisible('#message-section .wikit-Message--error.wikit');
+        });
+    }
 }

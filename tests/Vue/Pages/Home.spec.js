@@ -139,4 +139,13 @@ describe('Home.vue', () => {
             message: 'item-form-error-message-invalid'}
         );
     });
+
+    it('shows error message upon serverside validation errors', async () => {
+        mocks.$page.props.errors = { 'someKey' : 'someError'}
+        const store = new Vuex.Store();
+        const wrapper = mount(Home, { mocks, localVue, store });
+
+        const errorMessage = wrapper.find('#message-section .wikit-Message--error.wikit');
+        expect(errorMessage.isVisible()).toBe(true);
+    });
 })

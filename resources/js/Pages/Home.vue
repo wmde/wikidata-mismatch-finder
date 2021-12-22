@@ -61,7 +61,7 @@
         </section>
 
         <section id="message-section">
-            <Message v-if="unexpectedError" type="error">
+            <Message v-if="unexpectedError || serversideValidationError" type="error">
                 <span>{{ $i18n('server-error') }}</span>
             </Message>
         </section>
@@ -114,6 +114,10 @@
             type: string,
             message: string
         }
+    }
+
+    interface ErrorMessages {
+        [ key : string ] : string
     }
 
     interface FlashMessages {
@@ -183,6 +187,10 @@
             },
         },
         computed: {
+            serversideValidationError() {
+                const errors = this.$page.props.errors as ErrorMessages;
+                return errors && Object.keys(errors).length > 0;
+            },
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);

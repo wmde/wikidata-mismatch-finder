@@ -32,7 +32,7 @@
                     id: mismatch.id,
                     item_id: mismatch.item_id,
                     review_status: $event.value
-                }, $event.value === mismatch.review_status)"
+                })"
             />
         </td>
         <td :data-header="$i18n('column-external-source')">
@@ -119,7 +119,6 @@ type ReviewOptionMap = {
 interface MismatchRowState {
   statusOptions: ReviewOptionMap;
   decision: ReviewMenuItem;
-
 }
 
 export default Vue.extend({

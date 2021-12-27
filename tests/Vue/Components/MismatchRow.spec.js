@@ -369,6 +369,6 @@ describe('MismatchesRow.vue', () => {
             id: mismatch.id,
             item_id: mismatch.item_id,
             review_status: ReviewDecision.Wikidata
-        }, false);
+        });
     });
 })

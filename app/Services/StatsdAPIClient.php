@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 use App\Exceptions\StatsdClientException;
 
-class StatsdClient
+class StatsdAPIClient
 {
 
     /**

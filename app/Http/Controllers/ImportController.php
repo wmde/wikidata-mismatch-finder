@@ -10,6 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Jobs\ValidateCSV;
 use App\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Bus;
+use App\Services\StatsdAPIClient;
 
 class ImportController extends Controller
 {
@@ -30,8 +31,9 @@ class ImportController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Services\StatsdAPIClient  $statsd
      */
-    public function store(Request $request): JsonResource
+    public function store(Request $request, StatsdAPIClient $statsd): JsonResource
     {
         // TODO: Consider using a FormRequest class for auth and validation
         Gate::authorize('upload-import');
@@ -88,6 +90,9 @@ class ImportController extends Controller
             new ValidateCSV($meta),
             new ImportCSV($meta)
         ])->dispatch();
+
+        //collect metric
+        $statsd->sendStats('import_mismatch_file');
 
         return new ImportMetaResource($meta);
     }

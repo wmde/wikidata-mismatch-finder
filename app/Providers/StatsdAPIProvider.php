@@ -16,7 +16,7 @@ class StatsdAPIProvider extends ServiceProvider
     {
         $this->app->singleton(StatsdAPIClient::class, function ($app) {
 
-            return new StatsdAPIClient(config('wikidata.statsd.endpoint_url'));
+            return new StatsdAPIClient(config('wikidata.statsd.endpoint_url'), config('wikidata.statsd.namespace'));
         });
     }
 

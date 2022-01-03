@@ -7,22 +7,25 @@ use App\Http\Requests\MismatchGetRequest;
 use App\Services\WikibaseAPIClient;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mismatch;
+use App\Services\StatsdAPIClient;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
 class ResultsController extends Controller
 {
-    use Traits\ReviewMismatch;
+    use Traits\ReviewMismatch, Traits\StatsTracker;
 
     /**
      * Instantiate a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(StatsdAPIClient $statsd)
     {
         $this->middleware('simulateError');
+        $this->statsd = $statsd;
     }
 
     public function index(MismatchGetRequest $request, WikibaseAPIClient $wikidata): Response
@@ -54,6 +57,10 @@ class ResultsController extends Controller
             // only add 'results' prop if mismatches have been found
             $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []
         );
+
+        //collect metric
+        Log::info("statsd 'mismatch_request' (via web)");
+        $this->trackRequestStats();
 
         return inertia('Results', $props);
     }
@@ -97,6 +104,9 @@ class ResultsController extends Controller
             $old_status = $mismatch->review_status;
             $this->saveToDb($mismatch, $request->user(), $decision['review_status']);
             $this->logToFile($mismatch, $request->user(), $old_status);
+            //collect metric
+            Log::info("statsd 'mismatch_review' (via web)");
+            $this->trackReviewStats();
         }
     }
 }

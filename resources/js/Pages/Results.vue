@@ -151,7 +151,7 @@
         id: number,
         item_id: string,
         review_status: ReviewDecision,
-        old_status: ReviewDecision
+        previous_status: ReviewDecision
     }
 
     interface Result {
@@ -260,9 +260,9 @@
             },
             recordDecision( decision: MismatchDecision): void {
                 const itemDecisions = this.decisions[decision.item_id];
-                decision.old_status = itemDecisions && itemDecisions[decision.id]
-                    ? itemDecisions[decision.id].old_status // keep old status if we have one
-                    : ReviewDecision.Pending;               // assign 'pending' otherwise
+                decision.previous_status = itemDecisions && itemDecisions[decision.id]
+                    ? itemDecisions[decision.id].previous_status // keep previous status if we have one
+                    : ReviewDecision.Pending;                    // assign 'pending' otherwise
 
                 this.decisions[decision.item_id] = {
                     ...itemDecisions,
@@ -294,7 +294,7 @@
 
                     this.requestError = false;
                     await overlay.hide();
-                    this.storeOldDecisions(item);
+                    this.storePreviousDecisions(item);
                     this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
@@ -315,17 +315,17 @@
             hasChanged(entityId: string) {
                 for (var decisionId in this.decisions[entityId]) {
                     const decision = this.decisions[entityId][decisionId];
-                    if(decision.review_status !== decision.old_status) {
+                    if(decision.review_status !== decision.previous_status) {
                         return true;
                     }
                 }
 
                 return false;
             },
-            storeOldDecisions(item: string) {
+            storePreviousDecisions(item: string) {
                 for (var decisionId in this.decisions[item]) {
                     const decision = this.decisions[item][decisionId];
-                    decision.old_status = decision.review_status;
+                    decision.previous_status = decision.review_status;
                 }
             },
             // Anotating dialog as `any` since typescript doesn't fully

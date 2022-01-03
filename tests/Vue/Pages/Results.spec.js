@@ -250,10 +250,10 @@ describe('Results.vue', () => {
         await wrapper.vm.send( item_id );
         expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
 
-        //the decisions object will store the review status as old_status 
+        //the decisions object will store the review status as previous_status
         expect(wrapper.vm.decisions).toEqual({
             [item_id]:
-            {1:{id:1, item_id, review_status: ReviewDecision.Wikidata, old_status: ReviewDecision.Wikidata}}
+            {1:{id:1, item_id, review_status: ReviewDecision.Wikidata, previous_status: ReviewDecision.Wikidata}}
         });
 
     });
@@ -269,7 +269,7 @@ describe('Results.vue', () => {
                     id:1,
                     item_id,
                     review_status: ReviewDecision.Wikidata,
-                    old_status: ReviewDecision.Pending
+                    previous_status: ReviewDecision.Pending
                 }
             }
         };
@@ -336,7 +336,7 @@ describe('Results.vue', () => {
                     id:1,
                     item_id,
                     review_status: ReviewDecision.Pending,
-                    old_status: ReviewDecision.Pending
+                    previous_status: ReviewDecision.Pending
                 }
             }
         };

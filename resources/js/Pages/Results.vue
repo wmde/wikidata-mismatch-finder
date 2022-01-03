@@ -313,7 +313,7 @@
                 this.lastSubmitted = item;
             },
             hasChanged(entityId: string) {
-                for (var decisionId in this.decisions[entityId]) {
+                for (const decisionId in this.decisions[entityId]) {
                     const decision = this.decisions[entityId][decisionId];
                     if(decision.review_status !== decision.previous_status) {
                         return true;
@@ -323,7 +323,7 @@
                 return false;
             },
             storePreviousDecisions(item: string) {
-                for (var decisionId in this.decisions[item]) {
+                for (const decisionId in this.decisions[item]) {
                     const decision = this.decisions[item][decisionId];
                     decision.previous_status = decision.review_status;
                 }

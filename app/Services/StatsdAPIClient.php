@@ -17,6 +17,11 @@ class StatsdAPIClient
     public function __construct(string $baseUrl, string $namespace)
     {
         $this->baseUrl = $baseUrl;
+
+        if (!app()->environment('production')) {
+            $namespace .= '-test';
+        }
+
         $this->namespace = $namespace;
     }
 

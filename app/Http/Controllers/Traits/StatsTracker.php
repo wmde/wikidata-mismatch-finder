@@ -13,4 +13,9 @@ trait StatsTracker
     {
         $this->statsd->sendStats('mismatch_review');
     }
+
+    public function trackImportStats()
+    {
+        $this->statsd->sendStats('import_mismatch_file');
+    }
 }

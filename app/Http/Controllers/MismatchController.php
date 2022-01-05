@@ -10,7 +10,7 @@ use App\Services\StatsdAPIClient;
 
 class MismatchController extends Controller
 {
-    use Traits\ReviewMismatch;
+    use Traits\ReviewMismatch, Traits\StatsTracker;
 
     /** @var string */
     public const RESOURCE_NAME = 'mismatches';
@@ -20,9 +20,10 @@ class MismatchController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(StatsdAPIClient $statsd)
     {
         $this->middleware('auth:sanctum')->only('update');
+        $this->statsd = $statsd;
     }
 
     /**
@@ -32,7 +33,7 @@ class MismatchController extends Controller
      * @param  \App\Services\StatsdAPIClient  $statsd
      * @return \Illuminate\Http\Response
      */
-    public function index(MismatchGetRequest $request, StatsdAPIClient $statsd)
+    public function index(MismatchGetRequest $request)
     {
         $query = Mismatch::whereIn('item_id', $request->ids);
 
@@ -50,8 +51,7 @@ class MismatchController extends Controller
             });
         }
 
-        //collect metric
-        $statsd->sendStats('mismatch_request');
+        $this->trackRequestStats();
 
         return MismatchResource::collection($query->get());
     }
@@ -69,9 +69,8 @@ class MismatchController extends Controller
         $old_status = $mismatch->review_status;
         $this->saveToDb($mismatch, $request->user(), $request->review_status);
         $this->logToFile($mismatch, $request->user(), $old_status);
+        $this->trackReviewStats();
 
-        //collect metric
-        $statsd->sendStats('mismatch_review');
 
         return new MismatchResource($mismatch);
     }

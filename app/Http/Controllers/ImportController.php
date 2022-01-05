@@ -14,6 +14,8 @@ use App\Services\StatsdAPIClient;
 
 class ImportController extends Controller
 {
+    use Traits\StatsTracker;
+
     /** @var string */
     public const RESOURCE_NAME = 'imports';
 
@@ -22,8 +24,9 @@ class ImportController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(StatsdAPIClient $statsd)
     {
+        $this->statsd = $statsd;
         $this->middleware('auth:sanctum')->only('store');
     }
 
@@ -91,8 +94,7 @@ class ImportController extends Controller
             new ImportCSV($meta)
         ])->dispatch();
 
-        //collect metric
-        $statsd->sendStats('import_mismatch_file');
+        $this->trackImportStats();
 
         return new ImportMetaResource($meta);
     }

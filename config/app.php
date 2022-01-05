@@ -181,6 +181,7 @@ return [
          * Custom Service Providers
          */
         App\Providers\WikidataAPIProvider::class,
+        App\Providers\StatsdAPIProvider::class
     ],
 
     /*

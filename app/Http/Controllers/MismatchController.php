@@ -6,10 +6,11 @@ use App\Http\Requests\MismatchGetRequest;
 use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
+use App\Services\StatsdAPIClient;
 
 class MismatchController extends Controller
 {
-    use Traits\ReviewMismatch;
+    use Traits\ReviewMismatch, Traits\StatsTracker;
 
     /** @var string */
     public const RESOURCE_NAME = 'mismatches';
@@ -19,14 +20,17 @@ class MismatchController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(StatsdAPIClient $statsd)
     {
         $this->middleware('auth:sanctum')->only('update');
+        $this->statsd = $statsd;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Services\StatsdAPIClient  $statsd
      * @return \Illuminate\Http\Response
      */
     public function index(MismatchGetRequest $request)
@@ -47,21 +51,26 @@ class MismatchController extends Controller
             });
         }
 
+        $this->trackRequestStats();
+
         return MismatchResource::collection($query->get());
     }
     /**
      * Update review_status of the resource.
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $id
+     * @param  \App\Services\StatsdAPIClient  $statsd
      * @return \Illuminate\Http\Response
      */
-    public function update(MismatchPutRequest $request, $id)
+    public function update(MismatchPutRequest $request, $id, StatsdAPIClient $statsd)
     {
         $mismatch = Mismatch::findorFail($id);
 
         $old_status = $mismatch->review_status;
         $this->saveToDb($mismatch, $request->user(), $request->review_status);
         $this->logToFile($mismatch, $request->user(), $old_status);
+        $this->trackReviewStats();
+
 
         return new MismatchResource($mismatch);
     }

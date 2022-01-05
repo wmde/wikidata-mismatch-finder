@@ -7,7 +7,6 @@ use App\Http\Requests\MismatchPutRequest;
 use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
 use App\Services\StatsdAPIClient;
-use Illuminate\Support\Facades\Log;
 
 class MismatchController extends Controller
 {
@@ -52,8 +51,6 @@ class MismatchController extends Controller
             });
         }
 
-        //collect metric
-        Log::info("statsd 'mismatch_request' (via API)");
         $this->trackRequestStats();
 
         return MismatchResource::collection($query->get());
@@ -72,7 +69,6 @@ class MismatchController extends Controller
         $old_status = $mismatch->review_status;
         $this->saveToDb($mismatch, $request->user(), $request->review_status);
         $this->logToFile($mismatch, $request->user(), $old_status);
-        Log::info("statsd 'mismatch_review' (via API)");
         $this->trackReviewStats();
 
 

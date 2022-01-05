@@ -11,7 +11,6 @@ use App\Jobs\ValidateCSV;
 use App\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Bus;
 use App\Services\StatsdAPIClient;
-use Illuminate\Support\Facades\Log;
 
 class ImportController extends Controller
 {
@@ -95,8 +94,6 @@ class ImportController extends Controller
             new ImportCSV($meta)
         ])->dispatch();
 
-        //collect metric
-        Log::info("statsd 'import_mismatch_file' (via API)");
         $this->trackImportStats();
 
         return new ImportMetaResource($meta);

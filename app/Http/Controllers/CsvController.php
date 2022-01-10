@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
 use App\Models\ImportMeta;
 use App\Models\Mismatch;
@@ -15,28 +15,18 @@ class CsvController extends Controller
     {
 
         $imports = ImportMeta::get();
-
-        //$mismatches = Mismatch::get();
-
         $currentTime = Carbon::now()->format('Y-m-d');
 
-        // these are the headers for the csv file.
         $headers = array(
-            'Content-Type' => 'application/vnd.ms-excel; charset=utf-8',
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-Disposition' => 'attachment; filename=download-'. $currentTime .'.csv',
-            'Expires' => '0',
-            'Pragma' => 'public',
+            'Content-Type' => 'application/vnd.ms-excel; charset=utf-8'
         );
 
-
-        //I am storing the csv file in public >> files folder. So that why I am creating files folder
         if (!File::exists(storage_path("/import_stats"))) {
             File::makeDirectory(storage_path("/import_stats"));
         }
 
         //creating the download file
-        $filename =  storage_path("/import_stats/download-" . $currentTime . ".csv");
+        $filename =  storage_path("/import_stats/import-stats-" . $currentTime . ".csv");
         $handle = fopen($filename, 'w');
 
         //adding the first row
@@ -52,7 +42,6 @@ class CsvController extends Controller
             "% completed",
         ]);
 
-        //adding the data from the array
         foreach ($imports as $each_import) {
             $mismatches = Mismatch::where('import_id', $each_import->id)->get();
             $mismatches_count = $mismatches->count();
@@ -81,7 +70,6 @@ class CsvController extends Controller
         }
         fclose($handle);
 
-        //download command
-        return Response::download($filename, "download.csv", $headers);
+        return Response::download($filename, "import-stats-" . $currentTime . ".csv", $headers);
     }
 }

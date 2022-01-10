@@ -18,3 +18,4 @@ yarn-error.log
 /public/css
 /public/images
 .env.dusk.local
+/storage/import_stats

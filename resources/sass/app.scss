@@ -161,9 +161,11 @@ li {
     }
 }
 
+
+
 nav.tabs {
     display: flex;
-    padding-bottom: 24px;
+
     ul {
         list-style: none;
         display: flex;
@@ -343,11 +345,15 @@ dl.import-meta dd:not(:last-child) {
     &:not(:last-child) {
         margin-right: 8px;
     }
+
+    &-icon {
+        margin-inline-end: $dimension-spacing-small;
+        vertical-align: middle;
+    }
 }
 
 .button-group {
     display: flex;
-    margin-top: 16px;
 
     &.right {
         justify-content: flex-end;
@@ -373,4 +379,25 @@ dl.import-meta dd:not(:last-child) {
 
 .token {
     padding-bottom: 24px;
+}
+
+/* Styles that differ in the tabs */
+// escaping the dot of the name of the class
+.store\.api-settings {
+    nav.tabs {
+        padding-bottom: 24px;
+    }
+    .button-group { 
+        margin-top: 16px;
+    }
+}
+
+.store\.import-status {
+    nav.tabs {
+        padding-bottom: 16px;
+    }
+
+    .button-group {
+        margin-block-end: $dimension-spacing-large;
+    }
 }

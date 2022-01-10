@@ -7,13 +7,13 @@
     <title>{{__('store-layout.mismatch-finder')}}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body>
+<body class="{{ Route::currentRouteName() }}">
     <main class="store">
         <header>
             <h1>{{__('store-layout.mismatch-finder')}}</h1>
             <div class="auth-widget">
                 @auth
-                    <a href='https://www.wikidata.org/wiki/User:{{ Auth::user()->username}}'><img src="{{ asset('/svg/user.svg') }}" class="icon-user" /><span class="username">{{ Auth::user()->username }}</span></a><a href="{{ route('logout') }}">Logout</a>
+                    <a href='https://www.wikidata.org/wiki/User:{{ Auth::user()->username}}'><img src="{{ asset('/svg/user.svg') }}" class="button-icon" /><span class="username">{{ Auth::user()->username }}</span></a><a href="{{ route('logout') }}">Logout</a>
                 @else
                     <a href="{{ route('login') }}">Log in</a>
                 @endauth

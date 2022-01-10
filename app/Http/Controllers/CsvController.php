@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\File;
 use App\Models\ImportMeta;
+use App\Models\Mismatch;
 use Carbon\Carbon;
 
 class CsvController extends Controller
@@ -14,6 +15,8 @@ class CsvController extends Controller
     {
 
         $imports = ImportMeta::get();
+
+        //$mismatches = Mismatch::get();
 
         $currentTime = Carbon::now()->format('Y-m-d');
 
@@ -51,10 +54,13 @@ class CsvController extends Controller
 
         //adding the data from the array
         foreach ($imports as $each_import) {
+            $mismatches = Mismatch::where('import_id', $each_import->id)->get();
+            $mismatches_count = $mismatches->count();
+
             fputcsv($handle, [
                 $each_import->id,
                 $each_import->status,
-                100,
+                $mismatches_count,
                 100,
                 100,
                 100,

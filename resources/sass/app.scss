@@ -400,4 +400,11 @@ dl.import-meta dd:not(:last-child) {
     .button-group {
         margin-block-end: $dimension-spacing-large;
     }
+
+    .button {
+        @media (max-width: $width-breakpoint-tablet) {
+            width: 100%;
+            text-align: center;
+        }
+    }
 }

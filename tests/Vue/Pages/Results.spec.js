@@ -208,10 +208,40 @@ describe('Results.vue', () => {
         expect(wrapper.vm.decisions['Q321'][123]).toEqual(emitted)
     });
 
-    it('Sends an axios put request with the selected decisions on click of "Apply changes" button', async () => {
+    it('Keeps track of decisions with hasChanged()', () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: 'Q1986',
+                external_value: 'Another Value',
+                review_status: 'pending',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
 
+        const wrapper = mountWithMocks({
+            props: { results }
+        });
+
+        // first decision
+        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Wikidata} );
+        expect( wrapper.vm.hasChanged('Q321') ).toBe(true);
+
+        // revert decision
+        wrapper.vm.recordDecision( {id:123, item_id: 'Q321', review_status: ReviewDecision.Pending} );
+        expect( wrapper.vm.hasChanged('Q321') ).toBe(false);
+    });
+
+    it('Sends an axios put request with the selected decisions on click of "Apply changes" button', async () => {
         const item_id = 'Q321';
-        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const decisions = { [item_id]:{1:{id:1, item_id, review_status: ReviewDecision.Wikidata}} };
         const wrapper = mountWithMocks({
             data: { decisions }
         });
@@ -220,8 +250,11 @@ describe('Results.vue', () => {
         await wrapper.vm.send( item_id );
         expect( axios.put ).toHaveBeenCalledWith( '/mismatch-review' , decisionsBeforeDelete );
 
-        //the decisions object will be empty after sending the put request on one item
-        expect(wrapper.vm.decisions).toEqual({});
+        //the decisions object will store the review status as previous_status
+        expect(wrapper.vm.decisions).toEqual({
+            [item_id]:
+            {1:{id:1, item_id, review_status: ReviewDecision.Wikidata, previous_status: ReviewDecision.Wikidata}}
+        });
 
     });
 
@@ -230,7 +263,16 @@ describe('Results.vue', () => {
         axios.put = jest.fn().mockRejectedValue('Error');
 
         const item_id = 'Q321';
-        const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
+        const decisions = {
+            [item_id]: {
+                1: {
+                    id:1,
+                    item_id,
+                    review_status: ReviewDecision.Wikidata,
+                    previous_status: ReviewDecision.Pending
+                }
+            }
+        };
         const wrapper = mountWithMocks({
             data: { decisions }
         });
@@ -281,6 +323,28 @@ describe('Results.vue', () => {
 
         //the decisions object will be untouched
         expect(wrapper.vm.decisions).toEqual({ [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}});
+    });
+
+    it('Does not send a reverted decision', () => {
+        // clear mock object
+        axios.put = jest.fn();
+
+        const item_id = 'Q321';
+        const decisions = {
+            [item_id]: {
+                1: {
+                    id:1,
+                    item_id,
+                    review_status: ReviewDecision.Pending,
+                    previous_status: ReviewDecision.Pending
+                }
+            }
+        };
+        const wrapper = mountWithMocks({
+            data: { decisions }
+        });
+        wrapper.vm.send( 'Q42' );
+        expect( axios.put ).not.toHaveBeenCalled();
     });
 
     it('Doesn\'t show confirmation dialog after failed put requests', async () => {

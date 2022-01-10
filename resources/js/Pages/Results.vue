@@ -130,6 +130,7 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
+    import isEmpty from 'lodash/isEmpty';    
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,
@@ -149,7 +150,8 @@
     interface MismatchDecision {
         id: number,
         item_id: string,
-        review_status: ReviewDecision
+        review_status: ReviewDecision,
+        previous_status: ReviewDecision
     }
 
     interface Result {
@@ -256,19 +258,23 @@
                     ...mismatch
                 }));
             },
-            recordDecision( decision: MismatchDecision ): void {
-                const itemDecisions = this.decisions[decision.item_id]
+            recordDecision( decision: MismatchDecision): void {
+                const itemDecisions = this.decisions[decision.item_id];
+                decision.previous_status = itemDecisions && itemDecisions[decision.id]
+                    ? itemDecisions[decision.id].previous_status // keep previous status if we have one
+                    : ReviewDecision.Pending;                    // assign 'pending' otherwise
+
                 this.decisions[decision.item_id] = {
                     ...itemDecisions,
                     [decision.id]: decision
                 };
             },
             async send( item: string ): Promise<void> {
-                if(!this.decisions[item]){
+                this.clearSubmitConfirmation();
+
+                if( !this.decisions[item] || isEmpty(this.decisions[item]) || !this.hasChanged(item) ){
                     return;
                 }
-
-                this.clearSubmitConfirmation();
 
                 // Casting to `any` since TS cannot understand $refs as
                 // component instances and complains about the usage of `show`
@@ -286,12 +292,9 @@
                 try {
                     await axios.put('/mismatch-review', this.decisions[item]);
 
-                    // remove decision from this.decisions after it has been
-                    // sent to the server successfully, to avoid sending them twice
-                    delete this.decisions[item];
                     this.requestError = false;
-
                     await overlay.hide();
+                    this.storePreviousDecisions(item);
                     this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
@@ -308,6 +311,22 @@
             },
             showSubmitConfirmation( item: string ) {
                 this.lastSubmitted = item;
+            },
+            hasChanged(entityId: string) {
+                for (const decisionId in this.decisions[entityId]) {
+                    const decision = this.decisions[entityId][decisionId];
+                    if(decision.review_status !== decision.previous_status) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+            storePreviousDecisions(item: string) {
+                for (const decisionId in this.decisions[item]) {
+                    const decision = this.decisions[item][decisionId];
+                    decision.previous_status = decision.review_status;
+                }
             },
             // Anotating dialog as `any` since typescript doesn't fully
             // understand component instances and complains about usage of the

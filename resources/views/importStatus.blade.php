@@ -1,6 +1,6 @@
 <x-layout>
     <div role="group" class="button-group right">
-        <a class="button primary progressive" href="#"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon" />{{__('store-layout.button:download-stats')}}</a>
+        <a class="button primary progressive" href="{{ route('get_csv') }}"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon" />{{__('store-layout.button:download-stats')}}</a>
     </div>
     @foreach ($imports as $import)
         <dl class="import-meta import-meta-{{ $import->status }}">

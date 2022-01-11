@@ -54,4 +54,4 @@ Route::prefix('store')->name('store.')->group(function () {
     })->name('import-status');
 });
 
-Route::get('download-import-stats', [\App\Http\Controllers\CsvController::class, 'get_csv'])->name('get_csv');
+Route::get('download-import-stats', [\App\Http\Controllers\CsvController::class, 'download_csv'])->name('get_csv');

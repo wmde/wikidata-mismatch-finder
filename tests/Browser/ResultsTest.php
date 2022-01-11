@@ -142,7 +142,7 @@ class ResultsTest extends DuskTestCase
                     $dropdown->assertDropdownDisabled();
                 })
                 ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->assertButtonDisabled('Apply changes');
+                    $section->assertButtonDisabled('Save reviews');
                 });
         });
     }

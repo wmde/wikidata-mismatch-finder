@@ -46,7 +46,7 @@ class ItemsFormTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->press('.submit-ids')
-                    ->assertSee('Please provide the Item identifiers in order to perform the check.');
+                    ->assertSee('Please provide the Item identifiers that should be checked.');
 
             $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
         });
@@ -57,10 +57,10 @@ class ItemsFormTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->press('.submit-ids')
-                    ->assertSee('Please provide the Item identifiers in order to perform the check.')
+                    ->assertSee('Please provide the Item identifiers that should be checked.')
                     ->keys('@items-input', 'Q1', '{return_key}', 'Q2')
                     ->press('.submit-ids')
-                    ->assertDontSee('Please provide the Item identifiers in order to perform the check.');
+                    ->assertDontSee('Please provide the Item identifiers that should be checked.');
         });
     }
 

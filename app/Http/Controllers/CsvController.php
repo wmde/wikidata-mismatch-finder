@@ -18,7 +18,7 @@ class CsvController extends Controller
         $currentTime = Carbon::now()->format('Y-m-d');
 
         $headers = array(
-            'Content-Type' => 'application/vnd.ms-excel; charset=utf-8'
+            'Content-Type' => 'text/csv; charset=utf-8'
         );
 
         if (!File::exists(storage_path("/import_stats"))) {

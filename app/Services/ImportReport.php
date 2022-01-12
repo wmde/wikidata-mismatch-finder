@@ -4,11 +4,14 @@ namespace App\Services;
 
 use App\Models\Mismatch;
 use Illuminate\Support\Facades\File;
+use App\Models\ImportMeta;
 
-class CSVImportStatsFileGenerator
+class ImportReport
 {
-    public function generateCSV(object $imports, string $currentTime)
+    public function generateCSV(string $currentTime)
     {
+        $imports = ImportMeta::get();
+
         if (!File::exists(storage_path("/import_stats"))) {
             File::makeDirectory(storage_path("/import_stats"));
         }
@@ -43,7 +46,7 @@ class CSVImportStatsFileGenerator
             if ($mismatches_count > 0) {
                 $percent_completed = (($mismatches_count - $mismatches_pending) / $mismatches_count) * 100;
             }
-    
+
             fputcsv($handle, [
                 $each_import->id,
                 $each_import->status,

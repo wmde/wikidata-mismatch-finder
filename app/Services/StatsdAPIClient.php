@@ -25,9 +25,9 @@ class StatsdAPIClient
         $this->namespace = $namespace;
     }
 
-    public function sendStats(string $metric): Response
+    public function sendStats(string $metric, int $value = 1): Response
     {
-        $response = Http::post($this->baseUrl. '?' .$this->namespace . '.' . $metric . '=1c');
+        $response = Http::post($this->baseUrl. '?' .$this->namespace . '.' . $metric . '=' . $value . 'c');
 
         // Checking for an errors field in the response, since Wikibase api
         // responds with 200 even for erroneous requests

@@ -4,16 +4,31 @@ namespace App\Http\Controllers\Traits;
 
 trait StatsTracker
 {
+    /**
+     * Track mismatch requests via statsv
+     *
+     * @return void
+     */
     public function trackRequestStats()
     {
         $this->statsd->sendStats('mismatch_request');
     }
 
+    /**
+     * Track mismatch reviews via statsv
+     *
+     * @return void
+     */
     public function trackReviewStats()
     {
         $this->statsd->sendStats('mismatch_review');
     }
 
+    /**
+     * Track mismatch file imports via statsv
+     *
+     * @return void
+     */
     public function trackImportStats()
     {
         $this->statsd->sendStats('import_mismatch_file');

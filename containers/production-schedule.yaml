@@ -1,0 +1,31 @@
+---
+# Run the mismatch finder scheduler on kubernetes
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mismatch-finder.schedule
+  namespace: tool-mismatch-finder
+  labels:
+    name: mismatch-finder.schedule
+    toolforge: tool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mismatch-finder.schedule
+      toolforge: tool
+  template:
+    metadata:
+      labels:
+        name: mismatch-finder.schedule
+        toolforge: tool
+    spec:
+      containers:
+        - name: artisan-schedule
+          image: docker-registry.tools.wmflabs.org/toolforge-php73-sssd-base:latest
+          command: [ "php", "artisan", "schedule:work" ]
+          workingDir: /data/project/mismatch-finder/mismatch-finder-repo
+          env:
+            - name: HOME
+              value: /data/project/mismatch-finder
+          imagePullPolicy: Always

@@ -7,15 +7,12 @@ use App\Services\ImportReport;
 
 class CsvController extends Controller
 {
-
     public function download_csv(ImportReport $report)
     {
         $currentTime = now()->format('Y-m-d_H-i-s');
         $filename = "import-stats-$currentTime.csv";
 
-        $headers = array(
-            'Content-Type' => 'text/csv; charset=utf-8'
-        );
+        $headers = [ 'Content-Type' => 'text/csv; charset=utf-8' ];
 
         $filepath = $report->generateCSV($filename);
 

@@ -57,6 +57,7 @@ class MismatchController extends Controller
     }
     /**
      * Update review_status of the resource.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $id
      * @param  \App\Services\StatsdAPIClient  $statsd

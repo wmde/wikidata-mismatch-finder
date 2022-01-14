@@ -62,7 +62,8 @@ class ValidateCSV implements ShouldQueue
     /**
      * Handle a job failure.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable  $exception
+     *
      * @return void
      */
     public function failed(Throwable $exception)

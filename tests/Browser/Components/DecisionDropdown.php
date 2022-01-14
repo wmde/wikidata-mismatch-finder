@@ -25,7 +25,8 @@ class DecisionDropdown extends BaseComponent
     /**
      * Assert that the browser page contains the component.
      *
-     * @param  Browser  $browser
+     * @param Browser  $browser
+     *
      * @return void
      */
     public function assert(Browser $browser)

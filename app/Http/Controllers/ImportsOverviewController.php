@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Response;
 use App\Services\ImportReport;
 
-class CsvController extends Controller
+class ImportsOverviewController extends Controller
 {
-    public function download_csv(ImportReport $report)
+    public function downloadCsv(ImportReport $report)
     {
         $currentTime = now()->format('Y-m-d_H-i-s');
         $filename = "import-stats-$currentTime.csv";

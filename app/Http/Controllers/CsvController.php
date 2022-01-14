@@ -14,8 +14,8 @@ class CsvController extends Controller
 
         $headers = [ 'Content-Type' => 'text/csv; charset=utf-8' ];
 
-        $filepath = $report->generateCSV($filename);
-
-        return Response::download($filepath, $filename, $headers);
+        return response()->streamDownload(function() use ($report) {
+            $report->generateCSV('php://output');
+        }, $filename, $headers);
     }
 }

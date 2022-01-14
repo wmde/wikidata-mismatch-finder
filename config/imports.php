@@ -31,5 +31,19 @@ return [
 
     'expires' => [
         'after' => env('IMPORTS_BEST_BEFORE_MIN', '+1 day')
+    ],
+
+    'report' => [
+        'headers' => [
+            "upload",
+            "status",
+            "mismatches",
+            "decisions with an error on Wikidata",
+            "decisions with an error in external source",
+            "decisions with an error in both",
+            "decisions with an error in neither",
+            "undecided mismatches",
+            "% completed",
+        ]
     ]
 ];

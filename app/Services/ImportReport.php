@@ -8,35 +8,20 @@ use App\Models\ImportMeta;
 
 class ImportReport
 {
-    public function generateCSV(string $filename)
+    public function generateCSV(string $path): void
     {
         $imports = ImportMeta::get();
 
-        if (!File::exists(storage_path("/import_stats"))) {
-            File::makeDirectory(storage_path("/import_stats"));
-        }
+        // Creating the output stream
+        $handle = fopen($path, 'w');
 
-        //creating the download file
-        $filename = storage_path("/import_stats/$filename");
-        $handle = fopen($filename, 'w');
-
-        //adding the first row
-        fputcsv($handle, [
-            "upload",
-            "status",
-            "mismatches",
-            "decisions with an error on Wikidata",
-            "decisions with an error in external source",
-            "decisions with an error in both",
-            "decisions with an error in neither",
-            "undecided mismatches",
-            "% completed",
-        ]);
+        // write column headers
+        fputcsv($handle, config('imports.report.headers'));
 
         foreach ($imports as $each_import) {
             $mismatches = Mismatch::where('import_id', $each_import->id)->get();
             $mismatches_count = $mismatches->count();
-            $review_statuses = array( 'wikidata', 'external', 'both','none', 'pending' );
+            $review_statuses = config('mismatches.validation.review_status.accepted_values');
             $percent_completed = 0;
 
             foreach ($review_statuses as $review_status) {
@@ -59,8 +44,7 @@ class ImportReport
                 $percent_completed
             ]);
         }
-        fclose($handle);
 
-        return $filename;
+        fclose($handle);
     }
 }

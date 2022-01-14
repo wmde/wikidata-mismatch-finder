@@ -31,7 +31,7 @@ return [
             'max' => 600 // Max number of item-ids to fetch mismatches for at once
         ],
         'review_status' => [
-            'accepted_values' => ['pending','wikidata', 'external','both','none']
+            'accepted_values' => ['pending','wikidata', 'external', 'both','none']
         ]
     ],
     'id_separator' => '|',

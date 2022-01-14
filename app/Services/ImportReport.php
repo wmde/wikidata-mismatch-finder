@@ -8,7 +8,7 @@ use App\Models\ImportMeta;
 
 class ImportReport
 {
-    public function generateCSV(string $currentTime)
+    public function generateCSV(string $filename)
     {
         $imports = ImportMeta::get();
 
@@ -17,7 +17,7 @@ class ImportReport
         }
 
         //creating the download file
-        $filename =  storage_path("/import_stats/import-stats-" . $currentTime . ".csv");
+        $filename = storage_path("/import_stats/$filename");
         $handle = fopen($filename, 'w');
 
         //adding the first row

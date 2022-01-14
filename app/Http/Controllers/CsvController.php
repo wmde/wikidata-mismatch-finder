@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Response;
 use App\Services\ImportReport;
-use Carbon\Carbon;
 
 class CsvController extends Controller
 {
 
     public function download_csv(ImportReport $report)
     {
-        $currentTime = Carbon::now()->format('Y-m-d');
+        $currentTime = now()->format('Y-m-d_H-i-s');
+        $filename = "import-stats-$currentTime.csv";
 
         $headers = array(
             'Content-Type' => 'text/csv; charset=utf-8'
         );
 
-        $filename = $report->generateCSV($currentTime);
+        $filepath = $report->generateCSV($filename);
 
-        return Response::download($filename, "import-stats-" . $currentTime . ".csv", $headers);
+        return Response::download($filepath, $filename, $headers);
     }
 }

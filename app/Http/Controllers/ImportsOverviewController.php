@@ -9,8 +9,9 @@ class ImportsOverviewController extends Controller
 {
     public function downloadCsv(ImportReport $report)
     {
-        $currentTime = now()->format('Y-m-d_H-i-s');
-        $filename = "import-stats-$currentTime.csv";
+        $filename = strtr(config('imports.report.filename_template'), [
+            ':datetime' => now()->format('Y-m-d_H-i-s')
+        ]);
 
         $headers = [ 'Content-Type' => 'text/csv; charset=utf-8' ];
 

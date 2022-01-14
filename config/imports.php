@@ -34,6 +34,7 @@ return [
     ],
 
     'report' => [
+        'filename_template' => 'import-stats-:datetime.csv',
         'headers' => [
             "upload",
             "status",

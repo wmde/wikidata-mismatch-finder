@@ -63,6 +63,8 @@ Additionally, each row of the csv file must contain exactly 4 commas (`,`). Opti
 
 You can consult this [mismatch file](exampleMismatchFile.csv) for a valid example.
 
+_**Note**: If possible, please do not include mismatches in your import file that have already been uploaded and reviewed before to avoid double-work by reviewers.
+
 ### Uploading an import file
 
 To upload an import file, users may send a request to our `POST /api/imports` api endpoint. 

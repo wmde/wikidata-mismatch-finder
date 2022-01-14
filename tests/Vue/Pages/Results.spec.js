@@ -239,7 +239,7 @@ describe('Results.vue', () => {
         expect( wrapper.vm.hasChanged('Q321') ).toBe(false);
     });
 
-    it('Sends an axios put request with the selected decisions on click of "Apply changes" button', async () => {
+    it('Sends an axios put request with the selected decisions on click of "Save reviews" button', async () => {
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id, review_status: ReviewDecision.Wikidata}} };
         const wrapper = mountWithMocks({

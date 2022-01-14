@@ -137,12 +137,12 @@ class ResultsTest extends DuskTestCase
 
             $browser->visit(new ResultsPage($mismatch->item_id))
                 ->assertGuest()
-                ->assertSee('Please log in to be able to make any changes.')
+                ->assertSee('Please log in to make any changes.')
                 ->within($dropdownComponent, function ($dropdown) {
                     $dropdown->assertDropdownDisabled();
                 })
                 ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-                    $section->assertButtonDisabled('Apply changes');
+                    $section->assertButtonDisabled('Save reviews');
                 });
         });
     }
@@ -198,7 +198,7 @@ class ResultsTest extends DuskTestCase
                 ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatch, [
                     'option' => 1,
-                    'label' => 'Awaiting Review'
+                    'label' => 'Awaiting review'
                 ])
                 //load the page again
                 ->refresh()
@@ -229,7 +229,7 @@ class ResultsTest extends DuskTestCase
                 ->waitFor('@confirmation-dialog')
                 ->pause(250)
                 ->assertPresent("#item-mismatches-{$mismatch->item_id} .wikit-Message--success")
-                ->assertSee('Changes successfully submitted for');
+                ->assertSee('Review successfully saved for');
         });
     }
 

@@ -64,7 +64,7 @@ class ResultsPage extends Page
         })
         // ensure the correct apply button is pressed
         ->within("#item-mismatches-$mismatch->item_id", function ($section) {
-            $section->press('Apply changes');
+            $section->press('Save reviews');
         });
     }
 }

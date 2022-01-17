@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Services\ImportReport;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
 use App\Models\User;
 use App\Models\ImportMeta;
 use App\Models\Mismatch;
@@ -61,7 +60,7 @@ class ImportReportTest extends TestCase
     {
         $csv = fopen('php://memory', 'r+');
 
-        foreach($array as $row) {
+        foreach ($array as $row) {
             fputcsv($csv, $row);
         }
 

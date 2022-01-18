@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\ImportMeta;
 use App\Models\Mismatch;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class ImportReportTest extends TestCase
 {
@@ -23,7 +24,14 @@ class ImportReportTest extends TestCase
         $import = ImportMeta::factory()->for($user)->create(
             ['status' => 'completed']
         );
-        Mismatch::factory()->for($import)->create();
+
+        $mismatches = Mismatch::factory(3)
+            ->for($import)
+            ->state(new Sequence(
+                ['review_status' => 'pending'],
+                ['review_status' => 'wikidata'],
+                ['review_status' => 'none'],
+            ))->create();
 
         Storage::fake('local');
         $filename = 'temp_test.csv';
@@ -31,18 +39,21 @@ class ImportReportTest extends TestCase
         Storage::put($filename, '');
         $path = Storage::path($filename);
 
+        $total = $mismatches->count();
+        $pending = $mismatches->where('review_status', 'pending')->count();
+
         $expected = $this->formatCsv([
             config('imports.report.headers'),
             [
-                1, // Import ID
-                'completed', // Import status
-                1, // Mismatch count
-                0, // Error on wikidata count
-                0, // Error on external count
-                0, // Error on both count
-                0, // Error on none count
-                1, // Pending count
-                0, // % completed
+                $import->id, // Import ID
+                $import->status, // Import status
+                $total, // Mismatch count
+                $mismatches->where('review_status', 'wikidata')->count(), // Error on wikidata count
+                $mismatches->where('review_status', 'external')->count(), // Error on external count
+                $mismatches->where('review_status', 'both')->count(), // Error on both count
+                $mismatches->where('review_status', 'none')->count(), // Error on none count
+                $pending, // Pending count
+                100 - ($pending / $total * 100), // % completed
             ]
         ]);
 

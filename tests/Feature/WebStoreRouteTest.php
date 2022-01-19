@@ -46,4 +46,22 @@ class WebStoreRouteTest extends TestCase
         $response->assertSuccessful();
         $response->assertViewIs('importStatus');
     }
+
+    /**
+     * Test the store imports report csv download route
+     *
+     *  @return void
+     */
+    public function test_store_import_csv_stats()
+    {
+        $filename = strtr(config('imports.report.filename_template'), [
+            ':datetime' => now()->format('Y-m-d_H-i-s')
+        ]);
+
+        $response = $this->get(route('store.imports-overview'));
+
+        $response->assertSuccessful();
+        $response->assertHeader('Content-Type', 'text/csv; charset=utf-8');
+        $response->assertDownload($filename);
+    }
 }

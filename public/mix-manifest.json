@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/images/download-stats.svg": "/images/download-stats.svg",
     "/images/user.svg": "/images/user.svg",
     "/images/wikidata-logo.svg": "/images/wikidata-logo.svg"
 }

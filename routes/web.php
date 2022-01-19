@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\ImportsOverviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,8 @@ Route::prefix('store')->name('store.')->group(function () {
             'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get()
         ]);
     })->name('import-status');
+
+    Route::get('/imports-overview', [
+        ImportsOverviewController::class, 'downloadCsv'
+    ])->name('imports-overview');
 });

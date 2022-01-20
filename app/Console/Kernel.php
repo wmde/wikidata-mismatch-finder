@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(new TrackMismatchRatio())
-            ->description("Tracking task that runs every minute")
-            ->everyMinute();
+            ->description("Task to track the 'pending vs reviewed' ratio once per day")
+            ->daily();
     }
 
     /**

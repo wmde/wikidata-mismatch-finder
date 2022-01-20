@@ -54,6 +54,8 @@ class ImportReportTest extends TestCase
                 $mismatches->where('review_status', 'none')->count(), // Error on none count
                 $pending, // Pending count
                 100 - ($pending / $total * 100), // % completed
+                $import->expires, // Expiry date
+                $import->expires > now() // Expired
             ]
         ]);
 

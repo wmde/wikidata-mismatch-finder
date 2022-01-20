@@ -45,6 +45,8 @@ return [
             "decisions with an error in neither",
             "undecided mismatches",
             "% completed",
+            "expiry date",
+            "expired?"
         ]
     ]
 ];

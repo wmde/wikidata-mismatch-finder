@@ -42,7 +42,7 @@ class ImportReport
                 $mismatches_pending,
                 $percent_completed,
                 $each_import->expires,
-                $each_import->expires > now()
+                $each_import->expires < now() ? 'y' : 'n'
             ]);
         }
 

@@ -57,7 +57,7 @@ class ImportReportTest extends TestCase
                 $pending, // Pending count
                 100 - ($pending / $total * 100), // % completed
                 $import->expires, // Expiry date
-                $import->expires > now() // Expired
+                $import->expires < now() ? 'y' : 'n' // Expired
             ]
         ]);
 

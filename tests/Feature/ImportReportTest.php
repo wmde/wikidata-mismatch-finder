@@ -42,6 +42,8 @@ class ImportReportTest extends TestCase
         $total = $mismatches->count();
         $pending = $mismatches->where('review_status', 'pending')->count();
 
+        $this->travelTo(now()); // stop the clock
+
         $expected = $this->formatCsv([
             config('imports.report.headers'),
             [
@@ -65,6 +67,8 @@ class ImportReportTest extends TestCase
         $result = Storage::get($filename);
 
         $this->assertSame($expected, $result);
+
+        $this->travelBack(); // resumes the clock
     }
     /**
      * @return void

@@ -1,0 +1,29 @@
+---
+# Run the mismatch finder scheduler on kubernetes
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mismatch-finder-staging.schedule
+  namespace: tool-mismatch-finder-staging
+  labels:
+    name: mismatch-finder-staging.schedule
+    toolforge: tool
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            toolforge: tool
+        spec:
+          containers:
+          - name: artisan-schedule
+            image: docker-registry.tools.wmflabs.org/toolforge-php73-sssd-base:latest
+            command: [ "php", "artisan", "schedule:run" ]
+            workingDir: /data/project/mismatch-finder-staging/mismatch-finder-repo-next
+            env:
+              - name: HOME
+                value: /data/project/mismatch-finder-staging
+            imagePullPolicy: Always
+          restartPolicy: OnFailure

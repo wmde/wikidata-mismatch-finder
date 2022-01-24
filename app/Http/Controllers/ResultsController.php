@@ -38,10 +38,10 @@ class ResultsController extends Controller
 
         $mismatches = Mismatch::with('importMeta.user')
             ->whereIn('item_id', $itemIds)
-            // ->where('review_status', 'pending')
-            // ->whereHas('importMeta', function ($import) {
-            //     $import->where('expires', '>=', now());
-            // })
+            ->where('review_status', 'pending')
+            ->whereHas('importMeta', function ($import) {
+                $import->where('expires', '>=', now());
+            })
             ->lazy();
 
         $entityIds = $this->extractEntityIds($mismatches, $itemIds);

@@ -8,6 +8,9 @@ use App\Http\Resources\MismatchResource;
 use App\Models\Mismatch;
 use App\Services\StatsdAPIClient;
 
+/**
+ * API controller for mismatch management
+ */
 class MismatchController extends Controller
 {
     use Traits\ReviewMismatch, Traits\StatsTracker;

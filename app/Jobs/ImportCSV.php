@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 use App\Models\ImportFailure;
 
+/**
+ * CSV import job for the laravel background queue
+ *
+ * This job is triggered by file uploads to the /imports API endpoint.
+ */
 class ImportCSV implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

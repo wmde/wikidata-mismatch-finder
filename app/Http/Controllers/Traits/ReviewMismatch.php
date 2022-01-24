@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Traits;
 
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Trait to provide saving and logging capabilities for mismatches
+ * to web and API controllers
+ */
 trait ReviewMismatch
 {
     public function saveToDb($mismatch, $user, $review_status)

@@ -4,6 +4,11 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
+/**
+ * Middleware to authenticate
+ *
+ * Provided by Laravel scaffold
+ */
 class Authenticate extends Middleware
 {
     /**

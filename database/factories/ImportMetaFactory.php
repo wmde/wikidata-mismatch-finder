@@ -5,6 +5,13 @@ namespace Database\Factories;
 use App\Models\ImportMeta;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory for the ImportMeta model
+ *
+ * This factory generates a random ImportMeta resource with a description,
+ * a status, an external source (with a 60% chance including a URL), an
+ * expiry data and the common file name 'test_file.csv'.
+ */
 class ImportMetaFactory extends Factory
 {
     /**

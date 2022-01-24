@@ -6,6 +6,9 @@ use Exception;
 use App\Models\ImportMeta;
 use Throwable;
 
+/**
+ * Exception to be thrown upon errors when validating uploaded mismatch files
+ */
 class ImportValidationException extends Exception
 {
 

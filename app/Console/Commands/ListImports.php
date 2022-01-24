@@ -6,6 +6,9 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use Illuminate\Console\Command;
 
+/**
+ * Laravel console command to list imported mismatch files
+ */
 class ListImports extends Command
 {
     /**

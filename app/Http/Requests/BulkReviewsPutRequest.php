@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Form request to provide several mismatch reviews in bulk
+ *
+ * This form request holds validation rules for the bulk review
+ * of mismatches
+ */
 class BulkReviewsPutRequest extends FormRequest
 {
     /**

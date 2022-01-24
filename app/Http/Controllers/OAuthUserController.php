@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
+/**
+ * Web controller for OAuth management
+ */
 class OAuthUserController extends Controller
 {
     public function __construct()

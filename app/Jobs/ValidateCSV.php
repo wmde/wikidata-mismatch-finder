@@ -17,6 +17,11 @@ use App\Exceptions\ImportParserException;
 use Throwable;
 use App\Models\ImportFailure;
 
+/**
+ * CSV validate job for the laravel background queue
+ *
+ * This job is triggered by file uploads to the /imports API endpoint.
+ */
 class ValidateCSV implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

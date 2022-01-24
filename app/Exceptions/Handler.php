@@ -6,6 +6,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * The Laravel exception handler
+ */
 class Handler extends ExceptionHandler
 {
     /**

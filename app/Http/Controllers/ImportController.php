@@ -12,6 +12,9 @@ use App\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Bus;
 use App\Services\StatsdAPIClient;
 
+/**
+ * API controller for mismatch file import management
+ */
 class ImportController extends Controller
 {
     use Traits\StatsTracker;

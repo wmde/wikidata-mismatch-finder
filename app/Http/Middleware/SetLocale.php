@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
+/**
+ * Middleware to set locale
+ */
 class SetLocale
 {
     /**

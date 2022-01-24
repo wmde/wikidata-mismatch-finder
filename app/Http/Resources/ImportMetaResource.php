@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * API resource for JSON representation of a mismatch import's meta data
+ */
 class ImportMetaResource extends JsonResource
 {
     /**

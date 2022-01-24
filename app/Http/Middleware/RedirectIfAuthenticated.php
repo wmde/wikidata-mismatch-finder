@@ -7,6 +7,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Middleware to redirect if authenticated
+ *
+ * Provided by Laravel scaffold
+ */
 class RedirectIfAuthenticated
 {
     /**

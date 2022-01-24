@@ -8,6 +8,9 @@ use App\Exceptions\WikibaseValueParserException;
 use Kevinrob\GuzzleCache\CacheMiddleware;
 use App\Exceptions\WikibaseAPIClientException;
 
+/**
+ * Client that connects to a wikibase API to retrieve or format entity data
+ */
 class WikibaseAPIClient
 {
 

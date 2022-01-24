@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Traits;
 
+/**
+ * Trait to provide usage tracking capabilities via statsv
+ * to various controllers
+ */
 trait StatsTracker
 {
     public function trackRequestStats()

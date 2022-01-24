@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Form request to provide a single mismatch review
+ *
+ * This form request holds validation rules for the review
+ * of a single mismatch
+ */
 class MismatchPutRequest extends FormRequest
 {
 

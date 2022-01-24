@@ -6,6 +6,9 @@ use Illuminate\Contracts\Validation\Rule;
 use App\Services\WikibaseAPIClient;
 use App\Exceptions\WikibaseValueParserException;
 
+/**
+ * Parser Rule for validating uploaded mismatch files
+ */
 class WikidataValue implements Rule
 {
     /**

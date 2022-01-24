@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The ImportFailure model
+ */
 class ImportFailure extends Model
 {
     use HasFactory;

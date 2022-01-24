@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * API resource for JSON representation of a single mismatch
+ */
 class MismatchResource extends JsonResource
 {
     /**

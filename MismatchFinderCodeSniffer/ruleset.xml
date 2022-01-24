@@ -7,4 +7,8 @@
     <exclude name="Generic.Commenting.DocComment.ContentAfterOpen" />
     <exclude name="Generic.Commenting.DocComment.ContentBeforeClose" />
  </rule>
+
+ <rule ref="Squiz.Commenting.ClassComment">
+    <exclude-pattern>tests/*</exclude-pattern>
+ </rule>
 </ruleset>

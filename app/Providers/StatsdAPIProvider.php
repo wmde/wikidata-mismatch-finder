@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\StatsdAPIClient;
 
+/**
+ * Provider for the StatsdAPIClient
+ */
 class StatsdAPIProvider extends ServiceProvider
 {
     /**

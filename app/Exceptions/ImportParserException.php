@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Throwable;
 
+/**
+ * Exception to be thrown upon errors when parsing uploaded mismatch files
+ */
 class ImportParserException extends Exception
 {
     /**

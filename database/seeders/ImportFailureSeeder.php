@@ -7,6 +7,12 @@ use App\Models\ImportMeta;
 use App\Models\User;
 use App\Models\ImportFailure;
 
+/**
+ * Seeder for the ImportFailure resource
+ *
+ * This seeder generates three ImportMeta entries including an
+ * upload user and three corresponding ImportFailure entries.
+ */
 class ImportFailureSeeder extends Seeder
 {
     /**

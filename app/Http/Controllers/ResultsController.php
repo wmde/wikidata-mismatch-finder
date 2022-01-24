@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\App;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
+/**
+ * Web controller for results management
+ */
 class ResultsController extends Controller
 {
     use Traits\ReviewMismatch, Traits\StatsTracker;

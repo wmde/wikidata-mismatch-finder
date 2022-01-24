@@ -5,6 +5,11 @@ namespace Database\Factories;
 use App\Models\UploadUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory for the UploadUser model
+ *
+ * This factory generates an UploadUser resource with a random user name.
+ */
 class UploadUserFactory extends Factory
 {
     /**

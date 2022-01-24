@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex, {Store} from 'vuex';
 import { Inertia } from '@inertiajs/inertia';
+import mutations from './mutations';
 
 export function getInitialState() {
     return {
@@ -14,17 +15,7 @@ export function createStore(): Store<{loading: boolean}>{
 
     const store = new Store({
         state: getInitialState(),
-        mutations: {
-            startLoader (state) {
-                state.loading = true;
-            },
-            stopLoader (state) {
-                state.loading = false;
-            },
-            saveSearchedIds (state, searchedIds) {
-                state.lastSearchedIds = searchedIds;
-            }
-        }
+        mutations
     });
 
     let timer: ReturnType<typeof setTimeout>;

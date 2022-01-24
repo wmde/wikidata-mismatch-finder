@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts">
-    import { mapState } from 'vuex';
+    import { mapState, mapMutations } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -182,9 +182,10 @@
                     return;
                 }
 
-                this.$store.commit('saveSearchedIds', this.form.itemsInput);
+                this.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
+            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {

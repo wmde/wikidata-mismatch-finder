@@ -197,7 +197,9 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            ...mapState(['loading','lastSearchedIds']),
+            // only mapping 'loading' and not 'lastSearchedIds' because computed 
+            //properties are not available when data is processed in vue's lifecycle
+            ...mapState(['loading']),
         },
         data(): HomeState {
             return {

@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts">
-    import { mapState } from 'vuex';
+    import { mapState, mapMutations } from 'vuex';
     import { Head } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -182,9 +182,10 @@
                     return;
                 }
 
-                this.$store.commit('saveSearchedIds', this.form.itemsInput);
+                this.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
+            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {
@@ -196,7 +197,9 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            ...mapState(['loading','lastSearchedIds']),
+            // only mapping 'loading' and not 'lastSearchedIds' because computed 
+            //properties are not available when data is processed in vue's lifecycle
+            ...mapState(['loading']),
         },
         data(): HomeState {
             return {

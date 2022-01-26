@@ -1,8 +1,7 @@
 import './bootstrap';
 import Vue from 'vue';
-import Vuex, {Store} from 'vuex';
 import i18n from 'vue-banana-i18n';
-import { Inertia } from '@inertiajs/inertia';
+import { createStore } from './store';
 import { createInertiaApp } from '@inertiajs/inertia-vue';
 
 import i18nMessages from './lib/i18n';
@@ -16,51 +15,6 @@ Vue.use(bubble);
 async function setupI18n(locale: string): Promise<void>{
     const messages = await i18nMessages(locale);
     Vue.use(i18n, { locale, messages });
-}
-
-// A simple store to manage global client side state. In case this needs to
-// scale up, it is recommended to implement a more robust state management
-// architecture. See https://vuex.vuejs.org/guide/structure.html
-function createStore(): Store<{loading: boolean}>{
-    Vue.use(Vuex);
-
-    const store = new Store({
-        state: {
-            loading: false,
-            lastSearchedIds: ''
-        },
-        mutations: {
-            startLoader (state) {
-                state.loading = true;
-            },
-            stopLoader (state) {
-                state.loading = false;
-            },
-            saveSearchedIds (state, searchedIds) {
-                state.lastSearchedIds = searchedIds;
-            }
-        }
-    });
-
-    let timer: ReturnType<typeof setTimeout>;
-
-    Inertia.on('start', () => {
-        // Only instantiate loading state after 250ms. This is done to
-        // prevent a flash of the loader in case loading is nearly
-        // immediate, which can be visually distracting.
-        timer = setTimeout(() => store.commit('startLoader'), 250);
-    });
-
-    Inertia.on('finish', (event) => {
-        clearTimeout(timer);
-        const status = event.detail.visit;
-
-        if (status.completed || status.cancelled) {
-            store.commit('stopLoader');
-        }
-    });
-
-    return store;
 }
 
 // Only bootstrap inertia if setup is successful. Display generic error

@@ -22,6 +22,8 @@ class ResultsController extends Controller
     /**
      * Instantiate a new controller instance.
      *
+     * @param StatsdAPIClient $statsd
+     *
      * @return void
      */
     public function __construct(StatsdAPIClient $statsd)
@@ -93,7 +95,7 @@ class ResultsController extends Controller
     /**
      * Update review_statuses of a batch of mismatches
      *
-     * @param \Illuminate\Http\Request $request
+     * @param BulkReviewsPutRequest $request
      *
      * @return void
      */

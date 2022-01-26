@@ -19,6 +19,8 @@ class WikidataValue implements Rule
     /**
      * Create a new rule instance.
      *
+     *  @param WikibaseAPIClient $wikidata
+     *
      * @return void
      */
     public function __construct(WikibaseAPIClient $wikidata)

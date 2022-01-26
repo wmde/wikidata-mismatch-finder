@@ -52,7 +52,7 @@ class Mismatch extends Model
      *
      * @return void
      */
-    public function setStatementGuidAttribute($value)
+    public function setStatementGuidAttribute(string $value)
     {
         $this->attributes['statement_guid'] = $value;
         $this->attributes['item_id'] = strtoupper(explode('$', $value, 2)[0]);

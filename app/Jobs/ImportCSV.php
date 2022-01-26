@@ -34,6 +34,8 @@ class ImportCSV implements ShouldQueue
     /**
      * Create a new job instance.
      *
+     * @param ImportMeta $meta
+     *
      * @return void
      */
     public function __construct(ImportMeta $meta)
@@ -43,6 +45,8 @@ class ImportCSV implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param CSVImportReader $reader
      *
      * @return void
      */

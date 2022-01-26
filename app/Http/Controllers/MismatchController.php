@@ -21,6 +21,8 @@ class MismatchController extends Controller
     /**
      * Instantiate a new controller instance.
      *
+     * @param StatsdAPIClient $statsd
+     *
      * @return void
      */
     public function __construct(StatsdAPIClient $statsd)
@@ -32,8 +34,7 @@ class MismatchController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request      $request
-     * @param \App\Services\StatsdAPIClient $statsd
+     * @param MismatchGetRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -62,13 +63,12 @@ class MismatchController extends Controller
     /**
      * Update review_status of the resource.
      *
-     * @param \Illuminate\Http\Request      $request
-     * @param string                        $id
-     * @param \App\Services\StatsdAPIClient $statsd
+     * @param MismatchPutRequest $request
+     * @param string             $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(MismatchPutRequest $request, $id, StatsdAPIClient $statsd)
+    public function update(MismatchPutRequest $request, string $id)
     {
         $mismatch = Mismatch::findorFail($id);
 

@@ -39,6 +39,8 @@ class UserFactory extends Factory
     /**
      * Indicate that the user is an uploader.
      *
+     * @param string $username The user to be marked as uploader.
+     *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
     public function uploader(string $username = null)

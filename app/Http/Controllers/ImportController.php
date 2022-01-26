@@ -25,6 +25,8 @@ class ImportController extends Controller
      /**
      * Instantiate a new controller instance.
      *
+     * @param StatsdAPIClient $statsd
+     *
      * @return void
      */
     public function __construct(StatsdAPIClient $statsd)

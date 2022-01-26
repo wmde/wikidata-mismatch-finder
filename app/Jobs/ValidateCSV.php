@@ -36,6 +36,8 @@ class ValidateCSV implements ShouldQueue
     /**
      * Create a new job instance.
      *
+     * @param ImportMeta $meta
+     *
      * @return void
      */
     public function __construct(ImportMeta $meta)
@@ -45,6 +47,9 @@ class ValidateCSV implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param WikidataValue   $valueValidator
+     * @param CSVImportReader $reader
      *
      * @return void
      */

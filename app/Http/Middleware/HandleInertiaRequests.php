@@ -22,7 +22,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determines the current asset version.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @see https://inertiajs.com/asset-versioning
      *
@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Defines the props that are shared by default.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @see https://inertiajs.com/shared-data
      *

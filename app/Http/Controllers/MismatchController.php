@@ -32,8 +32,8 @@ class MismatchController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param \App\Services\StatsdAPIClient  $statsd
+     * @param \Illuminate\Http\Request      $request
+     * @param \App\Services\StatsdAPIClient $statsd
      *
      * @return \Illuminate\Http\Response
      */
@@ -62,9 +62,9 @@ class MismatchController extends Controller
     /**
      * Update review_status of the resource.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param string  $id
-     * @param \App\Services\StatsdAPIClient  $statsd
+     * @param \Illuminate\Http\Request      $request
+     * @param string                        $id
+     * @param \App\Services\StatsdAPIClient $statsd
      *
      * @return \Illuminate\Http\Response
      */

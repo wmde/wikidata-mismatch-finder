@@ -66,7 +66,7 @@ class ImportCSV implements ShouldQueue
     /**
      * Handle a job failure.
      *
-     * @param \Throwable  $exception
+     * @param \Throwable $exception
      *
      * @return void
      */

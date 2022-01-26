@@ -48,7 +48,7 @@ class Mismatch extends Model
     /**
      * Set the mismatch's item_id alongside the statement_guid
      *
-     * @param string  $value
+     * @param string $value
      *
      * @return void
      */

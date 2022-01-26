@@ -39,7 +39,7 @@ class DropImport extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return integer
      */
     public function handle()
     {

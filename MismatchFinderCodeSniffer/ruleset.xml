@@ -11,4 +11,12 @@
  <rule ref="Squiz.Commenting.ClassComment">
     <exclude-pattern>tests/*</exclude-pattern>
  </rule>
+ <rule ref="Squiz.Commenting.FunctionComment">
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+    <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows" />
+    <exclude-pattern>tests/*</exclude-pattern>
+    <properties>
+      <property name="minimumVisibility" value="protected" />
+    </properties>
+ </rule>
 </ruleset>

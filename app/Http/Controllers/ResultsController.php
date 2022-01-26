@@ -93,7 +93,7 @@ class ResultsController extends Controller
     /**
      * Update review_statuses of a batch of mismatches
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */

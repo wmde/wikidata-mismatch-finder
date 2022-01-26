@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
     /**
      * Prepare error messages on failed responses
      *
-     * @param \Throwable  $e
+     * @param \Throwable $e
      *
      * @return \Throwable
      */

@@ -36,8 +36,8 @@ class ImportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param \App\Services\StatsdAPIClient  $statsd
+     * @param \Illuminate\Http\Request      $request
+     * @param \App\Services\StatsdAPIClient $statsd
      */
     public function store(Request $request, StatsdAPIClient $statsd): JsonResource
     {
@@ -105,7 +105,7 @@ class ImportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\ImportMeta  $import
+     * @param \App\Models\ImportMeta $import
      */
     public function show(ImportMeta $import): JsonResource
     {

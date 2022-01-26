@@ -10,7 +10,7 @@ export function getInitialState() {
     }
 }
 
-export function createStore(): Store<{loading: boolean}>{
+export function createStore(): Store<RootState>{
     Vue.use(Vuex);
 
     const store = new Store({

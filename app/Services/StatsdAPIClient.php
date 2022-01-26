@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 use App\Exceptions\StatsdClientException;
+use Illuminate\Support\Facades\Log;
 
 class StatsdAPIClient
 {
@@ -27,7 +28,9 @@ class StatsdAPIClient
 
     public function sendStats(string $metric, int $value = 1): Response
     {
+        Log::info("sending " . $metric . " metric to statsv: " . $value);
         $response = Http::post($this->baseUrl. '?' .$this->namespace . '.' . $metric . '=' . $value . 'c');
+        Log::info("response: " . json_encode($response));
 
         // Checking for an errors field in the response, since Wikibase api
         // responds with 200 even for erroneous requests

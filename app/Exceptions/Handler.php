@@ -53,6 +53,8 @@ class Handler extends ExceptionHandler
      * @param Request    $request
      * @param \Throwable $e
      *
+     * @throws \Throwable
+     *
      * @return \Throwable
      */
     public function render($request, Throwable $e)

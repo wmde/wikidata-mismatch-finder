@@ -4,7 +4,7 @@ import RootState from './RootState';
 import { Inertia } from '@inertiajs/inertia';
 import mutations from './mutations';
 
-export function getInitialState() {
+export function getInitialState(): RootState {
     return {
         loading: false,
         lastSearchedIds: ''

@@ -16,7 +16,7 @@ class ImportMetaResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request) // phpcs:ignore
     {
         $meta = [
             'id' => $this->id,

@@ -36,7 +36,7 @@ class WikidataValue implements Rule
      *
      * @return boolean
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value) // phpcs:ignore
     {
         [
             'property' => $property,

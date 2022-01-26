@@ -16,7 +16,7 @@ class UserResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request) // phpcs:ignore
     {
         return [
             'id' => $this->id,

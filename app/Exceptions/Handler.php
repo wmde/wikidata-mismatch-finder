@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
      *
      * @return \Throwable
      */
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $e) // phpcs:ignore
     {
         $response = parent::render($request, $e);
 

@@ -38,6 +38,8 @@ class ImportValidationException extends Exception
 
     /**
      * Get the exception's context information.
+     *
+     * @return array
      */
     public function context(): array
     {

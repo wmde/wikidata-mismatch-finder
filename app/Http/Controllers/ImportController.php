@@ -38,6 +38,8 @@ class ImportController extends Controller
      *
      * @param \Illuminate\Http\Request      $request
      * @param \App\Services\StatsdAPIClient $statsd
+     *
+     * @return JsonResource
      */
     public function store(Request $request, StatsdAPIClient $statsd): JsonResource
     {
@@ -106,6 +108,8 @@ class ImportController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\ImportMeta $import
+     *
+     * @return JsonResource
      */
     public function show(ImportMeta $import): JsonResource
     {
@@ -114,6 +118,8 @@ class ImportController extends Controller
 
     /**
      * Display the list of imports (latest 10)
+     *
+     * @return JsonResource
      */
     public function index()
     {

@@ -95,7 +95,7 @@ class ResultsController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(BulkReviewsPutRequest $request)
     {

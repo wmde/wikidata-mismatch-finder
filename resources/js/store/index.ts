@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex, {Store} from 'vuex';
+import RootState from './RootState';
 import { Inertia } from '@inertiajs/inertia';
 import mutations from './mutations';
 

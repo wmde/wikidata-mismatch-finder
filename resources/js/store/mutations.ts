@@ -1,4 +1,4 @@
-import RootState from './StoreTypes';
+import RootState from './RootState';
 
 export default {
     startLoader (state: RootState) {

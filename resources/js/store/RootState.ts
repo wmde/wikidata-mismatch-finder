@@ -1,4 +1,4 @@
-export default interface StoreTypes {
+export default interface RootState {
     loading: boolean,
     lastSearchedIds: string,
 }

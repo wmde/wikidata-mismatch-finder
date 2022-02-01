@@ -23,7 +23,7 @@ spec:
       containers:
         - name: artisan-queue
           image: docker-registry.tools.wmflabs.org/toolforge-php73-sssd-base:latest
-          command: [ "php", "artisan", "queue:work" ]
+          command: [ "php", "artisan", "queue:work", "--timeout=900" ]
           workingDir: /data/project/mismatch-finder-staging/mismatch-finder-repo-next
           env:
             - name: HOME

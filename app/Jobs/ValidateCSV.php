@@ -116,7 +116,7 @@ class ValidateCSV implements ShouldQueue
                 'max:' . $rules['external_value']['max_length']
             ],
             'external_url' => [
-                // 'url',
+                'url',
                 'max:' . $rules['external_url']['max_length']
             ]
         ]);

@@ -18,6 +18,7 @@
   - [PHP Testing](#php-testing)
   - [Javascript Testing](#javascript-testing)
   - [Browser Testing](#browser-testing)
+- [Staging](#staging)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
@@ -253,6 +254,13 @@ To run all the browser tests:
 ```
 sail dusk
 ```
+
+## Staging <a id="staging"></a>
+
+When there are changes that need to be tested before being deployed to production, like an UX decision or testing a new feature, the [Mismatch Finder staging server](https://mismatch-finder-staging.toolforge.org/) can be used. 
+
+To deploy to this server, push your commits to a branch starting with the name `staging/`. 
+For example `staging/my_branch_name`. The changes in the branch will be deployed to the server after all the checks have passed.
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

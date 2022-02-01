@@ -40,9 +40,7 @@ class WikidataValue implements Rule
 
         try {
             $this->wikidata->parseValue($property, $wikidataValue);
-            Log::debug('Parsed: ' . $wikidataValue);
         } catch (WikibaseValueParserException $e) {
-            Log::debug('Failed: ' . $wikidataValue . ' with error: ' . $e->getMessage());
             return false;
         }
 

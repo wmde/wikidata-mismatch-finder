@@ -49,15 +49,12 @@ class ValidateCSV implements ShouldQueue
         $filepath = Storage::disk('local')
         ->path('mismatch-files/' . $this->meta->filename);
 
-        Log::debug('Validating CSV file for import ' . $this->meta->id);
-
         $reader->lines($filepath)
             ->each(function ($mismatch, $i) use ($valueValidator) {
                 $error = $this->checkFieldErrors($mismatch)
                     ?? $this->checkValueErrors($mismatch, $valueValidator);
 
                 if ($error) {
-                    Log::debug("Import failed on line  $i with error: $error");
                     throw new ImportValidationException($i, $error);
                 }
             });

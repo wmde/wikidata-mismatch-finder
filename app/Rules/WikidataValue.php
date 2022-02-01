@@ -5,7 +5,6 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Services\WikibaseAPIClient;
 use App\Exceptions\WikibaseValueParserException;
-use Illuminate\Support\Facades\Log;
 
 class WikidataValue implements Rule
 {

@@ -260,7 +260,7 @@ sail dusk
 When there are changes that need to be tested before being deployed to production, like an UX decision or testing a new feature, the [Mismatch Finder staging server](https://mismatch-finder-staging.toolforge.org/) can be used. 
 
 To deploy to this server, push your commits to a branch starting with the name `staging/`. 
-For example `staging/my_branch_name`. The changes in the branch will be deployed to the server after all the checks have passed. If it's decided that the contents of the branch will be merged into `main`, a new Pull Request needs to be created with a name that doesn't start with the `staging` prefix and follow the approval process.  
+For example `staging/my_branch_name`. The changes in the branch will be deployed to the server after all the checks have passed.
 
 ## Troubleshooting <a id="troubleshooting"></a>
 

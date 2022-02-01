@@ -16,6 +16,7 @@ use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
 use Throwable;
 use App\Models\ImportFailure;
+use Illuminate\Support\Facades\Log;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -48,12 +49,15 @@ class ValidateCSV implements ShouldQueue
         $filepath = Storage::disk('local')
         ->path('mismatch-files/' . $this->meta->filename);
 
+        Log::debug('Validating CSV file for import ' . $this->meta->id);
+
         $reader->lines($filepath)
             ->each(function ($mismatch, $i) use ($valueValidator) {
                 $error = $this->checkFieldErrors($mismatch)
                     ?? $this->checkValueErrors($mismatch, $valueValidator);
 
                 if ($error) {
+                    Log::debug("Import failed on line  $i with error: $error");
                     throw new ImportValidationException($i, $error);
                 }
             });
@@ -79,6 +83,7 @@ class ValidateCSV implements ShouldQueue
 
             $failure->save();
         } catch (Throwable $e) {
+            Log::error('Import #' . $this->meta->id . ' failed with error: ' . $e->getMessage());
             $failure = ImportFailure::make([
                 'message' => __('errors.unexpected')
             ])->importMeta()->associate($this->meta);
@@ -114,7 +119,7 @@ class ValidateCSV implements ShouldQueue
                 'max:' . $rules['external_value']['max_length']
             ],
             'external_url' => [
-                'url',
+                // 'url',
                 'max:' . $rules['external_url']['max_length']
             ]
         ]);

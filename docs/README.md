@@ -9,11 +9,13 @@
   - [Start the application server](#start-the-application-server)
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#working-with-oauth)
-- [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
+- [Working with OAuth](#oauth)
+- [Frontend - Working with CSS and JS](#frontend)
+- [Localization and Internationalization](#localization-and-internationalization)
+- [Job Queues](#job-queues)
 - [Linting](#linting)
-    - [PHP Linting](#php-linting)
-    - [Javascript Linting](#js-linting)
+  - [PHP Linting](#php-linting)
+  - [Javascript Linting](#js-linting)
 - [Testing](#testing)
   - [PHP Testing](#php-testing)
   - [Javascript Testing](#javascript-testing)
@@ -182,6 +184,20 @@ To ensure that your client side localization files are valid, run:
 ```
 sail npm run i18n:validate
 ```
+
+## Job Queues
+
+As the Mismatch Finder includes jobs to validate and import mismatch CSV files, it is possible to also configure the job queue runner to run locally.
+
+By Default, the jobs will run synchronously to the requests that dispatch them. However, in order to queue and run jobs from the database, simple follow these two steps:
+
+1. In your local `.env` file, change the value of `QUEUE_CONNECTION` to `database` (it should be set to `sync` by default).
+
+1. Start the job queue runner by typing in the following command: 
+
+    ```
+    sail artisan queue:listen --timeout=1200
+    ```
 
 ## Linting <a id="linting"></a>
 ### PHP Linting <a id="php-linting"></a>

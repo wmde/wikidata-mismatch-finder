@@ -199,6 +199,7 @@ By Default, the jobs will run synchronously to the requests that dispatch them. 
     sail artisan queue:listen --timeout=1200
     ```
 
+    The `--timeout=1200` flag in the command above increases the job timeout to 20 minutes thus ensuring that the queue worker doesn't abort jobs that take longer than a minute.
 ## Linting <a id="linting"></a>
 ### PHP Linting <a id="php-linting"></a>
 

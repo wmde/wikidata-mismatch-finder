@@ -16,6 +16,7 @@ use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
 use Throwable;
 use App\Models\ImportFailure;
+use Illuminate\Support\Facades\Log;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -79,6 +80,7 @@ class ValidateCSV implements ShouldQueue
 
             $failure->save();
         } catch (Throwable $e) {
+            Log::error('Import #' . $this->meta->id . ' failed with error: ' . $e->getMessage());
             $failure = ImportFailure::make([
                 'message' => __('errors.unexpected')
             ])->importMeta()->associate($this->meta);

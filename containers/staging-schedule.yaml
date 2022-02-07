@@ -10,6 +10,7 @@ metadata:
     toolforge: tool
 spec:
   schedule: "* * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:

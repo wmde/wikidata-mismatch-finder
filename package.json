@@ -35,7 +35,7 @@
         "sass-loader": "^12.4.0",
         "ts-jest": "^27.1.2",
         "ts-loader": "^9.2.6",
-        "typescript": "^4.4.4",
+        "typescript": "^4.6.2",
         "vue-jest": "^3.0.7",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.14"

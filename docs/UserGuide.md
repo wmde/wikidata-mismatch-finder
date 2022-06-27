@@ -77,7 +77,7 @@ The request body should include the following fields:
 * `description` - _(Optional)_ A short text (up to 350 characters) to describe this import.
 * `external_source` - The name of the external source that mismatches are coming from (up to 100 characters).
 * `external_source_url` - _(Optional)_ A URL to the external source that mismatches are coming from.
-* `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default.
+* `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default. A timeframe of a few weeks or months is recommended.
 
 Once an import is submitted, the newly created import status will be included in the response, alongside an api link to check its status again. Additionally, the status of the last 10 imports in to Mismatch Finder can be checked at our [import status page](https://mismatch-finder.toolforge.org/store/imports).
 

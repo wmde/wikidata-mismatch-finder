@@ -11,7 +11,7 @@ jobs:
     name: Ship and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up node
       uses: actions/setup-node@v2.5.1
       with:

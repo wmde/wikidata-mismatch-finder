@@ -19,6 +19,7 @@
         "@types/uuid": "^8.3.4",
         "@typescript-eslint/eslint-plugin": "^5.0.0",
         "@typescript-eslint/parser": "^5.0.0",
+        "@vue/compiler-sfc": "^3.2.37",
         "@vue/eslint-config-typescript": "^9.0.0",
         "@vue/test-utils": "^1.3.0",
         "axios": "^0.27",
@@ -37,8 +38,7 @@
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "vue-jest": "^3.0.7",
-        "vue-loader": "^17.0.0",
-        "vue-template-compiler": "^2.6.14"
+        "vue-loader": "^17.0.0"
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.10.1",

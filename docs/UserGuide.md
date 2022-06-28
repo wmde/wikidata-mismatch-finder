@@ -63,21 +63,42 @@ Additionally, each row of the csv file must contain exactly 4 commas (`,`). Opti
 
 You can consult this [mismatch file](exampleMismatchFile.csv) for a valid example.
 
-_**Note**: If possible, please do not include mismatches in your import file that have already been uploaded and reviewed before to avoid double-work by reviewers.
+**Note**: If possible, please do not include mismatches in your import file that have already been uploaded and reviewed before to avoid double-work by reviewers.
 
 ### Uploading an import file
 
-To upload an import file, users may send a request to our `POST /api/imports` api endpoint. 
+To upload an import file, users may send a request to our `POST /api/imports` API endpoint.
 
-The request should include the `Authorization` header with a personal [access token](#apiAccess). Additionally, the request should include a `Content-Type: multipart/form-data` header.
+#### Headers
+
+The request should include the following headers:
+* `Authorization: Bearer ACCESS_TOKEN`, see [access token](#apiAccess)
+* `Accept: application/json`
+* `Content-Type: multipart/form-data`
+
+#### Body
 
 The request body should include the following fields:
-
 * `mismatch_file` - The CSV file containing mismatches to import to Mismatch Finder.
 * `description` - _(Optional)_ A short text (up to 350 characters) to describe this import.
 * `external_source` - The name of the external source that mismatches are coming from (up to 100 characters).
 * `external_source_url` - _(Optional)_ A URL to the external source that mismatches are coming from.
 * `expires` - _(Optional)_ An ISO formatted date to describe the date where the mismatches imported will be no longer relevant. If omitted, mismatches from the import will expire after 6 months by default. A timeframe of a few weeks or months is recommended.
+
+#### Example with curl
+
+```
+curl -X POST "https://mismatch-finder.toolforge.org/api/imports" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+-F "mismatch_file=@PATH_TO_CSV_FILE" \
+-F "description=DESCRIPTION" \
+-F "external_source=SOURCE" \
+-F "external_source_url=URL" \
+-F "expires=YYYY-MM-DD"
+```
+
+#### Response
 
 Once an import is submitted, the newly created import status will be included in the response, alongside an api link to check its status again. Additionally, the status of the last 10 imports in to Mismatch Finder can be checked at our [import status page](https://mismatch-finder.toolforge.org/store/imports).
 

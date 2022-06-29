@@ -1,6 +1,6 @@
 <template>
   <div lang="en">
-    <Head title="Mismatch Finder - Component Playground" />
+    <inertia-head title="Mismatch Finder - Component Playground" />
     <h2>Mismatch Finder - Playground!</h2>
     <p>Feel free to throw any component you want to try, in here</p>
     <wikit-button @click.native="controlled = true">Controlled Dialog!</wikit-button>
@@ -263,7 +263,7 @@
 </template>
 
 <script lang="ts">
-    import { Head } from '@inertiajs/inertia-vue'
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue'
     import defineComponent from '../types/defineComponent';
 
     import {
@@ -274,7 +274,7 @@
 
     export default defineComponent({
         components: {
-            Head,
+            InertiaHead,
             WikitButton,
             WikitCheckbox,
             WikitDialog

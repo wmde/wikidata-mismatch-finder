@@ -1,25 +1,25 @@
 <template>
     <div class="auth-widget" v-if="user">
-        <Link :href="`https://www.wikidata.org/wiki/User:${user.name}`">
+        <WikitLink :href="`https://www.wikidata.org/wiki/User:${user.name}`">
             <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
-        </Link>
-        <Link href="/auth/logout">{{ $i18n('log-out') }}</Link>
+        </WikitLink>
+        <WikitLink href="/auth/logout">{{ $i18n('log-out') }}</WikitLink>
     </div>
-    <Link v-else href="/auth/login">{{ $i18n('log-in') }}</Link>
+    <WikitLink v-else href="/auth/login">{{ $i18n('log-in') }}</WikitLink>
 </template>
 
 <script lang="ts">
 
 import Vue, { PropType } from 'vue';
 import User from '../types/User';
-import { Link } from '@wmde/wikit-vue-components';
+import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
 export default Vue.extend({
     props: {
         user: Object as PropType<User>
     },
     components: {
-        Link
+        WikitLink
     }
 });
 </script>

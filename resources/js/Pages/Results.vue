@@ -1,7 +1,7 @@
 <template>
     <div class="page-container results-page">
         <loading-overlay ref="overlay" />
-        <Head title="Mismatch Finder - Results" />
+        <inertia-head title="Mismatch Finder - Results" />
         <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
             <template #prefix>
                 <icon type="arrowprevious" size="medium" color="inherit" :dir="pageDirection"/>
@@ -132,7 +132,7 @@
     import { PropType } from 'vue';
     import { mapMutations } from 'vuex';
     import isEmpty from 'lodash/isEmpty';    
-    import { Head } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,
         Button as WikitButton,
@@ -179,7 +179,7 @@
 
     export default defineComponent({
         components: {
-            Head,
+            InertiaHead,
             Icon,
             LoadingOverlay,
             MismatchesTable,

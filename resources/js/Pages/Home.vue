@@ -1,6 +1,6 @@
 <template>
     <div class="page-container home-page">
-        <Head title="Mismatch Finder" />
+        <inertia-head title="Mismatch Finder" />
         <section id="description-section">
             <header class="description-header">
                 <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
@@ -95,7 +95,7 @@
 
 <script lang="ts">
     import { mapState, mapMutations } from 'vuex';
-    import { Head } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
         Dialog as WikitDialog,
@@ -128,7 +128,7 @@
 
     export default defineComponent({
         components: {
-            Head,
+            InertiaHead,
             Icon,
             Message,
             TextArea,
@@ -168,7 +168,7 @@
 
                 const sanitized = this.sanitizeArray();
 
-                for(let {check, type, message} of rules){
+                for(const {check, type, message} of rules){
                     if(check(sanitized)){
                         this.validationError = { type, message };
                         return;

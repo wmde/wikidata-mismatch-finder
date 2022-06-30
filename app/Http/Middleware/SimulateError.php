@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use RuntimeException;
 
 /**
+ * Middleware to simulate errors
+ *
  * In non-production environments, this middleware will force a RuntimeException
  * for testing purposes, if the 'X-Mismatch-Finder-Error' HTTP header field is
  * sent with the request and its value matches the request path. It allows for
@@ -19,8 +21,9 @@ class SimulateError
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

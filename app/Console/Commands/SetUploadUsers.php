@@ -6,6 +6,9 @@ use App\Models\UploadUser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Laravel console command to set the list of users who are allowed to upload mismatch files
+ */
 class SetUploadUsers extends Command
 {
     /**
@@ -36,7 +39,7 @@ class SetUploadUsers extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return integer
      */
     public function handle()
     {

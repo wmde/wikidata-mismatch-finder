@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The Mismatch model
+ */
 class Mismatch extends Model
 {
     use HasFactory;
@@ -45,10 +48,11 @@ class Mismatch extends Model
     /**
      * Set the mismatch's item_id alongside the statement_guid
      *
-     * @param  string  $value
+     * @param string $value
+     *
      * @return void
      */
-    public function setStatementGuidAttribute($value)
+    public function setStatementGuidAttribute(string $value)
     {
         $this->attributes['statement_guid'] = $value;
         $this->attributes['item_id'] = strtoupper(explode('$', $value, 2)[0]);

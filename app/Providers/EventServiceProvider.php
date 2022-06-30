@@ -6,6 +6,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+/**
+ * The EventServiceProvider
+ *
+ * Provided by Laravel scaffold
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**

@@ -6,6 +6,12 @@ use Illuminate\Database\Seeder;
 use App\Models\ImportMeta;
 use App\Models\User;
 
+/**
+ * Seeder for the ImportMeta resource
+ *
+ * This seeder generates 10 ImportMeta entries with an
+ * upload user and three entries for non-upload users.
+ */
 class ImportMetaSeeder extends Seeder
 {
     /**

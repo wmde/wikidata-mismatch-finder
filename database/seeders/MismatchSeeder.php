@@ -7,6 +7,15 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use App\Models\User;
 
+/**
+ * Seeder for the Mismatch resource
+ *
+ * This seeder generates 42 Mismatch entries:
+ * 10 unreviewed, unexpired,
+ * 11 unreviewed, expired,
+ * 10 reviewed, unexpired and
+ * 11 reviewed, expired ones.
+ */
 class MismatchSeeder extends Seeder
 {
     /**

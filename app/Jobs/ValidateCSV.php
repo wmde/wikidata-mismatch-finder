@@ -18,6 +18,11 @@ use Throwable;
 use App\Models\ImportFailure;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * CSV validate job for the laravel background queue
+ *
+ * This job is triggered by file uploads to the /imports API endpoint.
+ */
 class ValidateCSV implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -32,6 +37,8 @@ class ValidateCSV implements ShouldQueue
     /**
      * Create a new job instance.
      *
+     * @param ImportMeta $meta
+     *
      * @return void
      */
     public function __construct(ImportMeta $meta)
@@ -41,6 +48,9 @@ class ValidateCSV implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param WikidataValue   $valueValidator
+     * @param CSVImportReader $reader
      *
      * @return void
      */
@@ -63,7 +73,8 @@ class ValidateCSV implements ShouldQueue
     /**
      * Handle a job failure.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
+     *
      * @return void
      */
     public function failed(Throwable $exception)

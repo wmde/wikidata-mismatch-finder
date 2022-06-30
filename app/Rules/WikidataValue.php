@@ -6,6 +6,9 @@ use Illuminate\Contracts\Validation\Rule;
 use App\Services\WikibaseAPIClient;
 use App\Exceptions\WikibaseValueParserException;
 
+/**
+ * Parser Rule for validating uploaded mismatch files
+ */
 class WikidataValue implements Rule
 {
     /**
@@ -15,6 +18,8 @@ class WikidataValue implements Rule
 
     /**
      * Create a new rule instance.
+     *
+     *  @param WikibaseAPIClient $wikidata
      *
      * @return void
      */
@@ -26,11 +31,12 @@ class WikidataValue implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
+     * @param string $attribute
+     * @param mixed  $value
+     *
+     * @return boolean
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value) // phpcs:ignore
     {
         [
             'property' => $property,

@@ -5,6 +5,13 @@ namespace Database\Factories;
 use App\Models\ImportMeta;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory for the ImportMeta model
+ *
+ * This factory generates a random ImportMeta resource with a description,
+ * a status, an external source (with a 60% chance including a URL), an
+ * expiry data and the common file name 'test_file.csv'.
+ */
 class ImportMetaFactory extends Factory
 {
     /**
@@ -40,9 +47,9 @@ class ImportMetaFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function failed(string $username = null)
+    public function failed()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'status' => 'failed',
             ];
@@ -54,9 +61,9 @@ class ImportMetaFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function expired(string $username = null)
+    public function expired()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'expires' => $this->faker->dateTimeBetween('-6 months', '-1 day')->format('Y-m-d'),
             ];

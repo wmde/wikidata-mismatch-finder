@@ -4,6 +4,11 @@ namespace App\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
+/**
+ * Middleware to encrypt cookoies
+ *
+ * Provided by Laravel scaffold
+ */
 class EncryptCookies extends Middleware
 {
     /**

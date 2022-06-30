@@ -5,6 +5,13 @@ namespace Database\Factories;
 use App\Models\ImportFailure;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory for the ImportFailure model
+ *
+ * This factory generates a random ImportFailure with an 80% chance to include
+ * a line number betwen 0 and 10,000 and an arbitrary error message of up to
+ * 15 random words.
+ */
 class ImportFailureFactory extends Factory
 {
     /**

@@ -5,6 +5,11 @@ namespace App\Http\Middleware;
 use Fideloper\Proxy\TrustProxies as Middleware;
 use Illuminate\Http\Request;
 
+/**
+ * Middleware to define trusted proxies
+ *
+ * Provided by Laravel scaffold
+ */
 class TrustProxies extends Middleware
 {
     /**

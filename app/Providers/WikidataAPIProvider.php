@@ -9,6 +9,11 @@ use Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy;
 use Kevinrob\GuzzleCache\Storage\LaravelCacheStorage;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Provider for the Wikidata API client
+ *
+ * The provided WikibaseAPIClient will use the wikidata.api.url from config.
+ */
 class WikidataAPIProvider extends ServiceProvider
 {
     /**

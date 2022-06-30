@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Form request to retrieve mismatches
+ *
+ * This form request holds validation rules and a pre-process
+ * to split the provided item ids parameter string into an array
+ */
 class MismatchGetRequest extends FormRequest
 {
 

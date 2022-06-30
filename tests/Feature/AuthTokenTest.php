@@ -22,7 +22,7 @@ class AuthTokenTest extends TestCase
     /**
      * Test non authenticated auth routes
      *
-     *  @return void
+     *  @return       void
      *  @dataProvider authRoutesProvider
      */
     public function test_nonAuthenticated_willRedirect($authRoute)

@@ -7,6 +7,9 @@ use Illuminate\Http\Client\Response;
 use App\Exceptions\StatsdClientException;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Client that connects to statsv endpoint to collect usage metrics
+ */
 class StatsdAPIClient
 {
 

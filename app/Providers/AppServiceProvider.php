@@ -6,6 +6,11 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 
+/**
+ * The AppServiceProvider
+ *
+ * Provided by Laravel scaffold
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**

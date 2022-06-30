@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use App\Models\UploadUser;
 use Illuminate\Console\Command;
 
+/**
+ * Laravel console command to show the list of users who are allowed to upload mismatch files
+ */
 class ShowUploadUsers extends Command
 {
     /**
@@ -34,7 +37,7 @@ class ShowUploadUsers extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return integer
      */
     public function handle()
     {

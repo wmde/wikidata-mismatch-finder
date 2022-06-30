@@ -5,6 +5,14 @@ namespace Database\Factories;
 use App\Models\Mismatch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory for the Mismatch model
+ *
+ * This factory generates a random Mismatch resource with a statement_guid,
+ * a property_id, a wikidata value, an external value and an external URL
+ * with a 60% chance. Via the reviewed() function, a mismatch can be marked
+ * as reviewed, which assigns a random review_status.
+ */
 class MismatchFactory extends Factory
 {
     /**

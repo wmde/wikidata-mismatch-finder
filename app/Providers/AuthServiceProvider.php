@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\UploadUser;
 use App\Models\User;
 
+/**
+ * The AuthServiceProvider
+ *
+ * Provided by Laravel scaffold
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**

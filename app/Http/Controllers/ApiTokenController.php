@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Web controller for API token management
+ */
 class ApiTokenController extends Controller
 {
     public function createToken(Request $request)

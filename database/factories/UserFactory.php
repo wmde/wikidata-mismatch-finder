@@ -6,6 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UploadUser;
 
+/**
+ * Factory for the User model
+ *
+ * This factory generates a User resource with a random username and
+ * random mw_userid. Via the uploader() function, a user can be marked
+ * as uploader.
+ */
 class UserFactory extends Factory
 {
     /**
@@ -31,6 +38,8 @@ class UserFactory extends Factory
 
     /**
      * Indicate that the user is an uploader.
+     *
+     * @param string $username The user to be marked as uploader.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */

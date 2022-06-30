@@ -12,6 +12,9 @@ use App\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Bus;
 use App\Services\StatsdAPIClient;
 
+/**
+ * API controller for mismatch file import management
+ */
 class ImportController extends Controller
 {
     use Traits\StatsTracker;
@@ -21,6 +24,8 @@ class ImportController extends Controller
 
      /**
      * Instantiate a new controller instance.
+     *
+     * @param StatsdAPIClient $statsd
      *
      * @return void
      */
@@ -33,8 +38,10 @@ class ImportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Services\StatsdAPIClient  $statsd
+     * @param \Illuminate\Http\Request      $request
+     * @param \App\Services\StatsdAPIClient $statsd
+     *
+     * @return JsonResource
      */
     public function store(Request $request, StatsdAPIClient $statsd): JsonResource
     {
@@ -102,7 +109,9 @@ class ImportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ImportMeta  $import
+     * @param \App\Models\ImportMeta $import
+     *
+     * @return JsonResource
      */
     public function show(ImportMeta $import): JsonResource
     {
@@ -111,6 +120,8 @@ class ImportController extends Controller
 
     /**
      * Display the list of imports (latest 10)
+     *
+     * @return JsonResource
      */
     public function index()
     {

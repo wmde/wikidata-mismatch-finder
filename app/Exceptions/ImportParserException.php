@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Throwable;
 
+/**
+ * Exception to be thrown upon errors when parsing uploaded mismatch files
+ */
 class ImportParserException extends Exception
 {
     /**
@@ -29,6 +32,8 @@ class ImportParserException extends Exception
 
     /**
      * Get the exception's context information.
+     *
+     * @return array
      */
     public function context(): array
     {

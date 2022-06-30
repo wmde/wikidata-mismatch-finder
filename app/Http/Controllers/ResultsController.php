@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\App;
 use Inertia\Response;
 use Illuminate\Support\LazyCollection;
 
+/**
+ * Web controller for results management
+ */
 class ResultsController extends Controller
 {
     use Traits\ReviewMismatch, Traits\StatsTracker;
 
     /**
      * Instantiate a new controller instance.
+     *
+     * @param StatsdAPIClient $statsd
      *
      * @return void
      */
@@ -90,8 +95,9 @@ class ResultsController extends Controller
     /**
      * Update review_statuses of a batch of mismatches
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param BulkReviewsPutRequest $request
+     *
+     * @return void
      */
     public function update(BulkReviewsPutRequest $request)
     {

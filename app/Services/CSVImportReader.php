@@ -5,6 +5,10 @@ namespace App\Services;
 use Illuminate\Support\LazyCollection;
 use App\Exceptions\ImportParserException;
 
+/**
+ * CSV Parser that reads lines of uploaded mismatch files
+ * to prepare them for database import
+ */
 class CSVImportReader
 {
     public function lines(string $path): LazyCollection

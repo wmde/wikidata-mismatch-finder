@@ -7,6 +7,9 @@ use App\Models\Mismatch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Laravel console command to delete imported mismatch files
+ */
 class DropImport extends Command
 {
     /**
@@ -36,7 +39,7 @@ class DropImport extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return integer
      */
     public function handle()
     {

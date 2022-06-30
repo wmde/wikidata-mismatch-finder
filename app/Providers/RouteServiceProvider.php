@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 
+/**
+ * The RouteServiceProvider
+ *
+ * Provided by Laravel scaffold
+ */
 class RouteServiceProvider extends ServiceProvider
 {
     /**

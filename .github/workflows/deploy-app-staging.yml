@@ -16,7 +16,7 @@ jobs:
     - name: Set up node
       uses: actions/setup-node@v3.3.0
       with:
-        node-version: '16.x'
+        node-version: '17.x'
     - name: Install composer dependencies
       uses: php-actions/composer@v6
       with:

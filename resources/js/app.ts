@@ -32,7 +32,8 @@ async function setupI18n(locale: string): Promise<void>{
 
                 return page
             },
-            setup({ el, app, props }) {
+            setup({ el, app, props, plugin }) {
+                Vue.use(plugin)
                 new Vue({
                     render: h => h(app, props),
                     store

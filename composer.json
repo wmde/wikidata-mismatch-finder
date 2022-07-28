@@ -13,7 +13,7 @@
         "inertiajs/inertia-laravel": "^0.4.4",
         "kevinrob/guzzle-cache-middleware": "^3.4",
         "laravel/framework": "^8.40",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^2.15.1",
         "laravel/socialite": "^5.5.3",
         "laravel/tinker": "^2.7.2",
         "taavi/laravel-socialite-mediawiki": "^1.4"

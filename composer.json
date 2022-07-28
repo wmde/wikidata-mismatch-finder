@@ -14,7 +14,7 @@
         "kevinrob/guzzle-cache-middleware": "^3.4",
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.11",
-        "laravel/socialite": "^5.2",
+        "laravel/socialite": "^5.5.3",
         "laravel/tinker": "^2.5",
         "taavi/laravel-socialite-mediawiki": "^1.4"
     },

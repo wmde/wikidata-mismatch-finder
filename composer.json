@@ -12,7 +12,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.6.3",
         "kevinrob/guzzle-cache-middleware": "^3.4",
-        "laravel/framework": "^8.40",
+        "laravel/framework": "^8.83.23",
         "laravel/sanctum": "^2.15.1",
         "laravel/socialite": "^5.5.3",
         "laravel/tinker": "^2.7.2",
@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "facade/ignition": "^2.17.6",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.20.0",
         "laravel/dusk": "^6.20.0",
         "laravel/sail": "^1.51.1",
         "mockery/mockery": "^1.4.2",

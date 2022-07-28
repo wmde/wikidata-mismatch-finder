@@ -6,7 +6,7 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Inertia\Testing\Assert;
+use Inertia\Testing\AssertableInertia as Assert;
 use App\Models\User;
 use Illuminate\Support\Collection;
 

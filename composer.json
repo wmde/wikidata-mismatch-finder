@@ -15,7 +15,7 @@
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.5.3",
-        "laravel/tinker": "^2.5",
+        "laravel/tinker": "^2.7.2",
         "taavi/laravel-socialite-mediawiki": "^1.4"
     },
     "require-dev": {

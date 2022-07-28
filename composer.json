@@ -11,7 +11,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4.5",
         "inertiajs/inertia-laravel": "^0.6.3",
-        "kevinrob/guzzle-cache-middleware": "^3.4",
+        "kevinrob/guzzle-cache-middleware": "^4.0.1",
         "laravel/framework": "^8.83.23",
         "laravel/sanctum": "^2.15.1",
         "laravel/socialite": "^5.5.3",

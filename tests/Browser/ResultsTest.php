@@ -137,6 +137,7 @@ class ResultsTest extends DuskTestCase
 
             $browser->visit(new ResultsPage($mismatch->item_id))
                 ->assertGuest()
+                ->screenshot('assertGuest')
                 ->assertSee('Please log in to make any changes.')
                 ->within($dropdownComponent, function ($dropdown) {
                     $dropdown->assertDropdownDisabled();

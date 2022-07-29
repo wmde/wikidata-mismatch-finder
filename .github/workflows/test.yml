@@ -110,6 +110,7 @@ jobs:
           path: ./storage/logs
 
       - name: Upload Screenshots
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: screenshots

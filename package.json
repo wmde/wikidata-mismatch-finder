@@ -38,7 +38,7 @@
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "vue-jest": "^3.0.7",
-        "vue-loader": "^15.9.8",
+        "vue-loader": "^15.10.0",
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {

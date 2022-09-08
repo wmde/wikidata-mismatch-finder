@@ -15,7 +15,7 @@
     },
     "devDependencies": {
         "@types/jest": "^28.1.8",
-        "@types/lodash": "^4.14.182",
+        "@types/lodash": "^4.14.184",
         "@types/uuid": "^8.3.4",
         "@typescript-eslint/eslint-plugin": "^5.36.2",
         "@typescript-eslint/parser": "^5.36.2",

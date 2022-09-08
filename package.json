@@ -14,7 +14,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@types/jest": "^28.1.6",
+        "@types/jest": "^28.1.8",
         "@types/lodash": "^4.14.182",
         "@types/uuid": "^8.3.4",
         "@typescript-eslint/eslint-plugin": "^5.36.2",
@@ -34,7 +34,7 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.54.0",
         "sass-loader": "^13.0.2",
-        "ts-jest": "^28.0.7",
+        "ts-jest": "^28.0.8",
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "vue-jest": "^3.0.7",

@@ -16,7 +16,6 @@
     "devDependencies": {
         "@types/jest": "^28.1.8",
         "@types/lodash": "^4.14.184",
-        "@types/uuid": "^8.3.4",
         "@typescript-eslint/eslint-plugin": "^5.36.2",
         "@typescript-eslint/parser": "^5.36.2",
         "@vue/eslint-config-typescript": "^11.0.0",
@@ -49,7 +48,6 @@
         "date-fns": "^2.29.2",
         "lodash": "^4.17.21",
         "ress": "^5.0.2",
-        "uuid": "^8.3.2",
         "vue": "^2.6.14",
         "vue-banana-i18n": "1.5.0",
         "vuex": "^3.6.2"

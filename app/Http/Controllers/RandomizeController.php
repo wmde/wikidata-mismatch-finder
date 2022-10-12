@@ -31,11 +31,13 @@ class RandomizeController extends Controller
             ->limit(15)
             ->pluck('item_id')->toArray();
         
-        $itemIdsToString = implode('|', $itemIds);
+        if (count($itemIds) > 0) {
+            $itemIdsToString = implode('|', $itemIds);
 
-        return redirect()->action(
-            [ResultsController::class, 'index'],
-            ['ids' => $itemIdsToString]
-        );
+            return redirect()->action(
+                [ResultsController::class, 'index'],
+                ['ids' => $itemIdsToString]
+            );
+        }
     }
 }

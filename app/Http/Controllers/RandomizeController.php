@@ -23,6 +23,7 @@ class RandomizeController extends Controller
     public function index()
     {
         $itemIds = Mismatch::with('importMeta.user')
+            ->distinct()
             ->where('review_status', 'pending')
             ->whereHas('importMeta', function ($import) {
                 $import->where('expires', '>=', now());

@@ -26,8 +26,8 @@ class MismatchGetRequest extends FormRequest
     {
         return [
             'ids' => [
+                'required',
                 'array',
-                'nullable',
                 'max:' . config('mismatches.validation.ids.max')
             ],
             'ids.*' => [

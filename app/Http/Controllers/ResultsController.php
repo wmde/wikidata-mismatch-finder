@@ -34,32 +34,35 @@ class ResultsController extends Controller
             'id' => Auth::user()->mw_userid
         ] : null;
 
-        $itemIds = $request->input('ids');
+        if ($request->filled('ids')) {
+            $itemIds = $request->input('ids');
 
-        $mismatches = Mismatch::with('importMeta.user')
-            ->whereIn('item_id', $itemIds)
-            ->where('review_status', 'pending')
-            ->whereHas('importMeta', function ($import) {
-                $import->where('expires', '>=', now());
-            })
-            ->lazy();
+            $mismatches = Mismatch::with('importMeta.user')
+                ->whereIn('item_id', $itemIds)
+                ->where('review_status', 'pending')
+                ->whereHas('importMeta', function ($import) {
+                    $import->where('expires', '>=', now());
+                })
+                ->lazy();
 
-        $entityIds = $this->extractEntityIds($mismatches, $itemIds);
+            $entityIds = $this->extractEntityIds($mismatches, $itemIds);
 
-        $props = array_merge(
-            [
-                'user' => $user,
-                'item_ids' => $itemIds,
-                // Use wikidata to fetch labels for found entity ids
-                'labels' => $wikidata->getLabels($entityIds, App::getLocale())
-            ],
-            // only add 'results' prop if mismatches have been found
-            $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []
-        );
+            $props = array_merge(
+                [
+                    'user' => $user,
+                    'item_ids' => $itemIds,
+                    // Use wikidata to fetch labels for found entity ids
+                    'labels' => $wikidata->getLabels($entityIds, App::getLocale())
+                ],
+                // only add 'results' prop if mismatches have been found
+                $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []
+            );
 
-        $this->trackRequestStats();
-
-        return inertia('Results', $props);
+            $this->trackRequestStats();
+            return inertia('Results', $props);
+        } else {
+            return inertia('Results', [ 'user' => $user ]);
+        }
     }
 
     private function extractEntityIds(LazyCollection $mismatches, array $initialIds): array

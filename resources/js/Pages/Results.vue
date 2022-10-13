@@ -61,6 +61,9 @@
                     </wikit-link>
                 </span>
             </Message>
+            <Message type="notice" v-if="item_ids.length === 0">
+                <span>{{ $i18n('no-mismatches-available-for-review') }}</span>
+            </Message>
             <Message type="warning" v-if="!user">
                 <span v-i18n-html:log-in-message="['/auth/login']"></span>
             </Message>
@@ -213,6 +216,7 @@
             },
         },
         mounted(){
+            console.log('props', this.$props)
             if(!this.$store.state.lastSearchedIds) {
                 this.saveSearchedIds( this.item_ids.join('\n') );
             }

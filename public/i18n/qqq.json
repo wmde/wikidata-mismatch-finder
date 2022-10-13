@@ -25,6 +25,7 @@
     "column-upload-info": "Upload Info column on mismatches table",
     "column-external-source": "External source column on mismatches table",
     "no-mismatches-found-message": "A message when no mismatches have been found for the provided Item Ids",
+    "no-mismatches-available-for-review": "A message when no unreviewed mismatches have been found. This message can be displayed when searching for random mismatches",
     "review-status-pending": "Label for pending review status. Default value for all un-reviewed mismatches",
     "review-status-wikidata": "Label that indicates that the mismatch is due to wrong data on Wikidata. Used as an option in the review decision dropdown",
     "review-status-external": "Label that indicates that the mismatch is due to wrong data on the external database. Used as an option in the review decision dropdown",

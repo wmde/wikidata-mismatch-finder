@@ -60,8 +60,6 @@ class ResultsController extends Controller
 
             $this->trackRequestStats();
             return inertia('Results', $props);
-        } else {
-            return inertia('Results', [ 'user' => $user ]);
         }
     }
 

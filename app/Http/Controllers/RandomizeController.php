@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mismatch;
 use App\Services\StatsdAPIClient;
+use Illuminate\Support\Facades\Auth;
 
 class RandomizeController extends Controller
 {
@@ -32,11 +33,20 @@ class RandomizeController extends Controller
             ->limit(15)
             ->pluck('item_id')->toArray();
         
+        if (count($itemIds) > 0) {
             $itemIdsToString = implode('|', $itemIds);
 
             return redirect()->action(
                 [ResultsController::class, 'index'],
                 ['ids' => $itemIdsToString]
             );
+        } else {
+            $user = Auth::user() ? [
+                'name' => Auth::user()->username,
+                'id' => Auth::user()->mw_userid
+            ] : null;
+            
+            return inertia('Results', [ 'user' => $user ]);
+        }
     }
 }

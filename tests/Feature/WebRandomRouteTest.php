@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Inertia\Testing\AssertableInertia as Assert;
 use App\Models\User;
-use Illuminate\Support\Collection;
 
 class WebRandomRouteTest extends TestCase
 {

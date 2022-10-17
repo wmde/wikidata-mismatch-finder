@@ -75,6 +75,9 @@
                     @click.native="showRandom()"
                     :disabled="loading"
                 >
+                    <template #prefix>
+                        <icon type="die" size="medium" color="inherit"/>
+                    </template>
                     {{ $i18n('random-mismatches') }}
                 </wikit-button>
             </div>

@@ -216,7 +216,6 @@
             },
         },
         mounted(){
-            console.log('props', this.$props)
             if(!this.$store.state.lastSearchedIds) {
                 this.saveSearchedIds( this.item_ids.join('\n') );
             }

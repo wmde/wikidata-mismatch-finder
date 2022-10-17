@@ -67,7 +67,17 @@
         </section>
 
         <section id="querying-section">
-            <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
+            <div class="heading">
+                <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
+                <wikit-button
+                    class="random-mismatches"
+                    type="neutral"
+                    @click.native="showRandom()"
+                    :disabled="loading"
+                >
+                    {{ $i18n('random-mismatches') }}
+                </wikit-button>
+            </div>
             <form id="items-form" @submit.prevent="send">
                 <text-area
                     :label="$i18n('item-form-id-input-label')"
@@ -185,6 +195,9 @@
                 this.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
+            showRandom(): void {
+                this.$inertia.get( '/random' );
+            },
             ...mapMutations(['saveSearchedIds'])
         },
         computed: {
@@ -214,6 +227,12 @@
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+#querying-section .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 #items-form {
     /**

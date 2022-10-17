@@ -28,6 +28,7 @@
     "column-upload-info": "Upload info",
     "column-external-source": "External source",
     "no-mismatches-found-message": "No mismatches have been found for:",
+    "no-mismatches-available-for-review": "There are currently no mismatches available for review.",
     "review-status-pending": "Awaiting review",
     "review-status-wikidata": "Wrong data on Wikidata",
     "review-status-external": "Wrong data on external source",

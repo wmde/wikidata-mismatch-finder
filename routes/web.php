@@ -4,6 +4,7 @@ use App\Models\ImportMeta;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RandomizeController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\ImportsOverviewController;
 
@@ -31,6 +32,9 @@ Route::get('/', function () {
 
 Route::get('/results', [ResultsController::class, 'index'])
     ->name('results');
+
+Route::get('/random', [RandomizeController::class, 'index'])
+    ->name('random');
 
 Route::put('/mismatch-review', [ResultsController::class, 'update'])
     ->middleware('auth')

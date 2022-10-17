@@ -61,6 +61,10 @@
                     </wikit-link>
                 </span>
             </Message>
+            <!-- The Results page without item_ids is used by RandomizeController. -->
+            <Message type="notice" v-if="item_ids.length === 0">
+                <span>{{ $i18n('no-mismatches-available-for-review') }}</span>
+            </Message>
             <Message type="warning" v-if="!user">
                 <span v-i18n-html:log-in-message="['/auth/login']"></span>
             </Message>

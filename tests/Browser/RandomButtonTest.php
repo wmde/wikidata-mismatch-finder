@@ -17,8 +17,8 @@ class RandomButtonTest extends DuskTestCase
     public function test_clicking_random_mismatches_button_redirects_and_shows_results_when_mismatches_available()
     {
         $import = ImportMeta::factory()
-        ->for(User::factory()->uploader())
-        ->create();
+            ->for(User::factory()->uploader())
+            ->create();
 
         $mismatch = Mismatch::factory()
             ->for($import)

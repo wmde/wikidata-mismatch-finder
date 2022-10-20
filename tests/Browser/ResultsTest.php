@@ -157,8 +157,10 @@ class ResultsTest extends DuskTestCase
             ->for($import)
             ->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
-            $browser->loginAs(User::factory()->create())
+        $user = User::factory()->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 3,
@@ -183,9 +185,11 @@ class ResultsTest extends DuskTestCase
             ->for($import)
             ->state(['statement_guid' => 'Q1$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0'])
             ->create();
+        
+        $user = User::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
-            $browser->loginAs(User::factory()->create())
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 3,
@@ -217,10 +221,12 @@ class ResultsTest extends DuskTestCase
         $mismatch = Mismatch::factory()
             ->for($import)
             ->create();
+        
+        $user = User::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
             $browser->script('localStorage.clear()');
-            $browser->loginAs(User::factory()->create())
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 3,
@@ -243,9 +249,11 @@ class ResultsTest extends DuskTestCase
             ->for($import)
             ->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
+        $user = User::factory()->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
             $browser->script('localStorage.clear()');
-            $browser->loginAs(User::factory()->create())
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 3,
@@ -270,9 +278,11 @@ class ResultsTest extends DuskTestCase
             ->for($import)
             ->create();
 
-        $this->browse(function (Browser $browser) use ($mismatches) {
+        $user = User::factory()->create();
+
+        $this->browse(function (Browser $browser) use ($mismatches, $user) {
             $browser->script('localStorage.clear()');
-            $browser->loginAs(User::factory()->create())
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatches->implode('item_id', '|')))
                 ->decideAndApply($mismatches[0], [
                     'option' => 3,
@@ -313,10 +323,13 @@ class ResultsTest extends DuskTestCase
         $mismatch = Mismatch::factory()
             ->for($import)
             ->create();
+        
+        $user = User::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
             $browser->script('localStorage.clear()');
-            $browser->loginAs(User::factory()->create())
+            $user = User::factory()->create();
+            $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [
                     'option' => 3,
@@ -351,8 +364,10 @@ class ResultsTest extends DuskTestCase
             ->for($import)
             ->create();
 
-        $this->browse(function (Browser $browser) use ($mismatch) {
-            $results = $browser->loginAs(User::factory()->create())->visit(new ResultsPage($mismatch->item_id));
+        $user = User::factory()->create();
+
+        $this->browse(function (Browser $browser) use ($mismatch, $user) {
+            $results = $browser->loginAs($user)->visit(new ResultsPage($mismatch->item_id));
 
             $mismatch->delete();
 

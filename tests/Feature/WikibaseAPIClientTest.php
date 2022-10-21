@@ -143,10 +143,63 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertEquals($expectedResult, $data);
     }
 
+    public function test_get_property_datatypes_returns_datatype_array(): void
+    {
+        $fakeIds = ['P1234', 'P5678'];
+        $fakePayload = [
+            'action' => 'wbgetentities',
+            'format' => 'json',
+            'maxage' => null,
+            'ids' => implode('|', $fakeIds),
+            'props' => 'datatype',
+        ];
+        $fakeResponseBody = ['entities' => [
+            'P1234' => [
+                'type' => 'property',
+                'datatype' => 'wikibase-item',
+                'id' => 'P1234',
+            ],
+            'P5678' => [
+                'type' => 'property',
+                'datatype' => 'time',
+                'id' => 'P5678',
+            ],
+        ]];
+        $expectedResult = [
+            'P1234' => 'wikibase-item',
+            'P5678' => 'time',
+        ];
+
+        Http::fake(function (Request $req) use ($fakePayload, $fakeResponseBody) {
+            $this->assertSame($fakePayload, $req->data());
+            return Http::response($fakeResponseBody, 200);
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $data = $client->getPropertyDatatypes($fakeIds);
+
+        $this->assertSame($expectedResult, $data);
+    }
+
+    public function test_get_property_datatypes_empty(): void
+    {
+        Http::fake(function () {
+            $this->fail('should not make an HTTP request');
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $data = $client->getPropertyDatatypes([]);
+
+        $this->assertSame([], $data);
+    }
+
     public function methodProvider(): iterable
     {
         yield 'parseValue' => ['parseValue', ['P1234', 'fake-value']];
         yield 'formatEntities' => ['formatEntities', [['Q1234'], 'en']];
+        yield 'getEntities' => ['getEntities', [['P1234'], ['datatype']]];
     }
 
     /**

@@ -44,7 +44,13 @@ class ResultsController extends Controller
             })
             ->lazy();
 
-        $entityIds = $this->extractEntityIds($mismatches, $itemIds);
+        $propertyIds = $this->extractPropertyIds($mismatches);
+        $datatypes = $wikidata->getPropertyDatatypes($propertyIds);
+
+        $entityIds = array_merge(
+            $propertyIds,
+            $this->extractItemIds($mismatches, $datatypes)
+        );
 
         $props = array_merge(
             [
@@ -62,29 +68,29 @@ class ResultsController extends Controller
         return inertia('Results', $props);
     }
 
-    private function extractEntityIds(LazyCollection $mismatches, array $initialIds): array
+    private function extractPropertyIds(LazyCollection $mismatches): array
     {
-        $entityIdExtractor = function (array $ids, Mismatch $mismatch): array {
-            $wikidataValue = $mismatch->wikidata_value;
-            $entityValue = preg_match(config('mismatches.validation.item_id.format'), $wikidataValue);
+        return array_keys($mismatches->reduce(
+            function (array $ids, Mismatch $mismatch): array {
+                $ids[$mismatch->property_id] = null;
+                return $ids;
+            },
+            []
+        ));
+    }
 
-            // Add any new property id to the array of ids.
-            if (!in_array($mismatch->property_id, $ids)) {
-                $ids[] = $mismatch->property_id;
-            }
-
-            // If the wikidata value is an item id, add it to the array of ids if
-            // it is not there yet.
-            if ($entityValue && !in_array($wikidataValue, $ids)) {
-                $ids[] = $wikidataValue;
-            }
-
-            return $ids;
-        };
-
-        // Extract all entity ids encountered in mismatch data, and add them
-        // into an array of initial entity ids.
-        return $mismatches->reduce($entityIdExtractor, $initialIds);
+    private function extractItemIds(LazyCollection $mismatches, array $datatypes): array
+    {
+        return array_keys($mismatches->reduce(
+            function (array $ids, Mismatch $mismatch) use ($datatypes) {
+                $ids[$mismatch->item_id] = null;
+                if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
+                    $ids[$mismatch->wikidata_value] = null;
+                }
+                return $ids;
+            },
+            []
+        ));
     }
 
     /**

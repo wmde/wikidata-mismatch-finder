@@ -328,7 +328,6 @@ class ResultsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($mismatch, $user) {
             $browser->script('localStorage.clear()');
-            $user = User::factory()->create();
             $browser->loginAs($user)
                 ->visit(new ResultsPage($mismatch->item_id))
                 ->decideAndApply($mismatch, [

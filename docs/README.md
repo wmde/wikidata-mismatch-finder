@@ -384,11 +384,11 @@ The query builder uses the latest full release of Wikit which works on Vue 2.6. 
 All other dependencies should generally be updated to the latest version. If you discover that a dependency should not be updated for some reason, please add it to the above list. If a dependency can only be updated with substantial manual work, you can create a new task for it and skip it in the context of the current chore.
 
 The recommended way to update dependencies is to collect related dependency updates into grouped commits; this keeps the number of commits to review manageable (compared to having one commit for every update), while keeping the scope of each commit limited and increasing reviewability and debuggability (compared to combining all updates in a single commit). For example, this can be one commit for each of:
-    all ESLint-related dependency updates
-    all Jest-related dependency updates
-    all Vue-related dependency updates
-    all PostCSS/Stylelint-related dependency updates
-    npm update for all other dependency updates
+- all ESLint-related dependency updates
+- all Jest-related dependency updates
+- all Vue-related dependency updates
+- all PostCSS/Stylelint-related dependency updates
+- `npm update` for all other dependency updates
 
 Make sure the app is running: `sail up -d`.
 Then make sure that all unit tests still pass and building still works for every local commit using:

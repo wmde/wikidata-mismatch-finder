@@ -367,6 +367,44 @@ If, after following the steps in the [Working with OAuth section](#oauth), you a
 1. Make sure that your `APP_URL` is set correctly to your localhost address and the port your application is running on (if running on a non default port).
 1. Double check to see that the WMF has emailed to approve your localhost OAuth consumer, if they have not responded yet, please wait patiently, as the review process might take a few hours.
 
+## Chore: Updating dependencies
+
+### Npm dependencies
+
+You can see which dependencies have new releases by first making sure your local dependencies are up-to-date by executing `npm ci` and then running `npm outdated`.
+The query builder uses the latest full release of Wikit which works on Vue 2.6. For this reason we do not update any of the following packages till further notice:
+- vue
+- vuex
+- vue-banana-i18n
+- vite
+- @vue/test-utils
+- @vitejs/plugin-vue
+- vue-template-compiler
+
+All other dependencies should generally be updated to the latest version. If you discover that a dependency should not be updated for some reason, please add it to the above list. If a dependency can only be updated with substantial manual work, you can create a new task for it and skip it in the context of the current chore.
+
+The recommended way to update dependencies is to collect related dependency updates into grouped commits; this keeps the number of commits to review manageable (compared to having one commit for every update), while keeping the scope of each commit limited and increasing reviewability and debuggability (compared to combining all updates in a single commit). For example, this can be one commit for each of:
+    all ESLint-related dependency updates
+    all Jest-related dependency updates
+    all Vue-related dependency updates
+    all PostCSS/Stylelint-related dependency updates
+    npm update for all other dependency updates
+
+Make sure the app is running: `sail up -d`.
+Then make sure that all unit tests still pass and building still works for every local commit using:
+- `sail npm run test` for unit tests.
+- `sail dusk` for browser tests.
+
+### Composer dependencies
+
+Since Mismatch Finder is using Laravel, we need to make sure that we update backend dependencies as well. To do this, run `composer outdated`.
+
+Update the dependencies that need updating in the `composer.json` file. Create a single commit for each update. And then run `composer update` to install the new packages.
+
+Then make sure that all unit tests still pass and building still works for every local commit using `sail artisan test`.
+
+Don't update to any major version of Laravel since that would require a migration and would be out of the scope of a chore.
+
 ## See also <a id="see-also"></a>
 
 [Laravel Sail](https://laravel.com/docs/8.x/sail)

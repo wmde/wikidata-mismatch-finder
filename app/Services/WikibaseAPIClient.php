@@ -83,4 +83,24 @@ class WikibaseAPIClient
             ->map('strip_tags')
             ->toArray();
     }
+
+    public function getEntities(array $ids, array $props): Response
+    {
+        return $this->get('wbgetentities', [
+            'ids' => implode('|', $ids),
+            'props' => implode('|', $props),
+        ]);
+    }
+
+    public function getPropertyDatatypes(array $ids): array
+    {
+        return collect($ids)
+            ->chunk(50) // wbgetentities allows up to 50 IDs per request
+            ->map(function ($chunk) {
+                $response = $this->getEntities($chunk->toArray(), ['datatype']);
+                return array_column($response['entities'], 'datatype', 'id');
+            })
+            ->collapse()
+            ->toArray();
+    }
 }

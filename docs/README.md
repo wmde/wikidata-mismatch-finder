@@ -281,6 +281,45 @@ For example `staging/my_branch_name`. The changes in the branch will be deployed
 
 ## Troubleshooting <a id="troubleshooting"></a>
 
+### Composer dependencies
+
+#### Installing / Updating `taavi/laravel-socialite-mediawiki`
+
+**Problem:** While installing or updating composer dependencies with `sail` a username and password to a service called `git.sr.ht` are requested
+
+```
+$ sail composer update
+Loading composer repositories with package information
+Info from https://repo.packagist.org: #StandWithUkraine
+Updating dependencies
+Lock file operations: 1 install, 0 updates, 0 removals
+  - Locking taavi/laravel-socialite-mediawiki (1.6.0)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Syncing taavi/laravel-socialite-mediawiki (1.6.0) into cache
+    Authentication required (git.sr.ht):
+      Username: 
+```
+
+**Possible explenation:** The user in the sail container is not able to clone repositories from this git.sr.ht service, due to some configuration
+
+**Workaround:** Run composer in the mismatch finder directory directly or through a docke image, rather than sail.
+
+If you have docker installed globally:
+
+```
+$ composer update
+```
+
+**OR** if you prefer docker:
+
+```
+$ docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/app composer/composer:latest composer update
+```
+
+**HOT TIP!** The examples above use composer with `update` but this should also work with the `install` command
+
 ### Address already in use
 
 #### MariaDB

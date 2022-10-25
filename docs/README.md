@@ -302,11 +302,11 @@ Package operations: 1 install, 0 updates, 0 removals
       Username: 
 ```
 
-**Possible explanation:** The user in the sail container is not able to clone repositories from this git.sr.ht service, due to some configuration
+**Possible explanation:** The user in the sail container is not able to clone repositories from this git.sr.ht service, due to some configuration issue (possibly misconfigured git or certificates)
 
 **Workaround:** Run composer in the mismatch finder directory directly or through a docker image, rather than sail.
 
-If you have docker installed globally:
+If you have composer installed globally:
 
 ```
 $ composer update

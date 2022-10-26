@@ -45,17 +45,59 @@ class WikibaseAPIClient
         return $response;
     }
 
-    public function parseValue(string $property, $value): Response
+    /**
+     * Make a direct wbparsevalue API request.
+     * You should probably use {@link parseValues} instead.
+     *
+     * @param string $property property ID
+     * @param string[] $values up to 50
+     * @return Response
+     * @throws WikibaseValueParserException If one of the values cannot be parsed.
+     */
+    public function parseValuesForProperty(string $property, array $values): Response
     {
         try {
             return $this->get('wbparsevalue', [
-                'values' => $value,
+                'values' => implode('|', $values),
                 'property' => $property,
                 'validate' => true
             ]);
         } catch (WikibaseAPIClientException $e) {
             throw new WikibaseValueParserException($e->getMessage());
         }
+    }
+
+    /**
+     * Parse the given values into Wikibase data values.
+     *
+     * @param string[][] $valuesByPropertyId Two-dimensional array.
+     * The outer level is indexed by property ID;
+     * the inner levels are lists (keys ignored) of plain values to be parsed.
+     * @return string[][] Two-dimensional array.
+     * The outer level is indexed by property ID;
+     * the inner level maps the unparsed value (as in $valuesByPropertyId)
+     * to the parsed value (a string – JSON-serialized).
+     * @throws WikibaseValueParserException If one of the values cannot be parsed.
+     */
+    public function parseValues(array $valuesByPropertyId): array
+    {
+        $parsed = [];
+        foreach ($valuesByPropertyId as $propertyId => $values) {
+            $parsed[$propertyId] = collect($values)
+                ->unique()
+                ->chunk(50) // wbparsevalues allows up to 50 values per request
+                ->map(function ($chunk) use ($propertyId) {
+                    $response = $this->parseValuesForProperty($propertyId, $chunk->toArray());
+                    $results = [];
+                    foreach ($response['results'] as $result) {
+                        $results[$result['raw']] = json_encode($result);
+                    }
+                    return $results;
+                })
+                ->collapse()
+                ->toArray();
+        }
+        return $parsed;
     }
 
     public function formatEntities(array $ids, string $lang): Response

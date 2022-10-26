@@ -16,38 +16,68 @@ class WikibaseAPIClientTest extends TestCase
 {
     const FAKE_API_URL = "http://fake.wikibase.api";
 
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function test_parse_value_returns_api_response(): void
+    public function test_parse_values_returns_values_from_api_responses(): void
     {
-        $fakePayload = [
-            'property' => 'P1234',
-            'values' => 'fake-value'
-        ];
-        $fakeResponseBody = ['test' => 'okay'];
-
-        Http::fake(function (Request $req) use ($fakeResponseBody) {
-            return Http::response($fakeResponseBody, 200);
+        Http::fake(function (Request $req) {
+            if ($req->data()['property'] === 'P1') {
+                return Http::response(['results' => [
+                   ['raw' => 'abc', 'value' => 'abc', 'type' => 'string', 'valid' => true],
+                   ['raw' => 'def', 'value' => 'def', 'type' => 'string', 'valid' => true],
+                ]], 200);
+            } elseif ($req->data()['property'] === 'P2') {
+                return Http::response(['results' => [
+                   [
+                       'raw' => 'Q1',
+                       'value' => ['entity-type' => 'item', 'id' => 'Q1'],
+                       'type' => 'wikibase-entityid',
+                       'valid' => true,
+                   ],
+                   [
+                       'raw' => 'Q2',
+                       'value' => ['entity-type' => 'item', 'id' => 'Q2'],
+                       'type' => 'wikibase-entityid',
+                       'valid' => true,
+                   ],
+                ]], 200);
+            } else {
+                $this->fail('Unexpected request');
+            }
         });
 
         $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
 
         $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
-        $response = $client->parseValue($fakePayload['property'], $fakePayload['values']);
+        $parsed = $client->parseValues([
+            'P1' => ['abc', 'def'],
+            'P2' => ['Q1', 'Q2'],
+        ]);
 
-        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', $fakePayload);
-        $this->assertSame($fakeResponseBody, $response->json());
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
+            'values' => 'abc|def',
+            'property' => 'P1',
+            'validate' => true,
+        ]);
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
+            'values' => 'Q1|Q2',
+            'property' => 'P2',
+            'validate' => true,
+        ]);
+
+        $expected = [
+            'P1' => [
+                'abc' => '{"raw":"abc","value":"abc","type":"string","valid":true}',
+                'def' => '{"raw":"def","value":"def","type":"string","valid":true}',
+            ],
+            'P2' => [
+                'Q1' => '{"raw":"Q1","value":{"entity-type":"item","id":"Q1"},"type":"wikibase-entityid","valid":true}',
+                'Q2' => '{"raw":"Q2","value":{"entity-type":"item","id":"Q2"},"type":"wikibase-entityid","valid":true}',
+            ],
+        ];
+        $this->assertSame($expected, $parsed);
     }
 
-    public function test_parse_value_throws_on_error_response()
+    public function test_parse_values_throws_on_error_response()
     {
-        $fakePayload = [
-            'property' => 'P1234',
-            'values' => 'fake-value'
-        ];
         $fakeErrorResponse = ['error' => [
             'info' => 'not okay'
         ]];
@@ -61,9 +91,25 @@ class WikibaseAPIClientTest extends TestCase
         $this->expectExceptionMessage($fakeErrorResponse['error']['info']);
 
         $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
-        $client->parseValue($fakePayload['property'], $fakePayload['values']);
+        $client->parseValues(['P1234' => ['fake-value']]);
 
-        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', $fakePayload);
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
+            'property' => 'P1234',
+            'values' => 'fake-value',
+        ]);
+    }
+
+    public function test_parse_values_empty(): void
+    {
+        Http::fake(function () {
+            $this->fail('should not make an HTTP request');
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $data = $client->parseValues(['P123' => []]);
+
+        $this->assertSame(['P123' => []], $data);
     }
 
     public function test_format_entities_returns_api_responses(): void
@@ -197,7 +243,7 @@ class WikibaseAPIClientTest extends TestCase
 
     public function methodProvider(): iterable
     {
-        yield 'parseValue' => ['parseValue', ['P1234', 'fake-value']];
+        yield 'parseValuesForProperty' => ['parseValuesForProperty', ['P1234', ['fake-value']]];
         yield 'formatEntities' => ['formatEntities', [['Q1234'], 'en']];
         yield 'getEntities' => ['getEntities', [['P1234'], ['datatype']]];
     }

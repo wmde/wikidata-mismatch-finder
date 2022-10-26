@@ -38,7 +38,8 @@ class WikidataValue implements Rule
         ] = $value;
 
         try {
-            $this->wikidata->parseValue($property, $wikidataValue);
+            // TODO would be nice to validate batches of values at once
+            $this->wikidata->parseValues([$property => [$wikidataValue]]);
         } catch (WikibaseValueParserException $e) {
             return false;
         }

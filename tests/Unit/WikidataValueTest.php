@@ -13,7 +13,7 @@ class WikidataValueTest extends TestCase
     public function test_passes_validation_when_client_returns(): void
     {
         $mockApiClient = Mockery::mock(WikibaseAPIClient::class);
-        $mockApiClient->shouldReceive('parseValue')->once();
+        $mockApiClient->shouldReceive('parseValues')->once();
 
         $rule = new WikidataValue($mockApiClient);
 
@@ -26,7 +26,7 @@ class WikidataValueTest extends TestCase
     public function test_fails_validation_when_client_throws(): void
     {
         $mockApiClient = Mockery::mock(WikibaseAPIClient::class);
-        $mockApiClient->shouldReceive('parseValue')->andThrow(
+        $mockApiClient->shouldReceive('parseValues')->andThrow(
             new WikibaseValueParserException()
         );
 

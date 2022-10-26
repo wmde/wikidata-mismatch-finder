@@ -264,7 +264,17 @@ sail npm test
 
 The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup.
 
-To create an enviroment variables file for local browser tests, make a copy of the `.env.dusk.example` file named `.env.dusk.local` and fill in the APP_KEY with your unique app key. Your APP KEY should be the one created when setting up the project in the [quickstart guide](#quickstart).
+To create an enviroment variables file for local browser tests, make a copy of the `.env.dusk.example` file named `.env.dusk.local` and fill in the APP_KEY with your unique app key. Your APP KEY should be the one created when setting up the project in the [quickstart guide](#quickstart). You can find it in your `.env` file.
+
+A one time setup is required before running the browser tests. This will create the tables needed for dusk:
+
+```bash
+$ docker container ls # note down the id of the mysql container
+
+$ docker exec -it <mysql container id> mysql -ppassword
+
+MariaDB [(none)]> CREATE DATABASE dusk character set UTF8mb4 collate utf8mb4_bin;
+```
 
 To run all the browser tests:
 

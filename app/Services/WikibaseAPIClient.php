@@ -100,6 +100,55 @@ class WikibaseAPIClient
         return $parsed;
     }
 
+    /**
+     * Make a direct wbformatvalue API request.
+     * You should probably use {@link formatValues} instead.
+     *
+     * @param string $property property ID
+     * @param string $value Wikibase data value (JSON-serialized)
+     * @param string $lang language code
+     * @return Response
+     */
+    public function formatValueForProperty(string $property, string $value, string $lang): Response
+    {
+        return $this->get('wbformatvalue', [
+            'generate' => 'text/plain',
+            'datavalue' => $value,
+            'property' => $property,
+            'uselang' => $lang,
+        ]);
+    }
+
+    /**
+     * Format the given data values into plain text.
+     *
+     * @param string[][] $valuesByPropertyId Two-dimensional array.
+     * The outer level is indexed by property ID;
+     * the inner level contains the parsed data values (JSON-serialized).
+     * The return value of {@link parseValues} can be used here.
+     * @param string $lang language code
+     * @return string[][] Two-dimensional array.
+     * The outer level is indexed by property ID;
+     * the inner level maps the original keys to formatted values (plain text strings).
+     * If $valuesByPropertyId was the result of {@link parseValues},
+     * then the inner keys will be the original unparsed values passed into {@link parseValues}.
+     */
+    public function formatValues(array $valuesByPropertyId, string $lang): array
+    {
+        $formatted = [];
+        foreach ($valuesByPropertyId as $propertyId => $values) {
+            $formatted[$propertyId] = collect($values)
+                ->unique()
+                // no chunk, wbformatvalue only supports 1 value per request :(
+                ->map(function (string $value) use ($lang, $propertyId) {
+                    $response = $this->formatValueForProperty($propertyId, $value, $lang);
+                    return $response['result'];
+                })
+                ->toArray();
+        }
+        return $formatted;
+    }
+
     public function formatEntities(array $ids, string $lang): Response
     {
         $response = $this->get('wbformatentities', [

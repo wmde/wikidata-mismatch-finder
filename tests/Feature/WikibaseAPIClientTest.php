@@ -112,6 +112,74 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertSame(['P123' => []], $data);
     }
 
+    public function test_format_values_returns_values_from_api_responses(): void
+    {
+        Http::fake(function (Request $req) {
+            $data = $req->data();
+            switch ("{$data['property']}|{$data['datavalue']}") {
+                case 'P1|{"type":"string","value":"abc"}':
+                    return Http::response(['result' => 'ABC']);
+                case 'P1|{"type":"string","value":"def"}':
+                    return Http::response(['result' => 'DEF']);
+                case 'P2|{"type":"string","value":"xyz"}':
+                    return Http::response(['result' => 'XYZ']);
+                default:
+                    $this->fail('Unexpected request');
+            }
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $parsed = $client->formatValues([
+            'P1' => [
+                'abc' => '{"type":"string","value":"abc"}',
+                'def' => '{"type":"string","value":"def"}',
+            ],
+            'P2' => [
+                'xyz' => '{"type":"string","value":"xyz"}',
+            ],
+        ], 'en');
+
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbformatvalue', [
+            'generate' => 'text/plain',
+            'datavalue' => '{"type":"string","value":"abc"}',
+            'property' => 'P1',
+            'uselang' => 'en',
+        ]);
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbformatvalue', [
+            'generate' => 'text/plain',
+            'datavalue' => '{"type":"string","value":"def"}',
+            'property' => 'P1',
+            'uselang' => 'en',
+        ]);
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbformatvalue', [
+            'generate' => 'text/plain',
+            'datavalue' => '{"type":"string","value":"xyz"}',
+            'property' => 'P2',
+            'uselang' => 'en',
+        ]);
+
+        $expected = [
+            'P1' => ['abc' => 'ABC', 'def' => 'DEF'],
+            'P2' => ['xyz' => 'XYZ'],
+        ];
+        $this->assertSame($expected, $parsed);
+    }
+
+    public function test_format_values_empty(): void
+    {
+        Http::fake(function () {
+            $this->fail('should not make an HTTP request');
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $data = $client->formatValues(['P123' => []], 'en');
+
+        $this->assertSame(['P123' => []], $data);
+    }
+
     public function test_format_entities_returns_api_responses(): void
     {
         $fakeIds = ['P1234', 'Q4321'];
@@ -244,6 +312,7 @@ class WikibaseAPIClientTest extends TestCase
     public function methodProvider(): iterable
     {
         yield 'parseValuesForProperty' => ['parseValuesForProperty', ['P1234', ['fake-value']]];
+        yield 'formatValueForProperty' => ['formatValueForProperty', ['P1234', 'fake-value', 'en']];
         yield 'formatEntities' => ['formatEntities', [['Q1234'], 'en']];
         yield 'getEntities' => ['getEntities', [['P1234'], ['datatype']]];
     }

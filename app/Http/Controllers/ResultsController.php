@@ -52,12 +52,19 @@ class ResultsController extends Controller
             $this->extractItemIds($mismatches, $datatypes)
         );
 
+        $lang = App::getLocale();
+
+        $timeValues = $this->extractTimeValues($mismatches, $datatypes);
+        $parsedTimeValues = $wikidata->parseValues($timeValues);
+        $formattedTimeValues = $wikidata->formatValues($parsedTimeValues, $lang);
+
         $props = array_merge(
             [
                 'user' => $user,
                 'item_ids' => $itemIds,
                 // Use wikidata to fetch labels for found entity ids
-                'labels' => $wikidata->getLabels($entityIds, App::getLocale())
+                'labels' => $wikidata->getLabels($entityIds, $lang),
+                'formatted_values' => $formattedTimeValues,
             ],
             // only add 'results' prop if mismatches have been found
             $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []
@@ -91,6 +98,20 @@ class ResultsController extends Controller
             },
             []
         ));
+    }
+
+    private function extractTimeValues(LazyCollection $mismatches, array $datatypes): array
+    {
+        return $mismatches->reduce(
+            function (array $values, Mismatch $mismatch) use ($datatypes) {
+                $propertyId = $mismatch->property_id;
+                if ($datatypes[$propertyId] === 'time') {
+                    $values[$propertyId][] = $mismatch->wikidata_value;
+                }
+                return $values;
+            },
+            []
+        );
     }
 
     /**

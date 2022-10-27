@@ -4,9 +4,23 @@ namespace Database\Factories;
 
 use App\Models\Mismatch;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use InvalidArgumentException;
+use ValueError;
 
 class MismatchFactory extends Factory
 {
+    private const PROPERTIES = [
+        'P580' => 'time',
+        'P582' => 'time',
+        'P585' => 'time',
+        'P50' => 'wikibase-item',
+        'P86' => 'wikibase-item',
+        'P170' => 'wikibase-item',
+        'P225' => 'string',
+        'P742' => 'string',
+        'P2093' => 'string',
+    ];
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -23,11 +37,42 @@ class MismatchFactory extends Factory
     {
         return [
             'statement_guid' => 'Q' . $this->faker->randomNumber() . '$' . $this->faker->uuid(),
-            'property_id' => 'P' . $this->faker->randomNumber(),
-            'wikidata_value' => $this->getRandomValue(),
+            'property_id' => $this->faker->randomElement(array_keys(self::PROPERTIES)),
+            'wikidata_value' => function (array $attributes) {
+                $propertyId = $attributes['property_id'];
+                if (!array_key_exists($propertyId, self::PROPERTIES)) {
+                    throw new ValueError("Unknown property {$propertyId}, " .
+                        'you have to specify an explicit wikidata_value');
+                }
+                return $this->getRandomValueForDatatype(self::PROPERTIES[$propertyId]);
+            },
             'external_value'=> $this->getRandomValue(),
             'external_url' => $this->faker->optional(0.6)->url()
         ];
+    }
+
+    /** Select a random property of datatype "time". */
+    public function datatypeTime(): self
+    {
+        return $this->state([
+            'property_id' => $this->getRandomPropertyIdOfDatatype('time'),
+        ]);
+    }
+
+    /** Select a random property of datatype "wikibase-item". */
+    public function datatypeWikibaseItem(): self
+    {
+        return $this->state([
+            'property_id' => $this->getRandomPropertyIdOfDatatype('wikibase-item'),
+        ]);
+    }
+
+    /** Select a random property of datatype "string". */
+    public function datatypeString(): self
+    {
+        return $this->state([
+            'property_id' => $this->getRandomPropertyIdOfDatatype('string'),
+        ]);
     }
 
     /**
@@ -63,6 +108,21 @@ class MismatchFactory extends Factory
         ]);
     }
 
+    private function getRandomValueForDatatype(string $datatype)
+    {
+        switch ($datatype) {
+            case 'time':
+                return $this->faker->date();
+            case 'wikibase-item':
+                return 'Q' . $this->faker->numberBetween(1, 10000);
+            case 'string':
+                $randomWordAmount = $this->faker->numberBetween(1, 5);
+                return $this->faker->words($randomWordAmount, true);
+            default:
+                throw new InvalidArgumentException("Unknown datatype $datatype");
+        }
+    }
+
     private function getRandomReviewStatus()
     {
         return $this->faker->randomElement([
@@ -71,5 +131,15 @@ class MismatchFactory extends Factory
             'both',
             'none'
         ]);
+    }
+
+    private function getRandomPropertyIdOfDatatype(string $datatype)
+    {
+        return $this->faker->randomElement(array_filter(
+            array_keys(self::PROPERTIES),
+            static function ($propertyId) use ($datatype) {
+                return self::PROPERTIES[$propertyId] === $datatype;
+            }
+        ));
     }
 }

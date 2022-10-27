@@ -59,44 +59,86 @@ class WebResultsRouteTest extends TestCase
         ->for(User::factory()->uploader())
         ->create();
 
-        $mismatch = Mismatch::factory()
+        $dateMismatch = Mismatch::factory()
             ->for($import)
+            ->datatypeTime()
             ->create();
+        $dateMismatchQid = $dateMismatch->item_id;
+        do {
+            $itemMismatch = Mismatch::factory()
+                ->for($import)
+                ->datatypeWikibaseItem()
+                ->create();
+            $itemMismatchQid = $itemMismatch->item_id;
+        } while ($itemMismatchQid === $dateMismatchQid);
+        do {
+            $stringMismatch = Mismatch::factory()
+                ->for($import)
+                ->datatypeString()
+                ->create();
+            $stringMismatchQid = $stringMismatch->item_id;
+        } while ($stringMismatchQid === $dateMismatchQid || $stringMismatchQid === $itemMismatchQid);
 
-        $qid = $mismatch->item_id;
-
-        $isMismatch = function (Assert $data) use ($mismatch, $import) {
-            $data->whereAll([
-                'id' => $mismatch->id,
-                // Casting values to string, as it seems that the inertia
-                // testing helper also converts all values to strings
-                'item_id' => (string) $mismatch->item_id,
-                'statement_guid' => (string) $mismatch->statement_guid,
-                'property_id' => (string) $mismatch->property_id,
-                'wikidata_value' => (string) $mismatch->wikidata_value,
-                'external_value' => (string) $mismatch->external_value,
-                'review_status' => (string) $mismatch->review_status,
-                'import_meta.external_source' => (string) $import->external_source,
-                'import_meta.user.username' => (string) $import->user->username,
-                'import_meta.created_at' => $import->created_at->toISOString(),
-                'import_meta.description' => $import->description
-            ])->etc();
+        $isMismatch = function (Mismatch $mismatch) use ($import) {
+            return function (Assert $data) use ($mismatch, $import) {
+                $data->whereAll([
+                    'id' => $mismatch->id,
+                    // Casting values to string, as it seems that the inertia
+                    // testing helper also converts all values to strings
+                    'item_id' => (string) $mismatch->item_id,
+                    'statement_guid' => (string) $mismatch->statement_guid,
+                    'property_id' => (string) $mismatch->property_id,
+                    'wikidata_value' => (string) $mismatch->wikidata_value,
+                    'external_value' => (string) $mismatch->external_value,
+                    'review_status' => (string) $mismatch->review_status,
+                    'import_meta.external_source' => (string) $import->external_source,
+                    'import_meta.user.username' => (string) $import->user->username,
+                    'import_meta.created_at' => $import->created_at->toISOString(),
+                    'import_meta.description' => $import->description
+                ])->etc();
+            };
         };
 
-        $assertLabels = function (Collection $labels) use ($mismatch) {
-            // Labels should at least have the item id and property id
-            // of a mismatch
-            return $labels->has([$mismatch->item_id, $mismatch->property_id]);
+        $assertLabels = function (Collection $labels) use (
+            $dateMismatch,
+            $dateMismatchQid,
+            $itemMismatch,
+            $itemMismatchQid,
+            $stringMismatch,
+            $stringMismatchQid
+        ) {
+            return $labels->has([
+                // labels should include item + property id of each mismatch
+                $dateMismatchQid,
+                $dateMismatch->property_id,
+                $itemMismatchQid,
+                $itemMismatch->property_id,
+                $stringMismatchQid,
+                $stringMismatch->property_id,
+                // as well as item id of an item mismatch value
+                $itemMismatch->wikidata_value,
+            ]);
         };
 
-        $withResultsPage = function (Assert $page) use ($qid, $isMismatch, $assertLabels) {
+        $withResultsPage = function (Assert $page) use (
+            $dateMismatch,
+            $dateMismatchQid,
+            $itemMismatch,
+            $itemMismatchQid,
+            $stringMismatch,
+            $stringMismatchQid,
+            $isMismatch,
+            $assertLabels
+        ) {
             $page->component('Results')
-                ->has("results.$qid.0", $isMismatch)
+                ->has("results.$dateMismatchQid.0", $isMismatch($dateMismatch))
+                ->has("results.$itemMismatchQid.0", $isMismatch($itemMismatch))
+                ->has("results.$stringMismatchQid.0", $isMismatch($stringMismatch))
                 ->where("labels", $assertLabels);
         };
 
         $response = $this->get(route('results', [
-            'ids' => $qid
+            'ids' => "$dateMismatchQid|$itemMismatchQid|$stringMismatchQid"
         ]));
 
         $response->assertSuccessful();

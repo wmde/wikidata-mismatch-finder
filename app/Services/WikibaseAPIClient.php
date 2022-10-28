@@ -73,10 +73,10 @@ class WikibaseAPIClient
      * @param string[][] $valuesByPropertyId Two-dimensional array.
      * The outer level is indexed by property ID;
      * the inner levels are lists (keys ignored) of plain values to be parsed.
-     * @return string[][] Two-dimensional array.
+     * @return array[][] Two-dimensional array of parsed values.
      * The outer level is indexed by property ID;
      * the inner level maps the unparsed value (as in $valuesByPropertyId)
-     * to the parsed value (a string – JSON-serialized).
+     * to the parsed value (an array with at least 'type' and 'value' keys).
      * @throws WikibaseValueParserException If one of the values cannot be parsed.
      */
     public function parseValues(array $valuesByPropertyId): array
@@ -90,7 +90,7 @@ class WikibaseAPIClient
                     $response = $this->parseValuesForProperty($propertyId, $chunk->toArray());
                     $results = [];
                     foreach ($response['results'] as $result) {
-                        $results[$result['raw']] = json_encode($result);
+                        $results[$result['raw']] = $result;
                     }
                     return $results;
                 })
@@ -105,15 +105,15 @@ class WikibaseAPIClient
      * You should probably use {@link formatValues} instead.
      *
      * @param string $property property ID
-     * @param string $value Wikibase data value (JSON-serialized)
+     * @param array $value Wikibase data value
      * @param string $lang language code
      * @return Response
      */
-    public function formatValueForProperty(string $property, string $value, string $lang): Response
+    public function formatValueForProperty(string $property, array $value, string $lang): Response
     {
         return $this->get('wbformatvalue', [
             'generate' => 'text/plain',
-            'datavalue' => $value,
+            'datavalue' => json_encode($value),
             'property' => $property,
             'uselang' => $lang,
         ]);
@@ -122,9 +122,9 @@ class WikibaseAPIClient
     /**
      * Format the given data values into plain text.
      *
-     * @param string[][] $valuesByPropertyId Two-dimensional array.
+     * @param array[][] $valuesByPropertyId Two-dimensional array of data values.
      * The outer level is indexed by property ID;
-     * the inner level contains the parsed data values (JSON-serialized).
+     * the inner level contains the parsed data values.
      * The return value of {@link parseValues} can be used here.
      * @param string $lang language code
      * @return string[][] Two-dimensional array.
@@ -140,7 +140,7 @@ class WikibaseAPIClient
             $formatted[$propertyId] = collect($values)
                 ->unique()
                 // no chunk, wbformatvalue only supports 1 value per request :(
-                ->map(function (string $value) use ($lang, $propertyId) {
+                ->map(function (array $value) use ($lang, $propertyId) {
                     $response = $this->formatValueForProperty($propertyId, $value, $lang);
                     return $response['result'];
                 })

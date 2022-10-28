@@ -27,6 +27,15 @@ class WikibaseAPIClient
         $this->cache = $cache;
     }
 
+    private function list(array $values): string
+    {
+        if (str_contains(implode($values), '|')) {
+            return "\x1f" . implode("\x1f", $values);
+        } else {
+            return implode('|', $values);
+        }
+    }
+
     private function get(string $action, array $params): Response
     {
         $response = Http::withMiddleware($this->cache)
@@ -58,7 +67,7 @@ class WikibaseAPIClient
     {
         try {
             return $this->get('wbparsevalue', [
-                'values' => implode('|', $values),
+                'values' => $this->list($values),
                 'property' => $property,
                 'validate' => true
             ]);
@@ -152,7 +161,7 @@ class WikibaseAPIClient
     public function formatEntities(array $ids, string $lang): Response
     {
         $response = $this->get('wbformatentities', [
-            'ids' => implode('|', $ids),
+            'ids' => $this->list($ids),
             'uselang' => $lang
         ]);
 
@@ -178,8 +187,8 @@ class WikibaseAPIClient
     public function getEntities(array $ids, array $props): Response
     {
         return $this->get('wbgetentities', [
-            'ids' => implode('|', $ids),
-            'props' => implode('|', $props),
+            'ids' => $this->list($ids),
+            'props' => $this->list($props),
         ]);
     }
 

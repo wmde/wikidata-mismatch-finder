@@ -65,12 +65,22 @@ class WikibaseAPIClientTest extends TestCase
 
         $expected = [
             'P1' => [
-                'abc' => '{"raw":"abc","value":"abc","type":"string","valid":true}',
-                'def' => '{"raw":"def","value":"def","type":"string","valid":true}',
+                'abc' => ['raw' => 'abc', 'value' => 'abc', 'type' => 'string', 'valid' => true],
+                'def' => ['raw' => 'def', 'value' => 'def', 'type' => 'string', 'valid' => true],
             ],
             'P2' => [
-                'Q1' => '{"raw":"Q1","value":{"entity-type":"item","id":"Q1"},"type":"wikibase-entityid","valid":true}',
-                'Q2' => '{"raw":"Q2","value":{"entity-type":"item","id":"Q2"},"type":"wikibase-entityid","valid":true}',
+                'Q1' => [
+                    'raw' => 'Q1',
+                    'value' => ['entity-type' => 'item', 'id' => 'Q1'],
+                    'type' => 'wikibase-entityid',
+                    'valid' => true,
+                ],
+                'Q2' => [
+                    'raw' => 'Q2',
+                    'value' => ['entity-type' => 'item', 'id' => 'Q2'],
+                    'type' => 'wikibase-entityid',
+                    'valid' => true,
+                ],
             ],
         ];
         $this->assertSame($expected, $parsed);
@@ -133,11 +143,11 @@ class WikibaseAPIClientTest extends TestCase
         $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
         $parsed = $client->formatValues([
             'P1' => [
-                'abc' => '{"type":"string","value":"abc"}',
-                'def' => '{"type":"string","value":"def"}',
+                'abc' => ['type' => 'string', 'value' => 'abc'],
+                'def' => ['type' => 'string', 'value' => 'def'],
             ],
             'P2' => [
-                'xyz' => '{"type":"string","value":"xyz"}',
+                'xyz' => ['type' => 'string', 'value' => 'xyz'],
             ],
         ], 'en');
 
@@ -312,7 +322,7 @@ class WikibaseAPIClientTest extends TestCase
     public function methodProvider(): iterable
     {
         yield 'parseValuesForProperty' => ['parseValuesForProperty', ['P1234', ['fake-value']]];
-        yield 'formatValueForProperty' => ['formatValueForProperty', ['P1234', 'fake-value', 'en']];
+        yield 'formatValueForProperty' => ['formatValueForProperty', ['P1234', ['fake-value'], 'en']];
         yield 'formatEntities' => ['formatEntities', [['Q1234'], 'en']];
         yield 'getEntities' => ['getEntities', [['P1234'], ['datatype']]];
     }

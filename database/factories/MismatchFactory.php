@@ -36,7 +36,7 @@ class MismatchFactory extends Factory
     public function definition()
     {
         return [
-            'statement_guid' => 'Q' . $this->faker->randomNumber() . '$' . $this->faker->uuid(),
+            'statement_guid' => $this->getRandomItemId() . '$' . $this->faker->uuid(),
             'property_id' => $this->faker->randomElement(array_keys(self::PROPERTIES)),
             'wikidata_value' => function (array $attributes) {
                 $propertyId = $attributes['property_id'];
@@ -114,13 +114,18 @@ class MismatchFactory extends Factory
             case 'time':
                 return $this->faker->date();
             case 'wikibase-item':
-                return 'Q' . $this->faker->numberBetween(1, 10000);
+                return $this->getRandomItemId();
             case 'string':
                 $randomWordAmount = $this->faker->numberBetween(1, 5);
                 return $this->faker->words($randomWordAmount, true);
             default:
                 throw new InvalidArgumentException("Unknown datatype $datatype");
         }
+    }
+
+    private function getRandomItemId(): string
+    {
+        return 'Q' . $this->faker->numberBetween(1, 10000);
     }
 
     private function getRandomReviewStatus()

@@ -78,6 +78,20 @@
     sail artisan key:generate
     ```
 
+1. Install `npm` dependencies
+
+    ```bash
+    sail npm install
+    ```
+
+1. Build the frontend code so you can see the javascript content of the app. 
+
+    ```bash
+    sail npm run dev
+    ```
+
+For more advanced frontend topics, see [Frontend - Working with CSS and JS](#frontend)
+
 ## Day to day <a id="day-to-day"></a>
 
 ### Start the application server

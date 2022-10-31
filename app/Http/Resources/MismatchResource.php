@@ -20,6 +20,7 @@ class MismatchResource extends JsonResource
             'statement_guid' => $this->statement_guid,
             'property_id' => $this->property_id,
             'wikidata_value' => $this->wikidata_value,
+            'meta_wikidata_value' => $this->meta_wikidata_value,
             'external_value' => $this->external_value,
             'external_url' => $this->external_url,
             'review_status' => $this->review_status,

@@ -14,6 +14,7 @@ interface Mismatch {
     statement_guid: string,
     property_id: string,
     wikidata_value: string,
+    meta_wikidata_value: string,
     external_value: string,
     review_status: ReviewStatus,
     import_meta: {

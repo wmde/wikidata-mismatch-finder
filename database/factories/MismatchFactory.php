@@ -46,6 +46,7 @@ class MismatchFactory extends Factory
                 }
                 return $this->getRandomValueForDatatype(self::PROPERTIES[$propertyId]);
             },
+            'meta_wikidata_value' => 'Q' . $this->faker->optional(0.7)->randomNumber(),
             'external_value'=> $this->getRandomValue(),
             'external_url' => $this->faker->optional(0.6)->url()
         ];

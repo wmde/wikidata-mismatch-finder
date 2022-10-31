@@ -18,6 +18,7 @@ class Mismatch extends Model
         'statement_guid',
         'property_id',
         'wikidata_value',
+        'meta_wikidata_value',
         'external_value',
         'external_url',
         'review_status'

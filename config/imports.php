@@ -12,6 +12,7 @@ return [
             'statement_guid',
             'property_id',
             'wikidata_value',
+            'meta_wikidata_value',
             'external_value',
             'external_url'
         ]

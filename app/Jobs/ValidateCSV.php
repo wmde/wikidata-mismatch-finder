@@ -12,6 +12,7 @@ use App\Exceptions\ImportValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\WikidataValue;
+use App\Rules\MetaWikidataValue;
 use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
 use Throwable;
@@ -44,15 +45,19 @@ class ValidateCSV implements ShouldQueue
      *
      * @return void
      */
-    public function handle(WikidataValue $valueValidator, CSVImportReader $reader)
-    {
+    public function handle(
+        WikidataValue     $valueValidator,
+        CSVImportReader   $reader,
+        MetaWikidataValue $metaValueValidator
+    ) {
         $filepath = Storage::disk('local')
-        ->path('mismatch-files/' . $this->meta->filename);
+            ->path('mismatch-files/' . $this->meta->filename);
 
         $reader->lines($filepath)
-            ->each(function ($mismatch, $i) use ($valueValidator) {
+            ->each(function ($mismatch, $i) use ($valueValidator, $metaValueValidator) {
                 $error = $this->checkFieldErrors($mismatch)
-                    ?? $this->checkValueErrors($mismatch, $valueValidator);
+                    ?? $this->checkValueErrors($mismatch, $valueValidator)
+                    ?? $this->checkMetaValueErrors($mismatch, $metaValueValidator);
 
                 if ($error) {
                     throw new ImportValidationException($i, $error);
@@ -118,8 +123,13 @@ class ValidateCSV implements ShouldQueue
             'external_url' => [
                 'url',
                 'max:' . $rules['external_url']['max_length']
+            ],
+            'meta_wikidata_value' => [
+                'max:' . $rules['meta_wikidata_value']['max_length'],
+                'regex:' . $rules['meta_wikidata_value']['format']
             ]
         ]);
+
 
         if ($validator->stopOnFirstFailure()->fails()) {
             return $validator->errors()->first();
@@ -139,6 +149,24 @@ class ValidateCSV implements ShouldQueue
             ]
         ], [
             'wikidata_value' => [$valueRule]
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->first();
+        }
+
+        return null;
+    }
+
+    private function checkMetaValueErrors($mismatch, MetaWikidataValue  $metaRule): ?string
+    {
+        $validator = Validator::make([
+            'meta_wikidata_value' => [
+                'property' => $mismatch['property_id'],
+                'meta_value' => $mismatch['meta_wikidata_value']
+            ]
+        ], [
+            'meta_wikidata_value' => [$metaRule]
         ]);
 
         if ($validator->fails()) {

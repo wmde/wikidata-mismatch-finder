@@ -48,6 +48,10 @@ class MismatchFactory extends Factory
             },
             'meta_wikidata_value' => function (array $attributes) {
                 $propertyId = $attributes['property_id'];
+                if (!array_key_exists($propertyId, self::PROPERTIES)) {
+                    throw new ValueError("Unknown property {$propertyId}");
+                }
+
                 $datatype = self::PROPERTIES[$propertyId];
                 if ($datatype == 'time') {
                     $randomNumber = $this->faker->optional(0.7, 0)->randomNumber();

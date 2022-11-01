@@ -67,6 +67,7 @@ class ApiMismatchRoutePutTest extends TestCase
                     'statement_guid',
                     'property_id',
                     'wikidata_value',
+                    'meta_wikidata_value',
                     'external_value',
                     'external_url',
                     'review_status',
@@ -140,6 +141,7 @@ class ApiMismatchRoutePutTest extends TestCase
             ['property_id' , 'P1234'],
             ['statement_guid', 'Q111$1234'],
             ['wikidata_value', 'Potato'],
+            ['meta_wikidata_value', ''],
             ['external_value', 'Tomato'],
             ['external_url', 'http://potato.com']
         ];
@@ -200,6 +202,7 @@ class ApiMismatchRoutePutTest extends TestCase
                         "property_id" => $mismatch->property_id,
                         "statement_guid" => $mismatch->statement_guid,
                         "wikidata_value" => $mismatch->wikidata_value,
+                        "meta_wikidata_value" => $mismatch->meta_wikidata_value,
                         "external_value" => $mismatch->external_value,
                         "review_status_old" => 'pending',
                         "review_status_new" => 'wikidata',

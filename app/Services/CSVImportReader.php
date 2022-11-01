@@ -29,9 +29,9 @@ class CSVImportReader
         }
 
         return $lines->except(0)
-            ->filter(function (array $row) {
+            ->filter(function (array $row) use ($allowedKeys) {
                 return $row[0] !== null
-                && $row !== array_fill(0, 5, '');
+                && $row !== array_fill(0, count($allowedKeys), '');
             })
             ->map(function (array $row, int $i) use ($columnKeys) {
                 if (count($row) !== count($columnKeys)) {

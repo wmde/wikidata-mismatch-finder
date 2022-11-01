@@ -48,13 +48,13 @@ Users which have sufficient access rights may perform batch imports into the Mis
 A CSV import file must include the following header row, to describe each column:
 
 ```csv
-statement_guid,property_id,meta_wikidata_value,wikidata_value,external_value,external_url
+statement_guid,property_id,wikidata_value,meta_wikidata_value,external_value,external_url
 ```
 
 * `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data.
 * `property_id` - The id of the wikidata property defining the wikidata value of the mismatch.
-* `meta_wikidata_value` - _(Optional)_ The value on wikidata that represents property calendar/time type.
 * `wikidata_value` - The value on wikidata that mismatches an external database.
+* `meta_wikidata_value` - _(Optional)_ The value on wikidata that represents property calendar/time type.
 * `external_value` - The value in the external database that mismatches a wikidata value.
 * `external_url` - _(Optional)_ A url or uri to the mismatching entity in the external database.
 

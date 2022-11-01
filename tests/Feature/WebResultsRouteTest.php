@@ -120,6 +120,12 @@ class WebResultsRouteTest extends TestCase
             ]);
         };
 
+        $assertDate = function (string $formatted) {
+            // a formatted date (day precision) will contain a space,
+            // whereas the unformatted value (timestamp) would not
+            return str_contains($formatted, ' ');
+        };
+
         $withResultsPage = function (Assert $page) use (
             $dateMismatch,
             $dateMismatchQid,
@@ -128,13 +134,15 @@ class WebResultsRouteTest extends TestCase
             $stringMismatch,
             $stringMismatchQid,
             $isMismatch,
-            $assertLabels
+            $assertLabels,
+            $assertDate
         ) {
             $page->component('Results')
                 ->has("results.$dateMismatchQid.0", $isMismatch($dateMismatch))
                 ->has("results.$itemMismatchQid.0", $isMismatch($itemMismatch))
                 ->has("results.$stringMismatchQid.0", $isMismatch($stringMismatch))
-                ->where("labels", $assertLabels);
+                ->where("labels", $assertLabels)
+                ->where("formatted_values.{$dateMismatch->property_id}.{$dateMismatch->wikidata_value}", $assertDate);
         };
 
         $response = $this->get(route('results', [

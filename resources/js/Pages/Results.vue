@@ -167,6 +167,10 @@
         [entityId: string]: string
     }
 
+    interface FormattedValueMap {
+        [propertyId: string]: { [value: string]: string };
+    }
+
     interface DecisionMap {
         [entityId: string]: {
             [id: number]: MismatchDecision
@@ -209,7 +213,11 @@
             labels: {
                 type: Object as PropType<LabelMap>,
                 default: () => ({})
-            }
+            },
+            formatted_values: {
+                type: Object as PropType<FormattedValueMap>,
+                default: () => ({}),
+            },
         },
         computed: {
             notFoundItemIds() {
@@ -257,11 +265,20 @@
                 // The following callback maps existing mismatches to extended
                 // mismatch objects which include labels, by looking up any
                 // potential entity ids within the labels object.
-                return mismatches.map(mismatch => ({
-                    property_label: this.labels[mismatch.property_id],
-                    value_label: this.labels[mismatch.wikidata_value] || null,
-                    ...mismatch
-                }));
+                return mismatches.map(mismatch => {
+                    const labelled = {
+                        property_label: this.labels[mismatch.property_id],
+                        value_label: this.labels[mismatch.wikidata_value] || null,
+                        ...mismatch
+                    };
+                    if (mismatch.property_id in this.formatted_values) {
+                        const formattedValues = this.formatted_values[mismatch.property_id];
+                        if (mismatch.wikidata_value in formattedValues) {
+                            labelled.value_label = formattedValues[mismatch.wikidata_value];
+                        }
+                    }
+                    return labelled;
+                });
             },
             recordDecision( decision: MismatchDecision): void {
                 const itemDecisions = this.decisions[decision.item_id];

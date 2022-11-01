@@ -122,6 +122,33 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertSame(['P123' => []], $data);
     }
 
+    public function test_parse_values_internal_pipe(): void
+    {
+        Http::fake(function (Request $req) {
+            return Http::response(['results' => [
+                ['raw' => 'a|b', 'value' => 'a|b', 'type' => 'string', 'valid' => true],
+                ['raw' => 'c|d', 'value' => 'c|d', 'type' => 'string', 'valid' => true],
+            ]], 200);
+        });
+
+        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $parsed = $client->parseValues(['P1' => ['a|b', 'c|d']]);
+
+        $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
+            'values' => "\x1fa|b\x1fc|d",
+            'property' => 'P1',
+            'validate' => true,
+        ]);
+
+        $expected = ['P1' => [
+            'a|b' => ['raw' => 'a|b', 'value' => 'a|b', 'type' => 'string', 'valid' => true],
+            'c|d' =>  ['raw' => 'c|d', 'value' => 'c|d', 'type' => 'string', 'valid' => true],
+        ]];
+        $this->assertSame($expected, $parsed);
+    }
+
     public function test_format_values_returns_values_from_api_responses(): void
     {
         Http::fake(function (Request $req) {

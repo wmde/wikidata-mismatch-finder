@@ -130,19 +130,19 @@ Example entry:
 
 1. Use the Wikidata mismatch finder database
 
-    ```bash
+    ```sql
     USE s54796__mismatch_finder; 
     ```
 
 1. Now inside the database we can perform the update operation. 
 
-    ```bash
+    ```sql
     UPDATE import_meta SET expires='<date_of_expiration>' where id = <id_of_entry_to_update>; 
     ```
 
     Example:
 
-    ```bash
+    ```sql
     UPDATE import_meta SET expires='2022-11-01' where id = 6
     ```
 

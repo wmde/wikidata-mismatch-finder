@@ -128,10 +128,15 @@ Example entry:
     sql tools
     ```
 
-1. Use the Wikidata mismatch finder database
+1. Get into the `mismatch-finder-repo` folder
 
-    ```sql
-    USE s54796__mismatch_finder; 
+    ```bash
+    cd mismatch-finder-repo
+
+1. Go into the project's database using artisan
+
+    ```bash
+    php artisan db
     ```
 
 1. Now inside the database we can perform the update operation. 

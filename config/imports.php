@@ -1,19 +1,17 @@
 <?php
 
 
-
-/**
- * Various configurations relating to imports
- */
-return [
+$config = [
     'upload' => [
         'filename_template' => ':datetime-mismatch-upload.:userid.csv',
-        'column_keys' => [
+        'required_column_keys' => [
             'statement_guid',
             'property_id',
             'wikidata_value',
+            'external_value'
+        ],
+        'optional_column_keys' => [
             'meta_wikidata_value',
-            'external_value',
             'external_url'
         ]
     ],
@@ -51,3 +49,13 @@ return [
         ]
     ]
 ];
+
+$config['upload']['column_keys'] = array_merge(
+    $config['upload']['required_column_keys'],
+    $config['upload']['optional_column_keys']
+);
+
+/**
+ * Various configurations relating to imports
+ */
+return $config;

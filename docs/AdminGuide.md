@@ -100,7 +100,7 @@ Example entry:
     "mismatch_id": 1,
     "item_id": "Q3570615",
     "property_id": "P5474221",
-    "meta_wikidata_value": "Q71706 ",
+    "meta_wikidata_value": "Q71706",
     "statement_guid": "Q3570615$7b22f0c9-7f5b-386b-a2da-92f1dd7d01c8",
     "wikidata_value": "404509851"
     "external_value": "482752654",

@@ -59,6 +59,7 @@ class WebResultsRouteTest extends TestCase
         ->for(User::factory()->uploader())
         ->create();
 
+        $noMismatchQid = 'Q999979999';
         $dateMismatch = Mismatch::factory()
             ->for($import)
             ->datatypeTime()
@@ -100,6 +101,7 @@ class WebResultsRouteTest extends TestCase
         };
 
         $assertLabels = function (Collection $labels) use (
+            $noMismatchQid,
             $dateMismatch,
             $dateMismatchQid,
             $itemMismatch,
@@ -109,6 +111,7 @@ class WebResultsRouteTest extends TestCase
         ) {
             return $labels->has([
                 // labels should include item + property id of each mismatch
+                $noMismatchQid,
                 $dateMismatchQid,
                 $dateMismatch->property_id,
                 $itemMismatchQid,
@@ -127,6 +130,7 @@ class WebResultsRouteTest extends TestCase
         };
 
         $withResultsPage = function (Assert $page) use (
+            $noMismatchQid,
             $dateMismatch,
             $dateMismatchQid,
             $itemMismatch,
@@ -146,7 +150,7 @@ class WebResultsRouteTest extends TestCase
         };
 
         $response = $this->get(route('results', [
-            'ids' => "$dateMismatchQid|$itemMismatchQid|$stringMismatchQid"
+            'ids' => "$dateMismatchQid|$itemMismatchQid|$stringMismatchQid|$noMismatchQid"
         ]));
 
         $response->assertSuccessful();

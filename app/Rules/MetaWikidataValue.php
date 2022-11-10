@@ -41,7 +41,7 @@ class MetaWikidataValue implements Rule
         try {
             if (!empty($property) && !empty($metaWikidataValue)) {
                 $dataTypes = $this->wikidata->getPropertyDatatypes([$property]);
-                return array_key_exists($property, $dataTypes) && $dataTypes[$property] == 'time';
+                return $dataTypes[$property] == 'time';
             }
             return empty($metaWikidataValue);
         } catch (\Exception $e) {

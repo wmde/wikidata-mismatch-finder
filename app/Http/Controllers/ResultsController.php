@@ -47,9 +47,12 @@ class ResultsController extends Controller
         $propertyIds = $this->extractPropertyIds($mismatches);
         $datatypes = $wikidata->getPropertyDatatypes($propertyIds);
 
-        $entityIds = array_merge(
-            $propertyIds,
-            $this->extractItemIds($mismatches, $datatypes)
+        $entityIds = array_unique(
+            array_merge(
+                $propertyIds,
+                $this->extractItemIds($mismatches, $datatypes),
+                $requestedItemIds
+            )
         );
 
         $lang = App::getLocale();

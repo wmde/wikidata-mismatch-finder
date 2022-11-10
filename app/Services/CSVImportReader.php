@@ -18,34 +18,20 @@ class CSVImportReader
         });
 
         $allowedKeys = config('imports.upload.column_keys');
-        $requiredKeys = config('imports.upload.required_column_keys');
         $columnKeys = $lines->get(0);
 
-        if (count($allowedKeys) != count($columnKeys)) {
-            if (array_intersect($allowedKeys, $columnKeys) != $columnKeys) {
-                // TODO: Add custom error message
-                throw new ImportParserException(0, __('parsing.import.headers', [
-                    'header-list' => join(", ", $allowedKeys)
-                ]));
-            }
-
-            if (array_intersect($requiredKeys, $columnKeys) != $requiredKeys) {
-                // TODO: Add custom error message
-                throw new ImportParserException(0, __('parsing.import.headers', [
-                    'header-list' => join(", ", $requiredKeys)
-                ]));
-            }
-
-        } elseif (count(array_diff($allowedKeys, $columnKeys)) !== 0) {
+        if (count($allowedKeys) != count($columnKeys) ||
+            count(array_diff($allowedKeys, $columnKeys)) !== 0
+            ) {
             throw new ImportParserException(0, __('parsing.import.headers', [
                 'header-list' => join(", ", $allowedKeys)
             ]));
         }
 
         return $lines->except(0)
-            ->filter(function (array $row) use ($columnKeys) {
+            ->filter(function (array $row) use ($allowedKeys) {
                 return $row[0] !== null
-                && $row !== array_fill(0, count($columnKeys), '');
+                && $row !== array_fill(0, count($allowedKeys), '');
             })
             ->map(function (array $row, int $i) use ($columnKeys) {
                 if (count($row) !== count($columnKeys)) {

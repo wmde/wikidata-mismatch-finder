@@ -35,7 +35,7 @@ class MetaWikidataValue implements Rule
     {
         [
             'property' => $property,
-            'meta_value' => $metaWikidataValue
+            'meta_wikidata_value' => $metaWikidataValue
         ] = $value;
 
         try {

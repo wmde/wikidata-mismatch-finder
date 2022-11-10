@@ -163,7 +163,7 @@ class ValidateCSV implements ShouldQueue
         $validator = Validator::make([
             'meta_wikidata_value' => [
                 'property' => $mismatch['property_id'],
-                'meta_value' => $mismatch['meta_wikidata_value']
+                'meta_wikidata_value' => $mismatch['meta_wikidata_value']
             ]
         ], [
             'meta_wikidata_value' => [$metaRule]

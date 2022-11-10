@@ -296,7 +296,7 @@ class WikibaseAPIClientTest extends TestCase
 
     public function test_get_property_datatypes_returns_datatype_array(): void
     {
-        $fakeIds = ['P1234', 'P5678'];
+        $fakeIds = ['P1234', 'P5678', 'P9'];
         $fakePayload = [
             'action' => 'wbgetentities',
             'format' => 'json',
@@ -315,10 +315,15 @@ class WikibaseAPIClientTest extends TestCase
                 'datatype' => 'time',
                 'id' => 'P5678',
             ],
+            'P9' => [
+                'id' => 'P9',
+                'missing' => '',
+            ],
         ]];
         $expectedResult = [
             'P1234' => 'wikibase-item',
             'P5678' => 'time',
+            'P9' => null,
         ];
 
         Http::fake(function (Request $req) use ($fakePayload, $fakeResponseBody) {

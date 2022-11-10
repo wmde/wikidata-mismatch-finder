@@ -192,13 +192,22 @@ class WikibaseAPIClient
         ]);
     }
 
+    /**
+     * Get the datatypes of the given property IDs.
+     *
+     * @param string[] $ids
+     * @return (string|null)[] Mapping the property ID to the datatype,
+     * or null if the property does not exist.
+     */
     public function getPropertyDatatypes(array $ids): array
     {
         return collect($ids)
             ->chunk(50) // wbgetentities allows up to 50 IDs per request
             ->map(function ($chunk) {
-                $response = $this->getEntities($chunk->toArray(), ['datatype']);
-                return array_column($response['entities'], 'datatype', 'id');
+                $chunkIds = $chunk->toArray();
+                $response = $this->getEntities($chunkIds, ['datatype']);
+                return array_column($response['entities'], 'datatype', 'id') +
+                    array_fill_keys($chunkIds, null);
             })
             ->collapse()
             ->toArray();

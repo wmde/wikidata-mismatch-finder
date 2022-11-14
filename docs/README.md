@@ -78,6 +78,12 @@
     sail artisan key:generate
     ```
 
+1. Run database migrations to create initial tables
+
+    ```bash
+   sail artisan migrate
+    ```
+
 1. Install `npm` dependencies
 
     ```bash

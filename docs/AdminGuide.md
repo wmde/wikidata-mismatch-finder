@@ -123,11 +123,6 @@ Example entry:
     become mismatch-finder
     ```
 
-1. Get into the database using the toolforge alias for accessing Mariadb 
-    ```bash
-    sql tools
-    ```
-
 1. Get into the `mismatch-finder-repo` folder
 
     ```bash

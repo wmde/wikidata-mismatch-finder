@@ -34,10 +34,10 @@ class ResultsController extends Controller
             'id' => Auth::user()->mw_userid
         ] : null;
 
-        $itemIds = $request->input('ids');
+        $requestedItemIds = $request->input('ids');
 
         $mismatches = Mismatch::with('importMeta.user')
-            ->whereIn('item_id', $itemIds)
+            ->whereIn('item_id', $requestedItemIds)
             ->where('review_status', 'pending')
             ->whereHas('importMeta', function ($import) {
                 $import->where('expires', '>=', now());
@@ -61,7 +61,7 @@ class ResultsController extends Controller
         $props = array_merge(
             [
                 'user' => $user,
-                'item_ids' => $itemIds,
+                'item_ids' => $requestedItemIds,
                 // Use wikidata to fetch labels for found entity ids
                 'labels' => $wikidata->getLabels($entityIds, $lang),
                 'formatted_values' => $formattedTimeValues,

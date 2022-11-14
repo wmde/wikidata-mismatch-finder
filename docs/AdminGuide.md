@@ -133,7 +133,7 @@ Example entry:
     ```bash
     cd mismatch-finder-repo
 
-1. Go into the project's database using artisan
+1. Access the project's database using artisan. 
 
     ```bash
     php artisan db
@@ -142,13 +142,17 @@ Example entry:
 1. Now inside the database we can perform the update operation. 
 
     ```sql
+    START TRANSACTION;
     UPDATE import_meta SET expires='<date_of_expiration>' where id = <id_of_entry_to_update>; 
+    COMMIT; 
     ```
 
     Example:
 
     ```sql
-    UPDATE import_meta SET expires='2022-11-01' where id = 6
+    START TRANSACTION;
+    UPDATE import_meta SET expires='2022-11-01' where id = 6;
+    COMMIT; 
     ```
 
 1. Run this command to manually save the operation we just ran in the database to the [Wikidata Mismatch Finder Server Admin logs](https://sal.toolforge.org/tools.mismatch-finder).

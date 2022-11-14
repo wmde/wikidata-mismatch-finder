@@ -108,3 +108,58 @@ Example entry:
     "time": "2021-10-05 14:44:59",
 }
 ```
+
+## Update the expiry date of mismatches
+
+1. SSH into toolforge.
+
+    ```bash
+    ssh <your_username>@login.toolforge.org
+    ```
+
+1. The `become` commands allows you to sudo to another user while retaining your personalized environment.
+
+    ```bash
+    become mismatch-finder
+    ```
+
+1. Get into the `mismatch-finder-repo` folder
+
+    ```bash
+    cd mismatch-finder-repo
+
+1. Access the project's database using artisan. 
+
+    ```bash
+    php artisan db
+    ```
+
+1. Now inside the database we can perform the update operation. 
+
+    ```sql
+    START TRANSACTION;
+    UPDATE import_meta SET expires='<date_of_expiration>' where id = <id_of_entry_to_update>; 
+    COMMIT; 
+    ```
+
+    Example:
+
+    ```sql
+    START TRANSACTION;
+    UPDATE import_meta SET expires='2022-11-01' where id = 6;
+    COMMIT; 
+    ```
+
+1. Run this command to manually save the operation we just ran in the database to the [Wikidata Mismatch Finder Server Admin logs](https://sal.toolforge.org/tools.mismatch-finder).
+
+```bash
+dologmsg "UPDATE import_meta SET expires='<date_of_expiration>' where id = <id_of_entry_to_update> # <phabricator_ticket_number>"
+```
+
+Example:
+
+```bash
+dologmsg "UPDATE import_meta SET expires='2022-11-01' where id = 6 # T321586"
+```
+
+Make sure the message is exactly the same query used in the previous step and don't forget to add the comment at the end with the ticket number.

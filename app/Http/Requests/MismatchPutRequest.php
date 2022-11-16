@@ -26,6 +26,7 @@ class MismatchPutRequest extends FormRequest
                 'required',
                 'in:' . implode(',', config('mismatches.validation.review_status.accepted_values'))
             ],
+            'item_id' => 'prohibited',
             'statement_guid' => 'prohibited',
             'property_id' => 'prohibited',
             'wikidata_value' => 'prohibited',

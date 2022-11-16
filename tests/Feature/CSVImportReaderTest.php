@@ -39,8 +39,10 @@ class CSVImportReaderTest extends TestCase
         $skip = $data($columns);
 
         $fakeLines = [
-            ["some-statement-guid","some-pid","some-data","some-meta-data","more-data","a-url"],
-            ["another-statement-guid","another-pid","another-data","another-meta-data","different-data","no-url"]
+            ["some-item-id","some-statement-guid","some-pid"
+            ,"some-data","some-meta-data","more-data","a-url"],
+            ["another-item-id","another-statement-guid","another-pid"
+            ,"another-data","another-meta-data","different-data","no-url"]
         ];
 
         $fakeCSVContent = join("\n", array_map(function (array $line) {

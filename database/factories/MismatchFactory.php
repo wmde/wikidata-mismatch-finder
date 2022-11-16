@@ -36,6 +36,9 @@ class MismatchFactory extends Factory
     public function definition()
     {
         return [
+            'item_id' => function (array $attributes) {
+                return strtoupper(explode('$', $attributes['statement_guid'], 2)[0]);
+            },
             'statement_guid' => $this->getRandomItemId() . '$' . $this->faker->uuid(),
             'property_id' => $this->faker->randomElement(array_keys(self::PROPERTIES)),
             'wikidata_value' => function (array $attributes) {

@@ -138,6 +138,7 @@ class ApiMismatchRoutePutTest extends TestCase
     public function fillablePropertyOtherThanReviewStatus()
     {
         return [
+            ['item_id', 'Q123'],
             ['property_id' , 'P1234'],
             ['statement_guid', 'Q111$1234'],
             ['wikidata_value', 'Potato'],

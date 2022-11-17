@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Rules\StatementGuidValue;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,16 +47,18 @@ class ValidateCSV implements ShouldQueue
      * @return void
      */
     public function handle(
-        WikidataValue     $valueValidator,
-        CSVImportReader   $reader,
-        MetaWikidataValue $metaValueValidator
+        CSVImportReader    $reader,
+        StatementGuidValue $statementGuidValidator,
+        WikidataValue      $valueValidator,
+        MetaWikidataValue  $metaValueValidator
     ) {
         $filepath = Storage::disk('local')
             ->path('mismatch-files/' . $this->meta->filename);
 
         $reader->lines($filepath)
-            ->each(function ($mismatch, $i) use ($valueValidator, $metaValueValidator) {
+            ->each(function ($mismatch, $i) use ($statementGuidValidator, $valueValidator, $metaValueValidator) {
                 $error = $this->checkFieldErrors($mismatch)
+                    ?? $this->checkStatementGuidErrors($mismatch, $statementGuidValidator)
                     ?? $this->checkValueErrors($mismatch, $valueValidator)
                     ?? $this->checkMetaValueErrors($mismatch, $metaValueValidator);
 
@@ -102,6 +105,11 @@ class ValidateCSV implements ShouldQueue
         $rules = config('mismatches.validation');
 
         $validator = Validator::make($mismatch, [
+            'item_id' => [
+                'required',
+                'max:' . $rules['item_id']['max_length'],
+                'regex:' . $rules['item_id']['format']
+            ],
             'statement_guid' => [
                 'required',
                 'max:' . $rules['guid']['max_length'],
@@ -132,6 +140,22 @@ class ValidateCSV implements ShouldQueue
 
 
         if ($validator->stopOnFirstFailure()->fails()) {
+            return $validator->errors()->first();
+        }
+
+        return null;
+    }
+
+    private function checkStatementGuidErrors($mismatch, StatementGuidValue $statementGuidRule): ?string
+    {
+        $validator = Validator::make([
+            'item_id' => $mismatch['item_id'],
+            'statement_guid' => $mismatch['statement_guid'],
+        ], [
+            'statement_guid' => [$statementGuidRule],
+        ]);
+
+        if ($validator->fails()) {
             return $validator->errors()->first();
         }
 

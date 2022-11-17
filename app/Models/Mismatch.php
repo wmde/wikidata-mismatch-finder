@@ -15,6 +15,7 @@ class Mismatch extends Model
      * @var array
      */
     protected $fillable = [
+        'item_id',
         'statement_guid',
         'property_id',
         'wikidata_value',
@@ -41,17 +42,5 @@ class Mismatch extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Set the mismatch's item_id alongside the statement_guid
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setStatementGuidAttribute($value)
-    {
-        $this->attributes['statement_guid'] = $value;
-        $this->attributes['item_id'] = strtoupper(explode('$', $value, 2)[0]);
     }
 }

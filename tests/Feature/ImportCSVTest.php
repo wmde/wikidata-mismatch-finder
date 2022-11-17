@@ -26,10 +26,10 @@ class ImportCSVTest extends TestCase
 
         $header = config('imports.upload.column_keys');
         $lines = [
-            ["Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5","P569","3 April 1934","Q12138"
-            ,"1934-04-03","https://d-nb.info/gnd/119004453"],
-            ["Q184746$7200D1AD-E4E8-401B-8D57-8C823810F11F","P21","Q6581072",""
-            ,"nonbinary","https://www.imdb.com/name/nm0328762/"]
+            ["Q184746","Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5","P569","3 April 1934"
+            ,"Q12138","1934-04-03","https://d-nb.info/gnd/119004453"],
+            ["Q184746","Q184746$7200D1AD-E4E8-401B-8D57-8C823810F11F","P21","Q6581072"
+            ,"","nonbinary","https://www.imdb.com/name/nm0328762/"]
         ];
 
         $content = join("\n", array_map(function (array $line) {
@@ -71,9 +71,10 @@ class ImportCSVTest extends TestCase
 
         $header = config('imports.upload.column_keys');
         $lines = [
-            ["Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5","P569","3 April 1934","Q12138"
-            ,"1934-04-03","https://d-nb.info/gnd/119004453"],
-            ["Q184746$7200D1AD-E4E8-401B-8D57-8C823810F11F","P21","Q6581072","","nonbinary"] // Ensure short second row
+            ["Q184746","Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5","P569"
+            ,"3 April 1934","Q12138","1934-04-03","https://d-nb.info/gnd/119004453"],
+            ["Q184746","Q184746$7200D1AD-E4E8-401B-8D57-8C823810F11F","P21"
+            ,"Q6581072","","nonbinary"]
         ];
 
         $content = join("\n", array_map(function (array $line) {

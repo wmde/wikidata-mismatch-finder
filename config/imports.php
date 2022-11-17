@@ -9,6 +9,7 @@ return [
     'upload' => [
         'filename_template' => ':datetime-mismatch-upload.:userid.csv',
         'column_keys' => [
+            'item_id',
             'statement_guid',
             'property_id',
             'wikidata_value',

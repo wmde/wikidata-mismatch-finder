@@ -48,10 +48,11 @@ Users which have sufficient access rights may perform batch imports into the Mis
 A CSV import file must include the following header row, to describe each column:
 
 ```csv
-statement_guid,property_id,wikidata_value,meta_wikidata_value,external_value,external_url
+item_id,statement_guid,property_id,wikidata_value,meta_wikidata_value,external_value,external_url
 ```
 
-* `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data.
+* `item_id` - The item ID of the Wikidata item containing the mismatching statement.
+* `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data. Must be consistent with the `item_id`.
 * `property_id` - The id of the wikidata property defining the wikidata value of the mismatch.
 * `wikidata_value` - The value on wikidata that mismatches an external database.
 * `meta_wikidata_value` - _(Optional)_ The value on wikidata that represents property calendar/time type.
@@ -60,7 +61,7 @@ statement_guid,property_id,wikidata_value,meta_wikidata_value,external_value,ext
 
 _**Note**: The data `wikidata_value`, `external_value`, `external_url` should be limited to a length of 1500 characters maximum._
 
-Additionally, each row of the csv file must contain exactly 4 commas (`,`). Optional values can simply be left out.
+All columns must be present; optional values can be left empty, e.g. `,,` for empty `meta_wikidata_value`.
 
 You can consult this [mismatch file](exampleMismatchFile.csv) for a valid example.
 

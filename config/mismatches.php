@@ -29,7 +29,7 @@ return [
         ],
         'item_id' => [
             'max_length' => 12,
-            'format' => '/^Q\d+$/i'
+            'format' => '/\AQ[1-9]\d*\z/'
         ],
         'ids' => [
             'max' => 600 // Max number of item-ids to fetch mismatches for at once

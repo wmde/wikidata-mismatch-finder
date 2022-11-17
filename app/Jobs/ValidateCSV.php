@@ -111,7 +111,7 @@ class ValidateCSV implements ShouldQueue
                 'regex:' . $rules['item_id']['format']
             ],
             'statement_guid' => [
-                'required',
+                'required_with:wikidata_value',
                 'max:' . $rules['guid']['max_length'],
                 'regex:' . $rules['guid']['format']
             ],
@@ -121,7 +121,7 @@ class ValidateCSV implements ShouldQueue
                 'regex:' . $rules['pid']['format']
             ],
             'wikidata_value' => [
-                'required',
+                'required_with:statement_guid',
                 'max:' . $rules['wikidata_value']['max_length']
             ],
             'external_value' => [

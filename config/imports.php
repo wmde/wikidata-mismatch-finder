@@ -42,6 +42,7 @@ return [
             "status",
             "mismatches",
             "decisions with an error on Wikidata",
+            "decisions with missing data on Wikidata",
             "decisions with an error in external source",
             "decisions with an error in both",
             "decisions with an error in neither",

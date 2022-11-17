@@ -153,6 +153,7 @@ class MismatchFactory extends Factory
             'wikidata',
             'external',
             'both',
+            'missing',
             'none'
         ]);
     }

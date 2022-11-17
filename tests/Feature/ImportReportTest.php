@@ -51,6 +51,7 @@ class ImportReportTest extends TestCase
                 $import->status, // Import status
                 $total, // Mismatch count
                 $mismatches->where('review_status', 'wikidata')->count(), // Error on wikidata count
+                $mismatches->where('review_status', 'missing')->count(), // Missing on wikidata count
                 $mismatches->where('review_status', 'external')->count(), // Error on external count
                 $mismatches->where('review_status', 'both')->count(), // Error on both count
                 $mismatches->where('review_status', 'none')->count(), // Error on none count

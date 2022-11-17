@@ -220,6 +220,7 @@ components:
             - wikidata
             - external
             - both
+            - missing
             - none
 
     Mismatch:

@@ -38,6 +38,7 @@
                 <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
                 <ul>
                     <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
+                    <li>{{ $i18n('instructions-dialog-message-instruction-missing') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
@@ -135,7 +136,7 @@
 <script lang="ts">
     import { PropType } from 'vue';
     import { mapMutations } from 'vuex';
-    import isEmpty from 'lodash/isEmpty';    
+    import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
         Link as WikitLink,

@@ -29,6 +29,7 @@ class MismatchPutRequest extends FormRequest
             'statement_guid' => 'prohibited',
             'property_id' => 'prohibited',
             'wikidata_value' => 'prohibited',
+            'meta_wikidata_value' => 'prohibited',
             'external_value' => 'prohibited',
             'external_url' => 'prohibited',
         ];

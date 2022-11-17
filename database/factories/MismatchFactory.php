@@ -46,6 +46,22 @@ class MismatchFactory extends Factory
                 }
                 return $this->getRandomValueForDatatype(self::PROPERTIES[$propertyId]);
             },
+            'meta_wikidata_value' => function (array $attributes) {
+                $propertyId = $attributes['property_id'];
+                if (!array_key_exists($propertyId, self::PROPERTIES)) {
+                    throw new ValueError("Unknown property {$propertyId}");
+                }
+
+                $datatype = self::PROPERTIES[$propertyId];
+                if ($datatype == 'time') {
+                    $randomNumber = $this->faker->optional(0.7, 0)->randomNumber();
+                    if ($randomNumber != 0) {
+                        return 'Q'.$randomNumber;
+                    }
+                }
+
+                return null;
+            },
             'external_value'=> $this->getRandomValue(),
             'external_url' => $this->faker->optional(0.6)->url()
         ];

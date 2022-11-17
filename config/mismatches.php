@@ -17,6 +17,10 @@ return [
         'wikidata_value' => [
             'max_length' => 1500 // Longest allowed value on wikidata
         ],
+        'meta_wikidata_value' => [
+            'max_length' => 100,
+            'format' => '/\AQ[1-9]\d*\z/'
+        ],
         'external_value' => [
             'max_length' => 1500 // Longest allowed value on wikidata
         ],

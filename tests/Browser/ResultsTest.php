@@ -86,12 +86,14 @@ class ResultsTest extends DuskTestCase
                 [
                     'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
                     'property_id' => 'P610',
-                    'wikidata_value' => 'Q513'
+                    'wikidata_value' => 'Q513',
+                    'meta_wikidata_value' => ''
                 ],
                 [
                     'statement_guid' => 'q111$fc6ebc3f-4ea3-3cc8-0f09-a5608474754c',
                     'property_id' => 'P571',
-                    'wikidata_value' => '4540 million years BCE'
+                    'wikidata_value' => '4540 million years BCE',
+                    'meta_wikidata_value' => ''
                 ]
             ))
             ->create();
@@ -138,6 +140,7 @@ class ResultsTest extends DuskTestCase
                 'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
                 'property_id' => 'P610',
                 'wikidata_value' => 'Q513',
+                'meta_wikidata_value' => '',
                 'review_status' => 'pending'
             ])
             ->create();

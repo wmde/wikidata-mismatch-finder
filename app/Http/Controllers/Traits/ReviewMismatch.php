@@ -26,6 +26,7 @@ trait ReviewMismatch
                     "property_id" => $mismatch->property_id,
                     "statement_guid" => $mismatch->statement_guid,
                     "wikidata_value" => $mismatch->wikidata_value,
+                    "meta_wikidata_value" => $mismatch->meta_wikidata_value,
                     "external_value" => $mismatch->external_value,
                     "review_status_old" => $old_status,
                     "review_status_new" => $mismatch->review_status,

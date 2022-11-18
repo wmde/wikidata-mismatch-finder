@@ -218,9 +218,9 @@ components:
           enum:
             - pending
             - wikidata
+            - missing
             - external
             - both
-            - missing
             - none
 
     Mismatch:

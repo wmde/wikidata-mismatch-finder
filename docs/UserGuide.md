@@ -145,9 +145,9 @@ The only possible values for a review status are:
 
 - `"pending"` - The mismatch is awaiting a review decision.
 - `"wikidata"` - The mismatching information is on Wikidata.
+- `"missing"` - The information is missing on Wikidata and correct on the external source.
 - `"external"` - The mismatching information is on the external source.
 - `"both"` - Both sources are incorrect.
-- `"missing"` - The information is only available in the external source and missing on Wikidata.
 - `"none"` - None of the above.
 
 For more information take a look at our [REST API documentation](https://mismatch-finder.toolforge.org/api-docs/index.html#/store/put_mismatches__mismatchId_).

@@ -59,12 +59,26 @@ class ResultsController extends Controller
 
         $timeValues = $this->extractTimeValues($mismatches, $datatypes);
         $parsedTimeValues = $wikidata->parseValues($timeValues);
-        // assert if calendar model is specified
-        if (!empty($mismatches->meta_wikidata_value)) {
-            $parsedTimeValues[ 'calendarmodel' ] =
-            'http://www.wikidata.org/entity/' . $mismatches->meta_wikidata_value;
+        $updatedTimeValues = [];
+
+        foreach ($mismatches as $mismatch) {
+            $pid = $mismatch->property_id;
+            $wikidataValue = $mismatch->wikidata_value;
+            if (isset($parsedTimeValues[$pid][$wikidataValue])) {
+                $metaWikidataValue = $mismatch->meta_wikidata_value;
+                $key = $metaWikidataValue . '|' . $wikidataValue;
+                $updatedTimeValues[$pid][$key] = $parsedTimeValues[$pid][$wikidataValue];
+                // assert if a calendar model is specified and assign it if so
+                if ($metaWikidataValue) {
+                    var_dump($updatedTimeValues[$pid][$key]);
+                    $calendarModel = 'http://www.wikidata.org/entity/' . $metaWikidataValue;
+                    $updatedTimeValues[$pid][$key]['value']['calendarmodel'] = $calendarModel;
+                    var_dump($updatedTimeValues[$pid][$key]);
+                }
+            }
         }
-        $formattedTimeValues = $wikidata->formatValues($parsedTimeValues, $lang);
+
+        $formattedTimeValues = $wikidata->formatValues($updatedTimeValues, $lang);
 
 
         $props = array_merge(

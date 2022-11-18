@@ -274,8 +274,9 @@
                     };
                     if (mismatch.property_id in this.formatted_values) {
                         const formattedValues = this.formatted_values[mismatch.property_id];
-                        if (mismatch.wikidata_value in formattedValues) {
-                            labelled.value_label = formattedValues[mismatch.wikidata_value];
+                        const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
+                        if (key in formattedValues) {
+                            labelled.value_label = formattedValues[key];
                         }
                     }
                     return labelled;

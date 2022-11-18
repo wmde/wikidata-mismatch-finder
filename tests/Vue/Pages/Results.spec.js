@@ -168,6 +168,7 @@ describe('Results.vue', () => {
                 item_id: 'Q321',
                 property_id: 'P123',
                 wikidata_value: '21. century',
+                meta_wikidata_value: '',
                 external_value: 'Another Value',
                 import_meta: {
                     user: {
@@ -180,7 +181,7 @@ describe('Results.vue', () => {
 
         const formatted_values = {
             'P123': {
-                '21. century': '21. Jahrhundert', // pretend uselang=de
+                '|21. century': '21. Jahrhundert', // pretend uselang=de
             },
         };
 

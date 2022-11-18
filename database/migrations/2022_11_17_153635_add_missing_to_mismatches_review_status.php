@@ -52,6 +52,7 @@ class AddMissingToMismatchesReviewStatus extends Migration
             $table->string('item_id');
             $table->string('property_id');
             $table->string('wikidata_value', 2048); // Arbitrary length above 1500 chars, upper limit for wikidata value
+            $table->string('meta_wikidata_value')->nullable();
             $table->string('external_value', 2048); // Arbitrary length above 1500 chars, upper limit for external value
             $table->string('external_url', 2048)->nullable(); // Arbitrary length above 1500 chars, upper limit for url
             $table->enum('review_status', [
@@ -64,6 +65,7 @@ class AddMissingToMismatchesReviewStatus extends Migration
             ])->default('pending');
             $table->foreignId('import_id')->constrained('import_meta');
             $table->timestamps();
+            $table->foreignId('user_id')->nullable()->constrained('users');
         });
     }
 
@@ -88,6 +90,7 @@ class AddMissingToMismatchesReviewStatus extends Migration
             $table->string('item_id');
             $table->string('property_id');
             $table->string('wikidata_value', 2048); // Arbitrary length above 1500 chars, upper limit for wikidata value
+            $table->string('meta_wikidata_value')->nullable();
             $table->string('external_value', 2048); // Arbitrary length above 1500 chars, upper limit for external value
             $table->string('external_url', 2048)->nullable(); // Arbitrary length above 1500 chars, upper limit for url
             $table->enum('review_status', [
@@ -99,6 +102,7 @@ class AddMissingToMismatchesReviewStatus extends Migration
             ])->default('pending');
             $table->foreignId('import_id')->constrained('import_meta');
             $table->timestamps();
+            $table->foreignId('user_id')->nullable()->constrained('users');
         });
     }
 

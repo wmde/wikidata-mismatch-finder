@@ -66,7 +66,8 @@ class ResultsController extends Controller
                 'user' => $user,
                 'item_ids' => $requestedItemIds,
                 // Use wikidata to fetch labels for found entity ids
-                'labels' => $wikidata->getLabels($entityIds, $lang),
+                // array_filter removes empty values from an array if no callback argument is passed
+                'labels' => $wikidata->getLabels(array_filter($entityIds), $lang),
                 'formatted_values' => $formattedTimeValues,
             ],
             // only add 'results' prop if mismatches have been found

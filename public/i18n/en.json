@@ -29,6 +29,7 @@
     "column-external-source": "External source",
     "no-mismatches-found-message": "No mismatches have been found for:",
     "random-mismatches": "Random mismatches",
+    "empty-value": "None",
     "no-mismatches-available-for-review": "There are currently no mismatches available for review.",
     "review-status-pending": "Awaiting review",
     "review-status-wikidata": "Wrong data on Wikidata",

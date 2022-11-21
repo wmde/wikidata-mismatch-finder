@@ -91,16 +91,22 @@ class ResultsController extends Controller
 
     private function extractItemIds(LazyCollection $mismatches, array $datatypes): array
     {
-        return array_keys($mismatches->reduce(
-            function (array $ids, Mismatch $mismatch) use ($datatypes) {
-                $ids[$mismatch->item_id] = null;
-                if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
-                    $ids[$mismatch->wikidata_value] = null;
-                }
-                return $ids;
-            },
-            []
-        ));
+        $extractItemIdsFromMismatchAsKeys = function (array $idsAsKeys, Mismatch $mismatch) use ($datatypes) {
+            $idsAsKeys[ $mismatch->item_id ] = null;
+
+            if ($datatypes[ $mismatch->property_id ] === 'wikibase-item') {
+                $idsAsKeys[ $mismatch->wikidata_value ] = null;
+            }
+
+            return $idsAsKeys;
+        };
+
+        return array_keys(
+            $mismatches->reduce(
+                $extractItemIdsFromMismatchAsKeys,
+                []
+            )
+        );
     }
 
     private function extractTimeValues(LazyCollection $mismatches, array $datatypes): array

@@ -71,18 +71,6 @@ class ValidateCSVTest extends TestCase
             }
         ];
 
-        yield 'missing statement guid' => [
-            function (array $config): array {
-                return [
-                    'Q184746,,' // Emulate missing guid
-                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com',
-                    __('validation.required', [
-                        'attribute' => 'statement guid'
-                    ])
-                ];
-            }
-        ];
-
         yield 'long statement guid' => [
             function (array $config, Generator $faker): array {
                 $longQID= $faker->numerify('Q' . str_repeat('#', $config['guid']['max_length']));
@@ -158,18 +146,6 @@ class ValidateCSVTest extends TestCase
                     . '3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
                     __('validation.regex', [
                         'attribute' => 'property id'
-                    ])
-                ];
-            }
-        ];
-
-        yield 'missing wikidata value' => [
-            function (array $config): array {
-                return [
-                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569' // Ensure correct columns
-                    . ',,,1934-04-03,http://www.example.com', // Emulate missing wikidata value
-                    __('validation.required', [
-                        'attribute' => 'wikidata value'
                     ])
                 ];
             }

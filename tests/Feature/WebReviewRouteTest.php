@@ -90,6 +90,7 @@ class WebReviewRouteTest extends TestCase
 
         $mismatch1 = Mismatch::factory()->for($import)->create();
         $mismatch2 = Mismatch::factory()->for($import)->create();
+        $mismatch3 = Mismatch::factory()->for($import)->create();
 
         $reviewer = User::factory()->create();
 
@@ -105,6 +106,11 @@ class WebReviewRouteTest extends TestCase
                     $mismatch2->id => [
                         'id' => $mismatch2->id,
                         'item_id' => $mismatch2->item_id,
+                        'review_status' => 'missing'
+                    ],
+                    $mismatch3->id => [
+                        'id' => $mismatch3->id,
+                        'item_id' => $mismatch3->item_id,
                         'review_status' => 'both'
                     ]
                 ]
@@ -120,7 +126,12 @@ class WebReviewRouteTest extends TestCase
         $mismatch2->refresh();
         $this->assertNotEmpty($mismatch2->user);
         $this->assertEquals($reviewer->username, $mismatch2->user->username);
-        $this->assertEquals('both', $mismatch2->review_status);
+        $this->assertEquals('missing', $mismatch2->review_status);
+
+        $mismatch3->refresh();
+        $this->assertNotEmpty($mismatch3->user);
+        $this->assertEquals($reviewer->username, $mismatch3->user->username);
+        $this->assertEquals('both', $mismatch3->review_status);
     }
 
     /**

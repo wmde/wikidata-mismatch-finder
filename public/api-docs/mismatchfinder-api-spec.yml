@@ -218,6 +218,7 @@ components:
           enum:
             - pending
             - wikidata
+            - missing
             - external
             - both
             - none

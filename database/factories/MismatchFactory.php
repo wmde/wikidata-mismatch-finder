@@ -151,6 +151,7 @@ class MismatchFactory extends Factory
     {
         return $this->faker->randomElement([
             'wikidata',
+            'missing',
             'external',
             'both',
             'none'

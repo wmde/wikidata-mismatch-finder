@@ -36,6 +36,7 @@ class ImportReport
                 $each_import->status,
                 $mismatches_count,
                 $mismatches_wikidata,
+                $mismatches_missing,
                 $mismatches_external,
                 $mismatches_both,
                 $mismatches_none,

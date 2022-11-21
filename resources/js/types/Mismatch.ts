@@ -1,6 +1,7 @@
 export enum ReviewDecision {
     Pending = 'pending',
     Wikidata = 'wikidata',
+    Missing = 'missing',
     External = 'external',
     Both = 'both',
     None = 'none'

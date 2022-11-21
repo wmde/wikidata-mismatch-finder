@@ -128,6 +128,57 @@ class ResultsTest extends DuskTestCase
         });
     }
 
+    public function test_shows_None_in_Value_in_Wikidata_column_when_statement_guid_and_wikidata_value_empty()
+    {
+        $import = ImportMeta::factory()
+        ->for(User::factory()->uploader())
+        ->create();
+
+        Mismatch::factory(2)
+            ->for($import)
+            ->state(new Sequence(
+                [
+                    'item_id' => 'Q2',
+                    'statement_guid' => 'Q2$a2b48f1f-426d-91b3-1e0e-1d3c7b236bd0',
+                    'property_id' => 'P610',
+                    'wikidata_value' => 'Q513',
+                    'meta_wikidata_value' => ''
+                ],
+                [
+                    'item_id' => 'Q111',
+                    'statement_guid' => '',
+                    'property_id' => 'P571',
+                    'wikidata_value' => '',
+                    'meta_wikidata_value' => ''
+                ]
+            ))
+            ->create();
+
+        $expected = [
+            [
+                'item_label' => 'Earth (Q2)',
+                'property_label' => 'highest point',
+                'wikidata_value' => 'Mount Everest'
+            ],
+            [
+                'item_label' => 'Mars (Q111)',
+                'property_label' => 'inception',
+                'wikidata_value' => 'None'
+            ]
+        ];
+
+        $mismatches = Mismatch::all();
+
+        $this->browse(function (Browser $browser) use ($mismatches, $expected) {
+            $idsQuery = $mismatches->implode('item_id', '|');
+            $browser->visit(new ResultsPage($idsQuery));
+
+            foreach ($mismatches as $i => $mismatch) {
+                $browser->assertSee($expected[$i]['wikidata_value']);
+            }
+        });
+    }
+
     public function test_shows_disabled_decision_forms_for_guests()
     {
         $import = ImportMeta::factory()

@@ -190,7 +190,38 @@ describe('Results.vue', () => {
         });
 
         expect(wrapper.props().formatted_values).toBe(formatted_values);
+        expect(wrapper.text()).toContain('21. Jahrhundert');
+    });
 
+    it('renders formatted values when a calendar model item id is specified', () => {
+        const results = {
+            'Q321': [{
+                id: 123,
+                item_id: 'Q321',
+                property_id: 'P123',
+                wikidata_value: '21. century',
+                meta_wikidata_value: 'Q565787',
+                external_value: 'Another Value',
+                import_meta: {
+                    user: {
+                        username: 'some_user_name'
+                    },
+                    created_at: '2021-09-23'
+                },
+            }]
+        };
+        // meta_wikidata_value is prepended to the wikidata_value with a pipe separator
+        const formatted_values = {
+            'P123': {
+                'Q565787|21. century': '21. Jahrhundert', // pretend uselang=de
+            },
+        };
+
+        const wrapper = mountWithMocks({
+            props: { results, formatted_values }
+        });
+
+        expect(wrapper.props().formatted_values).toBe(formatted_values);
         expect(wrapper.text()).toContain('21. Jahrhundert');
     });
 

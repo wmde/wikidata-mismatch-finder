@@ -146,10 +146,10 @@ class WebResultsRouteTest extends TestCase
                 ->has("results.$itemMismatchQid.0", $isMismatch($itemMismatch))
                 ->has("results.$stringMismatchQid.0", $isMismatch($stringMismatch))
                 ->where("labels", $assertLabels)
-                // phpcs:disable Generic.Files.LineLength
+                // phpcs:ignore
                 ->where("formatted_values.{$dateMismatch->property_id}.{$dateMismatch->meta_wikidata_value}|{$dateMismatch->wikidata_value}", $assertDate);
         };
-                //phpcs:enable
+
         $response = $this->get(route('results', [
             'ids' => "$dateMismatchQid|$itemMismatchQid|$stringMismatchQid|$noMismatchQid"
         ]));

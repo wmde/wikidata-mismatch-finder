@@ -80,41 +80,42 @@ class ResultsController extends Controller
 
     private function extractPropertyIds(LazyCollection $mismatches): array
     {
-        return array_keys($mismatches->reduce(
-            function (array $ids, Mismatch $mismatch): array {
-                $ids[$mismatch->property_id] = null;
-                return $ids;
-            },
-            []
-        ));
+        $idsAsKeys = [];
+
+        foreach ($mismatches as $mismatch) {
+            $idsAsKeys[$mismatch->property_id] = null;
+        }
+
+        return array_keys($idsAsKeys);
     }
 
     private function extractItemIds(LazyCollection $mismatches, array $datatypes): array
     {
-        return array_keys($mismatches->reduce(
-            function (array $ids, Mismatch $mismatch) use ($datatypes) {
-                $ids[$mismatch->item_id] = null;
-                if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
-                    $ids[$mismatch->wikidata_value] = null;
-                }
-                return $ids;
-            },
-            []
-        ));
+        $idsAsKeys = [];
+
+        foreach ($mismatches as $mismatch) {
+            $idsAsKeys[$mismatch->item_id] = null;
+
+            if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
+                $idsAsKeys[$mismatch->wikidata_value] = null;
+            }
+        }
+
+        return array_keys($idsAsKeys);
     }
 
     private function extractTimeValues(LazyCollection $mismatches, array $datatypes): array
     {
-        return $mismatches->reduce(
-            function (array $values, Mismatch $mismatch) use ($datatypes) {
-                $propertyId = $mismatch->property_id;
-                if ($datatypes[$propertyId] === 'time') {
-                    $values[$propertyId][] = $mismatch->wikidata_value;
-                }
-                return $values;
-            },
-            []
-        );
+        $valuesByPropertyId = [];
+
+        foreach ($mismatches as $mismatch) {
+            $propertyId = $mismatch->property_id;
+            if ($datatypes[$propertyId] === 'time') {
+                $valuesByPropertyId[$propertyId][] = $mismatch->wikidata_value;
+            }
+        }
+
+        return $valuesByPropertyId;
     }
 
     /**

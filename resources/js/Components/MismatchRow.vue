@@ -9,7 +9,7 @@
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
-            <span class="empty-value" v-if="mismatch.value_label === null && !mismatch.wikidata_value === null">
+            <span class="empty-value" v-if="mismatch.wikidata_value === ''">
               {{ this.$i18n('empty-value') }}
             </span> 
             <wikit-link 

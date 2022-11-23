@@ -146,9 +146,9 @@ class ResultsTest extends DuskTestCase
                 ],
                 [
                     'item_id' => 'Q111',
-                    'statement_guid' => '',
+                    'statement_guid' => null,
                     'property_id' => 'P571',
-                    'wikidata_value' => '',
+                    'wikidata_value' => null,
                     'meta_wikidata_value' => ''
                 ]
             ))

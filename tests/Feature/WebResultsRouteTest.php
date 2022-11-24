@@ -118,6 +118,8 @@ class WebResultsRouteTest extends TestCase
                 $itemMismatch->property_id,
                 $stringMismatchQid,
                 $stringMismatch->property_id,
+                // as well as item id of an item mismatch value
+                $itemMismatch->wikidata_value,
             ]);
         };
 

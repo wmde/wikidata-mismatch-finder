@@ -164,16 +164,6 @@ class ValidateCSVTest extends TestCase
             }
         ];
 
-        yield 'invalid meta wikidata value' => [
-            function (array $config): array {
-                return [
-                    'Q1462,Q1462$97120cf9-ff1b-37c9-8af6-89d0b44a1cf2,P5,' // Ensure correct columns
-                    . '634463875,Q123,516380568,http://www.example.com', // Emulate invalid meta wikidata value
-                    __('validation.meta_wikidata_value')
-                ];
-            }
-        ];
-
         yield 'missing wikidata value when statement guid is present' => [
             function (array $config): array {
                 return [
@@ -183,6 +173,16 @@ class ValidateCSVTest extends TestCase
                         'values' => 'statement guid',
                         'attribute' => 'wikidata value'
                     ])
+                ];
+            }
+        ];
+
+        yield 'invalid meta wikidata value' => [
+            function (array $config): array {
+                return [
+                    'Q1462,Q1462$97120cf9-ff1b-37c9-8af6-89d0b44a1cf2,P5,' // Ensure correct columns
+                    . '634463875,Q123,516380568,http://www.example.com', // Emulate invalid meta wikidata value
+                    __('validation.meta_wikidata_value')
                 ];
             }
         ];

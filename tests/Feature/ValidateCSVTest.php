@@ -167,8 +167,8 @@ class ValidateCSVTest extends TestCase
         yield 'missing wikidata value when statement guid is present' => [
             function (array $config): array {
                 return [
-                    'Q184746,Q184746$97120cf9-ff1b-37c9-8af6-89d0b44a1cf2,'
-                    . 'P569,,,1934-04-03,http://www.example.com', // Emulate missing wikidata value
+                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569'
+                    . ',,,1934-04-03,http://www.example.com', // Emulate missing wikidata value
                     __('validation.required_with', [
                         'values' => 'statement guid',
                         'attribute' => 'wikidata value'

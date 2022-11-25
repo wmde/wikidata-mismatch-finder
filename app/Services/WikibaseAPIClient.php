@@ -125,6 +125,7 @@ class WikibaseAPIClient
             'datavalue' => json_encode($value),
             'property' => $property,
             'uselang' => $lang,
+            'options' => json_encode([ 'showcalendar' => 'auto' ]),
         ]);
     }
 

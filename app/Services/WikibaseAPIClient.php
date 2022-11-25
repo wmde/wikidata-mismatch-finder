@@ -60,7 +60,7 @@ class WikibaseAPIClient
      */
     private function getUserAgent(): string
     {
-        $clientName = 'Wikidata MismatchFinder';
+        $clientName = 'Wikidata-Mismatch-Finder';
         $clientVersion = config('env');
 
         $mainTool = 'https://mismatch-finder.toolforge.org/';

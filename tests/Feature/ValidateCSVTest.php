@@ -187,6 +187,20 @@ class ValidateCSVTest extends TestCase
             }
         ];
 
+        yield 'meta wikidata value present even though wikidata value is missing' => [
+            function (array $config): array {
+                return [
+                    'Q1462,,P3150,'
+                    . ',Q12138,1879-03-14,http://www.example.com', // Emulate invalid meta wikidata value
+                    __('validation.prohibited_if', [
+                        'attribute' => 'meta wikidata value',
+                        'other' => 'wikidata value',
+                        'value' => ''
+                    ])
+                ];
+            }
+        ];
+
         yield 'long wikidata value' => [
             function (array $config): array {
                 $longValue = str_repeat('a', $config['wikidata_value']['max_length'] + 10);

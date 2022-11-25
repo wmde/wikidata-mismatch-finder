@@ -9,7 +9,11 @@
             </wikit-link>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
-            <wikit-link class="break-line-link" :href="statementUrl" target="_blank">
+            <span class="empty-value" v-if="mismatch.wikidata_value === ''">
+              {{ this.$i18n('empty-value') }}
+            </span> 
+            <wikit-link 
+              v-else class="break-line-link" :href="statementUrl" target="_blank">
                 {{mismatch.value_label || mismatch.wikidata_value}}
             </wikit-link>
         </td>
@@ -184,6 +188,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
+
     .wikit-Link.break-line-link {
       width: 100%;
     }
@@ -193,5 +199,8 @@ export default Vue.extend({
     .wikit-Button.full-description-button {
       padding: 0px 2px;
       font-weight: 400;
+    }
+    .empty-value {
+      color: $font-color-disabled;
     }
 </style>

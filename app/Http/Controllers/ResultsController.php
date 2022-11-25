@@ -118,9 +118,11 @@ class ResultsController extends Controller
 
         foreach ($mismatches as $mismatch) {
             $idsAsKeys[$mismatch->item_id] = null;
-
-            if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
-                $idsAsKeys[$mismatch->wikidata_value] = null;
+            
+            if ($mismatch->wikidata_value !== '') {
+                if ($datatypes[$mismatch->property_id] === 'wikibase-item') {
+                    $idsAsKeys[$mismatch->wikidata_value] = null;
+                }
             }
         }
 

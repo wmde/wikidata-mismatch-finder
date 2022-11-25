@@ -71,12 +71,13 @@ class ValidateCSVTest extends TestCase
             }
         ];
 
-        yield 'missing statement guid' => [
+        yield 'missing statement guid when wikidata value present' => [
             function (array $config): array {
                 return [
                     'Q184746,,' // Emulate missing guid
                     . 'P569,3 April 1934,,1934-04-03,http://www.example.com',
-                    __('validation.required', [
+                    __('validation.required_with', [
+                        'values' => 'wikidata value',
                         'attribute' => 'statement guid'
                     ])
                 ];
@@ -163,12 +164,13 @@ class ValidateCSVTest extends TestCase
             }
         ];
 
-        yield 'missing wikidata value' => [
+        yield 'missing wikidata value when statement guid is present' => [
             function (array $config): array {
                 return [
-                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569' // Ensure correct columns
+                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569'
                     . ',,,1934-04-03,http://www.example.com', // Emulate missing wikidata value
-                    __('validation.required', [
+                    __('validation.required_with', [
+                        'values' => 'statement guid',
                         'attribute' => 'wikidata value'
                     ])
                 ];
@@ -181,6 +183,20 @@ class ValidateCSVTest extends TestCase
                     'Q1462,Q1462$97120cf9-ff1b-37c9-8af6-89d0b44a1cf2,P5,' // Ensure correct columns
                     . '634463875,Q123,516380568,http://www.example.com', // Emulate invalid meta wikidata value
                     __('validation.meta_wikidata_value')
+                ];
+            }
+        ];
+
+        yield 'meta wikidata value present even though wikidata value is missing' => [
+            function (array $config): array {
+                return [
+                    'Q1462,,P3150,'
+                    . ',Q12138,1879-03-14,http://www.example.com', // Emulate invalid meta wikidata value
+                    __('validation.prohibited_if', [
+                        'attribute' => 'meta wikidata value',
+                        'other' => 'wikidata value',
+                        'value' => ''
+                    ])
                 ];
             }
         ];

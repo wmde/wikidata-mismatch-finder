@@ -52,9 +52,12 @@ item_id,statement_guid,property_id,wikidata_value,meta_wikidata_value,external_v
 ```
 
 * `item_id` - The item ID of the Wikidata item containing the mismatching statement.
-* `statement_guid` - Represents that unique id of the statement on wikidata that contains the mismatching data. Must be consistent with the `item_id`.
+* `statement_guid` - _(Optional)_ Represents that unique id of the statement on wikidata that contains the mismatching data.
+  If present, must be consistent with the `item_id`.
+  Can be empty to signify that no matching value was found on Wikidata, in which case the `wikidata_value` must also be empty.
 * `property_id` - The id of the wikidata property defining the wikidata value of the mismatch.
-* `wikidata_value` - The value on wikidata that mismatches an external database.
+* `wikidata_value` - _(Optional)_ The value on wikidata that mismatches an external database. 
+  Can be empty (see `statement_guid`).
 * `meta_wikidata_value` - _(Optional)_ The value on wikidata that represents property calendar/time type.
 * `external_value` - The value in the external database that mismatches a wikidata value.
 * `external_url` - _(Optional)_ A url or uri to the mismatching entity in the external database.

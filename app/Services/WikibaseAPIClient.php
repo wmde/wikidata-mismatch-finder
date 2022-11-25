@@ -39,6 +39,7 @@ class WikibaseAPIClient
     private function get(string $action, array $params): Response
     {
         $response = Http::withMiddleware($this->cache)
+            ->withHeaders([ 'User-Agent' => $this->getUserAgent() ])
             ->get($this->baseUrl, array_merge([
                 'action' => $action,
                 'format' => 'json',
@@ -52,6 +53,27 @@ class WikibaseAPIClient
         }
 
         return $response;
+    }
+
+    /**
+     * @see https://meta.wikimedia.org/wiki/User-Agent_policy
+     */
+    private function getUserAgent(): string
+    {
+        $clientName = 'Wikidata MismatchFinder';
+        $clientVersion = config('env');
+
+        $mainTool = 'https://mismatch-finder.toolforge.org/';
+        $wikidataContact = 'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team';
+        $phabBoard = 'https://phabricator.wikimedia.org/project/board/5385/';
+        $contactInfo = implode('; ', [$mainTool, $wikidataContact, $phabBoard]);
+
+        $libraryName = 'Laravel';
+        $libraryVersion = app()->version();
+
+        $php = 'PHP/' . PHP_VERSION;
+
+        return "$clientName/$clientVersion ($contactInfo) $libraryName/$libraryVersion $php";
     }
 
     /**

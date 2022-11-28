@@ -2,12 +2,12 @@
     <div class="website">
         <main class="content-wrap">
             <header>
-                <img src="/images/wikidata-logo.svg" class="wikidata-logo" alt="Wikidata-logo" width="160" />
+                <img src="/images/mismatch-finder-logo.svg" class="wikidata-logo" alt="" width="384" />
+                <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 <div class="auth-widget">
                     <auth-widget :user="user" />
                 </div>
             </header>
-            <h1>{{ $i18n('mismatch-finder-title') }}</h1>
             <slot />
         </main>
         <wikidata-tool-footer
@@ -81,6 +81,16 @@
 
     .wikidata-logo {
         margin-block-end: $dimension-layout-small;
+    }
+
+    .visually-hidden:not(:focus):not(:active) {
+        clip: rect(0 0 0 0);
+        clip-path: inset(100%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
     }
 
     main > header {

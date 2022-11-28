@@ -2,7 +2,7 @@
     <div class="page-container results-page">
         <loading-overlay ref="overlay" />
         <inertia-head title="Mismatch Finder - Results" />
-        <wikit-button class="back-button" @click.native="() => $inertia.get('/', {} ,{ replace: true })">
+        <wikit-button class="back-button" @click.native="() => $inertia.get('/', {})">
             <template #prefix>
                 <icon type="arrowprevious" size="medium" color="inherit" :dir="pageDirection"/>
             </template>

@@ -183,18 +183,21 @@ class WikibaseAPIClientTest extends TestCase
             'datavalue' => '{"type":"string","value":"abc"}',
             'property' => 'P1',
             'uselang' => 'en',
+            'options' => '{"showcalendar":"auto"}',
         ]);
         $this->assertActionRequest(self::FAKE_API_URL, 'wbformatvalue', [
             'generate' => 'text/plain',
             'datavalue' => '{"type":"string","value":"def"}',
             'property' => 'P1',
             'uselang' => 'en',
+            'options' => '{"showcalendar":"auto"}',
         ]);
         $this->assertActionRequest(self::FAKE_API_URL, 'wbformatvalue', [
             'generate' => 'text/plain',
             'datavalue' => '{"type":"string","value":"xyz"}',
             'property' => 'P2',
             'uselang' => 'en',
+            'options' => '{"showcalendar":"auto"}',
         ]);
 
         $expected = [

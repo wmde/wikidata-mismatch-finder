@@ -2,8 +2,10 @@
     <div class="website">
         <main class="content-wrap">
             <header>
-                <img src="/images/mismatch-finder-logo.svg" class="wikidata-logo" alt="" width="384" />
-                <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
+                <InertiaLink href="/">
+                    <img src="/images/mismatch-finder-logo.svg" class="wikidata-logo" alt="" width="384" />
+                    <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
+                </InertiaLink>
                 <div class="auth-widget">
                     <auth-widget :user="user" />
                 </div>
@@ -51,6 +53,7 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
+    import { Link as InertiaLink } from '@inertiajs/inertia-vue';
     import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
     import AuthWidget from '../Components/AuthWidget.vue';
@@ -62,6 +65,7 @@
     export default defineComponent({
         components: {
             AuthWidget,
+            InertiaLink,
             WikidataToolFooter,
             WikitLink
         },

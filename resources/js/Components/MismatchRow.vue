@@ -27,6 +27,16 @@
               {{mismatch.external_value}}
             </span>
         </td>
+        <td :data-header="$i18n('column-external-source')">
+            <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
+              :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
+            >
+              {{mismatch.import_meta.external_source}}
+            </wikit-link>
+            <span v-else>
+              {{mismatch.import_meta.external_source}}
+            </span>
+        </td>
         <td :data-header="$i18n('column-review-status')">
             <dropdown
                 :menuItems="Object.values(statusOptions)"
@@ -38,16 +48,6 @@
                     review_status: $event.value
                 })"
             />
-        </td>
-        <td :data-header="$i18n('column-external-source')">
-            <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
-              :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
-            >
-              {{mismatch.import_meta.external_source}}
-            </wikit-link>
-            <span v-else>
-              {{mismatch.import_meta.external_source}}
-            </span>
         </td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">

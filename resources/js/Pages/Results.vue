@@ -382,6 +382,7 @@
 h2 {
     .wikit-Link.wikit {
         font-weight: bold;
+        display: inline;
     }
 }
 

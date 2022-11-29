@@ -235,6 +235,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h2 {
+        // the previous section already has enough margin-bottom
+        margin-top: 0;
+    }
 }
 
 #items-form {

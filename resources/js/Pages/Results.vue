@@ -379,6 +379,11 @@
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
+.back-button {
+    // to match the first heading on the home page
+    margin-top: $dimension-layout-xsmall;
+}
+
 h2 {
     .wikit-Link.wikit {
         font-weight: bold;

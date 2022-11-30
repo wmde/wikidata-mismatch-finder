@@ -20,15 +20,11 @@ main {
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: $dimension-layout-xsmall 0;
+        margin: $dimension-layout-small 0;
     }
 
     @media(min-width: $width-breakpoint-tablet){
         padding: 0 $dimension-layout-small;
-
-        & > header {
-            margin: $dimension-layout-small 0;
-        }
     }
 }
 

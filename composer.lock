@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45da2188f00aa615d3ff5f845b269f5b",
+    "content-hash": "dc0cd4ccc404c5cd8db09a06ac04a02a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -950,22 +950,22 @@
         },
         {
             "name": "inertiajs/inertia-laravel",
-            "version": "v0.6.3",
+            "version": "v0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inertiajs/inertia-laravel.git",
-                "reference": "540b953ec383364264f9bd633849db16560a4461"
+                "reference": "b00fe8cf741766b41de69978f9e90ee6d1470d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/540b953ec383364264f9bd633849db16560a4461",
-                "reference": "540b953ec383364264f9bd633849db16560a4461",
+                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/b00fe8cf741766b41de69978f9e90ee6d1470d36",
+                "reference": "b00fe8cf741766b41de69978f9e90ee6d1470d36",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "laravel/framework": "^6.0|^7.0|^8.74|^9.0",
-                "php": "^7.2|~8.0.0|~8.1.0"
+                "php": "^7.2|~8.0.0|~8.1.0|~8.2.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.3.3",
@@ -1007,7 +1007,7 @@
             ],
             "support": {
                 "issues": "https://github.com/inertiajs/inertia-laravel/issues",
-                "source": "https://github.com/inertiajs/inertia-laravel/tree/v0.6.3"
+                "source": "https://github.com/inertiajs/inertia-laravel/tree/v0.6.4"
             },
             "funding": [
                 {
@@ -1015,7 +1015,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-27T23:21:15+00:00"
+            "time": "2022-11-08T12:44:02+00:00"
         },
         {
             "name": "kevinrob/guzzle-cache-middleware",
@@ -1103,16 +1103,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.83.23",
+            "version": "v8.83.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "bdc707f8b9bcad289b24cd182d98ec7480ac4491"
+                "reference": "7411d9fa71c1b0fd73a33e225f14512b74e6c81e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/bdc707f8b9bcad289b24cd182d98ec7480ac4491",
-                "reference": "bdc707f8b9bcad289b24cd182d98ec7480ac4491",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7411d9fa71c1b0fd73a33e225f14512b74e6c81e",
+                "reference": "7411d9fa71c1b0fd73a33e225f14512b74e6c81e",
                 "shasum": ""
             },
             "require": {
@@ -1272,7 +1272,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-07-26T13:30:00+00:00"
+            "time": "2022-11-01T14:48:50+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -1401,16 +1401,16 @@
         },
         {
             "name": "laravel/socialite",
-            "version": "v5.5.5",
+            "version": "v5.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/socialite.git",
-                "reference": "ce8b2f967eead5a6bae74449e207be6f8046edc3"
+                "reference": "1cd1682b709b8808a5b5dbb68179a58d1342aa7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/socialite/zipball/ce8b2f967eead5a6bae74449e207be6f8046edc3",
-                "reference": "ce8b2f967eead5a6bae74449e207be6f8046edc3",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/1cd1682b709b8808a5b5dbb68179a58d1342aa7b",
+                "reference": "1cd1682b709b8808a5b5dbb68179a58d1342aa7b",
                 "shasum": ""
             },
             "require": {
@@ -1466,20 +1466,20 @@
                 "issues": "https://github.com/laravel/socialite/issues",
                 "source": "https://github.com/laravel/socialite"
             },
-            "time": "2022-08-20T21:32:07+00:00"
+            "time": "2022-11-08T15:07:05+00:00"
         },
         {
             "name": "laravel/tinker",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "dff39b661e827dae6e092412f976658df82dbac5"
+                "reference": "5062061b4924af3392225dd482ca7b4d85d8b8ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/dff39b661e827dae6e092412f976658df82dbac5",
-                "reference": "dff39b661e827dae6e092412f976658df82dbac5",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/5062061b4924af3392225dd482ca7b4d85d8b8ef",
+                "reference": "5062061b4924af3392225dd482ca7b4d85d8b8ef",
                 "shasum": ""
             },
             "require": {
@@ -1532,9 +1532,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/tinker/issues",
-                "source": "https://github.com/laravel/tinker/tree/v2.7.2"
+                "source": "https://github.com/laravel/tinker/tree/v2.7.3"
             },
-            "time": "2022-03-23T12:38:24+00:00"
+            "time": "2022-11-09T15:11:38+00:00"
         },
         {
             "name": "league/commonmark",

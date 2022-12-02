@@ -61,7 +61,7 @@ class WikibaseAPIClient
     private function getUserAgent(): string
     {
         $clientName = 'Wikidata-Mismatch-Finder';
-        $clientVersion = config('env');
+        $clientVersion = config('app.env');
 
         $mainTool = 'https://mismatch-finder.toolforge.org/';
         $wikidataContact = 'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team';

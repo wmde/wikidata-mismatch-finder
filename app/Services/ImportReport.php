@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Mismatch;
 use App\Models\ImportMeta;
+use Illuminate\Support\Facades\DB;
 
 class ImportReport
 {
@@ -17,14 +17,26 @@ class ImportReport
         // write column headers
         fputcsv($handle, config('imports.report.headers'));
 
+        $res = DB::table('mismatches')
+            ->select('import_id', 'review_status')
+            ->selectRaw('COUNT(*)')
+            ->groupBy('import_id', 'review_status')
+            ->get();
+
+        $review_statuses = config('mismatches.validation.review_status.accepted_values');
+
         foreach ($imports as $each_import) {
-            $mismatches = Mismatch::where('import_id', $each_import->id)->get();
-            $mismatches_count = $mismatches->count();
-            $review_statuses = config('mismatches.validation.review_status.accepted_values');
+            foreach ($review_statuses as $status) {
+                ${"mismatches_" . $status} = 0;
+            }
+            $mismatches_count = 0;
             $percent_completed = 0;
 
-            foreach ($review_statuses as $review_status) {
-                ${"mismatches_" . $review_status} = $mismatches->where('review_status', $review_status)->count();
+            $importStatusCountRows = $res->where('import_id', '=', $each_import->id);
+            foreach ($importStatusCountRows as $importStatusCountRow) {
+                $count = $importStatusCountRow->{'COUNT(*)'};
+                ${"mismatches_" . $importStatusCountRow->review_status} = $count;
+                $mismatches_count += $count;
             }
 
             if ($mismatches_count > 0) {

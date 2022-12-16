@@ -24,6 +24,10 @@ class ImportReportTest extends TestCase
         $import = ImportMeta::factory()->for($user)->create(
             ['status' => 'completed']
         );
+        $expiredImportWithoutMismatches = ImportMeta::factory()
+            ->for($user)
+            ->expired()
+            ->create();
 
         $mismatches = Mismatch::factory(3)
             ->for($import)
@@ -58,7 +62,15 @@ class ImportReportTest extends TestCase
                 $pending, // Pending count
                 100 - ($pending / $total * 100), // % completed
                 $import->expires, // Expiry date
-                $import->expires < now() ? 'y' : 'n' // Expired
+                'n' // Expired
+            ],
+            [
+                $expiredImportWithoutMismatches->id,
+                $expiredImportWithoutMismatches->status,
+                0, 0, 0, 0, 0, 0, 0, // no mismatches, all counts are zero
+                0, // % completed
+                $expiredImportWithoutMismatches->expires, // Expiry date
+                'y' // Expired
             ]
         ]);
 

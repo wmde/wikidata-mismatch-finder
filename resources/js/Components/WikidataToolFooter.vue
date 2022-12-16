@@ -81,6 +81,7 @@ export default Vue.extend({
 
         .h5 {
             margin: 0 0 $dimension-layout-xsmall 0;
+            font-size: $font-size-style-body-s;
         }
 
         section {
@@ -88,11 +89,12 @@ export default Vue.extend({
         }
 
         section + section {
-            margin-block-start: $dimension-layout-small;
+            margin-block-start: $dimension-layout-medium;
         }
 
         p {
             margin-block-end: 0;
+            font-size: $font-size-style-body-s;
         }
 
         p + p {

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ImportsResultsController extends Controller
 {
     public function showResultsCsv(string $import_id)

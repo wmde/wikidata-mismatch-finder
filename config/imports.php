@@ -51,5 +51,9 @@ return [
             "expiry date",
             "expired?"
         ]
+        ],
+
+    'results' => [
+        'filename_template' => 'import-results-:datetime.csv'
     ]
 ];

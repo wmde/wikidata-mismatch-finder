@@ -19,8 +19,7 @@ class ImportResults
 
         foreach ($mismatches as $mismatch) {
             fputcsv($handle, [
-            $mismatch->id,
-            $mismatch->status
+            $mismatch
             ]);
         }
     }

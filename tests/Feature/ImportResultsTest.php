@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Mismatch;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -35,7 +34,7 @@ class ImportResultsTest extends TestCase
 
         $this->travelTo(now()); // stop the clock
 
-        $expected = $this->formatCsv([$mismatches]);
+        $expected = $this->formatCsv([[$mismatches]]);
 
         $results = new ImportResults();
         $results->generateCSV($path, $import->id);

@@ -21,9 +21,7 @@ class ImportReportTest extends TestCase
     public function test_generate_csv_writes_to_path(): void
     {
         $user = User::factory()->uploader()->create();
-        $import = ImportMeta::factory()->for($user)->create(
-
-        );
+        $import = ImportMeta::factory()->for($user)->create();
         $expiredImportWithoutMismatches = ImportMeta::factory()
             ->for($user)
             ->expired()

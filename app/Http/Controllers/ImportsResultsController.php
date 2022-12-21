@@ -14,10 +14,9 @@ class ImportsResultsController extends Controller
 
         $headers = [ 'Content-Type' => 'text/csv; charset=utf-8' ];
 
-        $results = ImportResults::class;
-        return response()->streamDownload(function () use ($results, $import_id) {
+        return response()->streamDownload(function () use ($import_id) {
             // make the file happen somehow
-            $results->generateCSV('php://output', $import_id);
+            ImportResults::class->generateCSV('php://output', $import_id);
         }, $filename, $headers);
     }
 }

@@ -14,8 +14,8 @@ class ImportResults
         // Creating the output stream
         $handle = fopen($path, 'w');
 
-        $importMeta = ImportMeta::find($import_id);
-        $mismatches = $importMeta->mismatches();
+        $import = ImportMeta::find($import_id);
+        $mismatches = Mismatch::whereBelongsTo($import)->get();
 
         foreach ($mismatches as $mismatch) {
             fputcsv($handle, [

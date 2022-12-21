@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Mismatch;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,21 +20,12 @@ class ImportResultsTest extends TestCase
      */
     public function test_generate_csv_writes_to_path(): void
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         $user = User::factory()->uploader()->create();
-        $import = ImportMeta::factory()->for($user)->create(
-            ['status' => 'completed']
-        );
-        $expiredImportWithoutMismatches = ImportMeta::factory()
-            ->for($user)
-            ->expired()
-            ->create();
+        $import = ImportMeta::factory()->for($user)->create();
 
-        $importMeta = ImportMeta::find($import->id);
-        $mismatches = $importMeta->mismatches();
+        $mismatches = Mismatch::factory(3)
+            ->for($import)
+            ->create();
 
         Storage::fake('local');
         $filename = 'temp_test.csv';
@@ -42,7 +35,7 @@ class ImportResultsTest extends TestCase
 
         $this->travelTo(now()); // stop the clock
 
-        $expected = $this->formatCsv($mismatches);
+        $expected = $this->formatCsv([$mismatches]);
 
         $results = new ImportResults();
         $results->generateCSV($path, $import->id);
@@ -56,7 +49,7 @@ class ImportResultsTest extends TestCase
     /**
      * @return void
      */
-    private function formatCsv($mismatches): string
+    private function formatCsv(array $mismatches): string
     {
         $csv = fopen('php://memory', 'r+');
 

@@ -22,7 +22,7 @@ class ImportReportTest extends TestCase
     {
         $user = User::factory()->uploader()->create();
         $import = ImportMeta::factory()->for($user)->create(
-            ['status' => 'completed']
+
         );
         $expiredImportWithoutMismatches = ImportMeta::factory()
             ->for($user)

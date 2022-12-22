@@ -22,5 +22,7 @@ class ImportResults
             $mismatch
             ]);
         }
+
+        fclose($handle);
     }
 }

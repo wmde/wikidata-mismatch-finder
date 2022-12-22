@@ -34,7 +34,7 @@ class ImportResultsTest extends TestCase
 
         $this->travelTo(now()); // stop the clock
 
-        $expected = $this->formatCsv([[$mismatches]]);
+        $expected = $this->formatCsv($mismatches);
 
         $results = new ImportResults();
         $results->generateCSV($path, $import->id);
@@ -48,12 +48,12 @@ class ImportResultsTest extends TestCase
     /**
      * @return void
      */
-    private function formatCsv(array $mismatches): string
+    private function formatCsv($mismatches): string
     {
         $csv = fopen('php://memory', 'r+');
 
         foreach ($mismatches as $row) {
-            fputcsv($csv, $row);
+            fputcsv($csv, [$row]);
         }
 
         rewind($csv);

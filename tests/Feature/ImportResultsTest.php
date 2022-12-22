@@ -34,7 +34,21 @@ class ImportResultsTest extends TestCase
 
         $this->travelTo(now()); // stop the clock
 
-        $expected = $this->formatCsv($mismatches);
+        $mismatchValues = array_map(function ($mismatch) {
+            return [
+                $mismatch['item_id'],
+                $mismatch['statement_guid'],
+                $mismatch['property_id'],
+                $mismatch['wikidata_value'],
+                $mismatch['meta_wikidata_value'],
+                $mismatch['external_value'],
+                $mismatch['external_url'],
+                $mismatch['review_status']
+            ];
+        }, $mismatches->toArray());
+        $expected = $this->formatCsv([
+            config('imports.results.column_keys')
+        ]+$mismatchValues);
 
         $results = new ImportResults();
         $results->generateCSV($path, $import->id);
@@ -48,12 +62,12 @@ class ImportResultsTest extends TestCase
     /**
      * @return void
      */
-    private function formatCsv($mismatches): string
+    private function formatCsv(array $mismatches): string
     {
         $csv = fopen('php://memory', 'r+');
 
         foreach ($mismatches as $row) {
-            fputcsv($csv, [$row]);
+            fputcsv($csv, $row);
         }
 
         rewind($csv);

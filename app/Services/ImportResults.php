@@ -31,8 +31,8 @@ class ImportResults
         }, $mismatches->toArray());
 
         // Add column keys as CSV headers
-        $mismatchesWithKeys = [config('imports.results.column_keys')
-        ]+$mismatchValues;
+        $mismatchesWithKeys = array_merge([config('imports.results.column_keys')
+        ], $mismatchValues);
 
         foreach ($mismatchesWithKeys as $mismatch) {
             fputcsv($handle, $mismatch);

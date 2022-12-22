@@ -46,9 +46,13 @@ class ImportResultsTest extends TestCase
                 $mismatch['review_status']
             ];
         }, $mismatches->toArray());
-        $expected = $this->formatCsv([
-            config('imports.results.column_keys')
-        ]+$mismatchValues);
+
+        // Add CSV headers
+        $mismatchesWithKeys = array_merge(
+            [config('imports.results.column_keys')],
+            $mismatchValues
+        );
+        $expected = $this->formatCsv($mismatchesWithKeys);
 
         $results = new ImportResults();
         $results->generateCSV($path, $import->id);

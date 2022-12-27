@@ -17,8 +17,11 @@ class ImportResults
         $import = ImportMeta::find($import_id);
         $mismatches = Mismatch::whereBelongsTo($import)->get();
 
-        $mismatchValues = array_map(function ($mismatch) {
-            return [
+        // write column headers
+        fputcsv($handle, config('imports.results.column_keys'));
+
+        foreach ($mismatches->toArray() as $mismatch) {
+            $mismatch = [
                 $mismatch['item_id'],
                 $mismatch['statement_guid'],
                 $mismatch['property_id'],
@@ -28,13 +31,6 @@ class ImportResults
                 $mismatch['external_url'],
                 $mismatch['review_status']
             ];
-        }, $mismatches->toArray());
-
-        // Add column keys as CSV headers
-        $mismatchesWithKeys = array_merge([config('imports.results.column_keys')
-        ], $mismatchValues);
-
-        foreach ($mismatchesWithKeys as $mismatch) {
             fputcsv($handle, $mismatch);
         }
 

@@ -20,8 +20,8 @@ class ImportResults
         // write column headers
         fputcsv($handle, config('imports.results.column_keys'));
 
-        foreach ($mismatches->toArray() as $mismatch) {
-            $mismatch = [
+        $mismatches->map(function ($mismatch) {
+            return [
                 $mismatch['item_id'],
                 $mismatch['statement_guid'],
                 $mismatch['property_id'],
@@ -31,8 +31,9 @@ class ImportResults
                 $mismatch['external_url'],
                 $mismatch['review_status']
             ];
-            fputcsv($handle, $mismatch);
-        }
+        })->each(function ($row) use ($handle) {
+            fputcsv($handle, $row);
+        });
 
         fclose($handle);
     }

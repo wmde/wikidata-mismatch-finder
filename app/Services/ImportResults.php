@@ -15,7 +15,8 @@ class ImportResults
         $handle = fopen($path, 'w');
 
         $import = ImportMeta::find($import_id);
-        $mismatches = Mismatch::whereBelongsTo($import)->get();
+        // Get the mismatches as a LazyCollection
+        $mismatches = Mismatch::whereBelongsTo($import)->cursor();
 
         // write column headers
         fputcsv($handle, config('imports.results.column_keys'));

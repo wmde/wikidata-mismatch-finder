@@ -59,7 +59,7 @@ Route::prefix('store')->name('store.')->group(function () {
         ]);
     })->name('import-status');
 
-    Route::get('/imports/{import_id}/', [
+    Route::get('/imports/{import_id}', [
         ImportsResultsController::class, 'showResultsCsv'
     ])->name('import-status/import_id');
 

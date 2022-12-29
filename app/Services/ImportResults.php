@@ -14,7 +14,8 @@ class ImportResults
         // Creating the output stream
         $handle = fopen($path, 'w');
 
-        $import = ImportMeta::find($import_id);
+        $import = ImportMeta::findOrFail($import_id);
+
         // Get the mismatches as a LazyCollection
         $mismatches = Mismatch::whereBelongsTo($import)->cursor();
 

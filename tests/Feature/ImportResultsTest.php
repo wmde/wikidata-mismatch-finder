@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Mismatch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 use App\Services\ImportResults;
 use Illuminate\Support\Facades\Storage;
@@ -77,5 +78,16 @@ class ImportResultsTest extends TestCase
         rewind($csv);
 
         return stream_get_contents($csv);
+    }
+
+    /**
+     * ׂׂ
+     * @return void
+     */
+    public function test_non_existant_import_throws_exception(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+        $results = new ImportResults();
+        $results->generateCSV('php://output', 1234111223356);
     }
 }

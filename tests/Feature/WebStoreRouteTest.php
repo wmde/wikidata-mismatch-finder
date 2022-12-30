@@ -76,6 +76,7 @@ class WebStoreRouteTest extends TestCase
     public function test_store_import_results_route()
     {
         $filename = strtr(config('imports.results.filename_template'), [
+            ':id' => $import->id
             ':datetime' => now()->format('Y-m-dTH:i:s')
         ]);
 

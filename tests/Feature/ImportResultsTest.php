@@ -33,8 +33,6 @@ class ImportResultsTest extends TestCase
         Storage::put($filename, '');
         $path = Storage::path($filename);
 
-        $this->travelTo(now()); // stop the clock
-
         $mismatchValues = array_map(function ($mismatch) {
             return [
                 $mismatch['item_id'],
@@ -61,8 +59,6 @@ class ImportResultsTest extends TestCase
         $actualCSV = Storage::get($filename);
 
         $this->assertSame($expected, $actualCSV);
-
-        $this->travelBack(); // resumes the clock
     }
     /**
      * @return void

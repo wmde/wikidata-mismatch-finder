@@ -12,7 +12,7 @@ class ImportsResultsController extends Controller
         $import = ImportMeta::findOrFail($import_id);
 
         $filename = strtr(config('imports.results.filename_template'), [
-            ':id' => $import_id
+            ':id' => $import_id,
             ':datetime' => now()->format('Y-m-dTH:i:s')
         ]);
 

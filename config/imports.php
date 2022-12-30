@@ -54,7 +54,7 @@ return [
     ],
 
     'results' => [
-        'filename_template' => 'import-results-:datetime.csv',
+        'filename_template' => 'results-:id-:datetime.csv',
         'column_keys' => [
             'item_id',
             'statement_guid',

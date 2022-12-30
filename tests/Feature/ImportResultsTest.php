@@ -32,24 +32,23 @@ class ImportResultsTest extends TestCase
         Storage::put($filename, '');
         $path = Storage::path($filename);
 
-        $mismatchValues = array_map(function ($mismatch) {
-            return [
-                $mismatch['item_id'],
-                $mismatch['statement_guid'],
-                $mismatch['property_id'],
-                $mismatch['wikidata_value'],
-                $mismatch['meta_wikidata_value'],
-                $mismatch['external_value'],
-                $mismatch['external_url'],
-                $mismatch['review_status']
-            ];
+        $keys = config('imports.results.column_keys');
+
+        $mismatchValues = array_map(function ($mismatch) use ($keys) {
+            return array_map(
+                function ($key) use ($mismatch) {
+                    return $mismatch[$key];
+                },
+                $keys
+            );
         }, $mismatches->toArray());
 
         // Add CSV headers
         $mismatchesWithKeys = array_merge(
-            [config('imports.results.column_keys')],
+            [$keys],
             $mismatchValues
         );
+
         $expected = $this->formatCsv($mismatchesWithKeys);
 
         $results = new ImportResults();

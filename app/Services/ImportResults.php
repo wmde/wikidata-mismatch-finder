@@ -18,19 +18,14 @@ class ImportResults
         $mismatches = Mismatch::whereBelongsTo($import)->cursor();
 
         // write column headers
-        fputcsv($handle, config('imports.results.column_keys'));
+        $keys = config('imports.results.column_keys');
+        fputcsv($handle, $keys);
 
-        $mismatches->map(function ($mismatch) {
-            return [
-                $mismatch['item_id'],
-                $mismatch['statement_guid'],
-                $mismatch['property_id'],
-                $mismatch['wikidata_value'],
-                $mismatch['meta_wikidata_value'],
-                $mismatch['external_value'],
-                $mismatch['external_url'],
-                $mismatch['review_status']
-            ];
+        // map mismatch values to correspond to column keys
+        $mismatches->map(function ($mismatch) use ($keys) {
+            return array_map(function ($key) use ($mismatch) {
+                return $mismatch[$key];
+            }, $keys);
         })->each(function ($row) use ($handle) {
             fputcsv($handle, $row);
         });

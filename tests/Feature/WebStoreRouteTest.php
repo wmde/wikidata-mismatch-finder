@@ -69,9 +69,8 @@ class WebStoreRouteTest extends TestCase
 
     public function test_store_import_results_route_import_id_does_not_exist()
     {
-        $response = $this->call('GET', '/store/imports/1231112123');
-
-        // $response->assertStatus(404);
+        $response = $this->get(route('store.import-results', ['123123123']));
+        $response->assertStatus(404);
     }
 
     public function test_store_import_results_route()

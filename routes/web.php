@@ -61,7 +61,7 @@ Route::prefix('store')->name('store.')->group(function () {
 
     Route::get('/imports/{import_id}', [
         ImportsResultsController::class, 'showResultsCsv'
-    ])->name('import-status/import_id');
+    ])->name('import-results');
 
     Route::get('/imports-overview', [
         ImportsOverviewController::class, 'downloadCsv'

@@ -7,14 +7,12 @@ use App\Models\Mismatch;
 
 class ImportResults
 {
-    public function generateCSV(string $path, int $import_id): void
+    public function generateCSV(string $path, ImportMeta $import): void
     {
         $mismatches = Mismatch::get();
 
         // Creating the output stream
         $handle = fopen($path, 'w');
-
-        $import = ImportMeta::findOrFail($import_id);
 
         // Get the mismatches as a LazyCollection
         $mismatches = Mismatch::whereBelongsTo($import)->cursor();

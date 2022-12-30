@@ -54,7 +54,7 @@ class ImportResultsTest extends TestCase
         $expected = $this->formatCsv($mismatchesWithKeys);
 
         $results = new ImportResults();
-        $results->generateCSV($path, $import->id);
+        $results->generateCSV($path, $import);
 
         $actualCSV = Storage::get($filename);
 
@@ -74,16 +74,5 @@ class ImportResultsTest extends TestCase
         rewind($csv);
 
         return stream_get_contents($csv);
-    }
-
-    /**
-     * ׂׂ
-     * @return void
-     */
-    public function test_non_existant_import_throws_exception(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-        $results = new ImportResults();
-        $results->generateCSV('php://output', 1234111223356);
     }
 }

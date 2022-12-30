@@ -13,7 +13,7 @@ class ImportsResultsController extends Controller
 
         $filename = strtr(config('imports.results.filename_template'), [
             ':id' => $import_id,
-            ':datetime' => now()->format('Y-m-dTH:i:s')
+            ':datetime' => now()->format('Y-m-dTH-i-s')
         ]);
 
         $headers = [ 'Content-Type' => 'text/csv; charset=utf-8' ];

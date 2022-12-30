@@ -82,7 +82,7 @@ class WebStoreRouteTest extends TestCase
 
         $filename = strtr(config('imports.results.filename_template'), [
             ':id' => $import->id,
-            ':datetime' => now()->format('Y-m-dTH:i:s')
+            ':datetime' => now()->format('Y-m-dTH-i-s')
         ]);
 
         $response = $this->call('GET', '/store/imports/' . $import->id . '/');

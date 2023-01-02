@@ -250,6 +250,10 @@ dl.import-meta dd:not(:last-child) {
     padding-bottom: 16px;
 }
 
+dl.import-meta .download-csv {
+    float:right;
+}
+
 .button {
     padding: 6px 13px;
     font-weight: 700;

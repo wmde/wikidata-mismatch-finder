@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RandomizeController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\ImportsOverviewController;
+use App\Http\Controllers\ImportsResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,10 @@ Route::prefix('store')->name('store.')->group(function () {
             'imports' => ImportMeta::with('error')->orderByDesc('id')->take(10)->get()
         ]);
     })->name('import-status');
+
+    Route::get('/imports/{import_id}', [
+        ImportsResultsController::class, 'showResultsCsv'
+    ])->name('import-results');
 
     Route::get('/imports-overview', [
         ImportsOverviewController::class, 'downloadCsv'

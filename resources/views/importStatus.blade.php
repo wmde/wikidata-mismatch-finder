@@ -1,10 +1,10 @@
 <x-layout>
     <div role="group" class="button-group right">
-        <a class="button primary progressive" href="{{ route('store.imports-overview') }}"><img src="{{ asset('/images/download-stats-white.svg') }}" class="button-icon button-white-fill" />{{__('store-layout.button:download-stats')}}</a>
+        <a class="button primary progressive" href="{{ route('store.imports-overview') }}"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon svg-white-fill" />{{__('store-layout.button:download-stats')}}</a>
     </div>
     @foreach ($imports as $import)
         <dl class="import-meta import-meta-{{ $import->status }}">
-            <dt class="download-csv"><a class="button primary neutral" href="{{ route('store.imports-overview', [ $import->id ]) }}"><img src="{{ asset('/images/download-stats-black.svg') }}" class="button-icon button-white-fill" />{{__('store-layout.button:download-import-csv') }}</a></dt>
+            <dt class="download-csv"><a class="button primary neutral" href="{{ route('store.imports-overview', [ $import->id ]) }}"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon svg-black-fill" />{{__('store-layout.button:download-import-csv') }}</a></dt>
             <dt>{{ __('import-status.item:status') }}</dt>
             <dd>{{ __('import-status.item:status.' . $import->status) }}</dd>
 

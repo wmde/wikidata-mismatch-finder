@@ -252,6 +252,10 @@ dl.import-meta dd:not(:last-child) {
 
 dl.import-meta .download-csv {
     float: right;
+    @media(max-width: $width-breakpoint-tablet){
+        float: none;
+    }
+
 }
 
 .button {

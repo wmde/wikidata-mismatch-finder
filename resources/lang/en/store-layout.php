@@ -17,6 +17,7 @@ return [
     'button:delete' => 'Delete',
     'button:confirm' => 'Confirm',
     'button:create' => 'Create',
+    'button:download-import-csv' => 'Download CSV',
     'button:download-stats' => 'Download statistics',
     'created-at' => 'Created at',
     'last-used-at' => 'Last used at',

@@ -250,6 +250,16 @@ dl.import-meta dd:not(:last-child) {
     padding-bottom: 16px;
 }
 
+dl.import-meta .download-csv {
+    float: right;
+    @media(max-width: $width-breakpoint-tablet){
+        float: none;
+        padding-block-end: 0;
+        margin-block-end: 1em;
+    }
+
+}
+
 .button {
     padding: 6px 13px;
     font-weight: 700;
@@ -360,6 +370,15 @@ dl.import-meta dd:not(:last-child) {
 
     @media (max-width: $width-breakpoint-tablet) {
        justify-content: flex-start;
+    }
+}
+
+.svg {
+    &-white-fill {
+        filter: invert(1);
+    }
+    &-black-fill {
+        filter: invert(0);
     }
 }
 

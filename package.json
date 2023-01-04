@@ -1,5 +1,6 @@
 {
     "private": true,
+    "name": "wikidata-mismatch-finder",
     "scripts": {
         "lint": "eslint --ext .js,.vue resources/js",
         "lint:fix": "eslint --fix --ext .js,.vue resources/js",

@@ -260,71 +260,71 @@ dl.import-meta .download-csv {
 
 .button {
     padding: 6px 13px;
-    font-weight: 700;
-    line-height: 1.25;
+    font-weight: $wikit-Button-font-weight;
+    line-height: $wikit-Button-line-height;
     display: inline-block;
-    color: $color-base-10;
-    border-width: 1px;
-    border-style: solid;
-    border-color: $color-base-50;
-    border-radius: 2px;
-    background-color: $color-base-90;
-    transition-duration: 100ms;
+    color: $wikit-Button-normal-neutral-color;
+    border-width: $wikit-Button-border-width;
+    border-style: $wikit-Button-border-style;
+    border-color: $wikit-Button-normal-neutral-border-color;
+    border-radius: $wikit-Button-border-radius;
+    background-color: $wikit-Button-normal-neutral-background-color;
+    transition-duration: $wikit-Button-transition-duration;
 
     &:hover {
         text-decoration: none;
-        color: $color-modifier-lighten-base-10;
-        border-color: $color-base-50;
-        background-color: $color-base-100;
+        color: $wikit-Button-normal-neutral-hover-color;
+        border-color: $wikit-Button-normal-neutral-hover-border-color;
+        background-color: $wikit-Button-normal-neutral-hover-background-color;
         transition-property: background-color, border-color;
     }
 
     &:active {
-        color: $color-base-0;
-        border-color: $color-base-30;
-        background-color: $color-base-80;
+        color: $wikit-Button-normal-neutral-active-color;
+        border-color: $wikit-Button-normal-neutral-active-border-color;
+        background-color: $color-base-80; // TODO not $wikit-Button-normal-neutral-active-background-color?
         transition-property: background-color, border-color;
     }
 
     &:focus {
-        color: $color-base-10;
-        background-color: $color-base-90;
-        border-color: $color-accent-50;
-        box-shadow: $color-accent-50 0 0 0 1px inset;
+        color: $wikit-Button-normal-neutral-focus-color;
+        background-color: $wikit-Button-normal-neutral-focus-background-color;
+        border-color: $wikit-Button-normal-neutral-focus-border-color;
+        box-shadow: $wikit-Button-normal-neutral-focus-box-shadow;
         transition-property: box-shadow;
     }
 
     &.progressive {
-        color: $color-base-100;
-        background-color: $color-accent-50;
-        border-color: $color-accent-50;
+        color: $wikit-Button-primary-color;
+        background-color: $wikit-Button-primary-progressive-background-color;
+        border-color: $wikit-Button-primary-progressive-border-color;
 
         &:visited {
             color: white;
         }
 
         &:hover {
-            background-color: $color-modifier-lighten-accent-50;
-            border-color: $color-modifier-lighten-accent-50;
+            background-color: $wikit-Button-primary-progressive-hover-background-color;
+            border-color: $wikit-Button-primary-progressive-hover-border-color;
             transition-property: background-color, border-color;
         }
         &:active {
-            background-color: $color-accent-30;
-            border-color: $color-accent-30;
+            background-color: $wikit-Button-primary-progressive-active-background-color;
+            border-color: $wikit-Button-primary-progressive-active-border-color;
             transition-property: background-color, border-color;
         }
         &:focus {
-            box-shadow: $color-base-100 0 0 0 1px inset;
-            border-color: $color-accent-50;
-            background-color: $color-accent-50;
+            box-shadow: $color-base-100 0 0 0 1px inset; // TODO not $wikit-Button-primary-progressive-focus-box-shadow?
+            border-color: $wikit-Button-primary-progressive-focus-border-color;
+            background-color: $wikit-Button-primary-progressive-focus-background-color;
             transition-property: box-shadow;
         }
     }
 
     &.destructive {
-        color:$color-base-100;
-        background-color: $color-utility-red-50;
-        border-color: $color-utility-red-50;
+        color: $wikit-Button-primary-color;
+        background-color: $wikit-Button-primary-destructive-background-color;
+        border-color: $wikit-Button-primary-destructive-border-color;
 
         &:visited {
             color: white;
@@ -336,14 +336,14 @@ dl.import-meta .download-csv {
             transition-property: background-color, border-color;
         }
         &:active {
-            background-color: $color-utility-red-30;
-            border-color: $color-utility-red-30;
+            background-color: $wikit-Button-primary-destructive-active-background-color;
+            border-color: $wikit-Button-primary-destructive-active-border-color;
             transition-property: background-color, border-color;
         }
         &:focus {
-            box-shadow: $color-base-100 0 0 0 1px inset;
-            border-color: $color-utility-red-50;
-            background-color: $color-utility-red-50;
+            box-shadow: $color-base-100 0 0 0 1px inset; // TODO not $wikit-Button-primary-destructive-focus-box-shadow?
+            border-color: $wikit-Button-primary-destructive-focus-border-color;
+            background-color: $wikit-Button-primary-destructive-focus-background-color;
             transition-property: box-shadow;
         }
     }

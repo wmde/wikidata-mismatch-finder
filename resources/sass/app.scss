@@ -259,7 +259,7 @@ dl.import-meta .download-csv {
 }
 
 .button {
-    padding: 6px 13px;
+    padding: $wikit-Button-medium-padding-vertical $wikit-Button-medium-padding-horizontal;
     font-weight: $wikit-Button-font-weight;
     line-height: $wikit-Button-line-height;
     display: inline-block;
@@ -276,14 +276,14 @@ dl.import-meta .download-csv {
         color: $wikit-Button-normal-neutral-hover-color;
         border-color: $wikit-Button-normal-neutral-hover-border-color;
         background-color: $wikit-Button-normal-neutral-hover-background-color;
-        transition-property: background-color, border-color;
+        transition-property: $wikit-Button-transition-property;
     }
 
     &:active {
         color: $wikit-Button-normal-neutral-active-color;
         border-color: $wikit-Button-normal-neutral-active-border-color;
-        background-color: $color-base-80; // TODO not $wikit-Button-normal-neutral-active-background-color?
-        transition-property: background-color, border-color;
+        background-color: $wikit-Button-normal-neutral-active-background-color;
+        transition-property: $wikit-Button-transition-property;
     }
 
     &:focus {
@@ -291,7 +291,7 @@ dl.import-meta .download-csv {
         background-color: $wikit-Button-normal-neutral-focus-background-color;
         border-color: $wikit-Button-normal-neutral-focus-border-color;
         box-shadow: $wikit-Button-normal-neutral-focus-box-shadow;
-        transition-property: box-shadow;
+        transition-property: $wikit-Button-transition-property;
     }
 
     &.progressive {
@@ -306,18 +306,18 @@ dl.import-meta .download-csv {
         &:hover {
             background-color: $wikit-Button-primary-progressive-hover-background-color;
             border-color: $wikit-Button-primary-progressive-hover-border-color;
-            transition-property: background-color, border-color;
+            transition-property: $wikit-Button-transition-property;
         }
         &:active {
             background-color: $wikit-Button-primary-progressive-active-background-color;
             border-color: $wikit-Button-primary-progressive-active-border-color;
-            transition-property: background-color, border-color;
+            transition-property: $wikit-Button-transition-property;
         }
         &:focus {
-            box-shadow: $color-base-100 0 0 0 1px inset; // TODO not $wikit-Button-primary-progressive-focus-box-shadow?
+            box-shadow: $wikit-Button-primary-progressive-focus-box-shadow;
             border-color: $wikit-Button-primary-progressive-focus-border-color;
             background-color: $wikit-Button-primary-progressive-focus-background-color;
-            transition-property: box-shadow;
+            transition-property: $wikit-Button-transition-property;
         }
     }
 
@@ -333,18 +333,18 @@ dl.import-meta .download-csv {
         &:hover {
             background-color: $color-modifier-lighten-utility-red-50;
             border-color: $color-modifier-lighten-utility-red-50;
-            transition-property: background-color, border-color;
+            transition-property: $wikit-Button-transition-property;
         }
         &:active {
             background-color: $wikit-Button-primary-destructive-active-background-color;
             border-color: $wikit-Button-primary-destructive-active-border-color;
-            transition-property: background-color, border-color;
+            transition-property: $wikit-Button-transition-property;
         }
         &:focus {
-            box-shadow: $color-base-100 0 0 0 1px inset; // TODO not $wikit-Button-primary-destructive-focus-box-shadow?
+            box-shadow: $wikit-Button-primary-destructive-focus-box-shadow;
             border-color: $wikit-Button-primary-destructive-focus-border-color;
             background-color: $wikit-Button-primary-destructive-focus-background-color;
-            transition-property: box-shadow;
+            transition-property: $wikit-Button-transition-property;
         }
     }
     &:not(:last-child) {

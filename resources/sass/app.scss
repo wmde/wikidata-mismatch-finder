@@ -270,20 +270,19 @@ dl.import-meta .download-csv {
     border-radius: $wikit-Button-border-radius;
     background-color: $wikit-Button-normal-neutral-background-color;
     transition-duration: $wikit-Button-transition-duration;
+    transition-property: $wikit-Button-transition-property;
 
     &:hover {
         text-decoration: none;
         color: $wikit-Button-normal-neutral-hover-color;
         border-color: $wikit-Button-normal-neutral-hover-border-color;
         background-color: $wikit-Button-normal-neutral-hover-background-color;
-        transition-property: $wikit-Button-transition-property;
     }
 
     &:active {
         color: $wikit-Button-normal-neutral-active-color;
         border-color: $wikit-Button-normal-neutral-active-border-color;
         background-color: $wikit-Button-normal-neutral-active-background-color;
-        transition-property: $wikit-Button-transition-property;
     }
 
     &:focus {
@@ -291,7 +290,6 @@ dl.import-meta .download-csv {
         background-color: $wikit-Button-normal-neutral-focus-background-color;
         border-color: $wikit-Button-normal-neutral-focus-border-color;
         box-shadow: $wikit-Button-normal-neutral-focus-box-shadow;
-        transition-property: $wikit-Button-transition-property;
     }
 
     &.progressive {
@@ -306,18 +304,15 @@ dl.import-meta .download-csv {
         &:hover {
             background-color: $wikit-Button-primary-progressive-hover-background-color;
             border-color: $wikit-Button-primary-progressive-hover-border-color;
-            transition-property: $wikit-Button-transition-property;
         }
         &:active {
             background-color: $wikit-Button-primary-progressive-active-background-color;
             border-color: $wikit-Button-primary-progressive-active-border-color;
-            transition-property: $wikit-Button-transition-property;
         }
         &:focus {
             box-shadow: $wikit-Button-primary-progressive-focus-box-shadow;
             border-color: $wikit-Button-primary-progressive-focus-border-color;
             background-color: $wikit-Button-primary-progressive-focus-background-color;
-            transition-property: $wikit-Button-transition-property;
         }
     }
 
@@ -333,18 +328,15 @@ dl.import-meta .download-csv {
         &:hover {
             background-color: $color-modifier-lighten-utility-red-50;
             border-color: $color-modifier-lighten-utility-red-50;
-            transition-property: $wikit-Button-transition-property;
         }
         &:active {
             background-color: $wikit-Button-primary-destructive-active-background-color;
             border-color: $wikit-Button-primary-destructive-active-border-color;
-            transition-property: $wikit-Button-transition-property;
         }
         &:focus {
             box-shadow: $wikit-Button-primary-destructive-focus-box-shadow;
             border-color: $wikit-Button-primary-destructive-focus-border-color;
             background-color: $wikit-Button-primary-destructive-focus-background-color;
-            transition-property: $wikit-Button-transition-property;
         }
     }
     &:not(:last-child) {

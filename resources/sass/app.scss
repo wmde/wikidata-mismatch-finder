@@ -290,6 +290,7 @@ dl.import-meta .download-csv {
         color: $wikit-Button-normal-neutral-active-color;
         border-color: $wikit-Button-normal-neutral-active-border-color;
         background-color: $wikit-Button-normal-neutral-active-background-color;
+        box-shadow: none;
     }
 
     &.progressive {
@@ -313,6 +314,7 @@ dl.import-meta .download-csv {
         &:active {
             background-color: $wikit-Button-primary-progressive-active-background-color;
             border-color: $wikit-Button-primary-progressive-active-border-color;
+            box-shadow: none;
         }
     }
 
@@ -337,6 +339,7 @@ dl.import-meta .download-csv {
         &:active {
             background-color: $wikit-Button-primary-destructive-active-background-color;
             border-color: $wikit-Button-primary-destructive-active-border-color;
+            box-shadow: none;
         }
     }
     &:not(:last-child) {

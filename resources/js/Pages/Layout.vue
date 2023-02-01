@@ -3,7 +3,7 @@
         <main class="content-wrap">
             <header>
                 <InertiaLink href="/">
-                    <img src="/images/mismatch-finder-logo.svg" class="mismatch-finder-logo" alt="" width="384" />
+                    <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
                 <div class="auth-widget">
@@ -85,6 +85,14 @@
 
     .mismatch-finder-logo {
         margin-block-end: $dimension-layout-small;
+        background-image: url('/images/mismatch-finder-logo.svg');
+        width: 384px;
+        height: 24px;
+        @media (max-width: $width-breakpoint-tablet) {
+            background-image: url('/images/mismatch-finder-logo_mobile.svg');
+            width: 268px;
+            height: 24px;
+        }
     }
 
     .visually-hidden:not(:focus):not(:active) {

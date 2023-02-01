@@ -3,7 +3,7 @@
         <main class="content-wrap">
             <header>
                 <InertiaLink href="/">
-                    <img src="/images/mismatch-finder-logo.svg" class="wikidata-logo" alt="" width="384" />
+                    <img src="/images/mismatch-finder-logo.svg" class="mismatch-finder-logo" alt="" width="384" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
                 <div class="auth-widget">
@@ -83,7 +83,7 @@
         max-width: 1168px;
     }
 
-    .wikidata-logo {
+    .mismatch-finder-logo {
         margin-block-end: $dimension-layout-small;
     }
 
@@ -106,7 +106,7 @@
             flex-direction: row;
         }
 
-        .wikidata-logo {
+        .mismatch-finder-logo {
             margin-block-end: 0;
         }
     }

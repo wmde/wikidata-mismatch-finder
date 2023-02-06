@@ -85,12 +85,12 @@
 
     .mismatch-finder-logo {
         margin-block-end: $dimension-layout-small;
-        background-image: url('/images/mismatch-finder-logo.svg');
-        width: 384px;
+        background-image: url('/images/mismatch-finder-logo_mobile.svg');
+        width: 268px;
         height: 24px;
-        @media (max-width: $width-breakpoint-tablet) {
-            background-image: url('/images/mismatch-finder-logo_mobile.svg');
-            width: 268px;
+        @media (min-width: $width-breakpoint-tablet) {
+            background-image: url('/images/mismatch-finder-logo.svg');
+            width: 384px;
             height: 24px;
         }
     }

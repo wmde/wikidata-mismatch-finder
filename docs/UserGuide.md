@@ -70,6 +70,10 @@ You can consult this [mismatch file](exampleMismatchFile.csv) for a valid exampl
 
 **Note**: If possible, please do not include mismatches in your import file that have already been uploaded and reviewed before to avoid double-work by reviewers.
 
+### Getting upload rights
+
+To be able to upload new mismatches your Wikidata account needs to be added to the allow-list. To be added please get in touch with [Lydia Pintscher](https://www.wikidata.org/wiki/User:Lydia_Pintscher_(WMDE)). Alternatively you can [open a ticket](https://phabricator.wikimedia.org/project/view/5385/) with your prepared mismatch file and the Wikidata team will upload your mismatches for you.
+
 ### Uploading an import file
 
 To upload an import file, users may send a request to our `POST /api/imports` API endpoint.

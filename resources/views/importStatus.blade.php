@@ -4,7 +4,7 @@
     </div>
     @foreach ($imports as $import)
         <dl class="import-meta import-meta-{{ $import->status }}">
-            <dt class="download-csv"><a class="button primary neutral" href="{{ route('store.imports-overview', [ $import->id ]) }}"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon svg-black-fill" />{{__('store-layout.button:download-import-csv') }}</a></dt>
+            <dt class="download-csv"><a class="button primary neutral" href="{{ route('store.import-results', [ $import->id ]) }}"><img src="{{ asset('/images/download-stats.svg') }}" class="button-icon svg-black-fill" />{{__('store-layout.button:download-import-csv') }}</a></dt>
             <dt>{{ __('import-status.item:status') }}</dt>
             <dd>{{ __('import-status.item:status.' . $import->status) }}</dd>
 

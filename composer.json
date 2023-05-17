@@ -9,8 +9,8 @@
         "ext-zip": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.4.5",
-        "inertiajs/inertia-laravel": "^0.6.4",
+        "guzzlehttp/guzzle": "^7.6.1",
+        "inertiajs/inertia-laravel": "0.6.9",
         "kevinrob/guzzle-cache-middleware": "^4.0.2",
         "laravel/framework": "^8.83.26",
         "laravel/sanctum": "^2.15.1",
@@ -19,14 +19,14 @@
         "taavi/laravel-socialite-mediawiki": "^1.4"
     },
     "require-dev": {
-        "facade/ignition": "^2.17.6",
+        "facade/ignition": "^2.17.7",
         "fakerphp/faker": "^1.20.0",
         "laravel/dusk": "^6.25.1",
         "laravel/sail": "^1.51.1",
         "mockery/mockery": "^1.5.0",
         "nunomaduro/collision": "^5.11",
-        "phpunit/phpunit": "^9.5.26",
-        "squizlabs/php_codesniffer": "^3.7.1",
+        "phpunit/phpunit": "^9.6.8",
+        "squizlabs/php_codesniffer": "^3.7.2",
         "timacdonald/log-fake": "^1.9"
     },
     "autoload": {

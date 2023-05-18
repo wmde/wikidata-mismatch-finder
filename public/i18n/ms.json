@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tofeiku"
+		]
+	},
+	"about-mismatch-finder-title": "Tentang alat ini",
+	"find-more": "Ketahui lebih lanjut",
+	"item-form-id-input-label": "Sila tambah satu pengenal pasti Butir setiap baris",
+	"item-form-id-input-placeholder": "Contohnya:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "Semak Butir",
+	"log-in": "Log masuk",
+	"log-out": "Log keluar",
+	"column-property": "Sifat",
+	"column-wikidata-value": "Nilai di Wikidata",
+	"column-external-value": "Nilai di sumber luar",
+	"column-review-status": "Status",
+	"column-upload-info": "Maklumat muat naik",
+	"column-external-source": "Sumber luar",
+	"empty-value": "Tiada",
+	"review-status-wikidata": "Data salah di Wikidata",
+	"review-status-missing": "Data hilang di Wikidata",
+	"review-status-external": "Data salah di sumber luar",
+	"review-status-both": "Kedua-duanya salah",
+	"results-instructions-button": "Arahan",
+	"confirmation-dialog-title": "Langkah seterusnya",
+	"results-full-description-button": "baca penerangan penuh",
+	"confirmation-dialog-button": "Teruskan",
+	"confirmation-dialog-option-label": "Jangan tunjukkan lagi",
+	"confirm-dialog-button": "Sahkan",
+	"faq-button": "Maklumat lanjut",
+	"wikidata-tool-footer-about-tool": "Perihal $1",
+	"wikidata-tool-footer-source": "Dapatkan kod sumber",
+	"wikidata-tool-footer-issues": "Laporkan masalah",
+	"wikidata-tool-footer-about-us": "Tentang kami",
+	"wikidata-tool-footer-privacy": "Dasar privasi",
+	"wikidata-tool-footer-wmde": "Wikimedia Deutschland",
+	"tool-query-builder": "Pembina Pertanyaan"
+}

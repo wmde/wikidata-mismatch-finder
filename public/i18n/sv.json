@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jopparn",
+			"Sabelöga"
+		]
+	},
+	"about-mismatch-finder-title": "Om verktyget",
+	"about-mismatch-finder-description": "Mismatch Finder visar dig data på Wikidata som skiljer sig från data i andra databaser, kataloger eller webbplatser (exempelvis om någons födelsedatum i Wikidata inte stämmer överens med motsvarande uppgift i Tyska nationalbibliotekets katalog). Sådana felmatchningar behöver åtgärdas och Mismatcher Finder hjälper dig att göra det.",
+	"find-more": "Ta reda på mer",
+	"item-form-title": "Vilka objekt behöver kontrolleras?",
+	"item-form-id-input-label": "Lägg till en objektidentifierare per rad",
+	"item-form-id-input-placeholder": "Till exempel:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "Kontrollera objekt",
+	"log-in": "Logga in",
+	"log-out": "Logga ut",
+	"mismatch-finder-title": "Wikidata Mismatch Finder",
+	"item-form-error-message-empty": "Ange objektsidentifierare som bör kontrolleras.",
+	"item-form-error-message-max": "Minska antalet objektidentifierare för att vara inom gränsen ($1)",
+	"item-form-error-message-invalid": "En eller fler objektidentifierare kunde inte bearbetats. Se till att bara lägga till en identifierare per rad, utan mellanslag eller komma. Objektidentifierare borde bara vara en uppsättning giltiga siffror som föregås av Q (exempelvis: Q80378).",
+	"server-error": "Servern stötte på ett tillfälligt fel och kunde inte slutföra din begäran.",
+	"column-property": "Egenskap",
+	"column-wikidata-value": "Värde på Wikidata",
+	"column-external-value": "Värde på extern källa",
+	"column-review-status": "Status",
+	"column-upload-info": "Uppladdningsinformation",
+	"column-external-source": "Extern källa",
+	"no-mismatches-found-message": "Inga felmatchningar hittades för:",
+	"random-mismatches": "Slumpmässiga felmatchningar",
+	"empty-value": "Inga",
+	"no-mismatches-available-for-review": "För närvarande finns det inga tillgängliga felmatchningar att granska.",
+	"review-status-pending": "Väntar på granskning",
+	"review-status-wikidata": "Fel data på Wikidata",
+	"review-status-missing": "Saknar data på Wikidata",
+	"review-status-external": "Fel data på extern källa",
+	"review-status-both": "Båda är fel",
+	"review-status-none": "Inget av ovanstående",
+	"result-form-submit": "Spara granskningar",
+	"changes-submitted-message": "Granskning sparades för:",
+	"log-in-message": "<a href=\"$1\">Logga in</a> för att göra ändringar."
+}

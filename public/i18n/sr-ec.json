@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kizule",
+			"Milicevic01"
+		]
+	},
+	"about-mismatch-finder-title": "О алатки",
+	"find-more": "Сазнај више",
+	"log-in": "Пријави ме",
+	"log-out": "Одјави ме",
+	"column-property": "Својство",
+	"column-wikidata-value": "Вредност на Википодацима",
+	"column-external-value": "Вредност у спољном извору",
+	"column-review-status": "Статус",
+	"column-external-source": "Спољашњи извори",
+	"empty-value": "Ништа",
+	"review-status-both": "Обоје погрешно",
+	"review-status-none": "Ништа од наведеног",
+	"results-instructions-button": "Упутства",
+	"confirmation-dialog-title": "Следећи кораци",
+	"results-full-description-button": "прочитај цео опис",
+	"confirmation-dialog-button": "Настави",
+	"confirmation-dialog-option-label": "Не приказуј поново",
+	"confirm-dialog-button": "Потврди",
+	"faq-button": "Више информација",
+	"wikidata-tool-footer-about-tool": "О $1",
+	"wikidata-tool-footer-license": "Под лиценцом <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-source": "Изворни код",
+	"wikidata-tool-footer-issues": "Пријави проблем",
+	"wikidata-tool-footer-about-us": "О нама",
+	"wikidata-tool-footer-privacy": "Политика приватности",
+	"wikidata-tool-footer-wmde": "Викимедија Немачке",
+	"tool-curious-facts": "Занимљиви факти"
+}

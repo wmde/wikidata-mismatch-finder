@@ -397,6 +397,15 @@ If, after following the steps in the [Working with OAuth section](#oauth), you a
 1. Make sure that your `APP_URL` is set correctly to your localhost address and the port your application is running on (if running on a non default port).
 1. Double check to see that the WMF has emailed to approve your localhost OAuth consumer, if they have not responded yet, please wait patiently, as the review process might take a few hours.
 
+## Chore: Updating i18n files
+
+Periodically, translatewiki.net will open a PR against our repository with translation updates. In order to make sure our interface is fully localized, we should review and merge these changes:
+
+1. Check out the branch for the i18n update PR.
+1. Run mismatch finder locally with `sail up`
+1. Open the your local envoronment in the browser and add the `uselang` parameter with a language code that is included in the change (for example `uselang=he`, if the change includes a `he.json` file).
+1. Confirm that the ui is still intact, and report any bugs that may have occurred as a result.
+
 ## Chore: Updating dependencies
 
 ### Npm dependencies

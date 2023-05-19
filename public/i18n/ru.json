@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac",
+			"Okras"
+		]
+	},
+	"about-mismatch-finder-title": "Об этом инструменте",
+	"item-form-id-input-placeholder": "Например:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Войти",
+	"log-out": "Выйти",
+	"column-property": "Свойство",
+	"column-wikidata-value": "Значение в Викиданных",
+	"column-external-value": "Значение во внешнем источнике",
+	"column-review-status": "Состояние",
+	"column-upload-info": "Информация о загрузке",
+	"column-external-source": "Внешний источник",
+	"review-status-wikidata": "Неверные данные в Викиданных",
+	"review-status-missing": "Отсутствуют данные в Викиданных",
+	"results-instructions-button": "Инструкции",
+	"confirmation-dialog-title": "Следующие шаги",
+	"results-full-description-button": "прочитать полное описание",
+	"confirmation-dialog-button": "Продолжить",
+	"confirmation-dialog-option-label": "Больше не показывать",
+	"confirm-dialog-button": "Подтвердить",
+	"faq-button": "Подробнее",
+	"faq-dialog-question-more-info": "Где я могу найти дополнительную информацию?",
+	"wikidata-tool-footer-license": "Под лицензией <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-source": "Получить исходный код",
+	"wikidata-tool-footer-issues": "Сообщить о проблеме",
+	"wikidata-tool-footer-about-us": "О нас",
+	"wikidata-tool-footer-privacy": "Политика конфиденциальности",
+	"wikidata-tool-footer-wmde": "Викимедиа Германия",
+	"wikidata-tool-footer-team": "Сделано с ♥ <a href=\"$1\">командой Викиданных</a>",
+	"mismatch-finder-footer-more-tools": "Ещё инструменты по работе с качеством данных",
+	"tool-query-builder": "Конструктор запросов",
+	"tool-item-quality-evaluator": "Оценка качества элементов",
+	"tool-curious-facts": "Любопытные факты"
+}

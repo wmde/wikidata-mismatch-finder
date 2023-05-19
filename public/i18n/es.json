@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"about-mismatch-finder-title": "Acerca de esta herramienta",
+	"item-form-title": "¿Qué elementos se deben comprobar?",
+	"item-form-submit": "Comprobar elementos",
+	"log-in": "Acceder",
+	"log-out": "Salir",
+	"column-property": "Propiedad",
+	"column-wikidata-value": "Valor en Wikidata",
+	"column-external-value": "Valor en la fuente externa",
+	"column-review-status": "Estado",
+	"column-upload-info": "Información de carga",
+	"column-external-source": "Fuente externa",
+	"empty-value": "Ninguno",
+	"review-status-wikidata": "Datos incorrectos en Wikidata",
+	"review-status-missing": "Datos faltantes en Wikidata",
+	"review-status-both": "Ambos son incorrectos",
+	"review-status-none": "Nada de lo anterior",
+	"results-instructions-button": "Instrucciones",
+	"confirmation-dialog-title": "Próximos pasos",
+	"confirmation-dialog-option-label": "No mostrar nuevamente",
+	"confirm-dialog-button": "Confirmar",
+	"faq-button": "Más información",
+	"wikidata-tool-footer-source": "Obtener el código fuente",
+	"wikidata-tool-footer-about-us": "Acerca de nosotros",
+	"wikidata-tool-footer-privacy": "Normativa de privacidad",
+	"wikidata-tool-footer-team": "Hecho con ♥ por el <a href=\"$1\">equipo de Wikidata</a>",
+	"mismatch-finder-footer-more-tools": "Más herramientas de calidad de datos",
+	"tool-query-builder": "Creador de consultas",
+	"tool-curious-facts": "Datos curiosos"
+}

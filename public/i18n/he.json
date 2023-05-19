@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80"
+		]
+	},
+	"about-mismatch-finder-title": "על הכלי הזה",
+	"about-mismatch-finder-description": "מאתר אי־התאמות (Mismatch Finder) מראה לך נתונים בוויקינתונים ששונים מהנתונים במסד נתונים, קטלוג או אתר אחר (למשל, תאריך הלידה של מישהו בוויקינתונים אינו תואם את הערך המקביל בקטלוג של הספרייה הלאומית הגרמנית). אי־התאמה כזאת זקוקות לתיקון, ומאתר האי־התאמות עוזר לך לעשות בדיוק את זה.",
+	"find-more": "מידע נוסף",
+	"item-form-title": "אילו פריטים יש לבדוק?",
+	"item-form-id-input-label": "נא להוסיף מזהה פריט אחד בכל שורה",
+	"item-form-id-input-placeholder": "למשל:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "לבדוק פריטים",
+	"log-in": "כניסה לחשבון",
+	"log-out": "יציאה מהחשבון",
+	"mismatch-finder-title": "מאתר האי־התאמה של ויקינתונים",
+	"column-property": "מאפיין",
+	"column-wikidata-value": "ערך בוויקינתונים",
+	"column-external-value": "ערך במקור חיצוני",
+	"column-review-status": "מצב",
+	"column-upload-info": "מידע על ההעלאה",
+	"column-external-source": "מקור חיצוני",
+	"no-mismatches-found-message": "לא נמצאו אי־התאמות עבור:",
+	"random-mismatches": "אי־התאמה אקראית",
+	"empty-value": "אין",
+	"no-mismatches-available-for-review": "כרגע אין אי־התאמות זמינות לבדיקה.",
+	"review-status-pending": "ממתינה לסקירה",
+	"review-status-wikidata": "נתונים שגויים בוויקינתונים",
+	"review-status-missing": "נתונים חסרים בוויקינתונים",
+	"review-status-external": "נתונים שגויים במקור חיצוני",
+	"review-status-both": "שניהם שגויים",
+	"review-status-none": "אף אחד מהנ\"ל",
+	"result-form-submit": "שמירת סקירות",
+	"changes-submitted-message": "הסקירה נשמרה בהצלחה עבור:"
+}

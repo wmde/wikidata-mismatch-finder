@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"আফতাবুজ্জামান"
+		]
+	},
+	"about-mismatch-finder-title": "এই সরঞ্জাম সম্পর্কে",
+	"find-more": "আরও জানুন",
+	"log-in": "প্রবেশ করুন",
+	"log-out": "প্রস্থান করুন",
+	"column-review-status": "স্থিতি",
+	"column-upload-info": "আপলোডের তথ্য",
+	"column-external-source": "বহিঃউৎস",
+	"results-instructions-button": "নির্দেশাবলী",
+	"confirmation-dialog-title": "পরবর্তী ধাপ",
+	"results-full-description-button": "সম্পূর্ণ বিবরণ পড়ুন",
+	"confirmation-dialog-message-intro": "এখন যেহেতু পর্যালোচনাগুলি সফলভাবে সংরক্ষণ করা হয়েছে, মনে রাখবেন:",
+	"confirmation-dialog-button": "অগ্রসর হোন",
+	"confirmation-dialog-option-label": "আবার দেখাবেন না",
+	"confirm-dialog-button": "নিশ্চিত করুন",
+	"faq-button": "আরও তথ্য",
+	"wikidata-tool-footer-about-tool": "$1 সম্পর্কে",
+	"wikidata-tool-footer-license": "<a href=\"$1\">$2</a> এর অধীনে লাইসেন্সকৃত।",
+	"wikidata-tool-footer-source": "উৎস কোড পান",
+	"wikidata-tool-footer-issues": "সমস্যা প্রতিবেদন করুন",
+	"wikidata-tool-footer-about-us": "আমাদের সম্পর্কে",
+	"wikidata-tool-footer-privacy": "গোপনীয়তার নীতি",
+	"wikidata-tool-footer-wmde": "উইকিমিডিয়া ডয়েচল্যান্ড",
+	"wikidata-tool-footer-team": "<a href=\"$1\">উইকিউপাত্ত দল</a> কর্তৃক ♥ দিয়ে সৃষ্ট",
+	"mismatch-finder-license": "বিএসডি ৩-ক্লজ লাইসেন্স"
+}

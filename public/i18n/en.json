@@ -72,7 +72,7 @@
     "faq-dialog-question-relevance": "How up-to-date are the mismatches?",
     "faq-dialog-answer-relevance": "It depends! Inspecting external databases, catalogs and websites takes a lot of time and resources. The checks are performed periodically in batches. We try hard to remove outdated mismatches, but you might still find some.",
     "faq-dialog-question-contributing": "How can I contribute new mismatches?",
-    "faq-dialog-answer-contributing": "If you've compared Wikidata's data against an external source and have found mismatches, you can open a ticket in <a href=\"$1\">Phabricator</a> to request an upload of your mismatches.",
+    "faq-dialog-answer-contributing": "If you've compared Wikidata's data against an external source and have found mismatches, you can open a task in <a href=\"$1\">Phabricator</a> to request an upload of your mismatches.",
     "faq-dialog-question-more-info": "Where can I find more information?",
     "faq-dialog-answer-more-info": "This tool’s documentation and the source code are available on <a href=\"$1\">GitHub</a>. You can read more about the Mismatch Finder on <a href=\"$2\">Wikidata</a> or you can <a href=\"$3\">give us feedback</a>.",
     "wikidata-tool-footer-about-tool": "About the $1",

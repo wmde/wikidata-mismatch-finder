@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jopparn",
-			"Sabelöga"
+			"Sabelöga",
+			"WikiPhoenix"
 		]
 	},
 	"about-mismatch-finder-title": "Om verktyget",
@@ -37,5 +38,21 @@
 	"review-status-none": "Inget av ovanstående",
 	"result-form-submit": "Spara granskningar",
 	"changes-submitted-message": "Granskning sparades för:",
-	"log-in-message": "<a href=\"$1\">Logga in</a> för att göra ändringar."
+	"log-in-message": "<a href=\"$1\">Logga in</a> för att göra ändringar.",
+	"results-page-description": "Du kan fixa dem! Tabellen nedan visar länkar till uttalanden på Wikidata och till inläggen på den externa källan. Du kan jämföra värdena och manuellt fixa missmatchningarna genom att redigera Wikidata eller den externa källan. Efter att ha granskat och åtgärdat missmatchningarna kan du ange dess status med alternativen från rullgardinsmenyn. Verktyget kommer inte utomatiskt utföra dessa ändringar åt dig när du skickat in.",
+	"results-instructions-button": "Instruktioner",
+	"confirmation-dialog-title": "Nästa steg",
+	"results-full-description-button": "läs hela beskrivningen",
+	"confirmation-dialog-button": "Fortsätt",
+	"confirmation-dialog-option-label": "Visa inte igen",
+	"confirm-dialog-button": "Bekräfta",
+	"faq-button": "Mer information",
+	"wikidata-tool-footer-about-tool": "Om $1",
+	"wikidata-tool-footer-license": "Licensierad under <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-source": "Skaffa källkoden",
+	"wikidata-tool-footer-issues": "Rapportera ett problem",
+	"wikidata-tool-footer-about-us": "Om oss",
+	"wikidata-tool-footer-privacy": "Integritetspolicy",
+	"wikidata-tool-footer-team": "Gjord med ♥ av <a href=\"$1\">Wikidata-team</a>",
+	"tool-curious-facts": "Kul fakta"
 }

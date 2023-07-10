@@ -345,6 +345,9 @@ FORWARD_DB_PORT=3308
 ##...
 ```
 
+(You *don’t* need to adjust the `DB_PORT` in `.env.dusk.local` after this –
+that variable needs to match the `.env` `DB_PORT`, which you haven’t changed, not the `FORWARD_DB_PORT`.)
+
 #### `laravel.test`
 
 **Problem:** Sail refuses to start with the following error.

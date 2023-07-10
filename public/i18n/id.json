@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Veracious"
+		]
+	},
+	"about-mismatch-finder-title": "Tentang perkakas ini",
+	"find-more": "Ketahui lebih lanjut",
+	"item-form-title": "Butir mana yang harus dicek?",
+	"item-form-id-input-placeholder": "Misalnya:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "Cek Butir",
+	"log-in": "Masuk log",
+	"log-out": "Keluar log",
+	"column-property": "Atribut",
+	"column-wikidata-value": "Nilai di Wikidata",
+	"column-external-value": "Nilai di sumber luar",
+	"column-review-status": "Status",
+	"column-upload-info": "Unggah info",
+	"column-external-source": "Sumber luar",
+	"empty-value": "Tidak ada",
+	"no-mismatches-available-for-review": "Saat ini tidak ada ketidakcocokan yang perlu ditinjau.",
+	"review-status-pending": "Menunggu pengulasan",
+	"review-status-both": "Keduanya salah",
+	"review-status-none": "Bukan dari salah satu di atas",
+	"result-form-submit": "Simpan tinjauan",
+	"changes-submitted-message": "Tinjauan berhasil disimpan untuk:",
+	"results-instructions-button": "Petunjuk",
+	"results-full-description-button": "baca deskripsi lengkapnya",
+	"confirmation-dialog-option-label": "Jangan tunjukkan lagi",
+	"confirm-dialog-button": "Konfirmasi",
+	"results-back-button": "Temukan lebih banyak ketidakcocokan",
+	"faq-button": "Informasi lebih lanjut",
+	"wikidata-tool-footer-about-tool": "Tentang $1",
+	"wikidata-tool-footer-source": "Dapatkan kode sumber",
+	"wikidata-tool-footer-issues": "Laporkan masalah",
+	"wikidata-tool-footer-about-us": "Tentang kami",
+	"wikidata-tool-footer-privacy": "Kebijakan privasi",
+	"wikidata-tool-footer-wmde": "Wikimedia Jerman",
+	"wikidata-tool-footer-team": "Dibuat dengan ♥ oleh <a href=\"$1\">Tim Wikidata</a>",
+	"tool-query-builder": "Pembuat Kueri",
+	"tool-constraints-violation-checker": "Pemeriksa Pelanggaran Pewatas"
+}

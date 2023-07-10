@@ -70,7 +70,7 @@
 	"faq-dialog-question-relevance": "Dans quelle mesure les incohérences sont-elles à jour ?",
 	"faq-dialog-answer-relevance": "Ça dépend ! Inspecter les base de données externes, les catalogues et les sites web réclame beaucoup de temps et de ressources. Les vérifications sont effectuées périodiquement par des tâches de fond. Nous travaillons dur pour supprimer les incohérences obsolètes, mais vous pouvez encore en trouver.",
 	"faq-dialog-question-contributing": "Comment puis-je contribuer à signaler de nouvelles incohérences ?",
-	"faq-dialog-answer-contributing": "Si vous avez comparé les données de Wikidata avec une source externe et que vous avez trouvé des incohérences, vous pouvez ouvrir un ticket dans <a href=\"$1\">Phabricator</a> pour demander une mise à jour de vos incohérences.",
+	"faq-dialog-answer-contributing": "Si vous avez comparé les données de Wikidata avec une source externe et que vous avez trouvé des incohérences, vous pouvez ouvrir une tâche dans <a href=\"$1\">Phabricator</a> pour demander une mise à jour de vos incohérences.",
 	"faq-dialog-question-more-info": "Où puis-je trouver plus d’informations ?",
 	"faq-dialog-answer-more-info": "La documentation de cet outil et le code source sont disponibles sur <a href=\"$1\">GitHub</a>. Vous pouvez lire davantage sur le Chercheur d’incohérences sur <a href=\"$2\">Wikidata</a> ou vous pouvez <a href=\"$3\">nous donner votre avis</a>.",
 	"wikidata-tool-footer-about-tool": "À propos de $1",

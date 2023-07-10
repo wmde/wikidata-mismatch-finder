@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16",
+			"Ontsed"
+		]
+	},
+	"about-mismatch-finder-title": "Informazioni su questo strumento",
+	"find-more": "Per saperne di più",
+	"item-form-title": "Quali elementi devono essere controllati?",
+	"item-form-id-input-placeholder": "Ad esempio:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Accedi",
+	"log-out": "Esci",
+	"column-property": "Proprietà",
+	"column-wikidata-value": "Valore su Wikidata",
+	"column-review-status": "Stato",
+	"empty-value": "Nessuno",
+	"review-status-wikidata": "Dati errati su Wikidata",
+	"review-status-both": "Entrambi sono sbagliati",
+	"results-instructions-button": "Istruzioni",
+	"results-full-description-button": "leggi la descrizione completa",
+	"confirmation-dialog-button": "Procedi",
+	"confirmation-dialog-option-label": "Non mostrare più",
+	"confirm-dialog-button": "Conferma",
+	"faq-button": "Ulteriori informazioni",
+	"wikidata-tool-footer-source": "Ottieni il codice sorgente",
+	"wikidata-tool-footer-issues": "Segnala un problema",
+	"wikidata-tool-footer-about-us": "Su di noi",
+	"wikidata-tool-footer-privacy": "Normativa sulla privacy",
+	"wikidata-tool-footer-wmde": "Wikimedia Germania",
+	"wikidata-tool-footer-team": "Realizzato con ♥ dal <a href=\"$1\">team Wikidata</a>",
+	"mismatch-finder-license": "Licenza BSD a 3 clausole",
+	"tool-query-builder": "Generatore di query",
+	"tool-curious-facts": "Curiosità"
+}

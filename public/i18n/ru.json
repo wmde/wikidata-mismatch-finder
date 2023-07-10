@@ -32,6 +32,7 @@
 	"results-back-button": "Найти ещё несоответствий",
 	"faq-button": "Подробнее",
 	"faq-dialog-question-more-info": "Где я могу найти дополнительную информацию?",
+	"wikidata-tool-footer-about-tool": "О $1",
 	"wikidata-tool-footer-license": "Под лицензией <a href=\"$1\">$2</a>",
 	"wikidata-tool-footer-source": "Получить исходный код",
 	"wikidata-tool-footer-issues": "Сообщить о проблеме",

@@ -70,7 +70,7 @@
 	"faq-dialog-question-relevance": "Sejauh manakah keterkinian ketidakpadanan tersebut?",
 	"faq-dialog-answer-relevance": "Ia bergantung! Memeriksa pangkalan data luaran, katalog dan tapak web memerlukan banyak masa dan sumber. Pemeriksaan dilakukan secara berkala dan secara berkelompok. Kami berusaha keras untuk mengalih keluar ketidakpadanan yang sudah lapuk, tetapi anda mungkin masih menemui beberapa.",
 	"faq-dialog-question-contributing": "Bagaimanakah saya boleh menyumbang kepada ketidakpadanan baharu?",
-	"faq-dialog-answer-contributing": "Jika anda telah membandingkan data Wikidata dengan sumber luaran dan telah menemui ketidakpadanan, anda boleh membuka tiket di <a href=\"<span class=\"notranslate\" translate=\"no\">$1 \">Fabrikator</a> untuk meminta muat naik ketidakpadanan anda.",
+	"faq-dialog-answer-contributing": "Jika anda telah membandingkan data Wikidata dengan sumber luaran dan telah menemui ketidakpadanan, anda boleh membuka tugas di <a href=\"<span class=\"notranslate\" translate=\"no\">$1 \">Fabrikator</a> untuk meminta muat naik ketidakpadanan anda.",
 	"faq-dialog-question-more-info": "Di manakah saya boleh mendapatkan maklumat lanjut?",
 	"faq-dialog-answer-more-info": "Dokumentasi peralatan ini dan kod sumber tersedia di <a href=\"$1\">GitHub</a>. Anda boleh membaca lebih lanjut mengenai Pencari Ketidakpadanan di <a href=\"$2\">Wikidata</a> atau anda boleh <a href=\"$3\">berikan maklum balas anda</a> .",
 	"wikidata-tool-footer-about-tool": "Perihal $1",

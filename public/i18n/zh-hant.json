@@ -69,7 +69,7 @@
 	"faq-dialog-question-relevance": "不相符內容的最新狀況如何？",
 	"faq-dialog-answer-relevance": "這取決於—檢查外部資料庫、目錄和網站會需要花費的大量時間和資源。檢查會分批定期執行，我們也盡力移除掉過過時的不相符內容，但可能仍會被您發現到一些。",
 	"faq-dialog-question-contributing": "我要如何貢獻新的不相符內容？",
-	"faq-dialog-answer-contributing": "如果您已將維基數據的資料與外部來源進行比較，並發現到不相符內容，您可以在 <a href=\"$1\">Phabricator</a> 上開啟一張工單，來請求上傳您找到的不相符內容。",
+	"faq-dialog-answer-contributing": "如果您已將維基數據的資料與外部來源進行比較，並發現到不相符內容，您可以在 <a href=\"$1\">Phabricator</a> 上開放一份任務，來請求上傳您找到的不相符內容。",
 	"faq-dialog-question-more-info": "我在哪裡可以找到更多資訊？",
 	"faq-dialog-answer-more-info": "工具的文件和原始碼可在 <a href=\"$1\">GitHub</a> 上找到。您可以<a href=\"$2\">維基數據</a>上閱讀關於不相符查找器的更多內容，或者是您可以<a href=\"$3\">給予我們意見回饋</a>。",
 	"wikidata-tool-footer-about-tool": "關於$1",

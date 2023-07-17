@@ -136,8 +136,9 @@ export default defineComponent({
         onToggleLanguageSelector(): void {
             this.showLanguageSelector = !this.showLanguageSelector;
             if (this.showLanguageSelector === true) {
+                const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
-                    this.$refs.languageSelector.focus();
+                    languageSelectorRefs.focus();
                 });
             }
         },

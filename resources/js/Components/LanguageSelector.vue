@@ -83,7 +83,8 @@ export default Vue.extend( {
 		},
 		// eslint-disable-next-line vue/no-unused-properties -- exported method
 		focus(): void {
-			( this.$refs.input as InstanceType<typeof LanguageSelectorInput> ).focus();
+			const inputRef = this.$refs.input as InstanceType<typeof HTMLInputElement>
+			inputRef.focus();
 		},
 		onArrowDown(): void {
 			this.highlightedIndex = ( this.highlightedIndex + 1 ) % this.shownLanguages.length;

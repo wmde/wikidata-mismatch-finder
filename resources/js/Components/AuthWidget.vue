@@ -26,10 +26,16 @@ export default Vue.extend({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+$tinyViewportWidth: 38em;
 
 .auth-widget {
     display: flex;
     color: $color-base-50;
+
+    @media (max-width: $tinyViewportWidth) {
+        justify-content: space-between;
+        width: 100%
+    }
 
     .username {
         margin-inline-end: $dimension-spacing-xlarge;

@@ -2,30 +2,29 @@
     <div class="website">
         <main class="content-wrap">
             <header>
-                <InertiaLink href="/">
+                <InertiaLink href="/" :data="{ foo: bar }">
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
-                <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
-                    <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
-                        @click.native="onToggleLanguageSelector">
-                        <template #prefix>
-                            <Icon type="language-selector" />
-                        </template>
-                        {{ currentLanguageAutonym }}
-                    </LanguageSelectorButton>
-                    <LanguageSelector
-                        v-show="showLanguageSelector"
-                        ref="languageSelector"
-                        @close="onCloseLanguageSelector"
-                        @select="onChangeLanguage">
-                        <template #no-results>
-                            {{ $i18n('language-selector-no-results') }}
-                        </template>
-                    </LanguageSelector>
-                </div>
-                <div class="auth-widget">
-                    <auth-widget :user="user" />
+                <div class="userSection">
+                    <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
+                        <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
+                            @click.native="onToggleLanguageSelector">
+                            <template #prefix>
+                                <Icon type="language-selector" />
+                            </template>
+                            {{ currentLanguageAutonym }}
+                        </LanguageSelectorButton>
+                        <LanguageSelector v-show="showLanguageSelector" ref="languageSelector"
+                            @close="onCloseLanguageSelector" @select="onChangeLanguage">
+                            <template #no-results>
+                                {{ $i18n('language-selector-no-results') }}
+                            </template>
+                        </LanguageSelector>
+                    </div>
+                    <div class="auth-widget">
+                        <auth-widget :user="user" />
+                    </div>
                 </div>
             </header>
             <slot />
@@ -184,6 +183,17 @@ $tinyViewportWidth: 38em;
 
     main>header {
         flex-direction: column;
+
+        .userSection {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+
+            @media (max-width: $tinyViewportWidth) {
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
     }
 
     @media (min-width: $width-breakpoint-tablet) {

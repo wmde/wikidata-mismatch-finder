@@ -70,7 +70,7 @@
 	"faq-dialog-question-relevance": "Wie aktuell sind die Unstimmigkeiten?",
 	"faq-dialog-answer-relevance": "Es kommt darauf an! Die Überprüfung von externen Datenbanken, Katalogen und Websites nimmt viel Zeit und Ressourcen in Anspruch. Die Prüfungen werden in regelmäßigen Abständen stapelweise durchgeführt. Wir bemühen uns, veraltete Unstimmigkeiten zu beseitigen, aber es kann sein, dass du trotzdem welche findest.",
 	"faq-dialog-question-contributing": "Wie kann ich neue Unstimmigkeiten einbringen?",
-	"faq-dialog-answer-contributing": "Wenn du die Daten von Wikidata mit einer externen Quelle verglichen hast und Unstimmigkeiten festgestellt hast, kannst du ein Ticket in <a href=\"$1\">Phabricator</a> öffnen, um einen Upload der Unstimmigkeiten zu beantragen.",
+	"faq-dialog-answer-contributing": "Wenn du die Daten von Wikidata mit einer externen Quelle verglichen hast und Abweichungen festgestellt hast, kannst du eine Aufgabe in <a href=\"$1\">Phabricator</a> öffnen, um einen Upload deiner Abweichungen anzufordern.",
 	"faq-dialog-question-more-info": "Wo finde ich weitere Informationen?",
 	"faq-dialog-answer-more-info": "Die Dokumentation zu diesem Tool und der Quellcode sind auf <a href=\"$1\">GitHub</a> verfügbar. Du kannst mehr über den Mismatch Finder auf <a href=\"$2\">Wikidata</a> lesen oder du kannst uns <a href=\"$3\">Feedback geben</a>.",
 	"wikidata-tool-footer-about-tool": "Über den $1",

@@ -2,7 +2,7 @@
     <div class="website">
         <main class="content-wrap">
             <header>
-                <InertiaLink href="/" :data="{ foo: bar }">
+                <InertiaLink href="/">
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
@@ -127,7 +127,14 @@ export default defineComponent({
     },
     methods: {
         onChangeLanguage(newLanguage: string): void {
-           document.location.href = '/?uselang=' + newLanguage;
+            /**
+             * Manipulate the url to maintain it as the single source of truth
+             * and avoid having either to load all language files upfront or
+             * request language file reactively.
+             */
+            const url = new URL(document.URL);
+            url.searchParams.set('uselang', newLanguage);
+            document.location.assign(url.toString());
         },
         onCloseLanguageSelector(): void {
             this.showLanguageSelector = false;

@@ -10,7 +10,7 @@
 				class="languageSelector__input"
 				:value="value"
 				:placeholder="placeholder"
-				@input="$emit( 'input', $event.target.value )"
+				@input="onInput"
 				@keydown.tab="onTab"
 				@keydown.down.prevent="onArrowDown"
 				@keydown.up.prevent="onArrowUp"
@@ -76,6 +76,9 @@ export default Vue.extend( {
 		},
 		onEscape() {
 			this.$emit( 'escape' );
+		},
+		onInput( event : Event ) {
+			this.$emit( 'input', (event.target as HTMLInputElement).value );
 		},
 		onTab() {
 			this.$emit( 'tab' );

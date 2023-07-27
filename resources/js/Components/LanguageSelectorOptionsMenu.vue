@@ -69,7 +69,7 @@ export default Vue.extend( {
 				above = Math.floor( item.top ) < container.top,
 				below = Math.ceil( item.bottom ) > container.bottom;
 
-			if ( !( above || below ) ) {
+			if ( !above && !below ) {
 				return;
 			}
 			child.scrollIntoView( { behavior: 'smooth', block: 'nearest', inline: 'start' } );

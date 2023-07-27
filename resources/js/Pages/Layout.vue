@@ -6,8 +6,25 @@
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
-                <div class="auth-widget">
-                    <auth-widget :user="user" />
+                <div class="userSection">
+                    <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
+                        <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
+                            @click.native="onToggleLanguageSelector">
+                            <template #prefix>
+                                <Icon type="language-selector" />
+                            </template>
+                            {{ currentLanguageAutonym }}
+                        </LanguageSelectorButton>
+                        <LanguageSelector v-show="showLanguageSelector" ref="languageSelector"
+                            @close="onCloseLanguageSelector" @select="onChangeLanguage">
+                            <template #no-results>
+                                {{ $i18n('language-selector-no-results') }}
+                            </template>
+                        </LanguageSelector>
+                    </div>
+                    <div class="auth-widget">
+                        <auth-widget :user="user" />
+                    </div>
                 </div>
             </header>
             <slot />
@@ -52,31 +69,96 @@
 </template>
 
 <script lang="ts">
-    import { PropType } from 'vue';
-    import { Link as InertiaLink } from '@inertiajs/inertia-vue';
-    import { Link as WikitLink } from '@wmde/wikit-vue-components';
+import { PropType } from 'vue';
+import { Link as InertiaLink } from '@inertiajs/inertia-vue';
+import { Link as WikitLink } from '@wmde/wikit-vue-components';
+import { Button as LanguageSelectorButton, Icon } from '@wmde/wikit-vue-components';
+import AuthWidget from '../Components/AuthWidget.vue';
+import LanguageSelector from '../Components/LanguageSelector.vue';
+import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
+import { DirectiveBinding } from 'vue/types/options';
+import defineComponent from '../types/defineComponent';
+import User from '../types/User';
+import languagedata from '@wikimedia/language-data';
 
-    import AuthWidget from '../Components/AuthWidget.vue';
-    import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
+let handleOutsideClick: (event: MouseEvent | TouchEvent) => void;
 
-    import defineComponent from '../types/defineComponent';
-    import User from '../types/User';
+export default defineComponent({
+    components: {
+        AuthWidget,
+        LanguageSelectorButton,
+        Icon,
+        InertiaLink,
+        LanguageSelector,
+        WikidataToolFooter,
+        WikitLink
+    },
+    data() {
+        return {
+            showLanguageSelector: false,
+        };
+    },
+    directives: {
+        detectClickOutside: {
+            inserted(element: HTMLElement, binding: DirectiveBinding): void {
+                handleOutsideClick = (event: MouseEvent | TouchEvent): void => {
+                    const callback = binding.value;
+                    if (!element.contains(event.target as Node)) {
+                        callback();
+                    }
+                };
 
-    export default defineComponent({
-        components: {
-            AuthWidget,
-            InertiaLink,
-            WikidataToolFooter,
-            WikitLink
+                document.addEventListener('click', handleOutsideClick);
+                document.addEventListener('touchstart', handleOutsideClick);
+            },
+            unbind(): void {
+                document.removeEventListener('click', handleOutsideClick);
+                document.removeEventListener('touchstart', handleOutsideClick);
+            },
         },
-        props: {
-            user: Object as PropType<User>
-        }
-    });
+    },
+    computed: {
+        currentLanguageAutonym(): string {
+            return languagedata.getAutonym(document.documentElement.lang);
+        },
+    },
+    props: {
+        user: Object as PropType<User>,
+    },
+    methods: {
+        onChangeLanguage(newLanguage: string): void {
+            /**
+             * Manipulate the url to maintain it as the single source of truth
+             * and avoid having either to load all language files upfront or
+             * request language file reactively.
+             */
+            const url = new URL(document.URL);
+            url.searchParams.set('uselang', newLanguage);
+            document.location.assign(url.toString());
+        },
+        onCloseLanguageSelector(): void {
+            this.showLanguageSelector = false;
+        },
+        onToggleLanguageSelector(): void {
+            this.showLanguageSelector = !this.showLanguageSelector;
+            if (this.showLanguageSelector === true) {
+                const languageSelectorRefs = this.$refs.languageSelector as any;
+                this.$nextTick(() => {
+                    languageSelectorRefs.focus();
+                });
+            }
+        },
+        onClickOutsideLanguageSelector(): void {
+            this.showLanguageSelector = false;
+        },
+    },
+});
 </script>
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+
+$tinyViewportWidth: 38em;
 
 .website {
     .content-wrap {
@@ -88,6 +170,7 @@
         background-image: url('/images/mismatch-finder-logo_mobile.svg');
         width: 268px;
         height: 24px;
+
         @media (min-width: $width-breakpoint-tablet) {
             background-image: url('/images/mismatch-finder-logo.svg');
             width: 384px;
@@ -105,13 +188,34 @@
         width: 1px;
     }
 
-    main > header {
+    main>header {
         flex-direction: column;
+
+        .userSection {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+
+            @media (max-width: $tinyViewportWidth) {
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
     }
 
     @media (min-width: $width-breakpoint-tablet) {
-        main > header {
+        main>header {
             flex-direction: row;
+
+            .languageSelector {
+                >button {
+                    margin-bottom: 2px;
+                }
+
+                @media (min-width: $tinyViewportWidth) {
+                    position: relative;
+                }
+            }
         }
 
         .mismatch-finder-logo {

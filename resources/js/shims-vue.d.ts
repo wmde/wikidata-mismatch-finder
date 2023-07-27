@@ -10,4 +10,11 @@ declare module "*.vue" {
     export default Vue
 }
 
-declare module 'vue-banana-i18n'
+declare module 'vue-banana-i18n';
+
+declare module '@wikimedia/language-data';
+
+declare module '*.svg' {
+    const content: any;
+    export default content;
+  }

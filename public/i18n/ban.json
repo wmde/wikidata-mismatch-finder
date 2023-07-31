@@ -1,0 +1,43 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chinamoonroll"
+		]
+	},
+	"about-mismatch-finder-title": "Indik piranti puniki",
+	"find-more": "Rereh luwih lantur",
+	"item-form-id-input-placeholder": "Sekadi:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Manjing log",
+	"log-out": "Medal log",
+	"column-property": "Atribut",
+	"column-wikidata-value": "Aji ring Wikidata",
+	"column-external-value": "Aji ring wit jaba",
+	"column-review-status": "Status",
+	"column-upload-info": "Unggah info",
+	"column-external-source": "Wit jaba",
+	"empty-value": "Nénten wénten",
+	"review-status-wikidata": "Data iwang ring Wikidata",
+	"review-status-missing": "Data ical ring Wikidata",
+	"review-status-external": "Data iwang ring wit jaba",
+	"review-status-both": "Makakalih iwang",
+	"log-in-message": "Durus <a href=\"$1\">manjing log</a> antuk ngardi gentosan.",
+	"confirmation-dialog-title": "Langkah lantur",
+	"confirmation-dialog-button": "Kaprosés",
+	"confirmation-dialog-option-label": "Sampunang cingakang malih",
+	"confirm-dialog-button": "Konfirmasi",
+	"faq-button": "Pidarta lianan",
+	"wikidata-tool-footer-about-tool": "Indik $1",
+	"wikidata-tool-footer-license": "Kalisénsi sor <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-source": "Polihang kode wit",
+	"wikidata-tool-footer-issues": "Parikandayang pikobet",
+	"wikidata-tool-footer-about-us": "Indik iraga",
+	"wikidata-tool-footer-privacy": "Parikrama paragaan",
+	"wikidata-tool-footer-wmde": "Wikimédia Jerman",
+	"wikidata-tool-footer-team": "Kakardi antuk ♥ olih <a href=\"$1\">Tim Wikidata</a>",
+	"mismatch-finder-license": "Lisénsi Klausa-BSD 3",
+	"mismatch-finder-footer-more-tools": "Luwih langkung piranti kualitas data",
+	"tool-query-builder": "Pawangun Kuéri",
+	"tool-item-quality-evaluator": "Pangaji Kualitas Item",
+	"tool-curious-facts": "Indik Manahin",
+	"tool-constraints-violation-checker": "Panuréksa Palanggaran Kendala"
+}

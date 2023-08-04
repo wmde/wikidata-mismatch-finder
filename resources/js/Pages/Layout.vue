@@ -163,7 +163,6 @@ export default defineComponent({
     }
 
     .mismatch-finder-logo {
-        // margin-block-end: $dimension-layout-small;
         background-image: url('/images/mismatch-finder-logo_mobile.svg');
         width: 268px;
         height: 24px;

@@ -140,6 +140,7 @@ export default defineComponent({
         onToggleLanguageSelector(): void {
             this.showLanguageSelector = !this.showLanguageSelector;
             if (this.showLanguageSelector === true) {
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
@@ -209,7 +210,6 @@ export default defineComponent({
         main>header {
             flex-direction: row;
             flex-wrap: wrap;
-
 
             .languageSelector {
                 >button {

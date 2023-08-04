@@ -156,8 +156,6 @@ export default defineComponent({
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
-$tinyViewportWidth: 38em;
-
 .website {
     .content-wrap {
         max-width: 1168px;
@@ -201,6 +199,10 @@ $tinyViewportWidth: 38em;
             flex-wrap: wrap;
             gap: 1.5rem;
         }
+
+        .languageSelector {
+            position: relative;
+        }
     }
 
     @media (min-width: $width-breakpoint-tablet) {
@@ -208,13 +210,10 @@ $tinyViewportWidth: 38em;
             flex-direction: row;
             flex-wrap: wrap;
 
+
             .languageSelector {
                 >button {
                     margin-bottom: 2px;
-                }
-
-                @media (min-width: $tinyViewportWidth) {
-                    position: relative;
                 }
             }
         }

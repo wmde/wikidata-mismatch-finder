@@ -2,7 +2,7 @@
     <div class="website">
         <main class="content-wrap">
             <header>
-                <InertiaLink href="/">
+                <InertiaLink class="logo-link" href="/">
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
@@ -22,9 +22,7 @@
                             </template>
                         </LanguageSelector>
                     </div>
-                    <div class="auth-widget">
-                        <auth-widget :user="user" />
-                    </div>
+                    <auth-widget :user="user" />
                 </div>
             </header>
             <slot />
@@ -142,6 +140,7 @@ export default defineComponent({
         onToggleLanguageSelector(): void {
             this.showLanguageSelector = !this.showLanguageSelector;
             if (this.showLanguageSelector === true) {
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
@@ -158,15 +157,12 @@ export default defineComponent({
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
-$tinyViewportWidth: 38em;
-
 .website {
     .content-wrap {
         max-width: 1168px;
     }
 
     .mismatch-finder-logo {
-        margin-block-end: $dimension-layout-small;
         background-image: url('/images/mismatch-finder-logo_mobile.svg');
         width: 268px;
         height: 24px;
@@ -190,36 +186,35 @@ $tinyViewportWidth: 38em;
 
     main>header {
         flex-direction: column;
+        gap: 1.5rem;
+
+        .logo-link {
+            @media (min-width: $width-breakpoint-tablet) {
+                width: auto;
+            }
+        }
 
         .userSection {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 1.5rem;
+        }
 
-            @media (max-width: $tinyViewportWidth) {
-                flex-direction: column;
-                justify-content: space-between;
-            }
+        .languageSelector {
+            position: relative;
         }
     }
 
     @media (min-width: $width-breakpoint-tablet) {
         main>header {
             flex-direction: row;
+            flex-wrap: wrap;
 
             .languageSelector {
                 >button {
                     margin-bottom: 2px;
                 }
-
-                @media (min-width: $tinyViewportWidth) {
-                    position: relative;
-                }
             }
-        }
-
-        .mismatch-finder-logo {
-            margin-block-end: 0;
         }
     }
 }

@@ -1,0 +1,43 @@
+{
+	"@metadata": {
+		"authors": [
+			"SMP"
+		]
+	},
+	"about-mismatch-finder-title": "Quant a aquesta utilitat",
+	"item-form-title": "Quins elements s'han de comprovar?",
+	"item-form-id-input-label": "Escriviu un identificador d'element por línia",
+	"item-form-id-input-placeholder": "Per exemple:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "Comprova els elements",
+	"log-in": "Inici de sessió",
+	"log-out": "Finalitza la sessió",
+	"mismatch-finder-title": "Cercador d'incoherències de Wikidata",
+	"language-selector-options-menu-aria-label": "Idiomes",
+	"language-selector-mobile-header": "Selecció d'un idioma",
+	"language-selector-clear-button-label": "Esborra el camp d'entrada",
+	"language-selector-close-button-label": "Tanca el selector d'idiomes",
+	"language-selector-input-placeholder": "Cerca idiomes",
+	"language-selector-no-results": "Idioma no disponible",
+	"column-property": "Propietat",
+	"column-wikidata-value": "Valor a Wikidata",
+	"column-external-value": "Valor a la font externa",
+	"column-review-status": "Estat",
+	"column-upload-info": "Info de càrrega",
+	"column-external-source": "Font externa",
+	"no-mismatches-found-message": "No s'han trobat incoherències a:",
+	"random-mismatches": "Incoherències aleatòries",
+	"empty-value": "Cap",
+	"no-mismatches-available-for-review": "No hi ha cap incoherència disponible per a revisar.",
+	"review-status-pending": "Esperant revisió",
+	"review-status-wikidata": "Dades errònies a Wikidata",
+	"review-status-missing": "Manquen dades a Wikidata",
+	"review-status-external": "Dades errònies a la font externa",
+	"review-status-both": "Totes dues errònies",
+	"review-status-none": "Cap de les anteriors",
+	"result-form-submit": "Desa la revisió",
+	"changes-submitted-message": "La revisió s'ha desat correctament per a:",
+	"log-in-message": "<a href=\"$1\">Inicieu la sessió</a> per fer qualsevol canvi.",
+	"results-instructions-button": "Instruccions",
+	"confirmation-dialog-title": "Següents passos",
+	"results-full-description-button": "mostra la descripció completa"
+}

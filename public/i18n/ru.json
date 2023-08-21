@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fenixs-ru",
 			"Kareyac",
 			"Okras"
 		]
@@ -12,6 +13,8 @@
 	"item-form-submit": "Проверить элементы",
 	"log-in": "Войти",
 	"log-out": "Выйти",
+	"language-selector-options-menu-aria-label": "Языки",
+	"language-selector-input-placeholder": "Поиск языков",
 	"column-property": "Свойство",
 	"column-wikidata-value": "Значение в Викиданных",
 	"column-external-value": "Значение во внешнем источнике",
@@ -23,6 +26,7 @@
 	"review-status-pending": "Ожидает проверки",
 	"review-status-wikidata": "Неверные данные в Викиданных",
 	"review-status-missing": "Отсутствуют данные в Викиданных",
+	"review-status-both": "Оба неверны",
 	"results-instructions-button": "Инструкции",
 	"confirmation-dialog-title": "Следующие шаги",
 	"results-full-description-button": "прочитать полное описание",

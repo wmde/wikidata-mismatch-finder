@@ -1,5 +1,5 @@
 <template>
-    <div class="website">
+    <div class="website" v-resize="onWindowResize">
         <main class="content-wrap">
             <header>
                 <InertiaLink class="logo-link" href="/">
@@ -114,6 +114,14 @@ export default defineComponent({
                 document.removeEventListener('touchstart', handleOutsideClick);
             },
         },
+        resize: {
+            inserted(element: HTMLElement, binding): void {
+                const onResizeCallback = binding.value;
+                window.addEventListener('resize', () => {
+                    onResizeCallback();
+                })
+            }
+        }
     },
     computed: {
         currentLanguageAutonym(): string {
@@ -144,11 +152,28 @@ export default defineComponent({
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
+                    this.changeLanguageSelectorMenuDirection();
                 });
             }
         },
         onClickOutsideLanguageSelector(): void {
             this.showLanguageSelector = false;
+        },
+        changeLanguageSelectorMenuDirection(): void {
+            const languageSelectorRefs = this.$refs.languageSelector as any;
+            console.log( languageSelectorRefs.$el.getBoundingClientRect() );
+            if ( languageSelectorRefs.$el.getBoundingClientRect().x < 0 ){
+                const selector = document.querySelector( '.mismatchfinder__language-selector');
+                (selector as HTMLElement).style.insetInlineEnd = 'unset';
+                (selector as HTMLElement).style.insetInlineStart = '0';
+            } else {
+                const selector = document.querySelector( '.mismatchfinder__language-selector');
+                (selector as HTMLElement).style.insetInlineEnd = '0';
+                (selector as HTMLElement).style.insetInlineStart = 'unset';
+            }
+        },
+        onWindowResize(): void {
+            this.changeLanguageSelectorMenuDirection();
         },
     },
 });

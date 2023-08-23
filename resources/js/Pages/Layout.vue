@@ -127,6 +127,9 @@ export default defineComponent({
         currentLanguageAutonym(): string {
             return languagedata.getAutonym(document.documentElement.lang);
         },
+        // debouncedFunction() {
+        //     return debounce(this.changeLanguageSelectorMenuDirection, 100);
+        // }
     },
     props: {
         user: Object as PropType<User>,
@@ -152,6 +155,7 @@ export default defineComponent({
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
+                    // this.debouncedFunction();
                     this.changeLanguageSelectorMenuDirection();
                 });
             }
@@ -161,18 +165,25 @@ export default defineComponent({
         },
         changeLanguageSelectorMenuDirection(): void {
             const languageSelectorRefs = this.$refs.languageSelector as any;
-            console.log( languageSelectorRefs.$el.getBoundingClientRect() );
-            if ( languageSelectorRefs.$el.getBoundingClientRect().x < 0 ){
-                const selector = document.querySelector( '.mismatchfinder__language-selector');
-                (selector as HTMLElement).style.insetInlineEnd = 'unset';
-                (selector as HTMLElement).style.insetInlineStart = '0';
-            } else {
-                const selector = document.querySelector( '.mismatchfinder__language-selector');
-                (selector as HTMLElement).style.insetInlineEnd = '0';
-                (selector as HTMLElement).style.insetInlineStart = 'unset';
+            const pageDirection = window.getComputedStyle(document.body).direction;
+            const selector = document.querySelector( '.mismatchfinder__language-selector');
+            const contentWrapEl = document.querySelector( 'main.content-wrap' );
+            const contentWrapComputedStyle = getComputedStyle( contentWrapEl as HTMLElement );
+            const selectorComputedStyle = getComputedStyle( selector as HTMLElement );
+            if( pageDirection === 'ltr' ){
+                if ( languageSelectorRefs.$el.getBoundingClientRect().x < 0 ){
+                    (selector as HTMLElement).style.insetInlineEnd = 'unset';
+                    (selector as HTMLElement).style.insetInlineStart = '0';
+                } else if ( languageSelectorRefs.$el.getBoundingClientRect().x > contentWrapComputedStyle.paddingLeft && contentWrapComputedStyle.width > (selector as HTMLElement).style.right ){
+                    (selector as HTMLElement).style.insetInlineEnd = '0';
+                    (selector as HTMLElement).style.insetInlineStart = 'unset';
+                }
             }
+            console.log( 'selectorComputedStyle', selectorComputedStyle );
+            console.log( 'contentWrapComputedStyle.width', contentWrapComputedStyle.width, 'selectorComputedStyle.width', selectorComputedStyle.left + selectorComputedStyle.width );
         },
         onWindowResize(): void {
+            // this.debouncedFunction();
             this.changeLanguageSelectorMenuDirection();
         },
     },

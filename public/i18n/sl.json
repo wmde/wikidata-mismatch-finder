@@ -22,7 +22,7 @@
 	"language-selector-no-results": "Jezik ni na voljo",
 	"item-form-error-message-empty": "Navedite identifikatorje predmetov, ki jih je treba preveriti.",
 	"item-form-error-message-max": "Zmanjšajte število identifikatorjev predmetov, da bodo ustrezali omejitvi ($1)",
-	"item-form-error-message-invalid": "Enega ali več identifikatorjev predmeta ni bilo mogoče obdelati. Zagotovite, da je v vsaki vrstici naveden samo en identifikator brez presledkov ali vejic. Identifikatorji predmetov so lahko samo sklop veljavnih številk, pred katerimi je črka Q (na primer: Q80378).",
+	"item-form-error-message-invalid": "Enega ali več identifikatorjev predmeta ni bilo mogoče obdelati. Zagotovite, da je v vsaki vrstici naveden samo en identifikator brez presledkov ali vejic. Identifikatorji predmetov so lahko samo nabor veljavnih številk, pred katerimi je črka Q (na primer: Q80378).",
 	"server-error": "Strežnik je naletel na prehodno napako in ni mogel izvesti vašega zahtevka. Prosimo, poskusite znova.",
 	"column-property": "Lastnost",
 	"column-wikidata-value": "Vrednost v Wikipodatkih",

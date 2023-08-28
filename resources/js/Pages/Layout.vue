@@ -94,6 +94,7 @@ export default defineComponent({
     data() {
         return {
             showLanguageSelector: false,
+            languageSelectorInsetInline: '',
         };
     },
     directives: {
@@ -127,9 +128,11 @@ export default defineComponent({
         currentLanguageAutonym(): string {
             return languagedata.getAutonym(document.documentElement.lang);
         },
-        // debouncedFunction() {
-        //     return debounce(this.changeLanguageSelectorMenuDirection, 100);
-        // }
+    },
+    mounted(){
+        const selector = document.querySelector( '.mismatchfinder__language-selector');
+        const selectorComputedStyle = getComputedStyle( selector as HTMLElement );
+        this.languageSelectorInsetInline = selectorComputedStyle.insetInline;
     },
     props: {
         user: Object as PropType<User>,
@@ -155,7 +158,6 @@ export default defineComponent({
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
-                    // this.debouncedFunction();
                     this.changeLanguageSelectorMenuDirection();
                 });
             }
@@ -164,26 +166,18 @@ export default defineComponent({
             this.showLanguageSelector = false;
         },
         changeLanguageSelectorMenuDirection(): void {
-            const languageSelectorRefs = this.$refs.languageSelector as any;
-            const pageDirection = window.getComputedStyle(document.body).direction;
             const selector = document.querySelector( '.mismatchfinder__language-selector');
-            const contentWrapEl = document.querySelector( 'main.content-wrap' );
-            const contentWrapComputedStyle = getComputedStyle( contentWrapEl as HTMLElement );
-            const selectorComputedStyle = getComputedStyle( selector as HTMLElement );
-            if( pageDirection === 'ltr' ){
-                if ( languageSelectorRefs.$el.getBoundingClientRect().x < 0 ){
-                    (selector as HTMLElement).style.insetInlineEnd = 'unset';
-                    (selector as HTMLElement).style.insetInlineStart = '0';
-                } else if ( languageSelectorRefs.$el.getBoundingClientRect().x > contentWrapComputedStyle.paddingLeft && contentWrapComputedStyle.width > (selector as HTMLElement).style.right ){
-                    (selector as HTMLElement).style.insetInlineEnd = '0';
-                    (selector as HTMLElement).style.insetInlineStart = 'unset';
-                }
+            const headerY = (document.querySelector( 'header') as HTMLElement).getBoundingClientRect().y;
+            const userSectionY = (document.querySelector( '.userSection') as HTMLElement).getBoundingClientRect().y;
+            if( userSectionY > headerY ){
+                (selector as HTMLElement).style.insetInlineEnd = 'unset';
+                (selector as HTMLElement).style.insetInlineStart = '0';
+            } else {
+                (selector as HTMLElement).style.insetInlineEnd = '0';
+                (selector as HTMLElement).style.insetInlineStart = 'unset';
             }
-            console.log( 'selectorComputedStyle', selectorComputedStyle );
-            console.log( 'contentWrapComputedStyle.width', contentWrapComputedStyle.width, 'selectorComputedStyle.width', selectorComputedStyle.left + selectorComputedStyle.width );
         },
         onWindowResize(): void {
-            // this.debouncedFunction();
             this.changeLanguageSelectorMenuDirection();
         },
     },

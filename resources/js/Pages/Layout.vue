@@ -1,6 +1,6 @@
 <template>
     <div class="website">
-        <main class="content-wrap">
+        <main class="content-wrap" ref="contentWrap">
             <header>
                 <InertiaLink class="logo-link" href="/">
                     <div class="mismatch-finder-logo" />
@@ -94,6 +94,7 @@ export default defineComponent({
     data() {
         return {
             showLanguageSelector: false,
+            resizeObserver: null,
         };
     },
     directives: {
@@ -114,14 +115,10 @@ export default defineComponent({
                 document.removeEventListener('touchstart', handleOutsideClick);
             },
         },
-        resize: {
-            inserted(element: HTMLElement, binding): void {
-                const onResizeCallback = binding.value;
-                window.addEventListener('resize', () => {
-                    onResizeCallback();
-                })
-            }
-        }
+    },
+    mounted() {
+        (this.resizeObserver as unknown as ResizeObserver) = new ResizeObserver(this.onWindowResize);
+        (this.resizeObserver as unknown as ResizeObserver).observe(this.$refs.contentWrap as Element);
     },
     computed: {
         currentLanguageAutonym(): string {
@@ -174,6 +171,9 @@ export default defineComponent({
         onWindowResize(): void {
             this.changeLanguageSelectorMenuDirection();
         },
+    },
+    beforeDestroy () {
+        (this.resizeObserver as unknown as ResizeObserver).unobserve(this.$refs.contentWrap as Element)
     },
 });
 </script>

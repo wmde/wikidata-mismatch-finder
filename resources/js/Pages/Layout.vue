@@ -1,5 +1,5 @@
 <template>
-    <div class="website" v-resize="onWindowResize">
+    <div class="website">
         <main class="content-wrap">
             <header>
                 <InertiaLink class="logo-link" href="/">
@@ -94,7 +94,6 @@ export default defineComponent({
     data() {
         return {
             showLanguageSelector: false,
-            languageSelectorInsetInline: '',
         };
     },
     directives: {

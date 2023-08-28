@@ -166,15 +166,15 @@ export default defineComponent({
             this.showLanguageSelector = false;
         },
         changeLanguageSelectorMenuDirection(): void {
-            const selector = document.querySelector( '.mismatchfinder__language-selector');
+            const mismatchFinderDropdownMenu = document.querySelector( '.mismatchfinder__language-selector');
             const headerY = (document.querySelector( 'header') as HTMLElement).getBoundingClientRect().y;
             const userSectionY = (document.querySelector( '.userSection') as HTMLElement).getBoundingClientRect().y;
             if( userSectionY > headerY ){
-                (selector as HTMLElement).style.insetInlineEnd = 'unset';
-                (selector as HTMLElement).style.insetInlineStart = '0';
+                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineEnd = 'unset';
+                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineStart = '0';
             } else {
-                (selector as HTMLElement).style.insetInlineEnd = '0';
-                (selector as HTMLElement).style.insetInlineStart = 'unset';
+                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineEnd = '0';
+                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineStart = 'unset';
             }
         },
         onWindowResize(): void {

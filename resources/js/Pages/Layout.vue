@@ -129,11 +129,6 @@ export default defineComponent({
             return languagedata.getAutonym(document.documentElement.lang);
         },
     },
-    mounted(){
-        const selector = document.querySelector( '.mismatchfinder__language-selector');
-        const selectorComputedStyle = getComputedStyle( selector as HTMLElement );
-        this.languageSelectorInsetInline = selectorComputedStyle.insetInline;
-    },
     props: {
         user: Object as PropType<User>,
     },

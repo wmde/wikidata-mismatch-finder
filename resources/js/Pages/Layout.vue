@@ -173,7 +173,7 @@ export default defineComponent({
         },
     },
     beforeDestroy () {
-        (this.resizeObserver as unknown as ResizeObserver).unobserve(this.$refs.contentWrap as Element)
+        this.resizeObserver.unobserve(this.$refs.contentWrap as Element)
     },
 });
 </script>

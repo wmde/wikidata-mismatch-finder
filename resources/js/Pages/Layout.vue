@@ -117,8 +117,8 @@ export default defineComponent({
         },
     },
     mounted() {
-        (this.resizeObserver as unknown as ResizeObserver) = new ResizeObserver(this.onWindowResize);
-        (this.resizeObserver as unknown as ResizeObserver).observe(this.$refs.contentWrap as Element);
+        this.resizeObserver  = new ResizeObserver(this.onWindowResize);
+        this.resizeObserver.observe(this.$refs.contentWrap as Element);
     },
     computed: {
         currentLanguageAutonym(): string {

@@ -158,9 +158,9 @@ export default defineComponent({
         },
         changeLanguageSelectorMenuDirection(): void {
             const mismatchFinderDropdownMenu = document.querySelector( '.mismatchfinder__language-selector');
-            const headerY = (document.querySelector( 'header') as HTMLElement).getBoundingClientRect().top;
-            const userSectionY = (document.querySelector( '.userSection') as HTMLElement).getBoundingClientRect().top;
-            if( userSectionY > headerY ){
+            const headerTop = (document.querySelector( 'header') as HTMLElement).getBoundingClientRect().top;
+            const userSectionTop = (document.querySelector( '.userSection') as HTMLElement).getBoundingClientRect().top;
+            if( userSectionTop > headerTop ){
                 (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineEnd = 'unset';
                 (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineStart = '0';
             } else {

@@ -94,7 +94,7 @@ export default defineComponent({
     data() {
         return {
             showLanguageSelector: false,
-            resizeObserver: null,
+            resizeObserver: null as unknown as ResizeObserver,
         };
     },
     directives: {

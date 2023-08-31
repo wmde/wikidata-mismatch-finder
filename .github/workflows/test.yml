@@ -82,7 +82,13 @@ jobs:
           php artisan key:generate
       - name: Upgrade Chrome Driver
         run: php artisan dusk:chrome-driver
-
+      # Following step is a workaround for a bug in older versions of dusk. It should be removed after dusk is updated (>=v7.x)
+      - name: Install Chrome
+        run: |
+          CHROME_VERSION=$(php artisan dusk:chrome-driver | sed 's/.* //' | awk '{ print substr( $0, 1, length($0)-1 ) }')"-1"
+          sudo wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
+          && sudo apt install -y --allow-downgrades /tmp/chrome.deb \
+          && sudo rm /tmp/chrome.deb
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
 

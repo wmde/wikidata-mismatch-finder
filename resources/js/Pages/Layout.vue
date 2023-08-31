@@ -1,12 +1,12 @@
 <template>
     <div class="website">
         <main class="content-wrap" ref="contentWrap">
-            <header>
+            <header ref="header">
                 <InertiaLink class="logo-link" href="/">
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
-                <div class="userSection">
+                <div class="userSection" ref="userSection">
                     <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
                         <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
                             @click.native="onToggleLanguageSelector">
@@ -157,15 +157,14 @@ export default defineComponent({
             this.showLanguageSelector = false;
         },
         changeLanguageSelectorMenuDirection(): void {
-            const mismatchFinderDropdownMenu = document.querySelector( '.mismatchfinder__language-selector');
-            const headerTop = (document.querySelector( 'header') as HTMLElement).getBoundingClientRect().top;
-            const userSectionTop = (document.querySelector( '.userSection') as HTMLElement).getBoundingClientRect().top;
+            const headerTop = (this.$refs.header as HTMLElement).getBoundingClientRect().top;
+            const userSectionTop = (this.$refs.userSection as HTMLElement).getBoundingClientRect().top;
             if( userSectionTop > headerTop ){
-                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineEnd = 'unset';
-                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineStart = '0';
+                (this.$refs.languageSelector as any).$el.style.insetInlineEnd = 'unset';
+                (this.$refs.languageSelector as any).$el.style.insetInlineStart = '0';
             } else {
-                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineEnd = '0';
-                (mismatchFinderDropdownMenu as HTMLElement).style.insetInlineStart = 'unset';
+                (this.$refs.languageSelector as any).$el.style.insetInlineEnd = '0';
+                (this.$refs.languageSelector as any).$el.style.insetInlineStart = 'unset';
             }
         },
         onWindowResize(): void {

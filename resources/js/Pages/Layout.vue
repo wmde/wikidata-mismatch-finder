@@ -160,11 +160,11 @@ export default defineComponent({
             const headerTop = (this.$refs.header as HTMLElement).getBoundingClientRect().top;
             const userSectionTop = (this.$refs.userSection as HTMLElement).getBoundingClientRect().top;
             if( userSectionTop > headerTop ){
-                (this.$refs.languageSelector as any).$el.style.insetInlineEnd = 'unset';
-                (this.$refs.languageSelector as any).$el.style.insetInlineStart = '0';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = 'unset';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = '0';
             } else {
-                (this.$refs.languageSelector as any).$el.style.insetInlineEnd = '0';
-                (this.$refs.languageSelector as any).$el.style.insetInlineStart = 'unset';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = '0';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = 'unset';
             }
         },
         onWindowResize(): void {

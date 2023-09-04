@@ -273,6 +273,7 @@
                         ...mismatch
                     };
                     if (mismatch.property_id in this.formatted_values) {
+                        // eslint-disable-next-line max-len
                         const formattedValues = this.formatted_values[mismatch.property_id as keyof typeof this.formatted_values];
                         const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
                         if (key in formattedValues) {

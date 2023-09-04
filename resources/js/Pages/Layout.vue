@@ -1,12 +1,12 @@
 <template>
     <div class="website">
-        <main class="content-wrap">
-            <header>
+        <main class="content-wrap" ref="contentWrap">
+            <header ref="header">
                 <InertiaLink class="logo-link" href="/">
                     <div class="mismatch-finder-logo" />
                     <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
                 </InertiaLink>
-                <div class="userSection">
+                <div class="userSection" ref="userSection">
                     <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
                         <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
                             @click.native="onToggleLanguageSelector">
@@ -94,6 +94,7 @@ export default defineComponent({
     data() {
         return {
             showLanguageSelector: false,
+            resizeObserver: null as unknown as ResizeObserver,
         };
     },
     directives: {
@@ -114,6 +115,10 @@ export default defineComponent({
                 document.removeEventListener('touchstart', handleOutsideClick);
             },
         },
+    },
+    mounted() {
+        this.resizeObserver  = new ResizeObserver(this.onWindowResize);
+        this.resizeObserver.observe(this.$refs.contentWrap as Element);
     },
     computed: {
         currentLanguageAutonym(): string {
@@ -144,12 +149,30 @@ export default defineComponent({
                 const languageSelectorRefs = this.$refs.languageSelector as any;
                 this.$nextTick(() => {
                     languageSelectorRefs.focus();
+                    this.changeLanguageSelectorMenuDirection();
                 });
             }
         },
         onClickOutsideLanguageSelector(): void {
             this.showLanguageSelector = false;
         },
+        changeLanguageSelectorMenuDirection(): void {
+            const headerTop = (this.$refs.header as HTMLElement).getBoundingClientRect().top;
+            const userSectionTop = (this.$refs.userSection as HTMLElement).getBoundingClientRect().top;
+            if( userSectionTop > headerTop ){
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = 'unset';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = '0';
+            } else {
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = '0';
+                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = 'unset';
+            }
+        },
+        onWindowResize(): void {
+            this.changeLanguageSelectorMenuDirection();
+        },
+    },
+    beforeDestroy () {
+        this.resizeObserver.unobserve(this.$refs.contentWrap as Element)
     },
 });
 </script>

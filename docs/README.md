@@ -430,11 +430,9 @@ Then make sure that all unit tests still pass and building still works for every
 
 ### Composer dependencies
 
-Since Mismatch Finder is using Laravel, we need to make sure that we update backend dependencies as well. To do this, run `composer outdated`.
+Since Mismatch Finder is using Laravel, we need to make sure that we update backend dependencies as well. To do this, run `sail composer outdated`.
 
-Update the dependencies that need updating in the `composer.json` file. Create a single commit for each update. And then run `composer update` to install the new packages.
-
-Then make sure that all unit tests still pass and building still works for every local commit using `sail artisan test`.
+Run `sail composer update` to install the new packages. Then make sure that all unit tests still pass and building still works for every local commit using `sail artisan test`.
 
 Don't update to any major version of Laravel since that would require a migration and would be out of the scope of a chore.
 

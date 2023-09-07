@@ -222,7 +222,7 @@
         },
         computed: {
             notFoundItemIds() {
-                return this.item_ids.filter( id => !this.results[id] )
+                return this.item_ids.filter( id => !this.results[id as keyof typeof this.results] )
             },
         },
         mounted(){
@@ -268,12 +268,13 @@
                 // potential entity ids within the labels object.
                 return mismatches.map(mismatch => {
                     const labelled = {
-                        property_label: this.labels[mismatch.property_id],
-                        value_label: this.labels[mismatch.wikidata_value] || null,
+                        property_label: this.labels[mismatch.property_id as keyof typeof this.labels],
+                        value_label: this.labels[mismatch.wikidata_value as keyof typeof this.labels] || null,
                         ...mismatch
                     };
                     if (mismatch.property_id in this.formatted_values) {
-                        const formattedValues = this.formatted_values[mismatch.property_id];
+                        // eslint-disable-next-line max-len
+                        const formattedValues = this.formatted_values[mismatch.property_id as keyof typeof this.formatted_values];
                         const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
                         if (key in formattedValues) {
                             labelled.value_label = formattedValues[key];

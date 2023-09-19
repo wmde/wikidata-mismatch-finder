@@ -59,10 +59,6 @@ class RenameMismatchStatus extends Migration
                 'both',
                 'none'
             ])->default('pending');
-            $table->enum('type', [
-                'statement',
-                'qualifier'
-            ])->default('statement');
             $table->foreignId('import_id')->constrained('import_meta');
             $table->timestamps();
         });
@@ -101,10 +97,6 @@ class RenameMismatchStatus extends Migration
                 'both',
                 'none'
             ])->default('pending');
-            $table->enum('type', [
-                'statement',
-                'qualifier'
-            ])->default('statement');
             $table->foreignId('import_id')->constrained('import_meta');
             $table->timestamps();
         });

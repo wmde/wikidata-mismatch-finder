@@ -34,10 +34,6 @@ class RecreateMismatchesTableWithItemId extends Migration
                 'both',
                 'none'
             ]);
-            $table->enum('type', [
-                'statement',
-                'qualifier'
-            ]);
             $table->foreignId('import_id')->constrained('import_meta');
             $table->timestamps();
         });

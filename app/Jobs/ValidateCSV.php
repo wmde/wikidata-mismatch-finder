@@ -136,6 +136,9 @@ class ValidateCSV implements ShouldQueue
                 'prohibited_if:wikidata_value,',
                 'max:' . $rules['meta_wikidata_value']['max_length'],
                 'regex:' . $rules['meta_wikidata_value']['format']
+            ],
+            'type' => [
+                'string'
             ]
         ]);
 

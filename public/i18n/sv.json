@@ -3,7 +3,8 @@
 		"authors": [
 			"Jopparn",
 			"Sabelöga",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Yupik"
 		]
 	},
 	"about-mismatch-finder-title": "Om verktyget",
@@ -16,6 +17,7 @@
 	"log-in": "Logga in",
 	"log-out": "Logga ut",
 	"mismatch-finder-title": "Wikidata Mismatch Finder",
+	"language-selector-mobile-header": "Välj språk",
 	"item-form-error-message-empty": "Ange objektsidentifierare som bör kontrolleras.",
 	"item-form-error-message-max": "Minska antalet objektidentifierare för att vara inom gränsen ($1)",
 	"item-form-error-message-invalid": "En eller fler objektidentifierare kunde inte bearbetats. Se till att bara lägga till en identifierare per rad, utan mellanslag eller komma. Objektidentifierare borde bara vara en uppsättning giltiga siffror som föregås av Q (exempelvis: Q80378).",

@@ -183,6 +183,7 @@ export default defineComponent({
 .website {
     .content-wrap {
         max-width: 1168px;
+        width: 100%;
     }
 
     .mismatch-finder-logo {

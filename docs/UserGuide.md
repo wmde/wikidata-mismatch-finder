@@ -61,6 +61,7 @@ item_id,statement_guid,property_id,wikidata_value,meta_wikidata_value,external_v
 * `meta_wikidata_value` - _(Optional)_ The value on wikidata that represents property calendar/time type.
 * `external_value` - The value in the external database that mismatches a wikidata value.
 * `external_url` - _(Optional)_ A url or uri to the mismatching entity in the external database.
+* `type` - _(Optional)_ A string that contains either the value 'statement' or the value 'qualifier' to indicate where the mismatch occurs. If left empty a value of 'statement' will be assumed.
 
 _**Note**: The data `wikidata_value`, `external_value`, `external_url` should be limited to a length of 1500 characters maximum._
 

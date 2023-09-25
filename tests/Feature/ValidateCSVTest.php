@@ -272,6 +272,18 @@ class ValidateCSVTest extends TestCase
                 ];
             }
         ];
+
+        yield 'invalid type value' => [
+            function (array $config): array {
+                return [
+                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,' // Ensure correct columns
+                    . '3 April 1934,,1934-04-03,http://www.example.com,potato', // Ensure correct columns
+                    __('validation.in', [
+                        'attribute' => 'type'
+                    ])
+                ];
+            }
+        ];
     }
 
     /**

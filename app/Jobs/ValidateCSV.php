@@ -19,6 +19,7 @@ use App\Exceptions\ImportParserException;
 use Throwable;
 use App\Models\ImportFailure;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class ValidateCSV implements ShouldQueue
 {
@@ -138,7 +139,8 @@ class ValidateCSV implements ShouldQueue
                 'regex:' . $rules['meta_wikidata_value']['format']
             ],
             'type' => [
-                'string'
+                'string',
+                Rule::in(['statement', 'qualifier']),
             ]
         ]);
 

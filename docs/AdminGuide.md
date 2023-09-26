@@ -108,6 +108,7 @@ Example entry:
     "review_status_old": "pending",
     "review_status_new": "wikidata",
     "time": "2021-10-05 14:44:59",
+    "type": "statement"
 }
 ```
 

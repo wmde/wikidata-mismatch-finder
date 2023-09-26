@@ -49,6 +49,9 @@ class ImportCSV implements ShouldQueue
         DB::transaction(function () use ($reader, $filepath) {
             $reader->lines($filepath)->each(function ($mismatchLine) {
                 $mismatch = Mismatch::make($mismatchLine);
+                if ($mismatch->type == null) {
+                    $mismatch->type = 'statement';
+                }
                 $mismatch->importMeta()->associate($this->meta);
                 $mismatch->save();
             });

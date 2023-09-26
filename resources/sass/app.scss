@@ -14,13 +14,6 @@ body {
     height: 100%;
 }
 
-#app {
-    box-sizing: border-box;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 /**
 * Layout
 */
@@ -28,7 +21,6 @@ main {
     max-width: 1090px;
     padding: 0 $dimension-layout-xsmall;
     margin: 0 auto;
-    flex-grow: 1;
 
     & > header {
         display: flex;

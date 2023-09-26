@@ -72,8 +72,6 @@ export default Vue.extend({
 
 .footer-container {
     background-color: $color-base-90;
-    flex-grow: 0;
-    flex-shrink: 0;
 
     & > footer {
         margin: auto;

@@ -5,8 +5,13 @@
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 
+html {
+    height: 100%;
+}
+
 body {
     @include body-text;
+    height: 100%;
 }
 
 /**

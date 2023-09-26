@@ -181,8 +181,15 @@ export default defineComponent({
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
 .website {
+    box-sizing: border-box;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+
     .content-wrap {
         max-width: 1168px;
+        width: 100%;
+        flex-grow: 1;
     }
 
     .mismatch-finder-logo {

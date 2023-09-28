@@ -300,6 +300,34 @@ describe('MismatchesRow.vue', () => {
         expect( wrapper.find( 'tr' ).text() ).toContain(mismatch.value_label);
     });
 
+    it('shows "statement" in type column when value is empty (old database imports)', () => {
+        const mismatch = {
+            wikidata_value: 'Some value',
+            value_label: 'Some label',
+            type: '',
+            import_meta: {
+                user: {
+                    username: 'some_user_name'
+                },
+                created_at: '2021-09-23'
+            },
+        };
+
+        const wrapper = mount(MismatchRow, {
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
+            }
+        });
+
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-type' ).at(0);
+        const statementText = td.find('span').text();
+
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( statementText ).toContain('statement');
+    });
+
     test.each(Object.values(ReviewDecision))
     ('shows a dropdown with the %s option', (currentStatus) => {
         const mismatch = {

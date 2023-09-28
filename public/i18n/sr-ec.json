@@ -14,7 +14,7 @@
 	"language-selector-clear-button-label": "Очисти поље",
 	"language-selector-input-placeholder": "Претрага језика",
 	"language-selector-no-results": "Језик није доступан",
-	"column-property": "Својство",
+	"column-mismatch": "Својство",
 	"column-wikidata-value": "Вредност на Википодацима",
 	"column-external-value": "Вредност у спољном извору",
 	"column-review-status": "Статус",

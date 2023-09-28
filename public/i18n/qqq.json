@@ -25,7 +25,7 @@
 	"item-form-error-message-max": "An error message when too many item ids are provided",
 	"item-form-error-message-invalid": "An error message when invalid Item ids are provided",
 	"server-error": "An error message when the server encountered an error retrieving results",
-	"column-property": "Property column on mismatches table",
+	"column-mismatch": "Property column on mismatches table",
 	"column-wikidata-value": "Wikidata value column on mismatches table",
 	"column-external-value": "External source column on mismatches table",
 	"column-review-status": "The mismatch review decision column on mismatches table",

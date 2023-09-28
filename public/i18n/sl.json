@@ -24,7 +24,7 @@
 	"item-form-error-message-max": "Zmanjšajte število identifikatorjev predmetov, da bodo ustrezali omejitvi ($1)",
 	"item-form-error-message-invalid": "Enega ali več identifikatorjev predmeta ni bilo mogoče obdelati. Zagotovite, da je v vsaki vrstici naveden samo en identifikator brez presledkov ali vejic. Identifikatorji predmetov so lahko samo nabor veljavnih številk, pred katerimi je črka Q (na primer: Q80378).",
 	"server-error": "Strežnik je naletel na prehodno napako in ni mogel izvesti vašega zahtevka. Prosimo, poskusite znova.",
-	"column-property": "Lastnost",
+	"column-mismatch": "Lastnost",
 	"column-wikidata-value": "Vrednost v Wikipodatkih",
 	"column-external-value": "Vrednost v zunanjem viru",
 	"column-review-status": "Stanje",

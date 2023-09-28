@@ -2,7 +2,7 @@
     <wikit-table>
         <thead>
             <tr>
-                <th class="column-property">{{$i18n('column-property')}}</th>
+                <th class="column-mismatch">{{$i18n('column-mismatch')}}</th>
                 <th class="column-wikidata-value">{{$i18n('column-wikidata-value')}}</th>
                 <th class="column-external-value">{{$i18n('column-external-value')}}</th>
                 <th class="column-external-source">{{$i18n('column-external-source')}}</th>
@@ -45,7 +45,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-    .column-property { width: 12.5%; }
+    .column-mismatch { width: 12.5%; }
     .column-wikidata-value { width: 12.5%; }
     .column-external-value { width: 13.5%; }
     .column-external-source { width: 11.5%; }

@@ -24,7 +24,7 @@
 	"item-form-error-message-max": "Reduser antallet elementidentifikatorer for å passe grensen ($1)",
 	"item-form-error-message-invalid": "En eller flere elementidentifikatorer kunne ikke sjekkes. Dobbeltsjekk at det kun er én identifikator per linje, uten mellomrom eller komma. Elementidentifikatorene burde kun være et sett gyldige tall med Q-prefiksen (for eksempel: Q80378).",
 	"server-error": "Tjeneren støtte på en midlertidig feil og kunne ikke fullføre forespørselen din. Prøv igjen.",
-	"column-property": "Egenskap",
+	"column-mismatch": "Egenskap",
 	"column-wikidata-value": "Verdi på Wikidata",
 	"column-external-value": "Verdi i ekstern kilde",
 	"column-review-status": "Status",

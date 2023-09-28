@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td :data-header="$i18n('column-property')">
+        <td :data-header="$i18n('column-mismatch')">
             <wikit-link
               class="break-line-link"
               target="_blank"

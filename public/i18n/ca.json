@@ -18,7 +18,7 @@
 	"language-selector-close-button-label": "Tanca el selector d'idiomes",
 	"language-selector-input-placeholder": "Cerca idiomes",
 	"language-selector-no-results": "Idioma no disponible",
-	"column-property": "Propietat",
+	"column-mismatch": "Propietat",
 	"column-wikidata-value": "Valor a Wikidata",
 	"column-external-value": "Valor a la font externa",
 	"column-review-status": "Estat",

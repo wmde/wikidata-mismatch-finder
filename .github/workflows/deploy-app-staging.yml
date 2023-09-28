@@ -7,6 +7,10 @@ on:
     - staging/**
     - gh-actions/**
 
+concurrency:
+  group: '${{ github.workflow }}'
+  cancel-in-progress: true
+
 jobs:
   build-deploy:
     name: Ship and Deploy

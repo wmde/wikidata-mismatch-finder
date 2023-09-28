@@ -46,10 +46,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-    .column-mismatch { width: 12.5%; }
+    .column-mismatch { width: 12%; }
+    .column-type { width: 11.5%; }
     .column-wikidata-value { width: 12.5%; }
-    .column-external-value { width: 13.5%; }
+    .column-external-value { width: 12.5%; }
     .column-external-source { width: 11.5%; }
-    .column-review-status { width: 25%; }
-    .column-upload-info { width: 25%; }
+    .column-review-status { width: 20%; }
+    .column-upload-info { width: 20%; }
 </style>

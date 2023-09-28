@@ -8,6 +8,14 @@
                 {{mismatch.property_label}}
             </wikit-link>
         </td>
+        <td :data-header="$i18n('column-type')">
+            <span v-if="mismatch.type !== ''">
+              {{mismatch.type}}
+            </span>
+            <span v-else>
+              {{ this.$i18n('statement') }}
+            </span>
+        </td>
         <td :data-header="$i18n('column-wikidata-value')">
             <span class="empty-value" v-if="mismatch.wikidata_value === ''">
               {{ this.$i18n('empty-value') }}

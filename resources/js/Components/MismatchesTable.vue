@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th class="column-mismatch">{{$i18n('column-mismatch')}}</th>
+                <th class="column-type">{{$i18n('column-type')}}</th>
                 <th class="column-wikidata-value">{{$i18n('column-wikidata-value')}}</th>
                 <th class="column-external-value">{{$i18n('column-external-value')}}</th>
                 <th class="column-external-source">{{$i18n('column-external-source')}}</th>

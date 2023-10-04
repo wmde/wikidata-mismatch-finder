@@ -4,7 +4,6 @@ name: Release request from development to main
 on:
   schedule:
     - cron: '0 0 1,15 * *'
-  pull_request:
 
 jobs:
   release:
@@ -19,7 +18,7 @@ jobs:
           body: |
             **_This PR was created automatically by a scheduled workflow._**
             Review and release the latest changes from staging to production.
-          branch: development
+          branch: release/production
           base: main
           draft: false
           token: ${{ secrets.GITHUB_TOKEN }}

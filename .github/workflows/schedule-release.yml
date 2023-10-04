@@ -1,0 +1,25 @@
+## Creates a PR from development to main every 2 weeks
+name: Release request from development to main
+
+on:
+  schedule:
+    - cron: '0 0 1,15 * *'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: Release request from development to main
+          body: |
+            **_This PR was created automatically by a scheduled workflow._**
+            Review and release the latest changes from staging to production.
+          branch: development
+          base: main
+          draft: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+

@@ -13,14 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Create PR
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: Release request from development to main
-          body: |
-            **_This PR was created automatically by a scheduled workflow._**
-            Review and release the latest changes from staging to production.
-          branch: release/production
-          base: main
-          draft: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr create -B main -H development --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

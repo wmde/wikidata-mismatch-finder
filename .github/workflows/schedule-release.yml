@@ -13,7 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Create PR
-        run: gh pr create -B main -H development --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        run: |
+          gh pr create -B main -H development \
+          --title "Release Mismatch Finder to Production" \
+          --body "Review and release the latest changes from staging to production."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

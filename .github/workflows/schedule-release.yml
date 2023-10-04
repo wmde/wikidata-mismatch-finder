@@ -4,6 +4,7 @@ name: Release request from development to main
 on:
   schedule:
     - cron: '0 0 1,15 * *'
+  workflow_dispatch:
 
 jobs:
   release:

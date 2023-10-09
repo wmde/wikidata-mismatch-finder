@@ -3,7 +3,7 @@ name: Build and Deploy to staging on Toolforge
 on:
   push:
    branches:
-    - main
+    - development
     - staging/**
     - gh-actions/**
 

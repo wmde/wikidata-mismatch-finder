@@ -25,7 +25,7 @@
 	"item-form-error-message-max": "Sila kurangkan bilangan pengecam Item agar sesuai dengan had ($1)",
 	"item-form-error-message-invalid": "Satu atau lebih pengecam Item tidak dapat diproses. Sila pastikan anda menambah hanya satu pengecam untuk setiap baris, tanpa ruang atau koma. Pengecam item hendaklah hanya satu set nombor yang sah didahului oleh huruf Q (contohnya: Q80378).",
 	"server-error": "Pelayan mengalami ralat sementara dan tidak dapat menyelesaikan permintaan anda. Sila cuba lagi.",
-	"column-property": "Sifat",
+	"column-mismatch": "Sifat",
 	"column-wikidata-value": "Nilai di Wikidata",
 	"column-external-value": "Nilai di sumber luar",
 	"column-review-status": "Status",

@@ -24,7 +24,7 @@
 	"item-form-error-message-max": "Per favor reduce le numero de identificatores de elemento pro respectar le limite ($1)",
 	"item-form-error-message-invalid": "Un o plus identificatores de elemento non poteva esser processate. Per favor assecura te de adder solmente un identificator per linea, sin spatios o commas. Identificatores de elemento debe esser un sequentia de cifras precedite per le littera Q (per exemplo: Q80378).",
 	"server-error": "Le servitor incontrava un error temporari e non poteva completar tu requesta. Per favor, prova lo de novo.",
-	"column-property": "Proprietate",
+	"column-mismatch": "Proprietate",
 	"column-wikidata-value": "Valor sur Wikidata",
 	"column-external-value": "Valor sur le fonte externe",
 	"column-review-status": "Stato",

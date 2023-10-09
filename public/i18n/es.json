@@ -9,7 +9,7 @@
 	"item-form-submit": "Comprobar elementos",
 	"log-in": "Acceder",
 	"log-out": "Salir",
-	"column-property": "Propiedad",
+	"column-mismatch": "Propiedad",
 	"column-wikidata-value": "Valor en Wikidata",
 	"column-external-value": "Valor en la fuente externa",
 	"column-review-status": "Estado",

@@ -22,7 +22,7 @@
 	"item-form-error-message-max": "Minska antalet objektidentifierare för att vara inom gränsen ($1)",
 	"item-form-error-message-invalid": "En eller fler objektidentifierare kunde inte bearbetats. Se till att bara lägga till en identifierare per rad, utan mellanslag eller komma. Objektidentifierare borde bara vara en uppsättning giltiga siffror som föregås av Q (exempelvis: Q80378).",
 	"server-error": "Servern stötte på ett tillfälligt fel och kunde inte slutföra din begäran.",
-	"column-property": "Egenskap",
+	"column-mismatch": "Egenskap",
 	"column-wikidata-value": "Värde på Wikidata",
 	"column-external-value": "Värde på extern källa",
 	"column-review-status": "Status",

@@ -1,12 +1,20 @@
 <template>
     <tr>
-        <td :data-header="$i18n('column-property')">
+        <td :data-header="$i18n('column-mismatch')">
             <wikit-link
               class="break-line-link"
               target="_blank"
               :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
             </wikit-link>
+        </td>
+        <td :data-header="$i18n('column-type')">
+            <span v-if="mismatch.type !== ''">
+              {{mismatch.type}}
+            </span>
+            <span v-else>
+              {{ this.$i18n('statement') }}
+            </span>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
             <span class="empty-value" v-if="mismatch.wikidata_value === ''">

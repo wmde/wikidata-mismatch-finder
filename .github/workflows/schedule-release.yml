@@ -12,11 +12,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Branch out Release
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "<>"
+          git branch release/$(date +'%Y-%m-%d')
+          git push -u origin release/$(date +'%Y-%m-%d')
       - name: Create PR
         run: |
-          gh pr create -B main -H development \
+          gh pr create -B main -H release/$(date +'%Y-%m-%d') \
           --title "Release Mismatch Finder to Production" \
-          --body "Review and release the latest changes from staging to production."
+          --body "Review and release the latest changes."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

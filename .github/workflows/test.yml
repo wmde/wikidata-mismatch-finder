@@ -6,7 +6,7 @@ jobs:
   feature-test:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -28,7 +28,7 @@ jobs:
   js-test:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
 
         - name: Setup Node.js
           uses: actions/setup-node@v3.8.1
@@ -47,7 +47,7 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 

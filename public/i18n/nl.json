@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sjoerddebruin",
+			"Victor LP"
+		]
+	},
+	"about-mismatch-finder-title": "Over dit hulpmiddel",
+	"item-form-id-input-placeholder": "Bijvoorbeeld:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Aanmelden",
+	"log-out": "Afmelden",
+	"language-selector-options-menu-aria-label": "Talen",
+	"language-selector-mobile-header": "Selecteer een taal",
+	"column-property": "Eigenschap",
+	"column-wikidata-value": "Waarde op Wikidata",
+	"column-review-status": "Status",
+	"column-external-source": "Externe bron",
+	"empty-value": "Geen",
+	"review-status-wikidata": "Verkeerde gegevens op Wikidata",
+	"results-instructions-button": "Instructies",
+	"confirmation-dialog-title": "Volgende stappen",
+	"confirmation-dialog-button": "Doorgaan",
+	"confirmation-dialog-option-label": "Niet opnieuw weergeven",
+	"confirm-dialog-button": "Bevestigen",
+	"faq-button": "Meer informatie",
+	"wikidata-tool-footer-about-tool": "Over de $1",
+	"wikidata-tool-footer-source": "Broncode ophalen",
+	"wikidata-tool-footer-issues": "Probleem melden",
+	"wikidata-tool-footer-about-us": "Over ons",
+	"wikidata-tool-footer-privacy": "Privacybeleid",
+	"wikidata-tool-footer-wmde": "Wikimedia Duitsland",
+	"wikidata-tool-footer-team": "Gemaakt met ♥ door het <a href=\"$1\">Wikida-team</a>",
+	"tool-query-builder": "Query-generator"
+}

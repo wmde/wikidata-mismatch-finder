@@ -62,6 +62,9 @@
     "overrides": {
         "@wikimedia/codex": {
             "vue": "^2.6.14"
+        },
+        "pinia": {
+            "vue-demi": "0.14.5"
         }
     }
 }

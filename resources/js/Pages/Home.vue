@@ -107,7 +107,6 @@
 </template>
 
 <script lang="ts">
-    import { mapMutations } from 'vuex';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
@@ -197,13 +196,14 @@
                     return;
                 }
 
-                this.saveSearchedIds( this.form.itemsInput );
+                const store = useStore();
+
+                store.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
             },
-            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {
@@ -220,9 +220,10 @@
             ...mapState( useStore, ['loading']),
         },
         data(): HomeState {
+            const store = useStore();
             return {
                 form: {
-                    itemsInput: this.$store.state.lastSearchedIds
+                    itemsInput: store.lastSearchedIds
                 },
                 validationError: null
             }

@@ -1,7 +1,7 @@
 import './bootstrap';
 import Vue from 'vue';
 import i18n from 'vue-banana-i18n';
-import { createPinia, PiniaVuePlugin } from 'pinia'
+import { createPinia, PiniaVuePlugin } from 'pinia';
 import { createInertiaApp } from '@inertiajs/inertia-vue';
 
 import i18nMessages from './lib/i18n';

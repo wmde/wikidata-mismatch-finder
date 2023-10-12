@@ -13,6 +13,15 @@ const mix = require('laravel-mix');
 
 mix.ts('resources/js/app.ts', 'public/js')
     .vue({ version: 2 })
+    .webpackConfig({
+        module: {
+          rules: [
+            {
+              test: /\.mjs$/i,
+            },
+          ],
+        },
+      })
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/noscript.scss', 'public/css')
     .copyDirectory('resources/img', 'public/images')

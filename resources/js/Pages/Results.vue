@@ -135,7 +135,7 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
-    import { mapMutations } from 'vuex';
+    import { useStore } from '../store';
     import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
@@ -226,8 +226,9 @@
             },
         },
         mounted(){
-            if(!this.$store.state.lastSearchedIds) {
-                this.saveSearchedIds( this.item_ids.join('\n') );
+            const store = useStore();
+            if(store.lastSearchedIds) {
+                store.saveSearchedIds( this.item_ids.join('\n') );
             }
 
             this.pageDirection = window.getComputedStyle(document.body).direction;
@@ -371,8 +372,7 @@
                 }
 
                 dialog.hide();
-            },
-            ...mapMutations(['saveSearchedIds'])
+            }
         }
     });
 </script>

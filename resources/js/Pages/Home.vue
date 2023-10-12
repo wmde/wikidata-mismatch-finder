@@ -107,7 +107,9 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
+    import { mapMutations } from 'vuex';
+    import { mapState } from 'pinia';
+    import { useStore } from '../store';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -215,7 +217,7 @@
             // spread to combine with local computed props
             // only mapping 'loading' and not 'lastSearchedIds' because computed 
             //properties are not available when data is processed in vue's lifecycle
-            ...mapState(['loading']),
+            ...mapState( useStore, ['loading']),
         },
         data(): HomeState {
             return {

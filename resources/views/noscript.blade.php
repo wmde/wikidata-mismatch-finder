@@ -8,7 +8,7 @@
         <div class="cdx-message cdx-message--block cdx-message--warning" role="alert">
             <span class="cdx-message__icon"></span>
             <div class="cdx-message__content">
-                <p><strong>Your browser doesn’t support Wikidata’s Mismatch Finder..</strong></p>
+                <p><strong>Your browser doesn’t support Wikidata’s Mismatch Finder.</strong></p>
                 <p>In order to view and use this tool, you must switch to another browser or enable JavaScript. Learn how to do that in <a href="https://support.google.com/adsense/answer/12654">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/javascript-settings-for-interactive-web-pages#w_websites-ask-you-to-enable-javascript">Firefox</a>, <a href="https://support.apple.com/lt-lt/guide/safari/ibrw1074/mac">Safari</a>, <a href="https://www.enablejavascript.io/en/how-to-enable-javascript-on-microsoft-edge">Edge</a> or <a href="https://help.opera.com/en/latest/web-preferences/">Opera</a>.</p>
             </div>
         </div>

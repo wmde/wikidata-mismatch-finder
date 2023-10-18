@@ -1,5 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { PiniaVuePlugin } from 'pinia';
+import { createTestingPinia } from '@pinia/testing'
 import Results from '@/Pages/Results.vue';
 import MismatchesTable from '@/Components/MismatchesTable.vue';
 
@@ -18,7 +19,6 @@ describe('Results.vue', () => {
     function mountWithMocks({
         props = {},
         data = {},
-        state = {},
         mocks = {}
     } = {}){
         const globalMocks = {
@@ -29,7 +29,7 @@ describe('Results.vue', () => {
         };
         const localVue = createLocalVue();
 
-        localVue.use(Vuex);
+        localVue.use(PiniaVuePlugin);
 
         return mount(Results, {
             propsData: props,
@@ -41,7 +41,7 @@ describe('Results.vue', () => {
                 mocks
             },
             localVue,
-            store: new Vuex.Store({ state })
+            pinia: createTestingPinia()
         })
     }
 

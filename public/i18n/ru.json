@@ -18,7 +18,6 @@
 	"language-selector-clear-button-label": "Очистить поле ввода",
 	"language-selector-input-placeholder": "Поиск языков",
 	"language-selector-no-results": "Язык недоступен",
-	"column-mismatch": "Свойство",
 	"column-wikidata-value": "Значение в Викиданных",
 	"column-external-value": "Значение во внешнем источнике",
 	"column-review-status": "Состояние",

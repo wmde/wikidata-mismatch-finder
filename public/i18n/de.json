@@ -25,7 +25,6 @@
 	"item-form-error-message-max": "Bitte reduziere die Anzahl der Positionsbezeichnungen auf das Limit ($1)",
 	"item-form-error-message-invalid": "Ein oder mehrere Positionsbezeichner konnten nicht verarbeitet werden. Achte bitte darauf, dass du nur eine Kennung pro Zeile angibst, ohne Leerzeichen oder Kommas. Die Positionsbezeichner sollten nur aus einer Reihe gültiger Zahlen bestehen, denen der Buchstabe Q vorangestellt wird (zum Beispiel: Q80378).",
 	"server-error": "Der Server ist auf einen temporären Fehler gestoßen und konnte deine Anfrage nicht abschließen. Bitte versuche es noch einmal.",
-	"column-mismatch": "Eigenschaft",
 	"column-wikidata-value": "Wert auf Wikidata",
 	"column-external-value": "Wert in externer Quelle",
 	"column-review-status": "Status",

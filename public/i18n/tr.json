@@ -25,7 +25,6 @@
 	"item-form-error-message-max": "Lütfen öge tanımlayıcılarının sayısını sınıra ($1) uyacak şekilde azaltın",
 	"item-form-error-message-invalid": "Bir veya daha fazla öge tanımlayıcı işlenemedi. Lütfen her satıra boşluk veya virgül olmadan yalnızca bir tanımlayıcı eklediğinizden emin olun. Öge tanımlayıcıları yalnızca önünde Q harfi bulunan bir dizi geçerli sayı olmalıdır (örneğin: Q80378).",
 	"server-error": "Sunucu geçici bir hatayla karşılaştı ve isteğinizi tamamlayamadı. Lütfen yeniden deneyin.",
-	"column-mismatch": "Özellik",
 	"column-wikidata-value": "Vikiveri'deki değer",
 	"column-external-value": "Dış kaynaktaki değer",
 	"column-review-status": "Durum",

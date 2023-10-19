@@ -4,6 +4,21 @@
 <!-- param::maxHeaderLevel::3:: -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Logging in](#logging-in)
+- [Accessing the API](#accessing-the-api)
+- [Obtaining an API access token](#obtaining-an-api-access-token)
+- [Importing mismatches](#importing-mismatches)
+  - [Creating a mismatches import file](#creating-a-mismatches-import-file)
+  - [Getting upload rights](#getting-upload-rights)
+  - [Uploading an import file](#uploading-an-import-file)
+    - [Headers](#headers)
+    - [Body](#body)
+    - [Example with curl](#example-with-curl)
+    - [Response](#response)
+  - [Reviewing Mismatches](#reviewing-mismatches)
+    - [Review](#review)
+    - [Submit decisions](#submit-decisions)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Logging in

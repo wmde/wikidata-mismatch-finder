@@ -3,6 +3,7 @@
 		"authors": [
 			"Chrumps",
 			"Czupirek",
+			"Luku123",
 			"Matlin"
 		]
 	},
@@ -21,7 +22,7 @@
 	"language-selector-input-placeholder": "Szukaj języków",
 	"language-selector-no-results": "Język nie jest dostępny",
 	"server-error": "Serwer napotkał problem i nie mógł zrealizować Twojego żądania. Proszę spróbować ponownie.",
-	"column-mismatch": "Właściwość",
+	"column-type": "Typ",
 	"column-wikidata-value": "Wartość w Wikidanych",
 	"column-external-value": "Wartość z zewnętrznego źródła",
 	"column-review-status": "Status",

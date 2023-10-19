@@ -24,7 +24,6 @@
 	"item-form-error-message-max": "請減少項目識別碼的數量避免超過限制（$1）",
 	"item-form-error-message-invalid": "無法處理一個或多個項目識別碼。請確認每行只添加一個識別碼，並且沒有空格或逗號。項目識別碼只能是一組以字母 Q 為開頭的有效數字（例如：Q80378）。",
 	"server-error": "伺服器臨時出現錯誤，無法完成您的請求。請再試一次。",
-	"column-mismatch": "屬性",
 	"column-wikidata-value": "在維基數據的值",
 	"column-external-value": "在外部來源的值",
 	"column-review-status": "狀態",

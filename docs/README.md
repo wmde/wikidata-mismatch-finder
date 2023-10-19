@@ -9,13 +9,13 @@
   - [Start the application server](#start-the-application-server)
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#oauth)
-- [Frontend - Working with CSS and JS](#frontend)
+- [Working with OAuth](#working-with-oauth)
+- [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
 - [Localization and Internationalization](#localization-and-internationalization)
 - [Job Queues](#job-queues)
 - [Linting](#linting)
   - [PHP Linting](#php-linting)
-  - [Javascript Linting](#js-linting)
+  - [Javascript Linting](#javascript-linting)
 - [Testing](#testing)
   - [PHP Testing](#php-testing)
   - [Javascript Testing](#javascript-testing)
@@ -23,12 +23,17 @@
 - [Staging](#staging)
 - [Troubleshooting](#troubleshooting)
   - [Address already in use](#address-already-in-use)
+    - [MariaDB](#mariadb)
+    - [`laravel.test`](#laraveltest)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
+- [Chore: Updating dependencies](#chore-updating-dependencies)
+  - [Npm dependencies](#npm-dependencies)
+  - [Composer dependencies](#composer-dependencies)
 - [See also](#see-also)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Quickstart <a id="quickstart"></a>
+## Quickstart
 
 1. Clone the repository
 
@@ -98,7 +103,7 @@
 
 For more advanced frontend topics, see [Frontend - Working with CSS and JS](#frontend)
 
-## Day to day <a id="day-to-day"></a>
+## Day to day
 
 ### Start the application server
 
@@ -126,7 +131,7 @@ sail down
 sail down --rmi all -v
 ```
 
-## Working with OAuth <a id="oauth"></a>
+## Working with OAuth
 
 In production, this application relies on wikidata.org's OAuth capabilities in order to authorize and identify users. Since it is not ideal to test in the production environment, we recommend creating your own personal OAuth consumer credentials for testing purposes, in order to develop locally.
 
@@ -160,7 +165,7 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
 
 1. As soon as you receive the email from the WMF team that your consumer is approved, you may start testing your application by logging in through your local instance's home page.
 
-## Frontend - Working with CSS and JS <a id="frontend"></a>
+## Frontend - Working with CSS and JS
 
 Add the JS and CSS code in the `resources/js` and `resources/css` folder respectively.
 
@@ -221,8 +226,8 @@ By Default, the jobs will run synchronously to the requests that dispatch them. 
     ```
 
     The `--timeout=1200` flag in the command above increases the job timeout to 20 minutes thus ensuring that the queue worker doesn't abort jobs that take longer than a minute.
-## Linting <a id="linting"></a>
-### PHP Linting <a id="php-linting"></a>
+## Linting
+### PHP Linting
 
 The application uses `phpcs` to detect code format violations.
 
@@ -232,7 +237,7 @@ To fix style errors automatically run: `sail composer run fix`
 
 Note: Laravel uses the [PSR2](https://www.php-fig.org/psr/psr-2/) Standard which expects camel caps method names. So you might get the error: `Method name my_method() is not in camel caps` if you scaffold your application. The recommendation there is to change the method names to camel case.
 
-### Javascript Linting <a id="js-linting"></a>
+### Javascript Linting
 
 The application uses ESLint to detect code format violations in the frontend's `*.js` and `*.vue` files.
 
@@ -240,9 +245,9 @@ To run eslint: `sail npm run lint`
 
 To fix style errors automatically run: `sail npm run lint:fix` 
 
-## Testing <a id="testing"></a>
+## Testing
 
-### PHP Testing <a id="php-testing"></a>
+### PHP Testing
 
 The Laravel framework supports two types of testing: unit and feature tests. In contrast to unit tests, feature tests will boot your Laravel application and therefore are able to access your application's database and other framework services.
 
@@ -272,7 +277,7 @@ $ sail artisan test
   Time:   0.16s
 ```
 
-### Javascript Testing <a id="javascript-testing"></a>
+### Javascript Testing
 
 To test our Javascript code in general, and any vue components or pages we create in particular, this repository utilizes the jest test runner. In order to run JS tests, use the following command:
 
@@ -280,7 +285,7 @@ To test our Javascript code in general, and any vue components or pages we creat
 sail npm test
 ```
 
-### Browser Testing <a id="browser-testing"></a>
+### Browser Testing
 
 The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup.
 
@@ -302,14 +307,14 @@ To run all the browser tests:
 sail dusk
 ```
 
-## Staging <a id="staging"></a>
+## Staging
 
 When there are changes that need to be tested before being deployed to production, like an UX decision or testing a new feature, the [Mismatch Finder staging server](https://mismatch-finder-staging.toolforge.org/) can be used. 
 
 To deploy to this server, push your commits to a branch starting with the name `staging/`. 
 For example `staging/my_branch_name`. The changes in the branch will be deployed to the server after all the checks have passed.
 
-## Troubleshooting <a id="troubleshooting"></a>
+## Troubleshooting
 
 ### Address already in use
 
@@ -436,7 +441,7 @@ Run `sail composer update` to install the new packages. Then make sure that all 
 
 Don't update to any major version of Laravel since that would require a migration and would be out of the scope of a chore.
 
-## See also <a id="see-also"></a>
+## See also
 
 [Laravel Sail](https://laravel.com/docs/8.x/sail)
 

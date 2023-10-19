@@ -3,18 +3,28 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Logging in](#login)
-- [Accessing the API](#apiAccess)
-- [Obtaining an API access token](#apiToken)
-- [Importing mismatches](#importing)
+- [Logging in](#logging-in)
+- [Accessing the API](#accessing-the-api)
+- [Obtaining an API access token](#obtaining-an-api-access-token)
+- [Importing mismatches](#importing-mismatches)
+  - [Creating a mismatches import file](#creating-a-mismatches-import-file)
+  - [Getting upload rights](#getting-upload-rights)
+  - [Uploading an import file](#uploading-an-import-file)
+    - [Headers](#headers)
+    - [Body](#body)
+    - [Example with curl](#example-with-curl)
+    - [Response](#response)
+  - [Reviewing Mismatches](#reviewing-mismatches)
+    - [Review](#review)
+    - [Submit decisions](#submit-decisions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Logging in <a id="login"></a>
+## Logging in
 
 You can log in to the Mismatch Finder website using your MediaWiki account on `www.wikidata.org`. Simply click the Login button on the Welcome page and get redirected to Wikidata, to allow Mismatch Finder access to your account as a "Connected Application". If you are not logged in already, Wikidata will ask you for the username and password of your MediaWiki account.
 
-## Accessing the API <a id="apiAccess"></a>
+## Accessing the API
 
 Once you have logged in and have started to use the Mismatch Finder web interface, you may want to access the REST API as well. The available operations you can perform with the REST API can be checked in the [Wikidata Mismatch Finder OpenApi specification](https://mismatch-finder.toolforge.org/api-docs/index.html).
 
@@ -28,7 +38,7 @@ Authorization: Bearer <your-access-token>
 
 **Note:** Don't forget to replace `<your-access-token>` in the example above with your actual personal access token.
 
-## Obtaining an API access token <a id="apiToken"></a>
+## Obtaining an API access token
 
 To obtain a personal access token, follow these steps:
 
@@ -39,7 +49,7 @@ To obtain a personal access token, follow these steps:
 
 In any case you want to revoke an existing token, simply click the revoke link in the token management page. After the token is revoked, you will be able to create a fresh token by repeating the steps above.
 
-## Importing mismatches <a id="importing"></a>
+## Importing mismatches
 
 Users which have sufficient access rights may perform batch imports into the Mismatch Finder by uploading a CSV file to describe their found mismatches.
 

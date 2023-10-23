@@ -75,7 +75,7 @@ import AuthWidget from '../Components/AuthWidget.vue';
 import LanguageSelector from '../Components/LanguageSelector.vue';
 import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
 import { DirectiveBinding } from 'vue';
-import defineComponent from '../types/defineComponent';
+import { defineComponent } from 'vue';
 import User from '../types/User';
 import languagedata from '@wikimedia/language-data';
 

@@ -19,8 +19,8 @@
         <td :data-header="$i18n('column-wikidata-value')">
             <span class="empty-value" v-if="mismatch.wikidata_value === ''">
               {{ this.$i18n('empty-value') }}
-            </span> 
-            <wikit-link 
+            </span>
+            <wikit-link
               v-else class="break-line-link" :href="statementUrl" target="_blank">
                 {{mismatch.value_label || mismatch.wikidata_value}}
             </wikit-link>
@@ -107,7 +107,8 @@
 <script lang="ts">
 import { formatISO } from 'date-fns';
 
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import {
     Button as WikitButton,
     Dialog as WikitDialog,
@@ -133,7 +134,7 @@ interface MismatchRowState {
   decision: ReviewMenuItem;
 }
 
-export default Vue.extend({
+export default defineComponent({
     components: {
     WikitButton,
     WikitLink,

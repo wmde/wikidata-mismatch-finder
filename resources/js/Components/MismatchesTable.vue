@@ -23,14 +23,15 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import { Table as WikitTable } from '@wmde/wikit-vue-components';
 
 import MismatchRow from './MismatchRow.vue';
 
 import { LabelledMismatch } from '../types/Mismatch';
 
-export default Vue.extend({
+export default defineComponent({
     components: {
         MismatchRow,
         WikitTable,

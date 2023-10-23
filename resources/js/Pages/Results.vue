@@ -150,7 +150,7 @@
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
-    import defineComponent from '../types/defineComponent';
+    import { defineComponent } from 'vue';
     import axios from 'axios';
 
     interface MismatchDecision {

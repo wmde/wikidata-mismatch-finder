@@ -35,9 +35,10 @@
 
 <script lang="ts">
 import Language from '../types/Language';
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 
-export default Vue.extend( {
+export default defineComponent( {
 	name: 'LanguageSelectorOptionsMenu',
 	props: {
 		languages: {

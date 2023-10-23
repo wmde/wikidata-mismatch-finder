@@ -5,7 +5,8 @@
         "allowJs": true,
         "strict": true,
         "esModuleInterop": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "noImplicitAny": false
     },
     "include": [
         "resources/js"

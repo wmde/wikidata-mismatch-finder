@@ -1,8 +1,8 @@
 import './bootstrap';
-import Vue from 'vue';
+import Vue, { createApp, h } from 'vue';
 import i18n from 'vue-banana-i18n';
-import { createStore } from './store';
-import { createInertiaApp } from '@inertiajs/inertia-vue';
+import { createPinia } from 'pinia';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
 
 import i18nMessages from './lib/i18n';
 import bubble from './lib/bubble';
@@ -22,7 +22,7 @@ async function setupI18n(locale: string): Promise<void>{
 (async () => {
     try {
         await setupI18n(document.documentElement.lang);
-        const store = createStore();
+        const pinia = createPinia();
 
         createInertiaApp({
             resolve: name => {
@@ -33,22 +33,22 @@ async function setupI18n(locale: string): Promise<void>{
                 return page
             },
             setup({ el, app, props, plugin }) {
-                Vue.use(plugin)
-                new Vue({
-                    render: h => h(app, props),
-                    store
-                }).$mount(el);
+                createApp({
+                    render: () => h(app, props)
+                })
+                    .use(pinia)
+                    .use(plugin)
+                    .mount(el)
             }
         });
     } catch (e) {
-        new Vue({
-            render: h => h(Error, {
+        createApp({
+            render: () => h(Error, {
                 props: {
                     title: 'Oops!',
                     description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
                 }
             }),
-        }).$mount('#app');
+        }).mount('#app');
     }
 })();
-

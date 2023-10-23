@@ -14,4 +14,5 @@ jobs:
         with:
           TARGET_PATHS: ./docs/*.md
           CREATE_PR: true
+          TARGET_PATHS: ./docs/*.md
 

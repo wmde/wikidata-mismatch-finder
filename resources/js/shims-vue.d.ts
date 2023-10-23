@@ -1,9 +1,9 @@
 declare module "*.vue" {
-    module 'vue/types/vue' {
-        interface Vue {
-            $i18n: ( msg: string, ...args: unknown[] ) => string
-        }
-    }
+    // module 'vue/types/vue' {
+    //     interface Vue {
+    //         $i18n: ( msg: string, ...args: unknown[] ) => string
+    //     }
+    // }
     import { defineComponent } from "vue";
     const component: ReturnType<typeof defineComponent>;
     export default component;

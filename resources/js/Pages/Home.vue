@@ -107,7 +107,8 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
+    import { mapState } from 'pinia';
+    import { useStore } from '../store';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Button as WikitButton,
@@ -194,14 +195,13 @@
                 if(this.validationError) {
                     return;
                 }
-
-                this.saveSearchedIds( this.form.itemsInput );
+                const store = useStore();
+                store.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
             },
-            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {
@@ -215,12 +215,13 @@
             // spread to combine with local computed props
             // only mapping 'loading' and not 'lastSearchedIds' because computed
             //properties are not available when data is processed in vue's lifecycle
-            ...mapState(['loading']),
+            ...mapState(useStore, ['loading']),
         },
         data(): HomeState {
+            const store = useStore();
             return {
                 form: {
-                    itemsInput: this.$store.state.lastSearchedIds
+                    itemsInput: store.lastSearchedIds
                 },
                 validationError: null
             }

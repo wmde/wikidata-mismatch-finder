@@ -1,20 +1,15 @@
-name: Update Table of Contents
+name: Update Table of Contents (ToC)
 
-on: [push]
-
+on: 
+  push:
+    paths: 
+      - docs/**
 jobs:
-  update-toc:
+  generateTOC:
+    name: TOC Generator
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v4
+      - uses: technote-space/toc-generator@v4
+        with:
+          CREATE_PR: true
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v3.8.1
-          with:
-            node-version: '18.x'
-
-        - name: Install Dependencies
-          run: npm ci
-
-        - name: Update ToC
-          run: npm run update-toc

@@ -5,33 +5,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Quickstart](#quickstart)
-- [Day to day](#day-to-day)
-  - [Start the application server](#start-the-application-server)
-  - [Stop the application server](#stop-the-application-server)
-  - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#working-with-oauth)
-- [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
-- [Localization and Internationalization](#localization-and-internationalization)
-- [Job Queues](#job-queues)
-- [Linting](#linting)
-  - [PHP Linting](#php-linting)
-  - [Javascript Linting](#javascript-linting)
-- [Testing](#testing)
-  - [PHP Testing](#php-testing)
-  - [Javascript Testing](#javascript-testing)
-  - [Browser Testing](#browser-testing)
-- [Staging](#staging)
-- [Troubleshooting](#troubleshooting)
-  - [Address already in use](#address-already-in-use)
-    - [MariaDB](#mariadb)
-    - [`laravel.test`](#laraveltest)
-  - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
-- [Chore: Updating dependencies](#chore-updating-dependencies)
-  - [Npm dependencies](#npm-dependencies)
-  - [Composer dependencies](#composer-dependencies)
-- [See also](#see-also)
-
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Quickstart

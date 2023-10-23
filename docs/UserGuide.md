@@ -1,6 +1,7 @@
 # Mismatch Finder User Guide
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- param::maxHeaderLevel::3:: -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Logging in](#logging-in)

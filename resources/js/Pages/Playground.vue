@@ -263,7 +263,7 @@
 </template>
 
 <script lang="ts">
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue'
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3'
     import defineComponent from '../types/defineComponent';
 
     import {

@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import { PropType } from 'vue';
-import { Link as InertiaLink } from '@inertiajs/inertia-vue';
+import { Link as InertiaLink } from '@inertiajs/inertia-vue3';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 import { Button as LanguageSelectorButton, Icon } from '@wmde/wikit-vue-components';
 import AuthWidget from '../Components/AuthWidget.vue';

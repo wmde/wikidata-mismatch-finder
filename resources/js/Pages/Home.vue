@@ -108,7 +108,7 @@
 
 <script lang="ts">
     import { mapState, mapMutations } from 'vuex';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Button as WikitButton,
         Dialog as WikitDialog,
@@ -137,7 +137,7 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600; 
+    export const MAX_NUM_IDS = 600;
 
     export default defineComponent({
         components: {
@@ -213,7 +213,7 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed 
+            // only mapping 'loading' and not 'lastSearchedIds' because computed
             //properties are not available when data is processed in vue's lifecycle
             ...mapState(['loading']),
         },

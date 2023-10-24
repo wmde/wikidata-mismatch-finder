@@ -75,7 +75,7 @@
     sail npm run dev
     ```
 
-For more advanced frontend topics, see [Frontend - Working with CSS and JS](#frontend)
+For more advanced frontend topics, see [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
 
 ## Day to day
 
@@ -371,7 +371,7 @@ http://localhost/auth/login
 
 **Possible Explanation:**
 
-If, after following the steps in the [Working with OAuth section](#oauth), you are getting this error - this can be due to either misconfigured consumer keys, a wrong app url, or simply an attempt to authorize a consumer that is still pending WMF review.
+If, after following the steps in the [Working with OAuth section](#working-with-oauth), you are getting this error - this can be due to either misconfigured consumer keys, a wrong app url, or simply an attempt to authorize a consumer that is still pending WMF review.
 
 **Solution:**
 

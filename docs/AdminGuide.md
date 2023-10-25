@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Mismatch Finder Administration Guide](#mismatch-finder-administration-guide)
+  - [Managing Upload Users](#managing-upload-users)
+    - [Using Laravel's artisan console](#using-laravels-artisan-console)
+  - [Managing Imported Mismatches](#managing-imported-mismatches)
+    - [Using Laravel's artisan console](#using-laravels-artisan-console-1)
+  - [Log Track of Users' Review Decisions](#log-track-of-users-review-decisions)
+  - [Update the expiry date of mismatches](#update-the-expiry-date-of-mismatches)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 # Mismatch Finder Administration Guide
 

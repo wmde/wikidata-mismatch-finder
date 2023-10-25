@@ -2,11 +2,22 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
-- [Logging in](#login)
-- [Accessing the API](#apiAccess)
-- [Obtaining an API access token](#apiToken)
-- [Importing mismatches](#importing)
+- [Logging in <a id="login"></a>](#logging-in-a-idlogina)
+- [Accessing the API <a id="apiAccess"></a>](#accessing-the-api-a-idapiaccessa)
+- [Obtaining an API access token <a id="apiToken"></a>](#obtaining-an-api-access-token-a-idapitokena)
+- [Importing mismatches <a id="importing"></a>](#importing-mismatches-a-idimportinga)
+  - [Creating a mismatches import file](#creating-a-mismatches-import-file)
+  - [Getting upload rights](#getting-upload-rights)
+  - [Uploading an import file](#uploading-an-import-file)
+    - [Headers](#headers)
+    - [Body](#body)
+    - [Example with curl](#example-with-curl)
+    - [Response](#response)
+  - [Reviewing Mismatches](#reviewing-mismatches)
+    - [Review](#review)
+    - [Submit decisions](#submit-decisions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

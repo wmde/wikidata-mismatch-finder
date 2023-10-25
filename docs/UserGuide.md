@@ -1,8 +1,18 @@
 # Mismatch Finder User Guide
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- param::maxHeaderLevel::3:: -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- param::maxHeaderLevel::3:: -->
+**Table of Contents**
+
+- [Logging in](#logging-in)
+- [Accessing the API](#accessing-the-api)
+- [Obtaining an API access token](#obtaining-an-api-access-token)
+- [Importing mismatches](#importing-mismatches)
+  - [Creating a mismatches import file](#creating-a-mismatches-import-file)
+  - [Getting upload rights](#getting-upload-rights)
+  - [Uploading an import file](#uploading-an-import-file)
+  - [Reviewing Mismatches](#reviewing-mismatches)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

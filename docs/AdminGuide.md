@@ -4,7 +4,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Mismatch Finder Administration Guide -- TEST TEST
+# Mismatch Finder Administration Guide
 
 ## Managing Upload Users
 

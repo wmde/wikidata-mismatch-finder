@@ -4,6 +4,8 @@ on:
   push:
     paths: 
       - docs/**
+  workflow_dispatch:
+
 jobs:
   generateTOC:
     name: TOC Generator

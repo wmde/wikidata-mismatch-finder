@@ -1,6 +1,7 @@
 name: Update Table of Contents (ToC)
 
-on: 
+on:
+  pull_request:
   push:
     paths: 
       - docs/**

@@ -4,7 +4,6 @@ on:
   push:
     paths: 
       - docs/**
-  workflow_dispatch:
 
 jobs:
   generateTOC:
@@ -13,6 +12,5 @@ jobs:
     steps:
       - uses: technote-space/toc-generator@v4
         with:
-          CREATE_PR: true
           TARGET_PATHS: ./docs/*.md
 

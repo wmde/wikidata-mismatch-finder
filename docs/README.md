@@ -2,29 +2,34 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**
 
-- [Quickstart](#quickstart)
-- [Day to day](#day-to-day)
+- [Quickstart <a id="quickstart"></a>](#quickstart-a-idquickstarta)
+- [Day to day <a id="day-to-day"></a>](#day-to-day-a-idday-to-daya)
   - [Start the application server](#start-the-application-server)
   - [Stop the application server](#stop-the-application-server)
   - [Destroy all the things](#destroy-all-the-things)
-- [Working with OAuth](#oauth)
-- [Frontend - Working with CSS and JS](#frontend)
+- [Working with OAuth <a id="oauth"></a>](#working-with-oauth-a-idoautha)
+- [Frontend - Working with CSS and JS <a id="frontend"></a>](#frontend---working-with-css-and-js-a-idfrontenda)
 - [Localization and Internationalization](#localization-and-internationalization)
 - [Job Queues](#job-queues)
-- [Linting](#linting)
-  - [PHP Linting](#php-linting)
-  - [Javascript Linting](#js-linting)
-- [Testing](#testing)
-  - [PHP Testing](#php-testing)
-  - [Javascript Testing](#javascript-testing)
-  - [Browser Testing](#browser-testing)
-- [Staging](#staging)
-- [Troubleshooting](#troubleshooting)
+- [Linting <a id="linting"></a>](#linting-a-idlintinga)
+  - [PHP Linting <a id="php-linting"></a>](#php-linting-a-idphp-lintinga)
+  - [Javascript Linting <a id="js-linting"></a>](#javascript-linting-a-idjs-lintinga)
+- [Testing <a id="testing"></a>](#testing-a-idtestinga)
+  - [PHP Testing <a id="php-testing"></a>](#php-testing-a-idphp-testinga)
+  - [Javascript Testing <a id="javascript-testing"></a>](#javascript-testing-a-idjavascript-testinga)
+  - [Browser Testing <a id="browser-testing"></a>](#browser-testing-a-idbrowser-testinga)
+- [Staging <a id="staging"></a>](#staging-a-idstaginga)
+- [Troubleshooting <a id="troubleshooting"></a>](#troubleshooting-a-idtroubleshootinga)
   - [Address already in use](#address-already-in-use)
+    - [MariaDB](#mariadb)
+    - [`laravel.test`](#laraveltest)
   - [OAuth Error retrieving temporary credentials](#oauth-error-retrieving-temporary-credentials)
-- [See also](#see-also)
+- [Chore: Updating dependencies](#chore-updating-dependencies)
+  - [Npm dependencies](#npm-dependencies)
+  - [Composer dependencies](#composer-dependencies)
+- [See also <a id="see-also"></a>](#see-also-a-idsee-alsoa)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

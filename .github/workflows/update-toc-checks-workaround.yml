@@ -1,0 +1,14 @@
+name: Update Table of Contents (ToC)
+
+on: 
+  pull_request:
+    paths-ignore: 
+      - docs/**
+
+jobs:
+  generateTOC:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required"'
+
+

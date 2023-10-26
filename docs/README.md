@@ -1,9 +1,22 @@
 # Developer Documentation
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- param::maxHeaderLevel::2:: -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- param::maxHeaderLevel::2:: -->
+**Table of Contents**
+
+- [Quickstart](#quickstart)
+- [Day to day](#day-to-day)
+- [Working with OAuth](#working-with-oauth)
+- [Frontend - Working with CSS and JS](#frontend---working-with-css-and-js)
+- [Localization and Internationalization](#localization-and-internationalization)
+- [Job Queues](#job-queues)
+- [Linting](#linting)
+- [Testing](#testing)
+- [Staging](#staging)
+- [Troubleshooting](#troubleshooting)
+- [Chore: Updating dependencies](#chore-updating-dependencies)
+- [See also](#see-also)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

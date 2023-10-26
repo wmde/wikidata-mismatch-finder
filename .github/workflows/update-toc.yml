@@ -13,4 +13,5 @@ jobs:
       - uses: technote-space/toc-generator@v4
         with:
           TARGET_PATHS: ./docs/*.md
+          CREATE_PR: true
 

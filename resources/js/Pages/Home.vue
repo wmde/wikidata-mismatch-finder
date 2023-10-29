@@ -107,7 +107,8 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
+    import { computed } from 'vue';
+    import { useBaseStore } from  '../store/base';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
         Button as WikitButton,
@@ -137,9 +138,21 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600; 
+    export const MAX_NUM_IDS = 600;
 
     export default defineComponent({
+        setup(){
+            const {saveSearchedIds, ...store} = useBaseStore();
+
+            const loading = computed(() => store.loading);
+            const lastSearchedIds = store.lastSearchedIds;
+
+            return {
+                loading,
+                lastSearchedIds,
+                saveSearchedIds
+            }
+        },
         components: {
             InertiaHead,
             Icon,
@@ -200,8 +213,7 @@
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
-            },
-            ...mapMutations(['saveSearchedIds'])
+            }
         },
         computed: {
             serversideValidationError() {
@@ -211,16 +223,12 @@
             unexpectedError() {
                 const flashMessages = this.$page.props.flash as FlashMessages;
                 return (flashMessages.errors && flashMessages.errors.unexpected);
-            },
-            // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed 
-            //properties are not available when data is processed in vue's lifecycle
-            ...mapState(['loading']),
+            }
         },
         data(): HomeState {
             return {
                 form: {
-                    itemsInput: this.$store.state.lastSearchedIds
+                    itemsInput: this.lastSearchedIds
                 },
                 validationError: null
             }

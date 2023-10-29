@@ -135,7 +135,6 @@
 
 <script lang="ts">
     import { PropType } from 'vue';
-    import { mapMutations } from 'vuex';
     import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue';
     import {
@@ -152,6 +151,7 @@
     import User from '../types/User';
     import defineComponent from '../types/defineComponent';
     import axios from 'axios';
+    import { useBaseStore } from '../store/base';
 
     interface MismatchDecision {
         id: number,
@@ -187,6 +187,14 @@
     }
 
     export default defineComponent({
+        setup(){
+            const {saveSearchedIds, lastSearchedIds} = useBaseStore();
+
+            return {
+                lastSearchedIds,
+                saveSearchedIds
+            }
+        },
         components: {
             InertiaHead,
             Icon,
@@ -226,7 +234,7 @@
             },
         },
         mounted(){
-            if(!this.$store.state.lastSearchedIds) {
+            if(!this.lastSearchedIds) {
                 this.saveSearchedIds( this.item_ids.join('\n') );
             }
 
@@ -371,8 +379,7 @@
                 }
 
                 dialog.hide();
-            },
-            ...mapMutations(['saveSearchedIds'])
+            }
         }
     });
 </script>

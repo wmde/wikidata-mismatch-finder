@@ -17,4 +17,4 @@ declare module '@wikimedia/language-data';
 declare module '*.svg' {
     const content: any;
     export default content;
-  }
+}

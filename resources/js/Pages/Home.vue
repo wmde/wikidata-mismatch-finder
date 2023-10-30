@@ -8,7 +8,7 @@
                     id="faq-button"
                     variant="quiet"
                     type="progressive"
-                    @click.native="$refs.faq.show()"
+                    @click.native="faqDialog = true"
                 >
                     <template #prefix>
                         <icon type="info-outlined" size="medium" color="inherit"/>
@@ -16,7 +16,45 @@
                     {{ $i18n('faq-button') }}
                 </wikit-button>
             </header>
-
+            <cdx-dialog id="faq-dialog"
+                        v-model:open="faqDialog"
+                        :title="$i18n('faq-dialog-title')"
+                        :primary-action="{
+                            label: $i18n('confirm-dialog-button'),
+                            namespace: 'faq-confirm',
+                            actionType: 'progressive'
+                        }"
+                        @primary="() => faqDialog = false"
+                        close-button-label="X"
+            >
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-finding-mismatches' )}}</h3>
+                    <p>{{ $i18n('faq-dialog-answer-finding-mismatches') }}</p>
+                    <ul>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-1') }}</li>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-2') }}</li>
+                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-3') }}</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-relevance') }}</h3>
+                    <p>{{ $i18n('faq-dialog-answer-relevance') }}</p>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-contributing') }}</h3>
+                    <p v-i18n-html:faq-dialog-answer-contributing="[
+                        'https://phabricator.wikimedia.org/'
+                    ]"></p>
+                </section>
+                <section>
+                    <h3 class="h5">{{ $i18n('faq-dialog-question-more-info') }}</h3>
+                    <p v-i18n-html:faq-dialog-answer-more-info="[
+                        'https://github.com/wmde/wikidata-mismatch-finder',
+                        'https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder',
+                        'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
+                    ]"></p>
+                </section>
+            </cdx-dialog>
             <wikit-dialog id="faq-dialog"
                 :title="$i18n('faq-dialog-title')"
                 ref="faq"
@@ -117,7 +155,7 @@
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-
+    import { CdxDialog } from "@wikimedia/codex";
     import { defineComponent } from 'vue';
 
     interface HomeState {
@@ -127,7 +165,8 @@
         validationError: null|{
             type: string,
             message: string
-        }
+        },
+      faqDialog: boolean
     }
 
     interface ErrorMessages {
@@ -142,12 +181,13 @@
 
     export default defineComponent({
         components: {
-            InertiaHead,
-            Icon,
-            Message,
-            TextArea,
-            WikitButton,
-            WikitDialog
+          CdxDialog,
+          InertiaHead,
+          Icon,
+          Message,
+          TextArea,
+          WikitButton,
+          WikitDialog
         },
         methods: {
             splitInput: function(): Array<string> {
@@ -223,7 +263,8 @@
                 form: {
                     itemsInput: store.lastSearchedIds
                 },
-                validationError: null
+                validationError: null,
+                faqDialog: false
             }
         }
     });

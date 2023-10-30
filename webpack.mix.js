@@ -30,7 +30,9 @@ mix.ts('resources/js/app.ts', 'public/js')
                     options: {
                         compilerOptions: {
                             compatConfig: {
-                                MODE: 2
+                                MODE: 2,
+                                COMPILER_V_ON_NATIVE: true,
+                                COMPILER_V_BIND_SYNC: false
                             }
                         }
                     }
@@ -38,7 +40,7 @@ mix.ts('resources/js/app.ts', 'public/js')
             ]
         }
     })
-    .vue({ version: 3 })
+    .vue({ version: 3})
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/noscript.scss', 'public/css')
     .copyDirectory('resources/img', 'public/images')

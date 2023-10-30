@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ mix.ts('resources/js/app.ts', 'public/js')
                 alias: {
                     vue: "@vue/compat",
                     "@vue/composition-api": "@vue/compat",
+                    "@wmde/wikit-vue-components": "@wmde/wikit-vue-components/dist/wikit-vue-components-vue3compat.common.js",
+                    "@wmde/wikit-css": path.resolve(__dirname, './node_modules/@wmde/wikit-vue-components/dist/wikit-vue-components.css')
                 }
             },
         }

@@ -8,9 +8,8 @@
         "moduleResolution": "node",
         "baseUrl": ".",
         "paths": {
-            // Add composition API to your compiler options and alias it to the vue 3 install
-            // The path is relative to `baseUrl` above
-            "@vue/composition-api": ["node_moudules/vue/dist/vue"]
+            "@vue/composition-api": ["node_moudules/vue/dist/vue"],
+            "@wmde/wikit-vue-components": ["node_modiles/@wmde/wikit-vue-components/dist/wikit-vue-components-vue3compat.common.js"]
         }
     },
     "include": [

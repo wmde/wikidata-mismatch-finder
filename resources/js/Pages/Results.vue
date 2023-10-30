@@ -136,7 +136,7 @@
 <script lang="ts">
     import { PropType } from 'vue';
     import isEmpty from 'lodash/isEmpty';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Link as WikitLink,
         Button as WikitButton,

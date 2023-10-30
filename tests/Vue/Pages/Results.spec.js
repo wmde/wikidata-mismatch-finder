@@ -9,7 +9,7 @@ import axios from 'axios';
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
-jest.mock('@inertiajs/inertia-vue', () => ({}));
+jest.mock('@inertiajs/inertia-vue3', () => ({}));
 
 jest.mock("axios", () => ({
     put: jest.fn()

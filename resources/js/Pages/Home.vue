@@ -109,7 +109,7 @@
 <script lang="ts">
     import { computed } from 'vue';
     import { useBaseStore } from  '../store/base';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Button as WikitButton,
         Dialog as WikitDialog,

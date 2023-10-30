@@ -107,7 +107,7 @@
 </template>
 
 <script lang="ts">
-    import { computed } from 'vue';
+    import { computed, defineComponent } from 'vue';
     import { useBaseStore } from  '../store/base';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
@@ -117,8 +117,6 @@
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-
-    import defineComponent from '../types/defineComponent';
 
     interface HomeState {
         form: {

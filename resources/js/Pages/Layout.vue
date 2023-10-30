@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
+import { PropType, defineComponent } from 'vue';
 import { Link as InertiaLink } from '@inertiajs/inertia-vue3';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 import { Button as LanguageSelectorButton, Icon } from '@wmde/wikit-vue-components';
@@ -75,7 +75,6 @@ import AuthWidget from '../Components/AuthWidget.vue';
 import LanguageSelector from '../Components/LanguageSelector.vue';
 import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
 import { DirectiveBinding } from 'vue/types/options';
-import defineComponent from '../types/defineComponent';
 import User from '../types/User';
 import languagedata from '@wikimedia/language-data';
 

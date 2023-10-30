@@ -134,7 +134,7 @@
 </template>
 
 <script lang="ts">
-    import { PropType } from 'vue';
+    import { PropType, defineComponent } from 'vue';
     import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
@@ -149,7 +149,6 @@
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
     import User from '../types/User';
-    import defineComponent from '../types/defineComponent';
     import axios from 'axios';
     import { useBaseStore } from '../store/base';
 

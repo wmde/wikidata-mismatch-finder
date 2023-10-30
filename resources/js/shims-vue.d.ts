@@ -1,13 +1,13 @@
 declare module "*.vue" {
-    import Vue from 'vue'
-
+    import { defineComponent } from "vue";
     module 'vue/types/vue' {
         interface Vue {
             $i18n: ( msg: string, ...args: unknown[] ) => string
         }
     }
 
-    export default Vue
+    const component: ReturnType<typeof defineComponent>;
+    export default component;
 }
 
 declare module 'vue' {

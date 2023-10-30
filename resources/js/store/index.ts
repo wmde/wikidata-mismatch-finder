@@ -7,11 +7,11 @@ export function setupStore(): Pinia {
     Vue.use(PiniaVuePlugin);
 
     const pinia: Pinia = createPinia();
-    const store = useBaseStore();
 
     let timer: ReturnType<typeof setTimeout>;
 
     Inertia.on('start', () => {
+        const store = useBaseStore();
         // Only instantiate loading state after 250ms. This is done to
         // prevent a flash of the loader in case loading is nearly
         // immediate, which can be visually distracting.
@@ -21,6 +21,7 @@ export function setupStore(): Pinia {
     Inertia.on('finish', (event) => {
         clearTimeout(timer);
         const status = event.detail.visit;
+        const store = useBaseStore();
 
         if (status.completed || status.cancelled) {
             store.stopLoader();

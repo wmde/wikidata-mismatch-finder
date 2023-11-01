@@ -3,7 +3,7 @@ import {createApp, h} from 'vue';
 import {createPinia} from 'pinia';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
 import i18nMessages, { I18nMessages } from './lib/i18n';
-import i18n from 'vue-banana-i18n';
+import {createI18n} from 'vue-banana-i18n'
 import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
@@ -20,7 +20,10 @@ async function setupI18n(locale: string): Promise<I18nMessages>{
         const locale = document.documentElement.lang;
         const i18nMessages = await setupI18n(locale);
         const pinia = createPinia();
-
+        const i18nPlugin = createI18n({
+            locale: locale,
+            messages: i18nMessages
+        });
         createInertiaApp({
             resolve: name => {
                 const page = require(`./Pages/${name}`).default;
@@ -34,7 +37,7 @@ async function setupI18n(locale: string): Promise<I18nMessages>{
                     render: () => h(app, props)
                 })
                     .use(bubble)
-                    .use(i18n, {locale, messages: i18nMessages})
+                    .use(i18nPlugin)
                     .use(pinia)
                     .use(plugin)
                     .mount(el)

@@ -57,7 +57,7 @@
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link
-                        :href="`https://www.wikidata.org/wiki/${item_id}`" target="_blank">
+                        :href="`https://www.wikidata.org/wiki/${String(item_id)}`" target="_blank">
                         {{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
@@ -73,10 +73,10 @@
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches"
                 v-for="(mismatches, item, idx) in results"
-                :id="`item-mismatches-${item}`"
+                :id="`item-mismatches-${String(item)}`"
                 :key="idx">
                 <h2 class="h4">
-                    <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                    <wikit-link :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                         {{labels[item]}} ({{item}})
                     </wikit-link>
                 </h2>
@@ -89,7 +89,7 @@
                         <Message class="form-success-message" type="success" v-if="lastSubmitted === item">
                             <span>{{ $i18n('changes-submitted-message') }}</span>
                             <span class="message-link">
-                                <wikit-link :href="`https://www.wikidata.org/wiki/${item}`" target="_blank">
+                                <wikit-link :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                                     {{labels[item]}} ({{item}})
                                 </wikit-link>
                             </span>
@@ -116,7 +116,6 @@
                 namespace: 'next-steps-confirm'
             }]"
             @action="_handleConfirmation"
-            @dismissed="disableConfirmation = false"
             dismiss-button
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>

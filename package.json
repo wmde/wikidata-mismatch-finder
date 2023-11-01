@@ -25,7 +25,7 @@
         "@wikimedia/codex": "^0.20.0",
         "@wikimedia/codex-design-tokens": "^0.20.0",
         "@wikimedia/codex-icons": "^0.20.0",
-        "@wikimedia/language-data": "^1.1.4",
+        "@wikimedia/language-data": "^1.1.5",
         "axios": "^1.5.1",
         "axios-mock-adapter": "^1.22.0",
         "babel-core": "^7.0.0-bridge.0",

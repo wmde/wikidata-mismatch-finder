@@ -34,7 +34,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     ',Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569' // Emulate missing item ID
-                    . ',3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . ',3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.required', [
                         'attribute' => 'item id'
                     ])
@@ -49,7 +49,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     $longQID // Emulate long item ID
                     . ',Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569' // Ensure correct columns
-                    . ',3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . ',3 April 1934,,1934-04-03,http://www.example.com,', // Ensure correct columns
                     __('validation.max.string', [
                         'attribute' => 'item id',
                         'max' => $config['item_id']['max_length']
@@ -63,7 +63,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     'q184746' // Emulate malformed item ID (must be initial-uppercase)
                     . ',Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569' // Ensure correct columns
-                    . ',3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . ',3 April 1934,,1934-04-03,http://www.example.com,', // Ensure correct columns
                     __('validation.regex', [
                         'attribute' => 'item id'
                     ])
@@ -75,7 +75,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q184746,,' // Emulate missing guid
-                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com',
+                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com,qualifier',
                     __('validation.required_with', [
                         'values' => 'wikidata value',
                         'attribute' => 'statement guid'
@@ -91,7 +91,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     'Q184746,'
                     . $longQID . '$' . $faker->uuid() . ',' // Emulate long guid
-                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.max.string', [
                         'attribute' => 'statement guid',
                         'max' => $config['guid']['max_length']
@@ -105,7 +105,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     'Q184746,'
                     . 'some-malformed-guid,' // Emulate malformed guid
-                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com,qualifier', // Ensure correct columns
                     __('validation.regex', [
                         'attribute' => 'statement guid'
                     ])
@@ -117,7 +117,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q91465763,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,' // Emulate inconsistent data
-                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . 'P569,3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.statement_guid')
                 ];
             }
@@ -127,7 +127,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,,' // Emulate missing property id
-                    . '3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . '3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.required', [
                         'attribute' => 'property id'
                     ])
@@ -142,7 +142,7 @@ class ValidateCSVTest extends TestCase
                 return [
                      'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,' // Ensure correct columns
                     . $longPID . ',' // Emulate long pid
-                    . '3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . '3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.max.string', [
                         'attribute' => 'property id',
                         'max' => $config['pid']['max_length']
@@ -156,7 +156,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,' // Ensure correct columns
                     . 'some-malformed-pid,' // Emulate malformed pid
-                    . '3 April 1934,,1934-04-03,http://www.example.com', // Ensure correct columns
+                    . '3 April 1934,,1934-04-03,http://www.example.com,statement', // Ensure correct columns
                     __('validation.regex', [
                         'attribute' => 'property id'
                     ])
@@ -168,7 +168,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569'
-                    . ',,,1934-04-03,http://www.example.com', // Emulate missing wikidata value
+                    . ',,,1934-04-03,http://www.example.com,statement', // Emulate missing wikidata value
                     __('validation.required_with', [
                         'values' => 'statement guid',
                         'attribute' => 'wikidata value'
@@ -181,7 +181,8 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q1462,Q1462$97120cf9-ff1b-37c9-8af6-89d0b44a1cf2,P5,' // Ensure correct columns
-                    . '634463875,Q123,516380568,http://www.example.com', // Emulate invalid meta wikidata value
+                    . '634463875,Q123,516380568,' // Emulate invalid meta wikidata value
+                    . 'http://www.example.com,statement',
                     __('validation.meta_wikidata_value')
                 ];
             }
@@ -191,7 +192,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q1462,,P3150,'
-                    . ',Q12138,1879-03-14,http://www.example.com', // Emulate invalid meta wikidata value
+                    . ',Q12138,1879-03-14,http://www.example.com,qualifier', // Emulate invalid meta wikidata value
                     __('validation.prohibited_if', [
                         'attribute' => 'meta wikidata value',
                         'other' => 'wikidata value',
@@ -207,7 +208,7 @@ class ValidateCSVTest extends TestCase
 
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,' // Ensure correct columns
-                    . $longValue . ',,1934-04-03,http://www.example.com', // Emulate long wikidata value
+                    . $longValue . ',,1934-04-03,http://www.example.com,statement', // Emulate long wikidata value
                     __('validation.max.string', [
                         'attribute' => 'wikidata value',
                         'max' => $config['wikidata_value']['max_length']
@@ -220,7 +221,7 @@ class ValidateCSVTest extends TestCase
             function (array $config): array {
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,3 April 1934' // Ensure correct columns
-                    . ',,,http://www.example.com', // Emulate missing external data
+                    . ',,,http://www.example.com,statement', // Emulate missing external data
                     __('validation.required', [
                         'attribute' => 'external value'
                     ])
@@ -234,7 +235,7 @@ class ValidateCSVTest extends TestCase
 
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,3 April 1934,,' // Ensure correct cols
-                    . $longValue . ',http://www.example.com', // Emulate long value
+                    . $longValue . ',http://www.example.com,statement', // Emulate long value
                     __('validation.max.string', [
                         'attribute' => 'external value',
                         'max' => $config['external_value']['max_length']
@@ -250,7 +251,7 @@ class ValidateCSVTest extends TestCase
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5' // Ensure correct cols
                     . ',P569,3 April 1934,,1934-04-03,' // Ensure correct cols
-                    . $longURL, // Emulate long url
+                    . $longURL . ',statement', // Emulate long url
                     __('validation.max.string', [
                         'attribute' => 'external url',
                         'max' => $config['external_url']['max_length']
@@ -264,9 +265,21 @@ class ValidateCSVTest extends TestCase
                 return [
                     'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5' // Ensure correct cols
                     . ',P569,3 April 1934,,1934-04-03,' // Ensure correct cols
-                    . 'i-am-not-your-gurl',
+                    . 'i-am-not-your-gurl,',
                     __('validation.url', [
                         'attribute' => 'external url'
+                    ])
+                ];
+            }
+        ];
+
+        yield 'invalid type value' => [
+            function (array $config): array {
+                return [
+                    'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,' // Ensure correct columns
+                    . '3 April 1934,,1934-04-03,http://www.example.com,potato', // Ensure correct columns
+                    __('validation.in', [
+                        'attribute' => 'type'
                     ])
                 ];
             }
@@ -301,7 +314,7 @@ class ValidateCSVTest extends TestCase
     {
         // Ensure correct columns
         $line = 'Q4115189,Q4115189$ffa51229-4877-3135-a2e2-a22fe9b7039d' // Emulate non v4 UUID
-                . ',P569,3 April 1934,,1934-04-03,http://www.example.com';
+                . ',P569,3 April 1934,,1934-04-03,http://www.example.com,statement';
 
         // Emulate passed validation rule, as this is not the system under test
         $this->partialMock(WikidataValue::class, function (MockInterface $mock) {
@@ -322,7 +335,7 @@ class ValidateCSVTest extends TestCase
     {
         // Ensure correct columns
         $line = 'Q184746,Q184746$7814880A-A6EF-40EC-885E-F46DD58C8DC5,P569,invalid-wikidata-value,,'
-                . '1934-04-03,http://www.example.com';
+                . '1934-04-03,http://www.example.com,statement';
         $message = __('validation.wikidata_value', [
             'attribute' => 'wikidata value'
         ]);
@@ -364,7 +377,7 @@ class ValidateCSVTest extends TestCase
 
         // Ensure rows
         $import = $this->createMockImport(
-            'some-item-id,some-guid,some-pid,some-value,some-meta-value,another-value,a-url'
+            'some-item-id,some-guid,some-pid,some-value,some-meta-value,another-value,a-url,a-type'
         );
 
         try {

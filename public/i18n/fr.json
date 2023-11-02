@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
+			"Valmontin",
 			"Verdy p"
 		]
 	},
@@ -25,7 +26,8 @@
 	"item-form-error-message-max": "Veuillez réduire le nombre d’identifiants d’élément pour respecter la limite ($1)",
 	"item-form-error-message-invalid": "Au moins un des identifiants d’élément n’a pas pu être traité. Assurez-vous d’ajouter un seul identifiant par ligne, sans espaces ni virgules. Les identifiants d’élément doivent être uniquement un ensemble de nombres valides précédés de la lettre Q (par exemple : Q80378).",
 	"server-error": "Le serveur a rencontré une erreur temporaire et n’a pas pu exécuter votre requête. Veuillez essayer à nouveau.",
-	"column-property": "Propriété",
+	"column-mismatch": "Incohérence",
+	"column-type": "Type",
 	"column-wikidata-value": "Valeur sur Wikidata",
 	"column-external-value": "Valeur sur la source externe",
 	"column-review-status": "État",
@@ -34,6 +36,7 @@
 	"no-mismatches-found-message": "Aucune incohérence n’a été trouvée pour :",
 	"random-mismatches": "Incohérences aléatoires",
 	"empty-value": "Aucune",
+	"statement": "déclaration",
 	"no-mismatches-available-for-review": "Il n’y a actuellement aucune incohérence à vérifier.",
 	"review-status-pending": "Attente de vérification",
 	"review-status-wikidata": "Données erronées sur Wikidata",

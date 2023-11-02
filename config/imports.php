@@ -15,7 +15,8 @@ return [
             'wikidata_value',
             'meta_wikidata_value',
             'external_value',
-            'external_url'
+            'external_url',
+            'type'
         ]
     ],
 
@@ -63,7 +64,8 @@ return [
             'meta_wikidata_value',
             'external_value',
             'external_url',
-            'review_status'
+            'review_status',
+            'type'
         ]
     ]
 ];

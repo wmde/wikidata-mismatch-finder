@@ -22,7 +22,8 @@ class Mismatch extends Model
         'meta_wikidata_value',
         'external_value',
         'external_url',
-        'review_status'
+        'review_status',
+        'type'
     ];
 
     /**
@@ -31,7 +32,8 @@ class Mismatch extends Model
      * @var array
      */
     protected $attributes = [
-        'review_status' => 'pending'
+        'review_status' => 'pending',
+        'type' => 'statement'
     ];
 
     public function importMeta()

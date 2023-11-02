@@ -66,7 +66,8 @@ class MismatchFactory extends Factory
                 return null;
             },
             'external_value'=> $this->getRandomValue(),
-            'external_url' => $this->faker->optional(0.6)->url()
+            'external_url' => $this->faker->optional(0.6)->url(),
+            'type' => $this->getRandomMismatchType()
         ];
     }
 
@@ -166,5 +167,13 @@ class MismatchFactory extends Factory
                 return self::PROPERTIES[$propertyId] === $datatype;
             }
         ));
+    }
+
+    private function getRandomMismatchType()
+    {
+        return $this->faker->randomElement([
+            'statement',
+            'qualifier'
+        ]);
     }
 }

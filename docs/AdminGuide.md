@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- param::maxHeaderLevel::2:: -->
+**Table of Contents**
+
+- [Mismatch Finder Administration Guide](#mismatch-finder-administration-guide)
+  - [Managing Upload Users](#managing-upload-users)
+  - [Managing Imported Mismatches](#managing-imported-mismatches)
+  - [Log Track of Users' Review Decisions](#log-track-of-users-review-decisions)
+  - [Update the expiry date of mismatches](#update-the-expiry-date-of-mismatches)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Mismatch Finder Administration Guide
 
@@ -108,6 +120,7 @@ Example entry:
     "review_status_old": "pending",
     "review_status_new": "wikidata",
     "time": "2021-10-05 14:44:59",
+    "type": "statement"
 }
 ```
 

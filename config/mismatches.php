@@ -36,6 +36,9 @@ return [
         ],
         'review_status' => [
             'accepted_values' => ['pending', 'wikidata', 'missing', 'external', 'both', 'none']
+        ],
+        'type' => [
+            'accepted_values' => ['statement', 'qualifier']
         ]
     ],
     'id_separator' => '|',

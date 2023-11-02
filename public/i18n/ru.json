@@ -14,8 +14,10 @@
 	"log-in": "Войти",
 	"log-out": "Выйти",
 	"language-selector-options-menu-aria-label": "Языки",
+	"language-selector-mobile-header": "Выберите язык",
+	"language-selector-clear-button-label": "Очистить поле ввода",
 	"language-selector-input-placeholder": "Поиск языков",
-	"column-property": "Свойство",
+	"language-selector-no-results": "Язык недоступен",
 	"column-wikidata-value": "Значение в Викиданных",
 	"column-external-value": "Значение во внешнем источнике",
 	"column-review-status": "Состояние",
@@ -27,6 +29,7 @@
 	"review-status-wikidata": "Неверные данные в Викиданных",
 	"review-status-missing": "Отсутствуют данные в Викиданных",
 	"review-status-both": "Оба неверны",
+	"results-page-title": "Что мне делать с несоответствиями?",
 	"results-instructions-button": "Инструкции",
 	"confirmation-dialog-title": "Следующие шаги",
 	"results-full-description-button": "прочитать полное описание",
@@ -35,6 +38,7 @@
 	"confirm-dialog-button": "Подтвердить",
 	"results-back-button": "Найти ещё несоответствий",
 	"faq-button": "Подробнее",
+	"faq-dialog-question-relevance": "Насколько актуальны эти несоответствия?",
 	"faq-dialog-question-more-info": "Где я могу найти дополнительную информацию?",
 	"wikidata-tool-footer-about-tool": "О $1",
 	"wikidata-tool-footer-license": "Под лицензией <a href=\"$1\">$2</a>",
@@ -47,5 +51,6 @@
 	"mismatch-finder-footer-more-tools": "Ещё инструменты по работе с качеством данных",
 	"tool-query-builder": "Конструктор запросов",
 	"tool-item-quality-evaluator": "Оценка качества элементов",
-	"tool-curious-facts": "Любопытные факты"
+	"tool-curious-facts": "Любопытные факты",
+	"tool-constraints-violation-checker": "Проверка нарушения ограничений"
 }

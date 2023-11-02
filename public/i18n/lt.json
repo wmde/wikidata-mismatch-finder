@@ -16,7 +16,6 @@
 	"item-form-error-message-max": "Prašome sumažinti elementų identifikatorių skaičių iki limito ($1)",
 	"item-form-error-message-invalid": "Vienas ar daugiau elementų indentifikatorų negali būti apdorotas. Prašome užtikrnti, kad pridėjote po vieną identifikatorių eilutėje be tarpų ar kablelių. Elementų identifikatoriais turėtų būti tinkamų skaičių rinkiniai su Q raidės priešdėliu (pvz.: Q80378).",
 	"server-error": "Serveris susidūrė su laikina klaida ir negalėjo įvykdyti jūsų užklausos. Prašome pabandyti dar kartą.",
-	"column-property": "Savybė",
 	"column-wikidata-value": "Reikmė Vikiduomenyse",
 	"column-external-value": "Reikšmė išorės šaltinyje",
 	"column-review-status": "Būsena",

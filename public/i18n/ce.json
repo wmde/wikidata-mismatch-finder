@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"about-mismatch-finder-title": "ХӀокху гӀирсах лаьцна",
+	"item-form-submit": "Элементаш талла",
+	"log-in": "ЧугӀо",
+	"log-out": "ЧугӀо",
+	"language-selector-options-menu-aria-label": "Меттанаш",
+	"language-selector-mobile-header": "Харжа мотт",
+	"column-wikidata-value": "Викихаамашкара маьӀна",
+	"column-external-value": "Арахьара хьост чохь ду маьӀна",
+	"column-review-status": "Статус",
+	"column-upload-info": "Чуйаккхарах инфо",
+	"column-external-source": "Арахьара хьост",
+	"empty-value": "ХӀан-хӀа",
+	"review-status-wikidata": "Нийса боцу хаамаш Викихаамашкахь",
+	"review-status-missing": "Викихаамашкахь хаамаш бац",
+	"confirmation-dialog-button": "Кхин дӀа",
+	"confirmation-dialog-option-label": "Кхий ма гайта",
+	"confirm-dialog-button": "Бакъде",
+	"faq-button": "Ма-дарра",
+	"wikidata-tool-footer-about-tool": "$1 лаьцна",
+	"wikidata-tool-footer-license": "<a href=\"$1\">$2</a> лицензица",
+	"wikidata-tool-footer-source": "Схьаэца йуьхьанцара код",
+	"wikidata-tool-footer-issues": "Проблемех хаам бе",
+	"wikidata-tool-footer-about-us": "Тхоьх лаьцна",
+	"wikidata-tool-footer-privacy": "Къайлаха политика",
+	"wikidata-tool-footer-wmde": "Викимедиа Германи",
+	"tool-query-builder": "Дехарийн конструктор",
+	"tool-item-quality-evaluator": "Элементийн дикаллин маххадор",
+	"tool-curious-facts": "Тамашийна факташ"
+}

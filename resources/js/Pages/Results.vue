@@ -15,7 +15,7 @@
                     id="instructions-button"
                     variant="quiet"
                     type="progressive"
-                    @click.native="showInstructionsDialog"
+                    @click.native="instructionsDialog = true"
                 >
                     <template #prefix>
                         <icon type="info-outlined" size="medium" color="inherit"/>
@@ -24,15 +24,15 @@
                 </wikit-button>
             </header>
 
-            <wikit-dialog id="instructions-dialog"
+            <cdx-dialog id="instructions-dialog"
                 :title="$i18n('instructions-dialog-title')"
-                ref="inctructionsDialog"
-                :actions="[{
+                v-model:open="instructionsDialog"
+                :primary-action="{
                     label: $i18n('confirm-dialog-button'),
                     namespace: 'instructions-confirm'
-                }]"
-                @action="(_, dialog) => dialog.hide()"
-                dismiss-button
+                }"
+                @primary="() => instructionsDialog = false"
+                close-button-label="X"
             >
                 <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
                 <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
@@ -44,7 +44,7 @@
                     <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-pending') }}</li>
                 </ul>
-            </wikit-dialog>
+            </cdx-dialog>
             <p id="about-description" >
                 {{ $i18n('results-page-description') }}
             </p>
@@ -145,6 +145,8 @@
         Icon,
         Message } from '@wmde/wikit-vue-components';
 
+    import { CdxDialog } from "@wikimedia/codex";
+
     import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
@@ -182,7 +184,8 @@
         disableConfirmation: boolean,
         pageDirection: string,
         requestError: boolean,
-        lastSubmitted: string
+        lastSubmitted: string,
+        instructionsDialog: boolean
     }
 
     export default defineComponent({
@@ -195,7 +198,8 @@
             WikitButton,
             WikitDialog,
             Checkbox,
-            Message
+            Message,
+            CdxDialog
         },
         props: {
             user: {
@@ -253,15 +257,11 @@
                 disableConfirmation: false,
                 pageDirection: 'ltr',
                 requestError: false,
-                lastSubmitted: ''
+                lastSubmitted: '',
+                instructionsDialog: false
             }
         },
         methods: {
-            showInstructionsDialog() {
-                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                const dialog = this.$refs.inctructionsDialog as any;
-                dialog.show();
-            },
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended
                 // mismatch objects which include labels, by looking up any

@@ -99,7 +99,7 @@ export default defineComponent({
     },
     directives: {
         detectClickOutside: {
-            inserted(element: HTMLElement, binding: DirectiveBinding): void {
+          mounted(element: HTMLElement, binding: DirectiveBinding): void {
                 handleOutsideClick = (event: MouseEvent | TouchEvent): void => {
                     const callback = binding.value;
                     if (!element.contains(event.target as Node)) {
@@ -110,7 +110,7 @@ export default defineComponent({
                 document.addEventListener('click', handleOutsideClick);
                 document.addEventListener('touchstart', handleOutsideClick);
             },
-            unbind(): void {
+            unmounted(): void {
                 document.removeEventListener('click', handleOutsideClick);
                 document.removeEventListener('touchstart', handleOutsideClick);
             },
@@ -171,7 +171,7 @@ export default defineComponent({
             this.changeLanguageSelectorMenuDirection();
         },
     },
-    beforeDestroy () {
+    beforeUnmount () {
         this.resizeObserver.unobserve(this.$refs.contentWrap as Element)
     },
 });

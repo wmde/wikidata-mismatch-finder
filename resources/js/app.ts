@@ -2,7 +2,7 @@ import './bootstrap';
 import i18n from 'vue-banana-i18n';
 import { createStore } from './store';
 import i18nMessages from './lib/i18n';
-import {createApp, h} from 'vue';
+import Vue, {createApp, h} from 'vue';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
 import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';

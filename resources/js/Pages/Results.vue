@@ -137,7 +137,7 @@
     import { PropType } from 'vue';
     import { mapMutations } from 'vuex';
     import isEmpty from 'lodash/isEmpty';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Link as WikitLink,
         Button as WikitButton,

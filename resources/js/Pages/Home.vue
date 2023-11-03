@@ -108,7 +108,7 @@
 
 <script lang="ts">
     import { mapState, mapMutations } from 'vuex';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Button as WikitButton,
         Dialog as WikitDialog,

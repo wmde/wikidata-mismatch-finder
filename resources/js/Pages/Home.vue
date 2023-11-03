@@ -107,8 +107,9 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
+    import { mapState } from 'pinia';
+    import { useStore } from '../store';
     import {
         Button as WikitButton,
         Dialog as WikitDialog,
@@ -137,7 +138,7 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600; 
+    export const MAX_NUM_IDS = 600;
 
     export default defineComponent({
         components: {
@@ -194,14 +195,13 @@
                 if(this.validationError) {
                     return;
                 }
-
-                this.saveSearchedIds( this.form.itemsInput );
+                const store = useStore();
+                store.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
             },
-            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {
@@ -213,14 +213,15 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed 
+            // only mapping 'loading' and not 'lastSearchedIds' because computed
             //properties are not available when data is processed in vue's lifecycle
-            ...mapState(['loading']),
+            ...mapState(useStore, ['loading']),
         },
         data(): HomeState {
+            const store = useStore();
             return {
                 form: {
-                    itemsInput: this.$store.state.lastSearchedIds
+                    itemsInput: store.lastSearchedIds
                 },
                 validationError: null
             }

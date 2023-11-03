@@ -1,6 +1,6 @@
 import './bootstrap';
-import { createStore } from './store';
 import Vue, {createApp, h} from 'vue';
+import {createPinia} from 'pinia';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
 import i18nMessages, { I18nMessages } from './lib/i18n';
 import {createI18n} from 'vue-banana-i18n'
@@ -19,9 +19,9 @@ async function setupI18n(locale: string): Promise<I18nMessages>{
 // component otherwise
 (async () => {
     try {
-        const store = createStore();
         const locale = document.documentElement.lang;
         const i18nMessages = await setupI18n(locale);
+        const pinia = createPinia();
         const i18nPlugin = createI18n({
             locale: locale,
             messages: i18nMessages
@@ -39,6 +39,7 @@ async function setupI18n(locale: string): Promise<I18nMessages>{
                     render: () => h(app, props)
                 })
                     .use(i18nPlugin)
+                    .use(pinia)
                     .use(plugin)
                     .mount(el)
             }

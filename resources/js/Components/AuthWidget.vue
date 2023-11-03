@@ -10,11 +10,12 @@
 
 <script lang="ts">
 
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import User from '../types/User';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
-export default Vue.extend({
+export default defineComponent({
     props: {
         user: Object as PropType<User>
     },

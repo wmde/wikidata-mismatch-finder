@@ -29,11 +29,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import searchUrl from '../../img/search.svg';
 import clearUrl from '../../img/clear.svg';
 
-export default Vue.extend( {
+export default defineComponent( {
 	name: 'LanguageSelectorInput',
 	props: {
 		value: {

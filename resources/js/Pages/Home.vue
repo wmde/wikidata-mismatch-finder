@@ -117,8 +117,7 @@
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-
-    import defineComponent from '../types/defineComponent';
+    import { defineComponent } from 'vue';
 
     interface HomeState {
         form: {

@@ -42,10 +42,8 @@ async function setupI18n(locale: string): Promise<void>{
     } catch (e) {
         createApp({
             render: () => h(Error, {
-                props: {
-                    title: 'Oops!',
-                    description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
-                }
+                title: 'Oops!',
+                description: 'Something unexpected happened, but we are working on it... please try to refresh, or come back later.'
             }),
         }).mount('#app');
     }

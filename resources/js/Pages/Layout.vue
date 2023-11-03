@@ -74,7 +74,7 @@ import { Button as LanguageSelectorButton, Icon } from '@wmde/wikit-vue-componen
 import AuthWidget from '../Components/AuthWidget.vue';
 import LanguageSelector from '../Components/LanguageSelector.vue';
 import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
-import { DirectiveBinding } from 'vue/types/options';
+import { DirectiveBinding, ComponentPublicInstance } from 'vue';
 import { defineComponent } from 'vue';
 import User from '../types/User';
 import languagedata from '@wikimedia/language-data';
@@ -160,11 +160,15 @@ export default defineComponent({
             const headerTop = (this.$refs.header as HTMLElement).getBoundingClientRect().top;
             const userSectionTop = (this.$refs.userSection as HTMLElement).getBoundingClientRect().top;
             if( userSectionTop > headerTop ){
-                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = 'unset';
-                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = '0';
+                ((this.$refs.languageSelector as ComponentPublicInstance)
+                    .$el as HTMLElement).style.insetInlineEnd = 'unset';
+                ((this.$refs.languageSelector as ComponentPublicInstance)
+                    .$el as HTMLElement).style.insetInlineStart = '0';
             } else {
-                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineEnd = '0';
-                ((this.$refs.languageSelector as Vue).$el as HTMLElement).style.insetInlineStart = 'unset';
+                ((this.$refs.languageSelector as ComponentPublicInstance)
+                    .$el as HTMLElement).style.insetInlineEnd = '0';
+                ((this.$refs.languageSelector as ComponentPublicInstance)
+                    .$el as HTMLElement).style.insetInlineStart = 'unset';
             }
         },
         onWindowResize(): void {

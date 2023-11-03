@@ -1,5 +1,5 @@
 import './bootstrap';
-import Vue, {createApp, h} from 'vue';
+import {createApp, h} from 'vue';
 import {createPinia} from 'pinia';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
 import i18nMessages, { I18nMessages } from './lib/i18n';
@@ -7,8 +7,6 @@ import {createI18n} from 'vue-banana-i18n'
 import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
-
-Vue.use(bubble);
 
 // Retrieve i18n messages and setup the Vue instance to handle them.
 async function setupI18n(locale: string): Promise<I18nMessages>{
@@ -38,6 +36,7 @@ async function setupI18n(locale: string): Promise<I18nMessages>{
                 createApp({
                     render: () => h(app, props)
                 })
+                    .use(bubble)
                     .use(i18nPlugin)
                     .use(pinia)
                     .use(plugin)

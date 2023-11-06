@@ -359,7 +359,7 @@
             // understand component instances and complains about usage of the
             // hide method otherwise.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            _handleConfirmation(_ : string, dialog: any){
+            _handleConfirmation(){
                 const { disableConfirmation, user } = this;
 
                 // Do nothing if there is no user

@@ -29,7 +29,8 @@
                 v-model:open="instructionsDialog"
                 :primary-action="{
                     label: $i18n('confirm-dialog-button'),
-                    namespace: 'instructions-confirm'
+                    namespace: 'instructions-confirm',
+                    actionType: 'progressive'
                 }"
                 @primary="() => instructionsDialog = false"
                 close-button-label="X"
@@ -108,16 +109,17 @@
                 </form>
             </section>
         </section>
-        <wikit-dialog class="confirmation-dialog"
+        <cdx-dialog class="confirmation-dialog"
             :title="$i18n('confirmation-dialog-title')"
-            ref="confirmation"
-            :actions="[{
+            v-model:open="confirmationDialog"
+            :primary-action="{
                 label: $i18n('confirmation-dialog-button'),
-                namespace: 'next-steps-confirm'
-            }]"
-            @action="_handleConfirmation"
-            @dismissed="disableConfirmation = false"
-            dismiss-button
+                namespace: 'next-steps-confirm',
+                actionType: 'progressive'
+
+            }"
+            @primary="_handleConfirmation"
+            close-button-label="X"
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>
@@ -129,7 +131,7 @@
                 :label="$i18n('confirmation-dialog-option-label')"
                 :checked.sync="disableConfirmation"
             />
-        </wikit-dialog>
+        </cdx-dialog>
     </div>
 </template>
 
@@ -142,7 +144,6 @@
         Link as WikitLink,
         Button as WikitButton,
         Checkbox,
-        Dialog as WikitDialog,
         Icon,
         Message } from '@wmde/wikit-vue-components';
 
@@ -186,7 +187,8 @@
         pageDirection: string,
         requestError: boolean,
         lastSubmitted: string,
-        instructionsDialog: boolean
+        instructionsDialog: boolean,
+        confirmationDialog: boolean
     }
 
     export default defineComponent({
@@ -197,7 +199,6 @@
             MismatchesTable,
             WikitLink,
             WikitButton,
-            WikitDialog,
             Checkbox,
             Message,
             CdxDialog
@@ -259,7 +260,8 @@
                 pageDirection: 'ltr',
                 requestError: false,
                 lastSubmitted: '',
-                instructionsDialog: false
+                instructionsDialog: false,
+                confirmationDialog: false
             }
         },
         methods: {
@@ -308,7 +310,6 @@
                 // Defaulting to any, as the alternative presents us with
                 // convoluted and unnecessary syntax.
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const confirmationDialog = this.$refs.confirmation as any;
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const overlay = this.$refs.overlay as any;
 
@@ -324,7 +325,7 @@
                     this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
-                        confirmationDialog.show();
+                      this.confirmationDialog = true;
                     }
                 } catch(e) {
                     this.requestError = true;
@@ -371,7 +372,7 @@
                     window.localStorage.setItem(`mismatch-finder_user-settings_${user.id}`, storageData);
                 }
 
-                dialog.hide();
+              this.confirmationDialog = false;
             }
         }
     });

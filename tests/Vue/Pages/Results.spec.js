@@ -1,5 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
-import { PiniaVuePlugin } from 'pinia';
+import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import Results from '@/Pages/Results.vue';
 import MismatchesTable from '@/Components/MismatchesTable.vue';
@@ -28,21 +27,23 @@ describe('Results.vue', () => {
                 props: { flash: {} }
             },
         };
-        const localVue = createLocalVue();
-
-        localVue.use(PiniaVuePlugin);
 
         return mount(Results, {
             props,
             data(){
                 return data;
             },
-            mocks: {
-                ...globalMocks,
-                mocks
-            },
-            localVue,
-            pinia: createTestingPinia({ initialState })
+            global: {
+                mocks: {
+                    ...globalMocks,
+                    mocks
+                },
+                plugins: [createTestingPinia({ initialState })],
+                stubs: {
+                    teleport: true,
+                    transition: true
+                }
+            }
         })
     }
 
@@ -65,7 +66,7 @@ describe('Results.vue', () => {
         const wrapper = mountWithMocks();
         await wrapper.find('#instructions-button').trigger('click');
 
-        const dialog = wrapper.find('#instructions-dialog .wikit-Dialog');
+        const dialog = wrapper.find('#instructions-dialog.cdx-dialog');
         expect(dialog.isVisible()).toBe(true);
     });
 
@@ -75,7 +76,7 @@ describe('Results.vue', () => {
             props: { item_ids }
         });
 
-        expect(wrapper.props().item_ids).toBe(item_ids);
+        expect(wrapper.props().item_ids).toStrictEqual(item_ids);
         item_ids.forEach(id => expect(wrapper.text()).toContain(id));
     });
 
@@ -119,7 +120,7 @@ describe('Results.vue', () => {
 
         const tables = wrapper.findAllComponents(MismatchesTable);
 
-        expect(wrapper.props().results).toBe(results);
+        expect(wrapper.props().results).toStrictEqual(results);
 
         Object.keys(results).forEach((itemId, i) => {
             const section = wrapper.find(`#item-mismatches-${itemId}`);
@@ -157,7 +158,7 @@ describe('Results.vue', () => {
             props: { results, labels }
         });
 
-        expect(wrapper.props().labels).toBe(labels);
+        expect(wrapper.props().labels).toStrictEqual(labels);
 
         Object.values(labels).forEach(label => expect(wrapper.text()).toContain(label));
     });
@@ -190,7 +191,7 @@ describe('Results.vue', () => {
             props: { results, formatted_values }
         });
 
-        expect(wrapper.props().formatted_values).toBe(formatted_values);
+        expect(wrapper.props().formatted_values).toStrictEqual(formatted_values);
         expect(wrapper.text()).toContain('21. Jahrhundert');
     });
 
@@ -222,7 +223,7 @@ describe('Results.vue', () => {
             props: { results, formatted_values }
         });
 
-        expect(wrapper.props().formatted_values).toBe(formatted_values);
+        expect(wrapper.props().formatted_values).toStrictEqual(formatted_values);
         expect(wrapper.text()).toContain('21. Jahrhundert');
     });
 
@@ -236,7 +237,7 @@ describe('Results.vue', () => {
             props: { user }
         });
 
-        expect(wrapper.props().user).toBe(user);
+        expect(wrapper.props().user).toStrictEqual(user);
     })
 
     it('Updates decisions mismatches on emitted decision events', () => {
@@ -421,11 +422,11 @@ describe('Results.vue', () => {
         const wrapper = mountWithMocks({
             data: { decisions }
         });
-        const dialog = wrapper.find('.confirmation-dialog .wikit-Dialog');
 
         await wrapper.vm.send(item_id);
+        const dialog = wrapper.find('.confirmation-dialog .cdx-dialog');
 
-        expect(dialog.isVisible()).toBe(false);
+        expect(dialog.exists()).toBe(false);
     });
 
     it('Displays a confirmation message after submitting a review decision', async () => {

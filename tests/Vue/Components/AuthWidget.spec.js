@@ -1,26 +1,27 @@
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 import AuthWidget from '@/Components/AuthWidget.vue';
-import Vue from 'vue';
-import i18n from 'vue-banana-i18n';
+import { createI18n } from 'vue-banana-i18n'
 
 const messages = {
-	en: {
-		'log-in': 'Log in',
-	},
+    en: {
+        'log-in': 'Log in',
+    },
 };
-
-Vue.use( i18n, {
-	locale: 'en',
-	messages,
-	wikilinks: true,
-} );
+const i18nPlugin = createI18n({
+    locale: "en",
+    messages: messages,
+    wikilinks: true,
+});
 
 describe('AuthWidget.vue', () => {
     it('displays a the username when provided', () => {
         const username = "TinkyWinky"
         const wrapper = mount(AuthWidget, {
             props: {
-                user: { name: username }
+                user: {name: username}
+            },
+            global: {
+                plugins: [i18nPlugin]
             }
         });
 
@@ -28,7 +29,12 @@ describe('AuthWidget.vue', () => {
     });
 
     it('displays a "Guest" when username is missing', () => {
-        const wrapper = mount(AuthWidget);
+        const wrapper = mount(AuthWidget,
+            {
+                global: {
+                    plugins: [i18nPlugin]
+                }
+            });
 
         expect(wrapper.text()).toContain("Log in");
     });

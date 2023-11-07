@@ -22,7 +22,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch, disabled },
+            props: { mismatch, disabled },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -52,7 +52,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -90,7 +90,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -120,7 +120,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -150,7 +150,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -177,15 +177,15 @@ describe('MismatchesRow.vue', () => {
                 external_source: 'some external source',
                 external_source_url: 'http://www.whatever.com',
                 created_at: '2021-09-23',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
-                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend.
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis
                 sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
             },
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -226,7 +226,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -254,15 +254,15 @@ describe('MismatchesRow.vue', () => {
                 external_source: 'some external source',
                 external_source_url: 'http://www.whatever.com',
                 created_at: '2021-09-23',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
-                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend.
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis
                 sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
             },
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -289,7 +289,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -314,7 +314,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -344,7 +344,7 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => `${key}`
@@ -378,7 +378,7 @@ describe('MismatchesRow.vue', () => {
         const bubbleStub = jest.fn();
 
         const wrapper = mount(MismatchRow, {
-            propsData: { mismatch },
+            props: { mismatch },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => `${key}`,

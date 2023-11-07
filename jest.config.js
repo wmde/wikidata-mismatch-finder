@@ -9,7 +9,7 @@ module.exports = {
     // js: transform js files with babel, we can now use import statements in tests
     // ts: transform ts files with babel, to import ts files into js specs
     "transform": {
-        ".*\\.(vue)$": "<rootDir>/node_modules/@vue/vue2-jest",
+        ".*\\.(vue)$": "<rootDir>/node_modules/@vue/vue3-jest",
         "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
         "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
     },

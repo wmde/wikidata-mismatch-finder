@@ -19,7 +19,7 @@ describe("WikidataToolFooter.vue", () => {
         });
 
         return mount(WikidataToolFooter, {
-            propsData: {
+            props: {
                 ...defaultProps,
                 ...props
             },

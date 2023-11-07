@@ -33,7 +33,7 @@ describe('Results.vue', () => {
         localVue.use(PiniaVuePlugin);
 
         return mount(Results, {
-            propsData: props,
+            props,
             data(){
                 return data;
             },

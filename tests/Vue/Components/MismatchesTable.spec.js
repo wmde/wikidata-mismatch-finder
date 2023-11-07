@@ -20,7 +20,7 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            propsData: { mismatches },
+            props: { mismatches },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key
@@ -55,7 +55,7 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            propsData: { disabled, mismatches },
+            props: { disabled, mismatches },
             mocks: {
                 // Mock the banana-i18n plugin dependency
                 $i18n: key => key

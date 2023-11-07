@@ -19,7 +19,7 @@ describe('AuthWidget.vue', () => {
     it('displays a the username when provided', () => {
         const username = "TinkyWinky"
         const wrapper = mount(AuthWidget, {
-            propsData: {
+            props: {
                 user: { name: username }
             }
         });

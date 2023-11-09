@@ -4,7 +4,7 @@ import Home, { MAX_NUM_IDS } from '@/Pages/Home.vue'
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
-jest.mock('@inertiajs/inertia-vue', () => ({}));
+jest.mock('@inertiajs/inertia-vue3', () => ({}));
 
 describe('Home.vue', () => {
 

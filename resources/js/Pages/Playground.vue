@@ -263,8 +263,8 @@
 </template>
 
 <script lang="ts">
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue'
     import defineComponent from '../types/defineComponent';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3'
 
     import {
         Button as WikitButton,

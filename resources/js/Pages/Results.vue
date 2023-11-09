@@ -15,7 +15,7 @@
                     id="instructions-button"
                     variant="quiet"
                     type="progressive"
-                    @click.native="showInstructionsDialog"
+                    @click.native="instructionsDialog = true"
                 >
                     <template #prefix>
                         <icon type="info-outlined" size="medium" color="inherit"/>
@@ -24,15 +24,16 @@
                 </wikit-button>
             </header>
 
-            <wikit-dialog id="instructions-dialog"
+            <cdx-dialog id="instructions-dialog"
                 :title="$i18n('instructions-dialog-title')"
-                ref="inctructionsDialog"
-                :actions="[{
+                v-model:open="instructionsDialog"
+                :primary-action="{
                     label: $i18n('confirm-dialog-button'),
-                    namespace: 'instructions-confirm'
-                }]"
-                @action="(_, dialog) => dialog.hide()"
-                dismiss-button
+                    namespace: 'instructions-confirm',
+                    actionType: 'progressive'
+                }"
+                @primary="() => instructionsDialog = false"
+                close-button-label="X"
             >
                 <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
                 <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
@@ -44,7 +45,7 @@
                     <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
                     <li>{{ $i18n('instructions-dialog-message-instruction-pending') }}</li>
                 </ul>
-            </wikit-dialog>
+            </cdx-dialog>
             <p id="about-description" >
                 {{ $i18n('results-page-description') }}
             </p>
@@ -108,16 +109,17 @@
                 </form>
             </section>
         </section>
-        <wikit-dialog class="confirmation-dialog"
+        <cdx-dialog class="confirmation-dialog"
             :title="$i18n('confirmation-dialog-title')"
-            ref="confirmation"
-            :actions="[{
+            v-model:open="confirmationDialog"
+            :primary-action="{
                 label: $i18n('confirmation-dialog-button'),
-                namespace: 'next-steps-confirm'
-            }]"
-            @action="_handleConfirmation"
-            @dismissed="disableConfirmation = false"
-            dismiss-button
+                namespace: 'next-steps-confirm',
+                actionType: 'progressive'
+
+            }"
+            @primary="_handleConfirmation"
+            close-button-label="X"
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
             <ul>
@@ -129,7 +131,7 @@
                 :label="$i18n('confirmation-dialog-option-label')"
                 :checked.sync="disableConfirmation"
             />
-        </wikit-dialog>
+        </cdx-dialog>
     </div>
 </template>
 
@@ -142,7 +144,6 @@
         Link as WikitLink,
         Button as WikitButton,
         Checkbox,
-        Dialog as WikitDialog,
         Icon,
         Message } from '@wmde/wikit-vue-components';
 
@@ -185,7 +186,9 @@
         disableConfirmation: boolean,
         pageDirection: string,
         requestError: boolean,
-        lastSubmitted: string
+        lastSubmitted: string,
+        instructionsDialog: boolean,
+        confirmationDialog: boolean
     }
 
     export default defineComponent({
@@ -196,9 +199,9 @@
             MismatchesTable,
             WikitLink,
             WikitButton,
-            WikitDialog,
             Checkbox,
-            Message
+            Message,
+            CdxDialog
         },
         props: {
             user: {
@@ -256,15 +259,12 @@
                 disableConfirmation: false,
                 pageDirection: 'ltr',
                 requestError: false,
-                lastSubmitted: ''
+                lastSubmitted: '',
+                instructionsDialog: false,
+                confirmationDialog: false
             }
         },
         methods: {
-            showInstructionsDialog() {
-                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                const dialog = this.$refs.inctructionsDialog as any;
-                dialog.show();
-            },
             addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
                 // The following callback maps existing mismatches to extended
                 // mismatch objects which include labels, by looking up any
@@ -310,7 +310,6 @@
                 // Defaulting to any, as the alternative presents us with
                 // convoluted and unnecessary syntax.
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const confirmationDialog = this.$refs.confirmation as any;
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const overlay = this.$refs.overlay as any;
 
@@ -326,7 +325,7 @@
                     this.showSubmitConfirmation(item);
 
                     if(!this.disableConfirmation){
-                        confirmationDialog.show();
+                      this.confirmationDialog = true;
                     }
                 } catch(e) {
                     this.requestError = true;
@@ -360,7 +359,7 @@
             // understand component instances and complains about usage of the
             // hide method otherwise.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            _handleConfirmation(_ : string, dialog: any){
+            _handleConfirmation(){
                 const { disableConfirmation, user } = this;
 
                 // Do nothing if there is no user
@@ -373,7 +372,7 @@
                     window.localStorage.setItem(`mismatch-finder_user-settings_${user.id}`, storageData);
                 }
 
-                dialog.hide();
+              this.confirmationDialog = false;
             }
         }
     });

@@ -194,11 +194,6 @@ export default defineComponent({
       e.preventDefault();
       this.fullDescriptionDialog = true;
     }
-  },
-  watch: {
-      reviewStatus(newValue, oldValue) {
-        console.log(`Review status ${newValue} ${oldValue}`);
-      }
   }
 });
 </script>

@@ -1,28 +1,26 @@
 import './bootstrap';
-import i18n from 'vue-banana-i18n';
 import { createStore } from './store';
-import i18nMessages from './lib/i18n';
 import Vue, {createApp, h} from 'vue';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
+import getI18nMessages, { I18nMessages } from './lib/i18n';
+import {createI18n} from 'vue-banana-i18n'
 import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
 
 Vue.use(bubble);
 
-// Retrieve i18n messages and setup the Vue instance to handle them.
-async function setupI18n(locale: string): Promise<void>{
-    const messages = await i18nMessages(locale);
-    Vue.use(i18n, { locale, messages });
-}
-
 // Only bootstrap inertia if setup is successful. Display generic error
 // component otherwise
 (async () => {
     try {
-        await setupI18n(document.documentElement.lang);
         const store = createStore();
-
+        const locale = document.documentElement.lang;
+        const i18nMessages = await getI18nMessages(locale);
+        const i18nPlugin = createI18n({
+            locale: locale,
+            messages: i18nMessages
+        });
         createInertiaApp({
             resolve: name => {
                 const page = require(`./Pages/${name}`).default;
@@ -35,6 +33,7 @@ async function setupI18n(locale: string): Promise<void>{
                 createApp({
                     render: () => h(app, props)
                 })
+                    .use(i18nPlugin)
                     .use(plugin)
                     .mount(el)
             }

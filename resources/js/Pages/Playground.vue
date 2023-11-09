@@ -10,7 +10,6 @@
     import { defineComponent } from 'vue';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3'
 
-
     export default defineComponent({
         components: { InertiaHead },
         props: {

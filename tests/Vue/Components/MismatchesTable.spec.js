@@ -20,20 +20,22 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            propsData: { mismatches },
-            mocks: {
-                // Mock the banana-i18n plugin dependency
-                $i18n: key => key
+            props: { mismatches },
+            global: {
+                mocks: {
+                    // Mock the banana-i18n plugin dependency
+                    $i18n: key => key
+                }
             }
         });
 
         const rows = wrapper.findAllComponents(MismatchRow);
 
-        expect( wrapper.props().mismatches ).toBe( mismatches );
+        expect( wrapper.props().mismatches ).toStrictEqual( mismatches );
         expect(rows.length).toBe(mismatches.length);
 
-        rows.wrappers.forEach(row => {
-            expect(mismatches).toContain(row.props().mismatch);
+        rows.forEach(row => {
+            expect(mismatches).toContainEqual(row.props().mismatch);
         });
     });
 
@@ -55,17 +57,19 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            propsData: { disabled, mismatches },
-            mocks: {
-                // Mock the banana-i18n plugin dependency
-                $i18n: key => key
+            props: { disabled, mismatches },
+            global: {
+                mocks: {
+                    // Mock the banana-i18n plugin dependency
+                    $i18n: key => key
+                }
             }
         });
 
         const rows = wrapper.findAllComponents(MismatchRow);
 
         expect( wrapper.props().disabled ).toBe( disabled );
-        rows.wrappers.forEach(row => {
+        rows.forEach(row => {
             expect(row.props().disabled).toBe( disabled )
         });
     });

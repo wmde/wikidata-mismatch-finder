@@ -107,7 +107,8 @@
 <script lang="ts">
 import { formatISO } from 'date-fns';
 
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import {
     Button as WikitButton,
     Dialog as WikitDialog,
@@ -133,7 +134,7 @@ interface MismatchRowState {
   decision: ReviewMenuItem;
 }
 
-export default Vue.extend({
+export default defineComponent({
     components: {
     WikitButton,
     WikitLink,

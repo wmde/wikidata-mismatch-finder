@@ -27,7 +27,7 @@
         "@vue/runtime-dom": "^3.3.8",
         "@wikimedia/codex": "^0.20.0",
         "@wikimedia/codex-design-tokens": "^0.20.0",
-        "@wikimedia/codex-icons": "^0.20.0",
+        "@wikimedia/codex-icons": "^1.0.1",
         "@wikimedia/language-data": "^1.1.4",
         "axios": "^1.5.1",
         "axios-mock-adapter": "^1.22.0",

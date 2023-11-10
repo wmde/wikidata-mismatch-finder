@@ -1,13 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/noscript.css": "/css/noscript.css",
     "/css/app.css": "/css/app.css",
+    "/css/noscript.css": "/css/noscript.css",
     "/images/clear.svg": "/images/clear.svg",
     "/images/close.svg": "/images/close.svg",
     "/images/download-stats.svg": "/images/download-stats.svg",
     "/images/mismatch-finder-logo.svg": "/images/mismatch-finder-logo.svg",
     "/images/mismatch-finder-logo_mobile.svg": "/images/mismatch-finder-logo_mobile.svg",
     "/images/search.svg": "/images/search.svg",
-    "/images/user.svg": "/images/user.svg",
-    "/images/wikidata-logo.svg": "/images/wikidata-logo.svg"
+    "/images/user.svg": "/images/user.svg"
 }

@@ -46,14 +46,14 @@
             </span>
         </td>
         <td :data-header="$i18n('column-review-status')">
-            <dropdown
-                :menuItems="Object.values(statusOptions)"
+            <cdx-select
+                :menu-items="Object.values(statusOptions)"
                 :disabled="disabled"
-                v-model="decision"
-                @input="$bubble('decision', {
+                v-model:selected="reviewStatus"
+                @update:selected="$bubble('decision', {
                     id: mismatch.id,
                     item_id: mismatch.item_id,
-                    review_status: $event.value
+                    review_status: $event
                 })"
             />
         </td>
@@ -79,15 +79,16 @@
                   </wikit-button>
                 </div>
             </div>
-            <wikit-dialog class="full-description-dialog"
+            <cdx-dialog class="full-description-dialog"
               :title="$i18n('column-upload-info')"
-              ref="fullDescriptionDialog"
-              :actions="[{
+              :open="fullDescriptionDialog"
+              :primary-action="{
                   label: $i18n('confirm-dialog-button'),
-                  namespace: 'next-steps-confirm'
-              }]"
-              @action="(_, dialog) => dialog.hide()"
-              dismiss-button
+                  namespace: 'next-steps-confirm',
+                  actionType: 'progressive'
+              }"
+              @primary="() => fullDescriptionDialog = false"
+              close-button-label="X"
             >
             <wikit-link class="uploader"
                     :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
@@ -99,7 +100,7 @@
             <div class="description">
               {{this.mismatch.import_meta.description}}
             </div>
-          </wikit-dialog>
+          </cdx-dialog>
         </td>
     </tr>
 </template>
@@ -107,13 +108,13 @@
 <script lang="ts">
 import { formatISO } from 'date-fns';
 
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import {
     Button as WikitButton,
-    Dialog as WikitDialog,
-    Dropdown,
     Link as WikitLink
 } from '@wmde/wikit-vue-components';
+import { CdxDialog, CdxSelect } from "@wikimedia/codex";
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
@@ -131,14 +132,16 @@ type ReviewOptionMap = {
 interface MismatchRowState {
   statusOptions: ReviewOptionMap;
   decision: ReviewMenuItem;
+  reviewStatus: string;
+  fullDescriptionDialog: boolean;
 }
 
-export default Vue.extend({
+export default defineComponent({
     components: {
     WikitButton,
     WikitLink,
-    WikitDialog,
-    Dropdown,
+    CdxDialog,
+    CdxSelect
     },
     props: {
         mismatch: Object as PropType<LabelledMismatch>,
@@ -182,14 +185,14 @@ export default Vue.extend({
     return {
       statusOptions,
       decision: statusOptions[this.mismatch.review_status],
+      reviewStatus: String(this.mismatch.review_status),
+      fullDescriptionDialog: false
     };
   },
   methods: {
     showDialog(e: Event) {
       e.preventDefault();
-      /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
-      const descriptionDialog = this.$refs.fullDescriptionDialog! as any;
-      descriptionDialog.show();
+      this.fullDescriptionDialog = true;
     }
   }
 });

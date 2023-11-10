@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
 interface FooterLabels {
@@ -45,7 +46,7 @@ interface FooterUrls {
     issues: string;
 }
 
-export default Vue.extend({
+export default defineComponent({
     name: 'WikidataToolFooter',
     components: {
         WikitLink,

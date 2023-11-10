@@ -5,7 +5,7 @@ describe('LoadingOverlay.vue', () => {
     it('accepts delay prop', () => {
         const delay = 1000;
         const wrapper = mount(LoadingOverlay, {
-            propsData: { delay }
+            props: { delay }
         });
 
         expect(wrapper.props().delay).toBe(delay);
@@ -14,7 +14,7 @@ describe('LoadingOverlay.vue', () => {
     it('accepts visible prop', () => {
         const visible = true;
         const wrapper = mount(LoadingOverlay, {
-            propsData: { visible }
+            props: { visible }
         });
 
         expect(wrapper.props().visible).toBe(visible);

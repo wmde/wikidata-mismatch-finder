@@ -8,7 +8,7 @@
                     id="faq-button"
                     variant="quiet"
                     type="progressive"
-                    @click.native="$refs.faq.show()"
+                    @click.native="faqDialog = true"
                 >
                     <template #prefix>
                         <icon type="info-outlined" size="medium" color="inherit"/>
@@ -16,16 +16,16 @@
                     {{ $i18n('faq-button') }}
                 </wikit-button>
             </header>
-
-            <wikit-dialog id="faq-dialog"
-                :title="$i18n('faq-dialog-title')"
-                ref="faq"
-                :actions="[{
-                    label: $i18n('confirm-dialog-button'),
-                    namespace: 'faq-confirm'
-                }]"
-                @action="(_, dialog) => dialog.hide()"
-                dismiss-button
+            <cdx-dialog id="faq-dialog"
+                        v-model:open="faqDialog"
+                        :title="$i18n('faq-dialog-title')"
+                        :primary-action="{
+                            label: $i18n('confirm-dialog-button'),
+                            namespace: 'faq-confirm',
+                            actionType: 'progressive'
+                        }"
+                        @primary="() => faqDialog = false"
+                        close-button-label="X"
             >
                 <section>
                     <h3 class="h5">{{ $i18n('faq-dialog-question-finding-mismatches' )}}</h3>
@@ -54,7 +54,7 @@
                         'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
                     ]"></p>
                 </section>
-            </wikit-dialog>
+            </cdx-dialog>
             <p id="about-description" >
                 {{ $i18n('about-mismatch-finder-description') }}
             </p>
@@ -107,17 +107,17 @@
 </template>
 
 <script lang="ts">
-    import { mapState, mapMutations } from 'vuex';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue';
+    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
+    import { mapState } from 'pinia';
+    import { useStore } from '../store';
     import {
         Button as WikitButton,
-        Dialog as WikitDialog,
         Icon,
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-
-    import defineComponent from '../types/defineComponent';
+    import { CdxDialog } from "@wikimedia/codex";
+    import { defineComponent } from 'vue';
 
     interface HomeState {
         form: {
@@ -126,7 +126,8 @@
         validationError: null|{
             type: string,
             message: string
-        }
+        },
+      faqDialog: boolean
     }
 
     interface ErrorMessages {
@@ -137,16 +138,16 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600; 
+    export const MAX_NUM_IDS = 600;
 
     export default defineComponent({
         components: {
-            InertiaHead,
-            Icon,
-            Message,
-            TextArea,
-            WikitButton,
-            WikitDialog
+          CdxDialog,
+          InertiaHead,
+          Icon,
+          Message,
+          TextArea,
+          WikitButton
         },
         methods: {
             splitInput: function(): Array<string> {
@@ -194,14 +195,13 @@
                 if(this.validationError) {
                     return;
                 }
-
-                this.saveSearchedIds( this.form.itemsInput );
+                const store = useStore();
+                store.saveSearchedIds( this.form.itemsInput );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
             },
-            ...mapMutations(['saveSearchedIds'])
         },
         computed: {
             serversideValidationError() {
@@ -213,16 +213,18 @@
                 return (flashMessages.errors && flashMessages.errors.unexpected);
             },
             // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed 
+            // only mapping 'loading' and not 'lastSearchedIds' because computed
             //properties are not available when data is processed in vue's lifecycle
-            ...mapState(['loading']),
+            ...mapState(useStore, ['loading']),
         },
         data(): HomeState {
+            const store = useStore();
             return {
                 form: {
-                    itemsInput: this.$store.state.lastSearchedIds
+                    itemsInput: store.lastSearchedIds
                 },
-                validationError: null
+                validationError: null,
+                faqDialog: false
             }
         }
     });

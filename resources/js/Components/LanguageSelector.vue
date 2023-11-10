@@ -35,11 +35,11 @@
 import LanguageSelectorInput from '../Components/LanguageSelectorInput.vue';
 import LanguageSelectorOptionsMenu from '../Components/LanguageSelectorOptionsMenu.vue';
 import Language from '../types/Language';
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import languagedata from '@wikimedia/language-data';
 import closeUrl from '../../img/close.svg';
 
-export default Vue.extend( {
+export default defineComponent( {
 	name: 'LanguageSelector',
 	components: {
 		LanguageSelectorInput,

@@ -1,7 +1,8 @@
 @import url('https://tools-static.wmflabs.org/fontcdn/css2?family=Lato&family=Source+Serif+Pro&display=swap');
 
 @import '~ress';
-@import '~@wmde/wikit-vue-components/dist/wikit-vue-components.css';
+@import '~wikit-dist/wikit-vue-components-vue3compat.css';
+@import "@wikimedia/codex/dist/codex.style.css";
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 

@@ -32,7 +32,7 @@ mix.ts('resources/js/app.ts', 'public/js')
                             compatConfig: {
                                 MODE: 3,
                                 COMPILER_V_ON_NATIVE: true,
-                                COMPILER_V_BIND_SYNC: false
+                                COMPILER_V_BIND_SYNC: true
                             }
                         }
                     }

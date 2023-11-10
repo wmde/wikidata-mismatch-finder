@@ -47,7 +47,7 @@ class ResultsPage extends Page
     {
         return [
             '@back-button' => '.back-button',
-            '@confirmation-dialog' => '.confirmation-dialog',
+            '@confirmation-dialog' => '#results-confirmation-dialog',
             '@disable-confirmation' => '.disable-confirmation',
             '@error-section' => '#error-section',
             '@disable-confirmation-label' => '.disable-confirmation>.wikit-checkbox__label'

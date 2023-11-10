@@ -109,7 +109,7 @@
                 </form>
             </section>
         </section>
-        <cdx-dialog class="confirmation-dialog"
+        <cdx-dialog id="results-confirmation-dialog"
             :title="$i18n('confirmation-dialog-title')"
             v-model:open="confirmationDialog"
             :primary-action="{
@@ -118,6 +118,7 @@
                 actionType: 'progressive'
 
             }"
+            @update:open="disableConfirmation = false"
             @primary="_handleConfirmation"
             close-button-label="X"
         >

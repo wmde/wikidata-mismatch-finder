@@ -19,7 +19,7 @@ class DecisionDropdown extends BaseComponent
      */
     public function selector()
     {
-        return "#mismatch-$this->mismatchId .wikit-Dropdown";
+        return "#mismatch-$this->mismatchId .cdx-select-vue";
     }
 
     /**
@@ -41,9 +41,9 @@ class DecisionDropdown extends BaseComponent
     public function elements()
     {
         return [
-            '@select-menu' => '.wikit-Dropdown__select',
-            '@selected' => '.wikit-Dropdown__selectedOption',
-            '@menu-items' => '.wikit-Dropdown__menu'
+            '@select-menu' => '.cdx-select-vue__handle',
+            '@selected' => '.cdx-select-vue__handle',
+            '@menu-items' => '.cdx-menu__listbox'
         ];
     }
 
@@ -51,7 +51,7 @@ class DecisionDropdown extends BaseComponent
     {
         $browser->click('@select-menu')
             ->within('@menu-items', function ($menu) use ($position, $option) {
-                $positionSelector = ".wikit-OptionsMenu__item:nth-child($position)";
+                $positionSelector = ".cdx-menu-item:nth-child($position)";
                 $menu->assertSeeIn($positionSelector, $option)
                     ->click($positionSelector);
             })

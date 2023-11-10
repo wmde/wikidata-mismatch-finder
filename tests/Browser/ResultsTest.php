@@ -343,7 +343,7 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
-                ->pause(250)
+                ->pause(self::ANIMATION_WAIT_MS)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
@@ -392,7 +392,7 @@ class ResultsTest extends DuskTestCase
                     $dialog->assertSee('Do not show again')
                         ->assertVue('checked', false, '@disable-confirmation')
                         ->click('@disable-confirmation-label')
-                        ->click('.wikit-Dialog__close');
+                        ->click('.cdx-dialog__header__close-button');
                 })
                 ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatch, [

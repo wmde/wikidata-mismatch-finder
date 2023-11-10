@@ -48,7 +48,10 @@ class ItemsFormTest extends DuskTestCase
                     ->press('.submit-ids')
                     ->assertSee('Please provide the Item identifiers that should be checked.');
 
-            $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
+            $this->assertStringContainsString(
+                '--warning',
+                $browser->attribute('@items-input-validation-message', 'class')
+            );
         });
     }
 
@@ -72,7 +75,10 @@ class ItemsFormTest extends DuskTestCase
                     ->press('.submit-ids')
                     ->assertSee('One or more Item identifiers couldn\'t be processed.');
 
-            $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
+            $this->assertStringContainsString(
+                '--error',
+                $browser->attribute('@items-input-validation-message', 'class')
+            );
         });
     }
 

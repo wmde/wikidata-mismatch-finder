@@ -17,7 +17,8 @@ import Layout from './Pages/Layout.vue';
         const pinia = createPinia();
         const i18nPlugin = createI18n({
             locale: locale,
-            messages: i18nMessages
+            messages: i18nMessages,
+            wikilinks: true
         });
         createInertiaApp({
             resolve: name => {

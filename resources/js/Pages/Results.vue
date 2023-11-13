@@ -2,26 +2,22 @@
     <div class="page-container results-page">
         <loading-overlay ref="overlay" />
         <inertia-head title="Mismatch Finder - Results" />
-        <wikit-button class="back-button" @click.native="() => $inertia.get('/', {})">
-            <template #prefix>
-                <icon type="arrowprevious" size="medium" color="inherit" :dir="pageDirection"/>
-            </template>
+        <cdx-button class="back-button" @click="() => $inertia.get('/', {})">
+            <cdx-icon :icon="cdxIconArrowPrevious" />
             {{ $i18n('results-back-button') }}
-        </wikit-button>
+        </cdx-button>
         <section id="description-section">
             <header class="description-header">
                 <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-                <wikit-button
+                <cdx-button
                     id="instructions-button"
-                    variant="quiet"
-                    type="progressive"
-                    @click.native="instructionsDialog = true"
+                    weight="quiet"
+                    action="progressive"
+                    @click="instructionsDialog = true"
                 >
-                    <template #prefix>
-                        <icon type="info-outlined" size="medium" color="inherit"/>
-                    </template>
+                    <cdx-icon :icon="cdxIconInfo" />
                     {{$i18n('results-instructions-button')}}
-                </wikit-button>
+                </cdx-button>
             </header>
 
             <cdx-dialog id="instructions-dialog"
@@ -96,14 +92,13 @@
                             </span>
                         </Message>
                         <div class="form-buttons">
-                            <wikit-button
+                            <cdx-button
                                 :disabled="!user"
-                                variant="primary"
-                                type="progressive"
-                                native-type="submit"
+                                weight="primary"
+                                action="progressive"
                             >
                                 {{ $i18n('result-form-submit') }}
-                            </wikit-button>
+                            </cdx-button>
                         </div>
                     </footer>
                 </form>
@@ -143,12 +138,11 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Link as WikitLink,
-        Button as WikitButton,
         Checkbox,
-        Icon,
         Message } from '@wmde/wikit-vue-components';
 
-    import { CdxDialog } from "@wikimedia/codex";
+    import { CdxButton, CdxIcon, CdxDialog } from "@wikimedia/codex";
+    import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
 
     import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
@@ -195,14 +189,14 @@
     export default defineComponent({
         components: {
             InertiaHead,
-            Icon,
             LoadingOverlay,
             MismatchesTable,
             WikitLink,
-            WikitButton,
             Checkbox,
             Message,
-            CdxDialog
+            CdxDialog,
+            CdxButton,
+            CdxIcon
         },
         props: {
             user: {
@@ -375,6 +369,12 @@
 
               this.confirmationDialog = false;
             }
+        },
+        setup() {
+            return {
+                cdxIconInfo,
+                cdxIconArrowPrevious
+            };
         }
     });
 </script>

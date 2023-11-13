@@ -4,17 +4,15 @@
         <section id="description-section">
             <header class="description-header">
                 <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
-                <wikit-button
+                <cdx-button
                     id="faq-button"
-                    variant="quiet"
-                    type="progressive"
-                    @click.native="faqDialog = true"
+                    weight="quiet"
+                    action="progressive"
+                    @click="faqDialog = true"
                 >
-                    <template #prefix>
-                        <icon type="info-outlined" size="medium" color="inherit"/>
-                    </template>
+                    <cdx-icon :icon="cdxIconInfo" />
                     {{ $i18n('faq-button') }}
-                </wikit-button>
+                </cdx-button>
             </header>
             <cdx-dialog id="faq-dialog"
                         v-model:open="faqDialog"
@@ -69,17 +67,15 @@
         <section id="querying-section">
             <div class="heading">
                 <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
-                <wikit-button
+                <cdx-button
                     class="random-mismatches"
-                    type="neutral"
-                    @click.native="showRandom()"
+                    weight="normal"
+                    @click="showRandom()"
                     :disabled="loading"
                 >
-                    <template #prefix>
-                        <icon type="die" size="medium" color="inherit"/>
-                    </template>
+                    <cdx-icon :icon="cdxIconDie" />
                     {{ $i18n('random-mismatches') }}
-                </wikit-button>
+                </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
                 <text-area
@@ -91,15 +87,15 @@
                     v-model="form.itemsInput"
                 />
                 <div class="form-buttons">
-                    <wikit-button
+                    <cdx-button
                         class="submit-ids"
-                        variant="primary"
-                        type="progressive"
+                        weight="primary"
+                        action="progressive"
                         native-type="submit"
                         :disabled="loading"
                     >
                         {{ $i18n('item-form-submit') }}
-                    </wikit-button>
+                    </cdx-button>
                 </div>
             </form>
         </section>
@@ -111,12 +107,11 @@
     import { mapState } from 'pinia';
     import { useStore } from '../store';
     import {
-        Button as WikitButton,
-        Icon,
         Message,
         TextArea
     } from '@wmde/wikit-vue-components';
-    import { CdxDialog } from "@wikimedia/codex";
+    import { CdxDialog, CdxButton, CdxIcon } from "@wikimedia/codex";
+    import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import { defineComponent } from 'vue';
 
     interface HomeState {
@@ -143,11 +138,11 @@
     export default defineComponent({
         components: {
           CdxDialog,
+          CdxButton,
+          CdxIcon,
           InertiaHead,
-          Icon,
           Message,
           TextArea,
-          WikitButton
         },
         methods: {
             splitInput: function(): Array<string> {
@@ -226,6 +221,12 @@
                 validationError: null,
                 faqDialog: false
             }
+        },
+        setup() {
+            return {
+                cdxIconDie,
+                cdxIconInfo
+            };
         }
     });
 </script>

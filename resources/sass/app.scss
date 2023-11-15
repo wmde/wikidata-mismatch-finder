@@ -423,3 +423,9 @@ dl.import-meta .download-csv {
         }
     }
 }
+
+// TODO: This is a temporary fix until issue https://phabricator.wikimedia.org/T326900
+// is marked as resolved.
+.cdx-button .cdx-icon {
+    vertical-align: text-top;
+}

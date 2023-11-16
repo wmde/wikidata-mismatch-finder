@@ -90,6 +90,11 @@ export default defineComponent({
         WikidataToolFooter,
         WikitLink
     },
+    setup() {
+        return {
+            cdxIconLanguage
+        };
+    },
     data() {
         return {
             showLanguageSelector: false,
@@ -176,12 +181,7 @@ export default defineComponent({
     },
     beforeUnmount () {
         this.resizeObserver.unobserve(this.$refs.contentWrap as Element)
-    },
-    setup() {
-            return {
-                cdxIconLanguage
-            };
-        }
+    }
 });
 </script>
 

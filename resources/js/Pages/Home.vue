@@ -144,6 +144,12 @@
           Message,
           TextArea,
         },
+        setup() {
+            return {
+                cdxIconDie,
+                cdxIconInfo
+            };
+        },
         methods: {
             splitInput: function(): Array<string> {
                 return this.form.itemsInput.split( '\n' );
@@ -221,12 +227,6 @@
                 validationError: null,
                 faqDialog: false
             }
-        },
-        setup() {
-            return {
-                cdxIconDie,
-                cdxIconInfo
-            };
         }
     });
 </script>

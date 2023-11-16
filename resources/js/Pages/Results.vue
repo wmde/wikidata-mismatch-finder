@@ -198,6 +198,12 @@
             CdxButton,
             CdxIcon
         },
+        setup() {
+            return {
+                cdxIconInfo,
+                cdxIconArrowPrevious
+            };
+        },
         props: {
             user: {
                 type: Object as PropType<User|null>,
@@ -369,12 +375,6 @@
 
               this.confirmationDialog = false;
             }
-        },
-        setup() {
-            return {
-                cdxIconInfo,
-                cdxIconArrowPrevious
-            };
         }
     });
 </script>

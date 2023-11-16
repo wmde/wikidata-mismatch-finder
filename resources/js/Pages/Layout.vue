@@ -8,11 +8,9 @@
                 </InertiaLink>
                 <div class="userSection" ref="userSection">
                     <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
-                        <LanguageSelectorButton type="neutral" :aria-label="$i18n('toggle-language-selector-button')"
-                            @click.native="onToggleLanguageSelector">
-                            <template #prefix>
-                                <Icon type="language-selector" />
-                            </template>
+                        <LanguageSelectorButton :aria-label="$i18n('toggle-language-selector-button')"
+                            @click="onToggleLanguageSelector">
+                            <cdx-icon :icon="cdxIconLanguage" />
                             {{ currentLanguageAutonym }}
                         </LanguageSelectorButton>
                         <LanguageSelector v-show="showLanguageSelector" ref="languageSelector"
@@ -70,7 +68,8 @@
 import { PropType } from 'vue';
 import { Link as InertiaLink } from '@inertiajs/inertia-vue3';
 import { Link as WikitLink } from '@wmde/wikit-vue-components';
-import { Button as LanguageSelectorButton, Icon } from '@wmde/wikit-vue-components';
+import { CdxButton as LanguageSelectorButton, CdxIcon } from "@wikimedia/codex";
+import { cdxIconLanguage } from '@wikimedia/codex-icons';
 import AuthWidget from '../Components/AuthWidget.vue';
 import LanguageSelector from '../Components/LanguageSelector.vue';
 import WikidataToolFooter from '../Components/WikidataToolFooter.vue';
@@ -85,11 +84,16 @@ export default defineComponent({
     components: {
         AuthWidget,
         LanguageSelectorButton,
-        Icon,
+        CdxIcon,
         InertiaLink,
         LanguageSelector,
         WikidataToolFooter,
         WikitLink
+    },
+    setup() {
+        return {
+            cdxIconLanguage
+        };
     },
     data() {
         return {
@@ -177,7 +181,7 @@ export default defineComponent({
     },
     beforeUnmount () {
         this.resizeObserver.unobserve(this.$refs.contentWrap as Element)
-    },
+    }
 });
 </script>
 

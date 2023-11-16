@@ -68,15 +68,15 @@
                 <span class="upload-date">{{uploadDate}}</span>
                 <div class="description">
                   {{uploadInfoDescription}}
-                  <wikit-button
+                  <cdx-button
                       v-if="shouldTruncate"
                       class="full-description-button"
-                      variant="quiet"
-                      type="progressive"
-                      @click.native="showDialog"
+                      weight="quiet"
+                      action="progressive"
+                      @click="showDialog"
                   >
                       {{$i18n('results-full-description-button')}}
-                  </wikit-button>
+                  </cdx-button>
                 </div>
             </div>
             <cdx-dialog class="full-description-dialog"
@@ -111,10 +111,9 @@ import { formatISO } from 'date-fns';
 import type { PropType } from 'vue';
 import { defineComponent } from 'vue';
 import {
-    Button as WikitButton,
     Link as WikitLink
 } from '@wmde/wikit-vue-components';
-import { CdxDialog, CdxSelect } from "@wikimedia/codex";
+import { CdxButton, CdxDialog, CdxSelect } from "@wikimedia/codex";
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
@@ -138,7 +137,7 @@ interface MismatchRowState {
 
 export default defineComponent({
     components: {
-    WikitButton,
+    CdxButton,
     WikitLink,
     CdxDialog,
     CdxSelect

@@ -354,7 +354,7 @@ describe('Results.vue', () => {
             data: { 'requestError' : true }
         });
 
-        const errorMessage = wrapper.find('#error-section .wikit-Message--error.wikit');
+        const errorMessage = wrapper.find('#error-section .cdx-message--error');
         expect(errorMessage.isVisible()).toBe(true);
     });
 
@@ -371,7 +371,7 @@ describe('Results.vue', () => {
 
         await wrapper.vm.send( item_id );
 
-        const errorMessage = wrapper.find('#error-section .wikit-Message--error.wikit');
+        const errorMessage = wrapper.find('#error-section .cdx-message--error');
         expect(errorMessage.exists()).toBe(false);
     });
 
@@ -456,7 +456,7 @@ describe('Results.vue', () => {
         await wrapper.vm.send( item_id );
 
         expect(wrapper.vm.lastSubmitted).toEqual('Q321');
-        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').isVisible()).toBe(true);
+        expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').isVisible()).toBe(true);
     });
 
     it('Removes first confirmation message before submitting a second review decision', async () => {
@@ -499,13 +499,13 @@ describe('Results.vue', () => {
             data: { decisions, lastSubmitted}
         });
 
-        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').isVisible()).toBe(true);
+        expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').isVisible()).toBe(true);
 
         await wrapper.vm.send( item_id );
 
         expect(wrapper.vm.lastSubmitted).toEqual('Q987');
-        expect(wrapper.find('#item-mismatches-Q321 .wikit-Message--success').exists()).toBe(false);
-        expect(wrapper.find('#item-mismatches-Q987 .wikit-Message--success').isVisible()).toBe(true);
+        expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').exists()).toBe(false);
+        expect(wrapper.find('#item-mismatches-Q987 .cdx-message--success').isVisible()).toBe(true);
     });
 
 })

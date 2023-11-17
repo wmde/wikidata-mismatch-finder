@@ -59,9 +59,9 @@
         </section>
 
         <section id="message-section">
-            <Message v-if="unexpectedError || serversideValidationError" type="error">
+            <cdx-message v-if="unexpectedError || serversideValidationError" type="error">
                 <span>{{ $i18n('server-error') }}</span>
-            </Message>
+            </cdx-message>
         </section>
 
         <section id="querying-section">
@@ -106,11 +106,8 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
-    import {
-        Message,
-        TextArea
-    } from '@wmde/wikit-vue-components';
-    import { CdxDialog, CdxButton, CdxIcon } from "@wikimedia/codex";
+    import { TextArea } from '@wmde/wikit-vue-components';
+    import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import { defineComponent } from 'vue';
 
@@ -140,8 +137,8 @@
           CdxDialog,
           CdxButton,
           CdxIcon,
+          CdxMessage,
           InertiaHead,
-          Message,
           TextArea,
         },
         setup() {

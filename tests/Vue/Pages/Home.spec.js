@@ -154,7 +154,7 @@ describe('Home.vue', () => {
                 mocks,
                 plugins: [createTestingPinia()]
             }});
-        const errorMessage = wrapper.find('#message-section .wikit-Message--error.wikit');
+        const errorMessage = wrapper.find('#message-section .cdx-message--error');
         expect(errorMessage.isVisible()).toBe(true);
     });
 })

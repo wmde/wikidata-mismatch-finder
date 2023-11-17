@@ -47,10 +47,10 @@
             </p>
         </section>
         <section id="error-section" v-if="requestError">
-            <Message type="error" class="generic-error">{{ $i18n('server-error') }}</Message>
+            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</cdx-message>
         </section>
         <section id="message-section">
-            <Message type="notice" v-if="notFoundItemIds.length">
+            <cdx-message type="notice" v-if="notFoundItemIds.length">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
                     <wikit-link
@@ -58,14 +58,14 @@
                         {{labels[item_id]}} ({{item_id}})
                     </wikit-link>
                 </span>
-            </Message>
+            </cdx-message>
             <!-- The Results page without item_ids is used by RandomizeController. -->
-            <Message type="notice" v-if="item_ids.length === 0">
+            <cdx-message type="notice" v-if="item_ids.length === 0">
                 <span>{{ $i18n('no-mismatches-available-for-review') }}</span>
-            </Message>
-            <Message type="warning" v-if="!user">
+            </cdx-message>
+            <cdx-message type="warning" v-if="!user">
                 <span v-i18n-html:log-in-message="['/auth/login']"></span>
-            </Message>
+            </cdx-message>
         </section>
         <section id="results" v-if="Object.keys(results).length">
             <section class="item-mismatches"
@@ -83,14 +83,14 @@
                         @decision="recordDecision"
                     />
                     <footer class="mismatches-form-footer">
-                        <Message class="form-success-message" type="success" v-if="lastSubmitted === item">
+                        <cdx-message class="form-success-message" type="success" v-if="lastSubmitted === item">
                             <span>{{ $i18n('changes-submitted-message') }}</span>
                             <span class="message-link">
                                 <wikit-link :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                                     {{labels[item]}} ({{item}})
                                 </wikit-link>
                             </span>
-                        </Message>
+                        </cdx-message>
                         <div class="form-buttons">
                             <cdx-button
                                 :disabled="!user"
@@ -138,10 +138,9 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import {
         Link as WikitLink,
-        Checkbox,
-        Message } from '@wmde/wikit-vue-components';
+        Checkbox } from '@wmde/wikit-vue-components';
 
-    import { CdxButton, CdxIcon, CdxDialog } from "@wikimedia/codex";
+    import { CdxButton, CdxIcon, CdxDialog, CdxMessage } from "@wikimedia/codex";
     import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
 
     import LoadingOverlay from '../Components/LoadingOverlay.vue';
@@ -193,10 +192,10 @@
             MismatchesTable,
             WikitLink,
             Checkbox,
-            Message,
             CdxDialog,
             CdxButton,
-            CdxIcon
+            CdxIcon,
+            CdxMessage
         },
         setup() {
             return {

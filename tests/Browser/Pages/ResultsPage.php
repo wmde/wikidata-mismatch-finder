@@ -50,7 +50,7 @@ class ResultsPage extends Page
             '@confirmation-dialog' => '#results-confirmation-dialog',
             '@disable-confirmation' => '.disable-confirmation',
             '@error-section' => '#error-section',
-            '@disable-confirmation-label' => '.disable-confirmation>.wikit-checkbox__label'
+            '@disable-confirmation-label' => '.disable-confirmation>.cdx-checkbox__label'
         ];
     }
 

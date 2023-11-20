@@ -106,10 +106,6 @@ li {
     }
 }
 
-.wikit.wikit-Message {
-    border-radius: $border-radius-base;
-}
-
 #error-section,
 #message-section,
 #description-section {
@@ -126,7 +122,7 @@ li {
 }
 
 // this ensures that there will be a space if there is more than one message
-#message-section .wikit-Message:not(:nth-child(1)) {
+#message-section .cdx-message:not(:nth-child(1)) {
     margin-top: $dimension-layout-xsmall;
 }
 

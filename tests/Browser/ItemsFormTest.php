@@ -128,7 +128,7 @@ class ItemsFormTest extends DuskTestCase
 
             $browser->visit('/results?ids=Q42|L123')
                 ->waitFor('.home-page')
-                ->assertVisible('#message-section .wikit-Message--error.wikit');
+                ->assertVisible('#message-section .cdx-message--error');
         });
     }
 }

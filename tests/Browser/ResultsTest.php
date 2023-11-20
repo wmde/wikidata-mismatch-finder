@@ -70,7 +70,7 @@ class ResultsTest extends DuskTestCase
             $browser->visit(new ResultsPage('Q1|Q2'));
 
             $browser->assertSeeIn('#results', 'Q1');
-            $browser->assertSeeIn('.wikit-Message--notice', 'Q2');
+            $browser->assertSeeIn('.cdx-message--notice', 'Q2');
         });
     }
 
@@ -294,7 +294,7 @@ class ResultsTest extends DuskTestCase
                 ])
                 ->waitFor('@confirmation-dialog')
                 ->pause(250)
-                ->assertPresent("#item-mismatches-{$mismatch->item_id} .wikit-Message--success")
+                ->assertPresent("#item-mismatches-{$mismatch->item_id} .cdx-message--success")
                 ->assertSee('Review successfully saved for');
         });
     }

@@ -1,140 +1,143 @@
 <template>
-	<div class="mismatchfinder__language-selector">
-		<div class="languageSelector__mobile-header">
-			<span>{{ $i18n( 'language-selector-mobile-header' ) }}</span>
-			<button @click="onCloseMenu">
-				<img :src="closeUrl" :alt="$i18n( 'language-selector-close-button-label' )">
-			</button>
-		</div>
-		<LanguageSelectorInput
-			ref="input"
-			:value="searchInput"
-			:placeholder="$i18n( 'language-selector-input-placeholder' )"
-			@input="onInput"
-			@clear="onClearInputValue"
-			@tab="onCloseMenu"
-			@arrowDown="onArrowDown"
-			@arrowUp="onArrowUp"
-			@enter="onEnter"
-			@escape="onCloseMenu"
-		/>
-		<LanguageSelectorOptionsMenu
-			tabindex="-1"
-			:languages="shownLanguages"
-			:highlighted-index="highlightedIndex"
-			@select="onSelect"
-		>
-			<template #no-results>
-				<slot name="no-results" />
-			</template>
-		</LanguageSelectorOptionsMenu>
-	</div>
+  <div class="mismatchfinder__language-selector">
+    <div class="languageSelector__mobile-header">
+      <span>{{ $i18n( 'language-selector-mobile-header' ) }}</span>
+      <button @click="onCloseMenu">
+        <img :src="closeUrl" :alt="$i18n( 'language-selector-close-button-label' )">
+      </button>
+    </div>
+    <LanguageSelectorInput
+        ref="input"
+        :value="searchInput"
+        :placeholder="$i18n( 'language-selector-input-placeholder' )"
+        @input="onInput"
+        @clear="onClearInputValue"
+        @tab="onCloseMenu"
+        @arrowDown="onArrowDown"
+        @arrowUp="onArrowUp"
+        @enter="onEnter"
+        @escape="onCloseMenu"
+    />
+    <LanguageSelectorOptionsMenu
+        tabindex="-1"
+        :languages="shownLanguages"
+        :highlighted-index="highlightedIndex"
+        @select="onSelect"
+    >
+      <template #no-results>
+        <slot name="no-results" />
+      </template>
+    </LanguageSelectorOptionsMenu>
+  </div>
 </template>
-
-<script lang="ts">
-import LanguageSelectorInput from '../Components/LanguageSelectorInput.vue';
-import LanguageSelectorOptionsMenu from '../Components/LanguageSelectorOptionsMenu.vue';
+<script setup lang="ts">
+import LanguageSelectorOptionsMenu from "./LanguageSelectorOptionsMenu.vue";
+import LanguageSelectorInput from "./LanguageSelectorInput.vue";
 import Language from '../types/Language';
-import { defineComponent } from 'vue';
-import languagedata from '@wikimedia/language-data';
-import closeUrl from '../../img/close.svg';
+import closeUrlSvg from '../../img/close.svg';
 
-export default defineComponent( {
-	name: 'LanguageSelector',
-	components: {
-		LanguageSelectorInput,
-		LanguageSelectorOptionsMenu,
-	},
-	data: () => ( {
-		searchInput: '',
-		highlightedIndex: -1,
-		closeUrl,
-	} ),
-	computed: {
-		languages(): Language[] {
-			const autonyms = languagedata.getAutonyms();
-			const languageCodes = Object.keys( autonyms );
-			languageCodes.sort( languagedata.sortByAutonym );
-			return languageCodes.map( ( code ) => ( {
-				code,
-				autonym: autonyms[ code ],
-			} ) );
-		},
-		shownLanguages(): Language[] {
-			return this.languages.filter( ( language ) =>
-				language.code.startsWith( this.searchInput.toLowerCase() ) ||
-				language.autonym.toLowerCase().includes( this.searchInput.toLowerCase() ),
-			);
-		},
-	},
-	methods: {
-		onInput( searchedLanguage: string ): void {
-			this.searchInput = searchedLanguage;
-			this.highlightedIndex = 0;
-		},
-		onSelect( languageCode: string ): void {
-			this.$emit( 'select', languageCode );
-		},
-		onClearInputValue(): void {
-			this.searchInput = '';
-		},
-		onCloseMenu(): void {
-			this.$emit( 'close' );
-		},
-		// eslint-disable-next-line vue/no-unused-properties -- exported method
-		focus(): void {
-			const inputRef = this.$refs.input as InstanceType<typeof HTMLInputElement>
-			inputRef.focus();
-		},
-		onArrowDown(): void {
-			this.highlightedIndex = ( this.highlightedIndex + 1 ) % this.shownLanguages.length;
-		},
-		onArrowUp(): void {
-			const length = this.shownLanguages.length;
-			this.highlightedIndex = ( this.highlightedIndex + length - 1 ) % length;
-		},
-		onEnter(): void {
-			this.onSelect( this.shownLanguages[ this.highlightedIndex ].code );
-		},
-	},
-} );
+import { ref, computed } from "vue";
+import type { Ref } from 'vue';
+import languageData from "@wikimedia/language-data";
+
+const searchInput: Ref<string> = ref('');
+const highlightedIndex: Ref<number> = ref(-1);
+const closeUrl = ref(closeUrlSvg);
+
+const input = ref<InstanceType<typeof LanguageSelectorInput> | null>(null);
+
+const emit = defineEmits(['select', 'close']);
+
+const languages = computed<Language[]>(() => {
+  const autonyms = languageData.getAutonyms();
+  const languageCodes = Object.keys( autonyms );
+  languageCodes.sort( languageData.sortByAutonym );
+  return languageCodes.map( ( code ) => ( {
+    code,
+    autonym: autonyms[ code ],
+  } ) );
+});
+
+const shownLanguages = computed<Language[]>(() => {
+  return languages.value.filter( ( language ) =>
+      language.code.startsWith( searchInput.value.toLowerCase() ) ||
+      language.autonym.toLowerCase().includes( searchInput.value.toLowerCase() ),
+  );
+});
+
+function onInput(searchedLanguage: string): void {
+  searchInput.value = searchedLanguage;
+  highlightedIndex.value = 0;
+}
+
+function onSelect(languageCode: string): void {
+  emit('select', languageCode);
+}
+
+function onClearInputValue(): void {
+  searchInput.value = '';
+}
+
+function onCloseMenu(): void {
+  emit('close');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function focus(): void {
+  input.value?.focus();
+}
+
+function onArrowDown(): void {
+  highlightedIndex.value = ( highlightedIndex.value + 1 ) % shownLanguages.value.length;
+}
+
+function onArrowUp(): void {
+  const length = shownLanguages.value.length;
+  highlightedIndex.value = ( highlightedIndex.value + length - 1 ) % length;
+}
+
+function onEnter(): void {
+  onSelect( shownLanguages.value[ highlightedIndex.value ].code )
+}
+
+defineExpose({focus})
+
 </script>
-
 <style lang="scss">
 $tinyViewportWidth: 38em;
 
 .mismatchfinder__language-selector {
-	position: absolute;
-	inset-inline-end: 0;
-	width: 384px;
-	z-index: 1;
+  position: absolute;
+  inset-inline-end: 0;
+  width: 384px;
+  z-index: 1;
 
-	@media (max-width: $tinyViewportWidth) {
-		width: 100%;
-		position: fixed;
-		top: 0;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
+  @media (max-width: $tinyViewportWidth) {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
-	.languageSelector__mobile-header {
-		display: none;
-		padding-block: 12px;
-		padding-inline: 16px;
-		justify-content: space-between;
-		background-color: #fff;
+  .languageSelector__mobile-header {
+    display: none;
+    padding-block: 12px;
+    padding-inline: 16px;
+    justify-content: space-between;
+    background-color: #fff;
 
-		span {
-			color: #202122;
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Lato, Helvetica, Arial, sans-serif;
-			font-size: 1em;
-			font-weight: bold;
-		}
+    span {
+      color: #202122;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Lato, Helvetica, Arial, sans-serif;
+      font-size: 1em;
+      font-weight: bold;
+    }
 
-		@media (max-width: $tinyViewportWidth) {
-			display: flex;
-		}
-	}
+    @media (max-width: $tinyViewportWidth) {
+      display: flex;
+    }
+  }
 }
 </style>

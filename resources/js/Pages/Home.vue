@@ -78,14 +78,18 @@
                 </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
-                <text-area
-                    :label="$i18n('item-form-id-input-label')"
-                    :placeholder="$i18n('item-form-id-input-placeholder')"
-                    :rows="8"
-                    :loading="loading"
-                    :error="validationError"
-                    v-model="form.itemsInput"
-                />
+                <cdx-field :status="validationError">
+                    <div class="progress-bar-wrapper">
+                        <cdx-progress-bar v-if="loading" :aria-label="$i18n('item-form-progress-bar-aria-label')" />
+                    </div>
+                    <cdx-text-area
+                        :label="$i18n('item-form-id-input-label')"
+                        :placeholder="$i18n('item-form-id-input-placeholder')"
+                        :rows="8"
+                        :status="validationError"
+                        v-model="textareaInputValue"
+                    />
+                </cdx-field>
                 <div class="form-buttons">
                     <cdx-button
                         class="submit-ids"
@@ -106,10 +110,9 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
-    import { TextArea } from '@wmde/wikit-vue-components';
-    import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
+    import { CdxDialog, CdxButton, CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
-    import { defineComponent } from 'vue';
+    import { defineComponent, ref } from 'vue';
 
     interface HomeState {
         form: {
@@ -136,15 +139,20 @@
         components: {
           CdxDialog,
           CdxButton,
+          CdxField,
           CdxIcon,
           CdxMessage,
-          InertiaHead,
-          TextArea,
+          CdxProgressBar,
+          CdxTextArea,
+          InertiaHead
         },
         setup() {
+            const textareaInputValue = ref();
+            // TODO: v-model="form.itemsInput"
             return {
                 cdxIconDie,
-                cdxIconInfo
+                cdxIconInfo,
+                textareaInputValue
             };
         },
         methods: {
@@ -188,6 +196,9 @@
                 }
             },
             send(): void {
+                // TODO: 
+                // console.log( 'send called with ', this.form.itemsInput, this.textareaInputValue );
+
                 this.validate();
 
                 if(this.validationError) {
@@ -195,6 +206,7 @@
                 }
                 const store = useStore();
                 store.saveSearchedIds( this.form.itemsInput );
+                // TODO: this.$refs.textareaInputValue = this.form.itemsInput;
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {
@@ -222,7 +234,7 @@
                     itemsInput: store.lastSearchedIds
                 },
                 validationError: null,
-                faqDialog: false
+                faqDialog: false,
             }
         }
     });
@@ -271,6 +283,22 @@
 
     .form-buttons {
         text-align: end;
+    }
+
+    .cdx-field__control {
+        position: relative;
+        width: 100%;
+
+        .progress-bar-wrapper {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+
+            .cdx-progress-bar {
+                width: 50%;
+                margin: auto;
+            }
+        }
     }
 }
 </style>

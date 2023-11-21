@@ -78,7 +78,10 @@
                 </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
-                <cdx-field :status="validationError">
+                <cdx-field 
+                    :status="validationError ? validationError.type : 'default'" 
+                    :messages="validationError ? validationError.message : null"
+                >
                     <div class="progress-bar-wrapper">
                         <cdx-progress-bar v-if="loading" :aria-label="$i18n('item-form-progress-bar-aria-label')" />
                     </div>
@@ -86,7 +89,7 @@
                         :label="$i18n('item-form-id-input-label')"
                         :placeholder="$i18n('item-form-id-input-placeholder')"
                         :rows="8"
-                        :status="validationError"
+                        :status="validationError ? validationError.type : 'default'"
                         v-model="textareaInputValue"
                     />
                 </cdx-field>
@@ -120,7 +123,7 @@
         },
         validationError: null|{
             type: string,
-            message: string
+            message: object
         },
       faqDialog: boolean
     }
@@ -135,6 +138,13 @@
 
     export const MAX_NUM_IDS = 600;
 
+    // Run it with compat mode
+    // https://v3-migration.vuejs.org/breaking-changes/v-model.html
+     CdxTextArea.compatConfig = {
+        ...CdxTextArea.compatConfig,
+        COMPONENT_V_MODEL: false,
+    };
+
     export default defineComponent({
         components: {
           CdxDialog,
@@ -147,8 +157,9 @@
           InertiaHead
         },
         setup() {
-            const textareaInputValue = ref();
-            // TODO: v-model="form.itemsInput"
+            
+            const store = useStore();
+            const textareaInputValue = ref(store.lastSearchedIds);
             return {
                 cdxIconDie,
                 cdxIconInfo,
@@ -157,7 +168,7 @@
         },
         methods: {
             splitInput: function(): Array<string> {
-                return this.form.itemsInput.split( '\n' );
+                return this.textareaInputValue.split( '\n' );
             },
             sanitizeArray: function(): Array<string> {
                 // this filter function removes all falsy values
@@ -170,20 +181,22 @@
             validate(): void {
                 this.validationError = null;
 
+                const typeError = 'error';
+
                 const rules = [{
                     check: (ids: Array<string>) => ids.length < 1,
-                    type: 'warning',
-                    message: this.$i18n('item-form-error-message-empty')
+                    type: typeError,
+                    message: { [typeError]: this.$i18n('item-form-error-message-empty') }
                 },
                 {
                     check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
                     type: 'error',
-                    message: this.$i18n('item-form-error-message-max', MAX_NUM_IDS)
+                    message: { [typeError]: this.$i18n('item-form-error-message-max', MAX_NUM_IDS) }
                 },
                 {
                     check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
                     type: 'error',
-                    message: this.$i18n('item-form-error-message-invalid')
+                    message: { [typeError]: this.$i18n('item-form-error-message-invalid') }
                 }];
 
                 const sanitized = this.sanitizeArray();
@@ -196,17 +209,13 @@
                 }
             },
             send(): void {
-                // TODO: 
-                // console.log( 'send called with ', this.form.itemsInput, this.textareaInputValue );
-
                 this.validate();
 
                 if(this.validationError) {
                     return;
                 }
                 const store = useStore();
-                store.saveSearchedIds( this.form.itemsInput );
-                // TODO: this.$refs.textareaInputValue = this.form.itemsInput;
+                store.saveSearchedIds( this.textareaInputValue );
                 this.$inertia.get( '/results', { ids: this.serializeInput() } );
             },
             showRandom(): void {

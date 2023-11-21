@@ -6,20 +6,20 @@
                     {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
                 </h2>
                 <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]"/>
-                <p><wikit-link :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</wikit-link></p>
-                <p><wikit-link :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</wikit-link></p>
+                <p><a class="cdx-docs-link" :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+                <p><a class="cdx-docs-link" :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
             </section>
             <section>
                 <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
                 <p>
-                    <wikit-link href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
+                    <a class="cdx-docs-link" href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
                         {{ $i18n('wikidata-tool-footer-privacy') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p>
-                    <wikit-link href="https://www.wikimedia.de/">
+                    <a class="cdx-docs-link" href="https://www.wikimedia.de/">
                         {{ $i18n('wikidata-tool-footer-wmde') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p v-i18n-html:wikidata-tool-footer-team="[
                     'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team'
@@ -33,7 +33,6 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import { defineComponent } from 'vue';
-import { Link as WikitLink } from '@wmde/wikit-vue-components';
 
 interface FooterLabels {
     tool: string;
@@ -48,9 +47,6 @@ interface FooterUrls {
 
 export default defineComponent({
     name: 'WikidataToolFooter',
-    components: {
-        WikitLink,
-    },
     props: {
         contentClass: {
             type: String,
@@ -70,6 +66,8 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '../../sass/link.scss';
 
 .footer-container {
     background-color: $color-base-90;
@@ -100,6 +98,10 @@ export default defineComponent({
 
         p + p {
             margin-block-start: $dimension-layout-xxsmall;
+        }
+
+        .cdx-docs-link {
+            @include cdx-mixin-link;
         }
 
         @media (min-width: $width-breakpoint-tablet) {

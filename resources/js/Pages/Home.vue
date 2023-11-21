@@ -239,7 +239,7 @@
         data(): HomeState {
             return {
                 validationError: null,
-                faqDialog: false,
+                faqDialog: false
             }
         }
     });

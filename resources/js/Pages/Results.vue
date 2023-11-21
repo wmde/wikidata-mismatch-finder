@@ -47,16 +47,16 @@
             </p>
         </section>
         <section id="error-section" v-if="requestError">
-            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</cdx-message>
+            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</Message>
         </section>
         <section id="message-section">
             <cdx-message type="notice" v-if="notFoundItemIds.length">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                    <wikit-link
+                    <a class="cdx-docs-link" 
                         :href="`https://www.wikidata.org/wiki/${String(item_id)}`" target="_blank">
                         {{labels[item_id]}} ({{item_id}})
-                    </wikit-link>
+                    </a>
                 </span>
             </cdx-message>
             <!-- The Results page without item_ids is used by RandomizeController. -->
@@ -73,9 +73,9 @@
                 :id="`item-mismatches-${String(item)}`"
                 :key="idx">
                 <h2 class="h4">
-                    <wikit-link :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
+                    <a class="cdx-docs-link" :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                         {{labels[item]}} ({{item}})
-                    </wikit-link>
+                    </a>
                 </h2>
                 <form @submit.prevent="send(item)">
                     <mismatches-table :mismatches="addLabels(mismatches)"
@@ -86,9 +86,12 @@
                         <cdx-message class="form-success-message" type="success" v-if="lastSubmitted === item">
                             <span>{{ $i18n('changes-submitted-message') }}</span>
                             <span class="message-link">
-                                <wikit-link :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
+                                <a 
+                                class="cdx-docs-link"
+                                :href="`https://www.wikidata.org/wiki/${String(item)}`"
+                                target="_blank">
                                     {{labels[item]}} ({{item}})
-                                </wikit-link>
+                                </a>
                             </span>
                         </cdx-message>
                         <div class="form-buttons">
@@ -136,13 +139,9 @@
     import { useStore } from '../store';
     import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
-    import {
-        Link as WikitLink,
-        Checkbox } from '@wmde/wikit-vue-components';
-
+    import { Checkbox } from '@wmde/wikit-vue-components';
     import { CdxButton, CdxIcon, CdxDialog, CdxMessage } from "@wikimedia/codex";
     import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
-
     import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
     import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
@@ -190,7 +189,6 @@
             InertiaHead,
             LoadingOverlay,
             MismatchesTable,
-            WikitLink,
             Checkbox,
             CdxDialog,
             CdxButton,
@@ -389,14 +387,16 @@
 }
 
 h2 {
-    .wikit-Link.wikit {
+    .cdx-docs-link {
+        @include cdx-mixin-link;
         font-weight: bold;
         display: inline;
     }
 }
 
 .message-link {
-    .wikit-Link.wikit {
+    .cdx-docs-link {
+        @include cdx-mixin-link;
         display: inline-block;
     }
 

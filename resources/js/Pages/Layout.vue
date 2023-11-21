@@ -185,7 +185,6 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
 @import '../../sass/link.scss';
 
 .website {

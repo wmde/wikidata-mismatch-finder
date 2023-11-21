@@ -194,7 +194,6 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
 @import '../../sass/link.scss';
 
   .cdx-docs-link {
@@ -203,10 +202,10 @@ export default defineComponent({
     &:__content {
       word-break: break-word;
     }
-    
-    &:break-line-link {
+  }
+
+  .break-line-link {
       width: 100%
-    }
   }
     
     .wikit-Button.full-description-button {

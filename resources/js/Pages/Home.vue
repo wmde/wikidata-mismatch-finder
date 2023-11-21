@@ -237,7 +237,6 @@
             ...mapState(useStore, ['loading']),
         },
         data(): HomeState {
-            const store = useStore();
             return {
                 validationError: null,
                 faqDialog: false,

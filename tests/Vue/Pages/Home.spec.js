@@ -23,14 +23,13 @@ describe('Home.vue', () => {
         const wrapper = mount(Home, {
             global: {
                 mocks,
-                plugins: [createTestingPinia()],
-            },
-            data() {
-                return {
-                    form: {
-                        itemsInput
+                plugins: [createTestingPinia({
+                    initialState: {
+                        storeId: {
+                            lastSearchedIds: itemsInput
+                        }
                     }
-                }
+                })],
             }
         });
 
@@ -95,8 +94,8 @@ describe('Home.vue', () => {
         wrapper.vm.validate();
 
         expect(wrapper.vm.validationError).toStrictEqual({
-            type: 'warning',
-            message: 'item-form-error-message-empty'}
+            type: 'error',
+            message: { error: 'item-form-error-message-empty' }}
         );
     });
 
@@ -106,21 +105,20 @@ describe('Home.vue', () => {
         const wrapper = mount(Home, {
             global: {
                 mocks,
-                plugins: [createTestingPinia()],
-            },
-            data() {
-                return {
-                    form: {
-                        itemsInput
+                plugins: [createTestingPinia({
+                    initialState: {
+                        storeId: {
+                            lastSearchedIds: itemsInput
+                        }
                     }
-                }
+                })],
             }
         });
 
         wrapper.vm.validate();
         expect(wrapper.vm.validationError).toStrictEqual({
             type: 'error',
-            message: 'item-form-error-message-max'}
+            message: { error: 'item-form-error-message-max'}}
         );
     });
 
@@ -130,21 +128,20 @@ describe('Home.vue', () => {
         const wrapper = mount(Home, {
             global: {
                 mocks,
-                plugins: [createTestingPinia()],
-            },
-            data() {
-                return {
-                    form: {
-                        itemsInput
+                plugins: [createTestingPinia({
+                    initialState: {
+                        storeId: {
+                            lastSearchedIds: itemsInput
+                        }
                     }
-                }
+                })],
             }
         });
 
         wrapper.vm.validate();
         expect(wrapper.vm.validationError).toStrictEqual({
             type: 'error',
-            message: 'item-form-error-message-invalid'}
+            message: { error: 'item-form-error-message-invalid' } }
         );
     });
 

@@ -118,9 +118,6 @@
     import { defineComponent, ref } from 'vue';
 
     interface HomeState {
-        form: {
-            itemsInput: string
-        },
         validationError: null|{
             type: string,
             message: object
@@ -157,13 +154,16 @@
           InertiaHead
         },
         setup() {
-            
             const store = useStore();
             const textareaInputValue = ref(store.lastSearchedIds);
+            
             return {
                 cdxIconDie,
                 cdxIconInfo,
-                textareaInputValue
+                textareaInputValue,
+                form: {
+                    itemsInput: store.lastSearchedIds
+                },
             };
         },
         methods: {
@@ -239,9 +239,6 @@
         data(): HomeState {
             const store = useStore();
             return {
-                form: {
-                    itemsInput: store.lastSearchedIds
-                },
                 validationError: null,
                 faqDialog: false,
             }

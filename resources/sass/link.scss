@@ -1,0 +1,84 @@
+@mixin cdx-mixin-link-base(){
+	color: $color-progressive;
+	border-radius: $border-radius-base;
+	text-decoration: $text-decoration-none;
+
+	&:visited {
+		color: $color-visited;
+
+		&:hover {
+			color: $color-visited;
+		}
+	}
+
+	&:hover {
+		color: $color-progressive--hover;
+		text-decoration: $text-decoration-underline;
+	}
+
+	&:active {
+		color: $color-progressive--active;
+		text-decoration: $text-decoration-underline;
+	}
+
+	&:focus {
+		outline: $border-style-base $border-width-thick $outline-color-progressive--focus;
+	}
+
+	.cdx-icon:last-child {
+		// Note, `$min-size-icon-x-small` & `$size-icon-small` are an approximation in our current
+		// 16/14 base font theme environment.
+		// We're faking it to make it, `$min-size-icon-x-small` is `12px` in both themes,
+		// `$size-icon-small` is `1em`, achieving the desired size.
+		min-width: $min-size-icon-x-small;
+		min-height: $min-size-icon-x-small;
+		width: $size-icon-small;
+		height: $size-icon-small;
+		padding-left: $spacing-25;
+		vertical-align: middle;
+	}
+}
+
+@mixin cdx-mixin-link-underlined(){
+	text-decoration: $text-decoration-underline;
+}
+
+@mixin cdx-mixin-link-red(){
+	color: $color-link-red;
+
+	&:visited {
+		color: $color-link-red--visited;
+
+		&:hover {
+			color: $color-link-red--visited;
+		}
+	}
+
+	&:hover {
+		color: $color-link-red--hover;
+		text-decoration: $text-decoration-underline;
+	}
+
+	&:active {
+		color: $color-link-red--active;
+		text-decoration: $text-decoration-underline;
+	}
+
+	&:focus {
+		outline-color: $outline-color-progressive--focus;
+	}
+}
+
+@mixin cdx-mixin-link(){
+	@include cdx-mixin-link-base();
+
+	// stylelint-disable-next-line selector-class-pattern
+	&.is-underlined {
+		@include cdx-mixin-link-underlined();
+	}
+
+	// stylelint-disable-next-line selector-class-pattern
+	&.is-red-link {
+		@include cdx-mixin-link-red();
+	}
+}

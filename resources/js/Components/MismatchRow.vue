@@ -1,12 +1,11 @@
 <template>
     <tr>
         <td :data-header="$i18n('column-mismatch')">
-            <wikit-link
-              class="break-line-link"
+            <a class="cdx-docs-link break-line-link"
               target="_blank"
               :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
-            </wikit-link>
+            </a>
         </td>
         <td :data-header="$i18n('column-type')">
             <span v-if="mismatch.type !== ''">
@@ -20,27 +19,27 @@
             <span class="empty-value" v-if="mismatch.wikidata_value === ''">
               {{ this.$i18n('empty-value') }}
             </span> 
-            <wikit-link 
-              v-else class="break-line-link" :href="statementUrl" target="_blank">
+            <a
+              v-else class="cdx-docs-link break-line-link" :href="statementUrl" target="_blank">
                 {{mismatch.value_label || mismatch.wikidata_value}}
-            </wikit-link>
+          </a>
         </td>
         <td :data-header="$i18n('column-external-value')">
-          <wikit-link v-if="mismatch.external_url" class="break-line-link"
+           <a class="cdx-docs-link break-line-link" v-if="mismatch.external_url"
               :href="`${mismatch.external_url}`" target="_blank"
             >
               {{mismatch.external_value}}
-            </wikit-link>
+            </a>
             <span v-else>
               {{mismatch.external_value}}
             </span>
         </td>
         <td :data-header="$i18n('column-external-source')">
-            <wikit-link v-if="mismatch.import_meta.external_source_url" class="break-line-link"
+            <a class="cdx-docs-link break-line-link" v-if="mismatch.import_meta.external_source_url"
               :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
             >
               {{mismatch.import_meta.external_source}}
-            </wikit-link>
+            </a>
             <span v-else>
               {{mismatch.import_meta.external_source}}
             </span>
@@ -59,12 +58,12 @@
         </td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
-                <wikit-link class="uploader"
+              <a class="cdx-docs-link uploader"
                     :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
                     target="_blank"
                 >
                     {{mismatch.import_meta.user.username}}
-                </wikit-link>
+              </a>
                 <span class="upload-date">{{uploadDate}}</span>
                 <div class="description">
                   {{uploadInfoDescription}}
@@ -90,12 +89,12 @@
               @primary="() => fullDescriptionDialog = false"
               close-button-label="X"
             >
-            <wikit-link class="uploader"
+            <a class="cdx-docs-link uploader"
                     :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
                     target="_blank"
             >
                 {{mismatch.import_meta.user.username}}
-            </wikit-link>
+            </a>
             <span class="upload-date">{{uploadDate}}</span>
             <div class="description">
               {{this.mismatch.import_meta.description}}
@@ -110,9 +109,6 @@ import { formatISO } from 'date-fns';
 
 import type { PropType } from 'vue';
 import { defineComponent } from 'vue';
-import {
-    Link as WikitLink
-} from '@wmde/wikit-vue-components';
 import { CdxButton, CdxDialog, CdxSelect } from "@wikimedia/codex";
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 
@@ -138,7 +134,6 @@ interface MismatchRowState {
 export default defineComponent({
     components: {
     CdxButton,
-    WikitLink,
     CdxDialog,
     CdxSelect
     },
@@ -199,13 +194,21 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '../../sass/link.scss';
 
-    .wikit-Link.break-line-link {
-      width: 100%;
-    }
-    .wikit-Link__content {
+  .cdx-docs-link {
+    @include cdx-mixin-link;
+   
+    &:__content {
       word-break: break-word;
     }
+    
+    &:break-line-link {
+      width: 100%
+    }
+  }
+    
     .wikit-Button.full-description-button {
       padding: 0px 2px;
       font-weight: 400;

@@ -53,7 +53,7 @@ describe('Home.vue', () => {
             }
         });
 
-        expect( wrapper.vm.form.itemsInput ).toEqual(itemsInput);
+        expect( wrapper.vm.textareaInputValue).toEqual(itemsInput);
     });
 
     it('shows dialog after clicking the more info button', async () => {

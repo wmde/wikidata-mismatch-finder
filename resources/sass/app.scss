@@ -411,3 +411,13 @@ dl.import-meta .download-csv {
 		line-height: $line-height-medium;
 	}
 }
+
+
+.cdx-select-vue {
+	width: 100%;
+	&__handle {
+		min-width: unset;
+		max-width: 256px;
+	}
+}
+

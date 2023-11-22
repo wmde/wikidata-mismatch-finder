@@ -4,6 +4,7 @@
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import './link.scss';
 @import './_typography.scss';
 
 html {
@@ -67,7 +68,7 @@ h5, .h5 {
 }
 
 a {
-    @include link;
+    @include cdx-mixin-link;
 }
 
 p, ul, ol {

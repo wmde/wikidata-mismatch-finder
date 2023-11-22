@@ -160,10 +160,7 @@
             return {
                 cdxIconDie,
                 cdxIconInfo,
-                textareaInputValue,
-                form: {
-                    itemsInput: store.lastSearchedIds
-                },
+                textareaInputValue
             };
         },
         methods: {

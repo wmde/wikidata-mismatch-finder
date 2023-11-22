@@ -427,7 +427,6 @@ h2 {
 
     .form-success-message {
         max-width: 705px;
-        flex-shrink: 0;
         flex-grow: 1;
         order: 1;
     }

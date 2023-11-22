@@ -40,22 +40,22 @@
             <section>
                 <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
                 <p>
-                    <a class="cdx-docs-link" href="https://query.wikidata.org/querybuilder/">
+                    <a href="https://query.wikidata.org/querybuilder/">
                         {{ $i18n('tool-query-builder') }}
                     </a>
                 </p>
                 <p>
-                    <a class="cdx-docs-link" href="https://item-quality-evaluator.toolforge.org/">
+                    <a href="https://item-quality-evaluator.toolforge.org/">
                         {{ $i18n('tool-item-quality-evaluator') }}
                     </a>
                 </p>
                 <p>
-                    <a class="cdx-docs-link" href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
+                    <a href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
                         {{ $i18n('tool-curious-facts') }}
                     </a>
                 </p>
                 <p>
-                    <a class="cdx-docs-link" href="https://github.com/wmde/wikidata-constraints-violation-checker">
+                    <a href="https://github.com/wmde/wikidata-constraints-violation-checker">
                         {{ $i18n('tool-constraints-violation-checker') }}
                     </a>
                 </p>
@@ -253,10 +253,6 @@ export default defineComponent({
                 }
             }
         }
-    }
-
-    .cdx-docs-link {
-        @include cdx-mixin-link;
     }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td :data-header="$i18n('column-mismatch')">
-            <a class="cdx-docs-link break-line-link"
+            <a class="break-line-link"
               target="_blank"
               :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
                 {{mismatch.property_label}}
@@ -20,12 +20,12 @@
               {{ this.$i18n('empty-value') }}
             </span> 
             <a
-              v-else class="cdx-docs-link break-line-link" :href="statementUrl" target="_blank">
+              v-else class="break-line-link" :href="statementUrl" target="_blank">
                 {{mismatch.value_label || mismatch.wikidata_value}}
           </a>
         </td>
         <td :data-header="$i18n('column-external-value')">
-           <a class="cdx-docs-link break-line-link" v-if="mismatch.external_url"
+           <a class="break-line-link" v-if="mismatch.external_url"
               :href="`${mismatch.external_url}`" target="_blank"
             >
               {{mismatch.external_value}}
@@ -35,7 +35,7 @@
             </span>
         </td>
         <td :data-header="$i18n('column-external-source')">
-            <a class="cdx-docs-link break-line-link" v-if="mismatch.import_meta.external_source_url"
+            <a class="break-line-link" v-if="mismatch.import_meta.external_source_url"
               :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
             >
               {{mismatch.import_meta.external_source}}
@@ -58,10 +58,11 @@
         </td>
         <td :data-header="$i18n('column-upload-info')">
             <div class="upload-details">
-              <a class="cdx-docs-link uploader"
-                    :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
-                    target="_blank"
-                >
+              <a
+                class="uploader"
+                :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+                target="_blank"
+              >
                     {{mismatch.import_meta.user.username}}
               </a>
                 <span class="upload-date">{{uploadDate}}</span>
@@ -89,9 +90,10 @@
               @primary="() => fullDescriptionDialog = false"
               close-button-label="X"
             >
-            <a class="cdx-docs-link uploader"
-                    :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
-                    target="_blank"
+            <a
+              class="uploader"
+              :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`" 
+              target="_blank"
             >
                 {{mismatch.import_meta.user.username}}
             </a>
@@ -194,20 +196,17 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '../../sass/link.scss';
 
-  .cdx-docs-link {
-    @include cdx-mixin-link;
-   
+  a {
     &:__content {
       word-break: break-word;
     }
+
+    &:break-line-link {
+      width: 100%
+    }
   }
 
-  .break-line-link {
-      width: 100%
-  }
-    
     .wikit-Button.full-description-button {
       padding: 0px 2px;
       font-weight: 400;

@@ -6,18 +6,18 @@
                     {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
                 </h2>
                 <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]"/>
-                <p><a class="cdx-docs-link" :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
-                <p><a class="cdx-docs-link" :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
+                <p><a :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+                <p><a :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
             </section>
             <section>
                 <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
                 <p>
-                    <a class="cdx-docs-link" href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
+                    <a href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
                         {{ $i18n('wikidata-tool-footer-privacy') }}
                     </a>
                 </p>
                 <p>
-                    <a class="cdx-docs-link" href="https://www.wikimedia.de/">
+                    <a href="https://www.wikimedia.de/">
                         {{ $i18n('wikidata-tool-footer-wmde') }}
                     </a>
                 </p>
@@ -66,7 +66,6 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '../../sass/link.scss';
 
 .footer-container {
     background-color: $color-base-90;
@@ -97,10 +96,6 @@ export default defineComponent({
 
         p + p {
             margin-block-start: $dimension-layout-xxsmall;
-        }
-
-        .cdx-docs-link {
-            @include cdx-mixin-link;
         }
 
         @media (min-width: $width-breakpoint-tablet) {

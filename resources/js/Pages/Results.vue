@@ -47,14 +47,13 @@
             </p>
         </section>
         <section id="error-section" v-if="requestError">
-            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</Message>
+            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</cdx-message>
         </section>
         <section id="message-section">
             <cdx-message type="notice" v-if="notFoundItemIds.length">
                 <span>{{ $i18n('no-mismatches-found-message') }}</span>
                 <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                    <a class="cdx-docs-link" 
-                        :href="`https://www.wikidata.org/wiki/${String(item_id)}`" target="_blank">
+                    <a :href="`https://www.wikidata.org/wiki/${String(item_id)}`" target="_blank">
                         {{labels[item_id]}} ({{item_id}})
                     </a>
                 </span>
@@ -73,7 +72,7 @@
                 :id="`item-mismatches-${String(item)}`"
                 :key="idx">
                 <h2 class="h4">
-                    <a class="cdx-docs-link" :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
+                    <a :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                         {{labels[item]}} ({{item}})
                     </a>
                 </h2>
@@ -86,10 +85,7 @@
                         <cdx-message class="form-success-message" type="success" v-if="lastSubmitted === item">
                             <span>{{ $i18n('changes-submitted-message') }}</span>
                             <span class="message-link">
-                                <a 
-                                class="cdx-docs-link"
-                                :href="`https://www.wikidata.org/wiki/${String(item)}`"
-                                target="_blank">
+                                <a :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
                                     {{labels[item]}} ({{item}})
                                 </a>
                             </span>
@@ -387,18 +383,12 @@
 }
 
 h2 {
-    .cdx-docs-link {
-        @include cdx-mixin-link;
-        font-weight: bold;
-        display: inline;
-    }
+    font-weight: bold;
+    display: inline;
 }
 
 .message-link {
-    .cdx-docs-link {
-        @include cdx-mixin-link;
-        display: inline-block;
-    }
+    display: inline-block;
 
     &::after {
         content: ", ";

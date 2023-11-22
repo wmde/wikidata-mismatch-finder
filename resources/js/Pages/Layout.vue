@@ -185,7 +185,6 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '../../sass/link.scss';
 
 .website {
     box-sizing: border-box;

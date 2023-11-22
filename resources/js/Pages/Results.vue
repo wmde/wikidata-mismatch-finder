@@ -122,10 +122,11 @@
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
             </ul>
-            <checkbox class="disable-confirmation"
-                :label="$i18n('confirmation-dialog-option-label')"
-                :checked.sync="disableConfirmation"
-            />
+            <cdx-checkbox class="disable-confirmation"
+                v-model="disableConfirmation"
+            >
+              {{ $i18n('confirmation-dialog-option-label') }}
+            </cdx-checkbox>
         </cdx-dialog>
     </div>
 </template>
@@ -135,8 +136,7 @@
     import { useStore } from '../store';
     import isEmpty from 'lodash/isEmpty';
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
-    import { Checkbox } from '@wmde/wikit-vue-components';
-    import { CdxButton, CdxIcon, CdxDialog, CdxMessage } from "@wikimedia/codex";
+    import { CdxButton, CdxIcon, CdxDialog, CdxMessage, CdxCheckbox } from "@wikimedia/codex";
     import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
     import LoadingOverlay from '../Components/LoadingOverlay.vue';
     import MismatchesTable from '../Components/MismatchesTable.vue';
@@ -145,6 +145,12 @@
     import { defineComponent } from 'vue';
     import axios from 'axios';
 
+    // Run it with compat mode
+    // https://v3-migration.vuejs.org/breaking-changes/v-model.html
+    CdxCheckbox.compatConfig = {
+      ...CdxCheckbox.compatConfig,
+      COMPONENT_V_MODEL: false,
+    };
     interface MismatchDecision {
         id: number,
         item_id: string,
@@ -185,7 +191,7 @@
             InertiaHead,
             LoadingOverlay,
             MismatchesTable,
-            Checkbox,
+            CdxCheckbox,
             CdxDialog,
             CdxButton,
             CdxIcon,

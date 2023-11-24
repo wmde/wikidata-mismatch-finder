@@ -5,7 +5,8 @@
         </a>
         <a  href="/auth/logout">{{ $i18n('log-out') }}</a>
     </div>
-    <a v-else href="/auth/login">{{ $i18n('log-in') }}</a>
+    <a class="auth-widget" v-else href="/auth/login">{{ $i18n('log-in') }}</a>
+
 </template>
 
 <script lang="ts">
@@ -27,10 +28,9 @@ export default defineComponent({
 .auth-widget {
     display: flex;
     color: $color-base-50;
-
-    .username {
-        margin-inline-end: $dimension-spacing-xlarge;
-    }
+    justify-content: space-between;
+    gap: $dimension-spacing-xlarge;
+    align-items: center;
 
     .icon-user {
         margin-inline-end: $dimension-spacing-small;

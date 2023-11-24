@@ -389,13 +389,16 @@
 }
 
 h2 {
-    font-weight: bold;
-    display: inline;
+    a {
+        font-weight: bold;
+        display: inline;
+    }
 }
 
 .message-link {
-    display: inline-block;
-
+    a {
+        display: inline-block;
+    }
     &::after {
         content: ", ";
     }

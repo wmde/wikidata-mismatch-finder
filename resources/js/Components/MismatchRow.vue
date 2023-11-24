@@ -198,11 +198,7 @@ export default defineComponent({
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 
   a {
-    &:__content {
-      word-break: break-word;
-    }
-
-    &:break-line-link {
+    break-line-link {
       width: 100%
     }
   }

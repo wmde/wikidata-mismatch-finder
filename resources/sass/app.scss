@@ -3,6 +3,7 @@
 @import '~ress';
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './_typography.scss';
 
@@ -72,38 +73,14 @@ a {
 
 p, ul, ol {
     margin-block-end: 1rem;
-
-    .wikit-Dialog & {
-        margin-block-end: 1rem;
-    }
 }
 
 li + li {
     margin-block-start: 1rem;
-
-    .wikit-Dialog & {
-        margin-block-start: 1rem;
-    }
 }
 
 li {
     margin-inline-start: 1rem;
-
-    .wikit-Dialog & {
-        margin-inline-start: 1rem;
-    }
-}
-
-.wikit.wikit-Dialog {
-    // Override global styles from media query below
-    header {
-        flex-direction: row;
-    }
-
-    // Ensure dialog is wider than 75% default
-    .wikit-Dialog__modal {
-        max-width: 90%;
-    }
 }
 
 #error-section,
@@ -398,7 +375,7 @@ dl.import-meta .download-csv {
     nav.tabs {
         padding-bottom: 24px;
     }
-    .button-group { 
+    .button-group {
         margin-top: 16px;
     }
 }
@@ -424,4 +401,13 @@ dl.import-meta .download-csv {
 // is marked as resolved.
 .cdx-button .cdx-icon {
     vertical-align: text-top;
+}
+
+.cdx-dialog {
+	header {
+		color: $color-emphasized;
+	}
+	&__body {
+		line-height: $line-height-medium;
+	}
 }

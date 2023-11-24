@@ -107,14 +107,7 @@
         <cdx-dialog id="results-confirmation-dialog"
             :title="$i18n('confirmation-dialog-title')"
             v-model:open="confirmationDialog"
-            :primary-action="{
-                label: $i18n('confirmation-dialog-button'),
-                namespace: 'next-steps-confirm',
-                actionType: 'progressive'
-
-            }"
             @update:open="disableConfirmation = false"
-            @primary="_handleConfirmation"
             close-button-label="X"
         >
             <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
@@ -123,12 +116,24 @@
                 <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
                 <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
             </ul>
-            <cdx-checkbox class="disable-confirmation"
-                v-model="disableConfirmation"
-            >
-              {{ $i18n('confirmation-dialog-option-label') }}
-            </cdx-checkbox>
-        </cdx-dialog>
+
+			<template #footer>
+				<cdx-checkbox class="disable-confirmation" v-model="disableConfirmation" inline
+				>
+					{{ $i18n('confirmation-dialog-option-label') }}
+				</cdx-checkbox>
+
+				<cdx-button
+					weight="primary"
+					action="progressive"
+					:aria-label="$i18n('confirmation-dialog-button')"
+					@click="_handleConfirmation"
+				>
+					{{ $i18n('confirmation-dialog-button') }}
+				</cdx-button>
+			</template>
+
+		</cdx-dialog>
     </div>
 </template>
 
@@ -413,7 +418,13 @@ h2 {
         content: "";
     }
 }
-
+#results-confirmation-dialog {
+	footer {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+	}
+}
 .mismatches-form-footer {
     margin-top: $dimension-layout-xsmall;
     display: flex;

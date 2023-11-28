@@ -28,66 +28,64 @@
 			v-if="languages.length === 0"
 			class="languageSelector__options-menu__no-results"
 			role="option">
-			<slot name="no-results" />
+			<slot name="no-results"/>
 		</div>
 	</div>
 </template>
 
-<script lang="ts">
-import Language from '../types/Language';
-import type { PropType } from 'vue';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import {ref, watch} from 'vue';
+import type Language from '../types/Language';
+import type {Ref} from 'vue';
 
-export default defineComponent( {
-	name: 'LanguageSelectorOptionsMenu',
-	props: {
-		languages: {
-			type: Array as PropType<Language[]>,
-			default: (): [] => [],
-		},
-		highlightedIndex: {
-			type: Number,
-			default: -1,
-		},
-	},
-	data: () => ( {
-		selectedLanguageCode: '',
-	} ),
-	methods: {
-		onSelect( selectedLanguageCode: string ): void {
-			this.selectedLanguageCode = selectedLanguageCode;
-			this.$emit( 'select', selectedLanguageCode );
-		},
-		scrollTo( element: Element, childIdx: number ): void {
-			const child = element.children.item( childIdx );
+const props = withDefaults(defineProps<{
+	languages: Language[]
+	highlightedIndex: number
+}>(), {
+	languages: () => [],
+	highlightedIndex: -1
+});
 
-			if ( child === null ) {
-				return;
-			}
+const selectedLanguageCode: Ref<string> = ref('');
 
-			const container = ( this.$refs.container as Element ).getBoundingClientRect(),
-				item = child.getBoundingClientRect(),
-				above = Math.floor( item.top ) < container.top,
-				below = Math.ceil( item.bottom ) > container.bottom;
+const container = ref<HTMLElement | null>(null);
+const languagesList = ref<HTMLElement | null>(null);
 
-			if ( !above && !below ) {
-				return;
-			}
-			child.scrollIntoView( { behavior: 'smooth', block: 'nearest', inline: 'start' } );
-		},
-	},
-	watch: {
-		highlightedIndex: function ( newIdx ) {
-			const languageList = this.$refs.languagesList;
+const emit = defineEmits(['select']);
 
-			this.scrollTo( languageList as Element, newIdx );
-		},
-	},
-} );
+function onSelect(selectedLanguageCodeInput: string): void {
+	selectedLanguageCode.value = selectedLanguageCodeInput
+	emit('select', selectedLanguageCodeInput)
+}
+
+function scrollTo(element: Element, childIdx: number): void {
+	const child = element.children.item(childIdx);
+
+	if (child === null) {
+		return;
+	}
+
+	const containerRect = container.value.getBoundingClientRect(),
+		item = child.getBoundingClientRect(),
+		above = Math.floor(item.top) < containerRect.top,
+		below = Math.ceil(item.bottom) > containerRect.bottom;
+
+	if (!above && !below) {
+		return;
+	}
+	child.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start'});
+}
+
+watch(() => props.highlightedIndex,
+	(newIndex) => {
+		scrollTo(languagesList.value, newIndex);
+	})
+
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+
 $base: '.languageSelector__options-menu';
 $tinyViewportWidth: 38em;
 
@@ -95,7 +93,7 @@ $tinyViewportWidth: 38em;
 	background-color: #ffffff;
 	border-radius: 0px 0px 1px 1px;
 	border: 1px solid #a2a9b1;
-	box-shadow: $wikit-OptionsMenu-box-shadow;
+	box-shadow: $box-shadow-drop-medium;
 	box-sizing: border-box;
 	z-index: 1;
 	padding-block: 8px;

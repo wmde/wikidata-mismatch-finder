@@ -11,11 +11,11 @@
 				:value="value"
 				:placeholder="placeholder"
 				@input="onInput"
-				@keydown.tab="onTab"
-				@keydown.down.prevent="onArrowDown"
-				@keydown.up.prevent="onArrowUp"
-				@keydown.enter="onEnter"
-				@keydown.esc.prevent="onEscape"
+				@keydown.tab="$emit('tab')"
+				@keydown.down.prevent="$emit('arrowDown')"
+				@keydown.up.prevent="$emit('arrowUp')"
+				@keydown.enter="$emit('enter')"
+				@keydown.esc.prevent="$emit('escape')"
 			>
 		</div>
 		<button
@@ -28,63 +28,41 @@
 	</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import searchUrl from '../../img/search.svg';
-import clearUrl from '../../img/clear.svg';
+<script setup lang="ts">
+import {ref, computed} from 'vue';
+import searchUrlSvg from '../../img/search.svg';
+import clearUrlSvg from '../../img/clear.svg';
 
-export default defineComponent( {
-	name: 'LanguageSelectorInput',
-	props: {
-		value: {
-			type: String,
-			default: '',
-		},
-		placeholder: {
-			type: String,
-			default: '',
-		},
-	},
-	data() {
-		return {
-			searchUrl,
-			clearUrl,
-		};
-	},
-	computed: {
-		clearBtnVisible(): boolean {
-			return this.value.length > 0;
-		},
-	},
-	methods: {
-		onClearInputValue(): void {
-			this.$emit( 'clear' );
-			this.focus();
-		},
+const props = defineProps<{
+	value: string,
+	placeholder: string
+}>();
 
-		focus(): void {
-			( this.$refs.input as HTMLInputElement ).focus();
-		},
-		onArrowDown() {
-			this.$emit( 'arrowDown' );
-		},
-		onArrowUp() {
-			this.$emit( 'arrowUp' );
-		},
-		onEnter() {
-			this.$emit( 'enter' );
-		},
-		onEscape() {
-			this.$emit( 'escape' );
-		},
-		onInput( event : Event ) {
-			this.$emit( 'input', (event.target as HTMLInputElement).value );
-		},
-		onTab() {
-			this.$emit( 'tab' );
-		},
-	},
-} );
+const emit = defineEmits(['clear', 'arrowDown', 'arrowUp', 'enter', 'escape', 'input', 'tab'])
+
+const searchUrl = ref(searchUrlSvg);
+const clearUrl = ref(clearUrlSvg);
+
+const input = ref<HTMLInputElement | null>(null);
+
+const clearBtnVisible = computed<boolean>(() => {
+	return props.value.length > 0;
+})
+
+function focus(): void {
+	(input.value as HTMLInputElement).focus();
+}
+
+function onClearInputValue(): void {
+	emit('clear');
+	focus();
+}
+
+function onInput(event: Event) {
+	emit('input', (event.target as HTMLInputElement).value);
+}
+
+defineExpose({focus});
 </script>
 
 <style lang="scss">
@@ -123,8 +101,8 @@ export default defineComponent( {
 	}
 
 	&-left-side {
-		display:flex;
-		flex-grow:1;
+		display: flex;
+		flex-grow: 1;
 	}
 
 	&__search-icon {

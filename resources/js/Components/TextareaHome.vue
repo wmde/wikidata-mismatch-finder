@@ -19,6 +19,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useStore } from '../store';
+import { MAX_NUM_IDS } from '../Pages/Home.vue';
 import { CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
 // Run it with compat mode
@@ -27,8 +28,6 @@ import { CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wik
     ...CdxTextArea.compatConfig,
     COMPONENT_V_MODEL: false,
 };
-
-const MAX_NUM_IDS = 600;
 
 export default defineComponent({
     components: {

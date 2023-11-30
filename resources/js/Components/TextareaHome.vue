@@ -20,7 +20,7 @@
 import { defineComponent, ref } from 'vue';
 import { useStore } from '../store';
 import { MAX_NUM_IDS } from '../Pages/Home.vue';
-import { CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
+import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
 // Run it with compat mode
     // https://v3-migration.vuejs.org/breaking-changes/v-model.html
@@ -32,8 +32,6 @@ import { CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wik
 export default defineComponent({
     components: {
       CdxField,
-      CdxIcon,
-      CdxMessage,
       CdxProgressBar,
       CdxTextArea,
     },

@@ -153,7 +153,9 @@
                 }
                 const store = useStore();
                 store.saveSearchedIds( this.textareaInputValue );
-                this.$inertia.get( '/results', { ids: (this.$refs.textarea as InstanceType<typeof TextareaHome>).serializeInput() } );
+                this.$inertia.get( '/results', 
+                    { ids: (this.$refs.textarea as InstanceType<typeof TextareaHome>).serializeInput() }
+                );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );

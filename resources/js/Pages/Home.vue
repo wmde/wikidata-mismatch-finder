@@ -78,21 +78,10 @@
                 </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
-                <cdx-field 
-                    :status="validationError ? validationError.type : 'default'" 
-                    :messages="validationError ? validationError.message : null"
-                >
-                    <div class="progress-bar-wrapper">
-                        <cdx-progress-bar v-if="loading" :aria-label="$i18n('item-form-progress-bar-aria-label')" />
-                    </div>
-                    <cdx-text-area
-                        :label="$i18n('item-form-id-input-label')"
-                        :placeholder="$i18n('item-form-id-input-placeholder')"
-                        :rows="8"
-                        :status="validationError ? validationError.type : 'default'"
-                        v-model="textareaInputValue"
-                    />
-                </cdx-field>
+                <textarea-home 
+                    :loading="loading"
+                    ref="textarea"
+                />
                 <div class="form-buttons">
                     <cdx-button
                         class="submit-ids"
@@ -113,7 +102,8 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
-    import { CdxDialog, CdxButton, CdxIcon, CdxMessage, CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
+    import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
+    import TextareaHome from '../Components/TextareaHome.vue';
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import { defineComponent, ref } from 'vue';
 
@@ -135,22 +125,13 @@
 
     export const MAX_NUM_IDS = 600;
 
-    // Run it with compat mode
-    // https://v3-migration.vuejs.org/breaking-changes/v-model.html
-     CdxTextArea.compatConfig = {
-        ...CdxTextArea.compatConfig,
-        COMPONENT_V_MODEL: false,
-    };
-
     export default defineComponent({
         components: {
           CdxDialog,
           CdxButton,
-          CdxField,
           CdxIcon,
           CdxMessage,
-          CdxProgressBar,
-          CdxTextArea,
+          TextareaHome,
           InertiaHead
         },
         setup() {
@@ -164,56 +145,15 @@
             };
         },
         methods: {
-            splitInput: function(): Array<string> {
-                return this.textareaInputValue.split( '\n' );
-            },
-            sanitizeArray: function(): Array<string> {
-                // this filter function removes all falsy values
-                // see: https://stackoverflow.com/a/281335/1619792
-                return this.splitInput().filter(x => x);
-            },
-            serializeInput: function(): string {
-                return this.sanitizeArray().join('|');
-            },
-            validate(): void {
-                this.validationError = null;
-
-                const typeError = 'error';
-
-                const rules = [{
-                    check: (ids: Array<string>) => ids.length < 1,
-                    type: typeError,
-                    message: { [typeError]: this.$i18n('item-form-error-message-empty') }
-                },
-                {
-                    check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
-                    type: 'error',
-                    message: { [typeError]: this.$i18n('item-form-error-message-max', MAX_NUM_IDS) }
-                },
-                {
-                    check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
-                    type: 'error',
-                    message: { [typeError]: this.$i18n('item-form-error-message-invalid') }
-                }];
-
-                const sanitized = this.sanitizeArray();
-
-                for(const {check, type, message} of rules){
-                    if(check(sanitized)){
-                        this.validationError = { type, message };
-                        return;
-                    }
-                }
-            },
             send(): void {
-                this.validate();
+                (this.$refs.textarea as InstanceType<typeof TextareaHome>).validate();
 
-                if(this.validationError) {
+                if((this.$refs.textarea as InstanceType<typeof TextareaHome>).validationError) {
                     return;
                 }
                 const store = useStore();
                 store.saveSearchedIds( this.textareaInputValue );
-                this.$inertia.get( '/results', { ids: this.serializeInput() } );
+                this.$inertia.get( '/results', { ids: (this.$refs.textarea as InstanceType<typeof TextareaHome>).serializeInput() } );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );

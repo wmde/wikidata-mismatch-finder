@@ -23,7 +23,7 @@ import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
 // Run it with compat mode
 // https://v3-migration.vuejs.org/breaking-changes/v-model.html
-    CdxTextArea.compatConfig = {
+CdxTextArea.compatConfig = {
     ...CdxTextArea.compatConfig,
     COMPONENT_V_MODEL: false,
 };

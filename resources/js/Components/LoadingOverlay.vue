@@ -1,12 +1,14 @@
 <template>
     <div class="loading-indicator" v-if="shown">
-        <div class="progressbar" role="progressbar" />
-        <div class="overlay" />
+        <div class="overlay" >
+            <cdx-progress-bar aria-label="Indeterminate progress bar"/>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { CdxProgressBar } from "@wikimedia/codex";
 
 export default defineComponent({
     name: 'LoadingOverlay',
@@ -19,6 +21,9 @@ export default defineComponent({
             type: Boolean,
             default: false,
         }
+    },
+    components: {
+        CdxProgressBar
     },
     data() {
         return {
@@ -56,70 +61,39 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
 $base: '.loading-indicator';
 
-#{$base} .overlay {
-    /**
-    * Layout
-    */
-    width: $wikit-Dialog-overlay-width;
-    height: $wikit-Dialog-overlay-height;
-    position: fixed;
-    top:0;
-    left:0;
+#{$base} {
 
-    z-index: 100;
-
-    /**
-    * Colors
-    */
-    background-color: $wikit-Dialog-overlay-background-color;
-    opacity: $wikit-Dialog-overlay-opacity;
-}
-
-#{$base} .progressbar {
-    // Currently the inline progress bar only supports indeterminate loading mode.
-    // For a proof of concept on how this can include also determinate loading, see:
-    // https://codepen.io/xumium/pen/LYLZbva?editors=1100
-    // We ensure semantic usage by only targeting generic elements that set the
-    // correct role
-    &[role=progressbar] {
+    .overlay {
+        /**
+        * Layout
+        */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: fixed;
         top: 0;
         left: 0;
-        width: $wikit-Progress-inline-track-width;
-        height: $wikit-Progress-inline-track-height;
+        z-index: $z-index-overlay-backdrop;
+        min-height: $size-full;
+        width: $size-viewport-width-full;
+        height: $size-viewport-height-full;
+        // Support Safari/iOS: Make `100vh` work with Safari's address bar.
+        // See https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
+        /* stylelint-disable-next-line plugin/no-unsupported-browser-features,
+            scale-unlimited/declaration-strict-value */
+        height: -webkit-fill-available;
+        /**
+        * Colors
+        */
+        background-color: $background-color-backdrop-light;
 
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-            height: 100%;
-            background: $wikit-Progress-inline-background-color;
-        }
-
-        // Indeterminate progress bars should not set the `aria-valuenow`
-        // attribute
-        &:not([aria-valuenow])::before {
-            width: 30%;
-            border-radius: $wikit-Progress-inline-indeterminate-border-radius;
-            animation-name: load-indeterminate;
-            animation-duration: $wikit-Progress-inline-animation-duration;
-            animation-timing-function: ease;
-            animation-iteration-count: infinite;
-            animation-delay: 0s;
+        .cdx-progress-bar {
+            min-width: 30%;
         }
     }
-
-    @keyframes load-indeterminate {
-        0% { left: 0; }
-        50% { left: 70%; }
-        100% { left: 0; }
-    }
-    z-index: 101;
 }
 </style>

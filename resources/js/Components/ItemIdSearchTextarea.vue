@@ -16,8 +16,10 @@
   </cdx-field>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent, ref } from 'vue';
+import type {Ref} from 'vue';
+// TODO: import i18n, { useI18n } from 'vue-banana-i18n';
 import { useStore } from '../store';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
@@ -28,77 +30,67 @@ CdxTextArea.compatConfig = {
     COMPONENT_V_MODEL: false,
 };
 
-export const MAX_NUM_IDS = 600;
+// TODO: export or see where to store this const
+const MAX_NUM_IDS = 600;
 
-export default defineComponent({
-    components: {
-      CdxField,
-      CdxProgressBar,
-      CdxTextArea,
+// TODO: const { t } = useI18n();
+
+const validationError: Ref<object> = ref(null);
+
+const store = useStore();
+const textareaInputValue = ref(store.lastSearchedIds);
+
+const props = defineProps<{
+	loading: boolean
+}>();
+
+function splitInput(): Array<string> {
+    return textareaInputValue.value.split( '\n' );
+};
+function sanitizeArray(): Array<string> {
+    // this filter function removes all falsy values
+    // see: https://stackoverflow.com/a/281335/1619792
+    return splitInput().filter(x => x);
+};
+function serializeInput(): string {
+    return sanitizeArray().join('|');
+};
+function validate(): void {
+    validationError.value = null;
+
+    const typeError = 'error';
+
+    const rules = [{
+        check: (ids: Array<string>) => ids.length < 1,
+        type: typeError,
+        // message: { [typeError]: this.$i18n('item-form-error-message-empty') }
+        message: { [typeError]: 'empty' }
     },
-    setup() {
-        const store = useStore();
-        const textareaInputValue = ref(store.lastSearchedIds);
-        
-        return {
-            textareaInputValue
-        };
+    {
+        check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
+        type: 'error',
+        // message: { [typeError]: i18n('item-form-error-message-max', MAX_NUM_IDS) }
+        message: { [typeError]: 'max' }
     },
-    props: {
-      loading: {
-        type: Boolean,
-        default: false
-      }
-    },
-    methods: {
-      splitInput: function(): Array<string> {
-          return this.textareaInputValue.split( '\n' );
-      },
-      sanitizeArray: function(): Array<string> {
-          // this filter function removes all falsy values
-          // see: https://stackoverflow.com/a/281335/1619792
-          return this.splitInput().filter(x => x);
-      },
-      serializeInput: function(): string {
-          return this.sanitizeArray().join('|');
-      },
-      validate(): void {
-          this.validationError = null;
+    {
+        check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
+        type: 'error',
+        // message: { [typeError]: i18n('item-form-error-message-invalid') }
+        message: { [typeError]: 'invalid' }
+    }];
 
-          const typeError = 'error';
+    const sanitized = sanitizeArray();
 
-          const rules = [{
-              check: (ids: Array<string>) => ids.length < 1,
-              type: typeError,
-              message: { [typeError]: this.$i18n('item-form-error-message-empty') }
-          },
-          {
-              check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
-              type: 'error',
-              message: { [typeError]: this.$i18n('item-form-error-message-max', MAX_NUM_IDS) }
-          },
-          {
-              check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
-              type: 'error',
-              message: { [typeError]: this.$i18n('item-form-error-message-invalid') }
-          }];
-
-          const sanitized = this.sanitizeArray();
-
-          for(const {check, type, message} of rules){
-              if(check(sanitized)){
-                  this.validationError = { type, message };
-                  return;
-              }
-          }
-      },
-    },
-  data() {
-    return {
-     validationError: null
+    for(const {check, type, message} of rules){
+        if(check(sanitized)){
+            validationError.value = { type, message };
+            return;
+        }
     }
-  },
-});
+};
+
+defineExpose({validate, serializeInput, validationError});
+
 </script>
 
 <style lang="scss">

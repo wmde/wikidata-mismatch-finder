@@ -78,7 +78,7 @@
                 </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
-                <textarea-home 
+                <item-id-search-textarea 
                     :loading="loading"
                     ref="textarea"
                 />
@@ -103,7 +103,7 @@
     import { mapState } from 'pinia';
     import { useStore } from '../store';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
-    import TextareaHome from '../Components/TextareaHome.vue';
+    import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import { defineComponent, ref } from 'vue';
 
@@ -131,7 +131,7 @@
           CdxButton,
           CdxIcon,
           CdxMessage,
-          TextareaHome,
+          ItemIdSearchTextarea,
           InertiaHead
         },
         setup() {
@@ -146,15 +146,15 @@
         },
         methods: {
             send(): void {
-                (this.$refs.textarea as InstanceType<typeof TextareaHome>).validate();
+                (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validate();
 
-                if((this.$refs.textarea as InstanceType<typeof TextareaHome>).validationError) {
+                if((this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validationError) {
                     return;
                 }
                 const store = useStore();
                 store.saveSearchedIds( this.textareaInputValue );
                 this.$inertia.get( '/results', 
-                    { ids: (this.$refs.textarea as InstanceType<typeof TextareaHome>).serializeInput() }
+                    { ids: (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).serializeInput() }
                 );
             },
             showRandom(): void {

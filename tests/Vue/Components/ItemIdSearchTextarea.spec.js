@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import TextareaHome, { MAX_NUM_IDS } from '@/Components/TextareaHome.vue';
+import ItemIdSearchTextarea, { MAX_NUM_IDS } from '@/Components/ItemIdSearchTextarea.vue';
 
-describe('TextareaHome.vue', () => {
+describe('ItemIdSearchTextarea.vue', () => {
 
     const mocks = {
         $i18n: key => key,
@@ -15,7 +15,7 @@ describe('TextareaHome.vue', () => {
 
         const itemsInput = 'Q1\n\nQ2\n';
 
-        const wrapper = mount(TextareaHome, {
+        const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
                 plugins: [createTestingPinia({
@@ -35,7 +35,7 @@ describe('TextareaHome.vue', () => {
 
         const itemsInput = 'Q1\n\nQ2\n';
 
-        const wrapper = mount(TextareaHome, {
+        const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
                 plugins: [createTestingPinia({
@@ -54,7 +54,7 @@ describe('TextareaHome.vue', () => {
     it('validates that textarea input is not empty', async () => {
         const itemsInput = '';
 
-        const wrapper = mount(TextareaHome, {
+        const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
                 plugins: [createTestingPinia()]
@@ -79,7 +79,7 @@ describe('TextareaHome.vue', () => {
     it('validates that items in textarea input dont exceed the maximum number of ids', async () => {
         const itemsInput = Array(MAX_NUM_IDS + 2).fill('Q21').join('\n');
 
-        const wrapper = mount(TextareaHome, {
+        const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
                 plugins: [createTestingPinia({
@@ -102,7 +102,7 @@ describe('TextareaHome.vue', () => {
     it('validates that items in textarea input are well-formed', async () => {
         const itemsInput = 'L12345';
 
-        const wrapper = mount(TextareaHome, {
+        const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
                 plugins: [createTestingPinia({

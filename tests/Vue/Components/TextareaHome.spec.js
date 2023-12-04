@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import { MAX_NUM_IDS } from '@/Pages/Home.vue';
-import TextareaHome from '@/Components/TextareaHome.vue';
+import TextareaHome, { MAX_NUM_IDS } from '@/Components/TextareaHome.vue';
 
 describe('TextareaHome.vue', () => {
 

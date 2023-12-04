@@ -19,15 +19,16 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useStore } from '../store';
-import { MAX_NUM_IDS } from '../Pages/Home.vue';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
 // Run it with compat mode
-    // https://v3-migration.vuejs.org/breaking-changes/v-model.html
+// https://v3-migration.vuejs.org/breaking-changes/v-model.html
     CdxTextArea.compatConfig = {
     ...CdxTextArea.compatConfig,
     COMPONENT_V_MODEL: false,
 };
+
+export const MAX_NUM_IDS = 600;
 
 export default defineComponent({
     components: {

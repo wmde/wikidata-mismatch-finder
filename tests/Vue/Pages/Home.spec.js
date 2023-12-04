@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import Home, { MAX_NUM_IDS } from '@/Pages/Home.vue';
+import Home from '@/Pages/Home.vue';
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.

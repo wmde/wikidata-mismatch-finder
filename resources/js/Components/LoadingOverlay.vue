@@ -91,8 +91,13 @@ $base: '.loading-indicator';
         */
         background-color: $background-color-backdrop-light;
 
-        .cdx-progress-bar {
-            min-width: 30%;
+    }
+
+    .cdx-progress-bar {
+        min-width: 432px;
+        
+        @media (max-width: $width-breakpoint-tablet) {
+            min-width: 90vw;
         }
     }
 }

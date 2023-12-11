@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue';
 import type {Ref} from 'vue';
-// TODO: import i18n, { useI18n } from 'vue-banana-i18n';
+// import { i18n } from '../app'; TODO: see app.ts
 import { useStore } from '../store';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
@@ -33,9 +33,10 @@ CdxTextArea.compatConfig = {
 // TODO: export or see where to store this const
 const MAX_NUM_IDS = 600;
 
-// TODO: const { t } = useI18n();
-
 const validationError: Ref<object> = ref(null);
+
+// TODO: see app.ts
+// const i18ntest = await i18n();
 
 const store = useStore();
 const textareaInputValue = ref(store.lastSearchedIds);
@@ -75,7 +76,7 @@ function validate(): void {
     {
         check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
         type: 'error',
-        // message: { [typeError]: i18n('item-form-error-message-invalid') }
+        // message: { [typeError]: i18ntest.global.t('item-form-error-message-invalid') }
         message: { [typeError]: 'invalid' }
     }];
 

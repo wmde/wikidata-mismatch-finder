@@ -123,8 +123,6 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600;
-
     export default defineComponent({
         components: {
           CdxDialog,

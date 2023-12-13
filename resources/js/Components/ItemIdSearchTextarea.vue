@@ -30,16 +30,14 @@ CdxTextArea.compatConfig = {
     COMPONENT_V_MODEL: false,
 };
 
-// TODO: export or see where to store this const
-const MAX_NUM_IDS = 600;
-
 const validationError: Ref<object> = ref(null);
 
-// TODO: see app.ts
-// const i18ntest = await i18n();
+const banana = useI18n();
 
 const store = useStore();
 const textareaInputValue = ref(store.lastSearchedIds);
+
+const MAX_NUM_IDS = inject('MAX_NUM_IDS');
 
 const props = defineProps<{
 	loading: boolean

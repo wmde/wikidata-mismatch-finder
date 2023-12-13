@@ -38,6 +38,7 @@ import Layout from './Pages/Layout.vue';
                     .use(i18nPlugin)
                     .use(pinia)
                     .use(plugin)
+                    .provide('MAX_NUM_IDS', 600)
                     .mount(el)
             }
         });

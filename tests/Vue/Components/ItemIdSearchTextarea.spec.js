@@ -85,7 +85,8 @@ describe('ItemIdSearchTextarea.vue', () => {
     });
 
     it('validates that items in textarea input dont exceed the maximum number of ids', async () => {
-        const itemsInput = Array(MAX_NUM_IDS + 2).fill('Q21').join('\n');
+        const mockMaxNumIds = 10;
+        const itemsInput = Array(mockMaxNumIds + 2).fill('Q21').join('\n');
 
         const wrapper = mount(ItemIdSearchTextarea, {
             global: {

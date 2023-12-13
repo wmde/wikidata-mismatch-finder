@@ -17,11 +17,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref, inject } from 'vue';
-import type { Ref } from 'vue';
+import { ref, inject } from 'vue';
+import { Ref } from 'vue';
 import { useI18n } from 'vue-banana-i18n';
 import { useStore } from '../store';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
+import ValidationError from '../types/ValidationError';
 
 // Run it with compat mode
 // https://v3-migration.vuejs.org/breaking-changes/v-model.html
@@ -30,7 +31,7 @@ CdxTextArea.compatConfig = {
     COMPONENT_V_MODEL: false,
 };
 
-const validationError: Ref<object> = ref(null);
+const validationError: Ref<ValidationError> = ref(null);
 
 const banana = useI18n();
 
@@ -39,21 +40,19 @@ const textareaInputValue = ref(store.lastSearchedIds);
 
 const MAX_NUM_IDS = inject('MAX_NUM_IDS');
 
-const props = defineProps<{
-	loading: boolean
-}>();
+defineProps<{loading: boolean}>();
 
 function splitInput(): Array<string> {
     return textareaInputValue.value.split( '\n' );
-};
+}
 function sanitizeArray(): Array<string> {
     // this filter function removes all falsy values
     // see: https://stackoverflow.com/a/281335/1619792
     return splitInput().filter(x => x);
-};
+}
 function serializeInput(): string {
     return sanitizeArray().join('|');
-};
+}
 function validate(): void {
     validationError.value = null;
 
@@ -62,17 +61,17 @@ function validate(): void {
     const rules = [{
         check: (ids: Array<string>) => ids.length < 1,
         type: typeError,
-        message: { [typeError]: banana.i18n('item-form-error-message-empty') }
+        message: { [typeError]: banana.i18n('item-form-error-message-empty') as string }
     },
     {
         check: (ids: Array<string>) => ids.length > (MAX_NUM_IDS as number),
-        type: 'error',
-        message: { [typeError]: banana.i18n('item-form-error-message-max', MAX_NUM_IDS) }
+        type: typeError,
+        message: { [typeError]: banana.i18n('item-form-error-message-max', MAX_NUM_IDS) as string }
     },
     {
         check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
-        type: 'error',
-        message: { [typeError]: banana.i18n('item-form-error-message-invalid') }
+        type: typeError,
+        message: { [typeError]: banana.i18n('item-form-error-message-invalid') as string }
     }];
 
     const sanitized = sanitizeArray();
@@ -83,7 +82,7 @@ function validate(): void {
             return;
         }
     }
-};
+}
 
 defineExpose({validate, serializeInput, validationError});
 

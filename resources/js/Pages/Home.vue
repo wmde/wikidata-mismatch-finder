@@ -106,13 +106,11 @@
     import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import { defineComponent, ref } from 'vue';
+    import ValidationError from '../types/ValidationError';
 
     interface HomeState {
-        validationError: null|{
-            type: string,
-            message: object
-        },
-      faqDialog: boolean
+        validationError: null|ValidationError,
+        faqDialog: boolean
     }
 
     interface ErrorMessages {

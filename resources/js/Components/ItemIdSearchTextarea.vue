@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue';
-import type {Ref} from 'vue';
-// import { i18n } from '../app'; TODO: see app.ts
+import { defineComponent, ref, inject } from 'vue';
+import type { Ref } from 'vue';
+import { useI18n } from 'vue-banana-i18n';
 import { useStore } from '../store';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 
@@ -64,20 +64,17 @@ function validate(): void {
     const rules = [{
         check: (ids: Array<string>) => ids.length < 1,
         type: typeError,
-        // message: { [typeError]: this.$i18n('item-form-error-message-empty') }
-        message: { [typeError]: 'empty' }
+        message: { [typeError]: banana.i18n('item-form-error-message-empty') }
     },
     {
-        check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
+        check: (ids: Array<string>) => ids.length > (MAX_NUM_IDS as number),
         type: 'error',
-        // message: { [typeError]: i18n('item-form-error-message-max', MAX_NUM_IDS) }
-        message: { [typeError]: 'max' }
+        message: { [typeError]: banana.i18n('item-form-error-message-max', MAX_NUM_IDS) }
     },
     {
         check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
         type: 'error',
-        // message: { [typeError]: i18ntest.global.t('item-form-error-message-invalid') }
-        message: { [typeError]: 'invalid' }
+        message: { [typeError]: banana.i18n('item-form-error-message-invalid') }
     }];
 
     const sanitized = sanitizeArray();

@@ -1,10 +1,17 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import Home from '@/Pages/Home.vue';
+import { createI18n } from 'vue-banana-i18n';
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
 jest.mock('@inertiajs/inertia-vue3', () => ({}));
+
+const i18n = createI18n({
+    messages: {},
+    locale: 'en',
+    wikilinks: true
+});
 
 describe('Home.vue', () => {
 
@@ -22,7 +29,7 @@ describe('Home.vue', () => {
             global:
             {
                 mocks,
-                plugins: [createTestingPinia()],
+                plugins: [createTestingPinia(),i18n],
                 stubs: {
                     teleport: true,
                     transition: true
@@ -37,7 +44,7 @@ describe('Home.vue', () => {
         mocks.$page.props.errors = { 'someKey' : 'someError'}
         const wrapper = mount(Home, { global: {
                 mocks,
-                plugins: [createTestingPinia()]
+                plugins: [createTestingPinia(), i18n]
             }});
         const errorMessage = wrapper.find('#message-section .cdx-message--error');
         expect(errorMessage.isVisible()).toBe(true);

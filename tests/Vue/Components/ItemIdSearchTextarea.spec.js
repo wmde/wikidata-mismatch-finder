@@ -1,6 +1,14 @@
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import ItemIdSearchTextarea, { MAX_NUM_IDS } from '@/Components/ItemIdSearchTextarea.vue';
+import ItemIdSearchTextarea from '@/Components/ItemIdSearchTextarea.vue';
+import { createI18n } from 'vue-banana-i18n';
+import { inject } from 'vue';
+
+const i18n = createI18n({
+    messages: {},
+    locale: 'en',
+    wikilinks: true
+});
 
 describe('ItemIdSearchTextarea.vue', () => {
 
@@ -24,7 +32,7 @@ describe('ItemIdSearchTextarea.vue', () => {
                             lastSearchedIds: itemsInput
                         }
                     }
-                })],
+                }),i18n],
             }
         });
 
@@ -44,7 +52,7 @@ describe('ItemIdSearchTextarea.vue', () => {
                             lastSearchedIds: itemsInput
                         }
                     }
-                })]
+                }),i18n]
             }
         });
 
@@ -57,7 +65,7 @@ describe('ItemIdSearchTextarea.vue', () => {
         const wrapper = mount(ItemIdSearchTextarea, {
             global: {
                 mocks,
-                plugins: [createTestingPinia()]
+                plugins: [createTestingPinia(),i18n]
             },
             data() {
                 return {
@@ -88,7 +96,10 @@ describe('ItemIdSearchTextarea.vue', () => {
                             lastSearchedIds: itemsInput
                         }
                     }
-                })],
+                }),i18n],
+                provide: {
+                    'MAX_NUM_IDS': mockMaxNumIds
+                }
             }
         });
 
@@ -111,7 +122,7 @@ describe('ItemIdSearchTextarea.vue', () => {
                             lastSearchedIds: itemsInput
                         }
                     }
-                })],
+                }),i18n],
             }
         });
 

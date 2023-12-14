@@ -45,14 +45,17 @@ defineProps<{loading: boolean}>();
 function splitInput(): Array<string> {
     return textareaInputValue.value.split( '\n' );
 }
+
 function sanitizeArray(): Array<string> {
     // this filter function removes all falsy values
     // see: https://stackoverflow.com/a/281335/1619792
     return splitInput().filter(x => x);
 }
+
 function serializeInput(): string {
     return sanitizeArray().join('|');
 }
+
 function validate(): void {
     validationError.value = null;
 

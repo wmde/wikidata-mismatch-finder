@@ -32,7 +32,7 @@ main {
     }
 
     @media(min-width: $min-width-breakpoint-tablet){
-        padding: 0 $dimension-layout-small;
+        padding: 0 1.500rem;
     }
 }
 
@@ -46,7 +46,7 @@ h1, .h1 {
     margin: 1rem 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
-        margin: $dimension-layout-small 0;
+        margin: 1rem 0;
     }
 }
 
@@ -55,7 +55,7 @@ h4, .h4 {
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+        margin: 1rem 0;
     }
 }
 
@@ -64,7 +64,7 @@ h5, .h5 {
     @include heading-5;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+        margin: 1rem 0;
     }
 }
 
@@ -131,7 +131,7 @@ li {
         }
 
         @media (max-width: $max-width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-xsmall;
+            margin-bottom: 1rem;
         }
     }
 }

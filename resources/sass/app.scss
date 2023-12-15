@@ -4,7 +4,6 @@
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './link.scss';
 @import './_typography.scss';
 
@@ -123,11 +122,11 @@ li {
         display: flex;
 
         .username {
-            margin-inline-end: $dimension-spacing-xlarge;
+            margin-inline-end: 1.500em;
         }
 
         .icon-user {
-            margin-inline-end: $dimension-spacing-small;
+            margin-inline-end: 0.500em;
             vertical-align: middle;
         }
 

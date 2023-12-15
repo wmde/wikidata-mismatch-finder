@@ -23,49 +23,49 @@ body {
 */
 main {
     max-width: 1090px;
-    padding: 0 $dimension-layout-xsmall;
+    padding: 0 1rem;
     margin: 0 auto;
 
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: $dimension-layout-small 0;
+        margin: 1.500rem 0;
     }
 
     @media(min-width: $min-width-breakpoint-tablet){
-        padding: 0 $dimension-layout-small;
+        padding: 0 1.500rem;
     }
 }
 
 section {
-    margin-bottom: $dimension-layout-large;
+    margin-bottom: 2.500rem;
 }
 
 h1, .h1 {
     @include heading-1;
 
-    margin: $dimension-layout-xsmall 0;
+    margin: 1rem 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
-        margin: $dimension-layout-small 0;
+        margin: 1rem 0;
     }
 }
 
 h4, .h4 {
-    margin: $dimension-layout-xxsmall 0;
+    margin: 0.500rem 0;
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+        margin: 1rem 0;
     }
 }
 
 h5, .h5 {
-    margin: $dimension-layout-xxsmall 0;
+    margin: 0.500rem 0;
     @include heading-5;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+        margin: 1rem 0;
     }
 }
 
@@ -102,7 +102,7 @@ li {
 
 // this ensures that there will be a space if there is more than one message
 #message-section .cdx-message:not(:nth-child(1)) {
-    margin-top: $dimension-layout-xsmall;
+    margin-top: 1rem;
 }
 
 /**
@@ -121,7 +121,6 @@ li {
 
     .auth-widget {
         display: flex;
-        color: $color-base-50;
 
         .username {
             margin-inline-end: $dimension-spacing-xlarge;
@@ -133,7 +132,7 @@ li {
         }
 
         @media (max-width: $max-width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-xsmall;
+            margin-bottom: 1rem;
         }
     }
 }

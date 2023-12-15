@@ -12,7 +12,8 @@ html {
 }
 
 body {
-    @include body-text;
+    @include body-M;
+    @include body-S;
     height: 100%;
 }
 

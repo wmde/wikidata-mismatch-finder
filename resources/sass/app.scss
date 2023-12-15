@@ -31,7 +31,7 @@ main {
     }
 
     @media(min-width: $min-width-breakpoint-tablet){
-        padding: 0 1.500rem;
+        padding: 0 $dimension-layout-small;
     }
 }
 
@@ -45,7 +45,7 @@ h1, .h1 {
     margin: 1rem 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
-        margin: 1rem 0;
+        margin: $dimension-layout-small 0;
     }
 }
 
@@ -54,7 +54,7 @@ h4, .h4 {
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: 1rem 0;
+        margin: $dimension-layout-xsmall 0;
     }
 }
 
@@ -63,7 +63,7 @@ h5, .h5 {
     @include heading-5;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: 1rem 0;
+        margin: $dimension-layout-xsmall 0;
     }
 }
 
@@ -130,7 +130,7 @@ li {
         }
 
         @media (max-width: $max-width-breakpoint-tablet) {
-            margin-bottom: 1rem;
+            margin-bottom: $dimension-layout-xsmall;
         }
     }
 }
@@ -252,7 +252,7 @@ dl.import-meta .download-csv {
 
     &:focus {
         color: $color-base;
-        background-color: $background-color-interactive-subtle;
+        background-color: $background-color-interactive-subtles;
         border-color: $border-color-progressive--focus;
         box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus;
     }

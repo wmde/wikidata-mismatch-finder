@@ -4,6 +4,7 @@
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import './link.scss';
 @import './_typography.scss';
 
@@ -252,7 +253,7 @@ dl.import-meta .download-csv {
 
     &:focus {
         color: $color-base;
-        background-color: $background-color-interactive-subtles;
+        background-color: $background-color-interactive-subtle;
         border-color: $border-color-progressive--focus;
         box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus;
     }

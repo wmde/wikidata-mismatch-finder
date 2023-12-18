@@ -33,7 +33,7 @@ CdxTextArea.compatConfig = {
 
 const validationError: Ref<ValidationError> = ref(null);
 
-const banana = useI18n();
+const messages = useI18n();
 
 const store = useStore();
 const textareaInputValue = ref(store.lastSearchedIds);
@@ -64,17 +64,17 @@ function validate(): void {
     const rules = [{
         check: (ids: Array<string>) => ids.length < 1,
         type: typeError,
-        message: { [typeError]: banana.i18n('item-form-error-message-empty') as string }
+        message: { [typeError]: messages.i18n('item-form-error-message-empty') as string }
     },
     {
         check: (ids: Array<string>) => ids.length > (MAX_NUM_IDS as number),
         type: typeError,
-        message: { [typeError]: banana.i18n('item-form-error-message-max', MAX_NUM_IDS) as string }
+        message: { [typeError]: messages.i18n('item-form-error-message-max', MAX_NUM_IDS) as string }
     },
     {
         check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
         type: typeError,
-        message: { [typeError]: banana.i18n('item-form-error-message-invalid') as string }
+        message: { [typeError]: messages.i18n('item-form-error-message-invalid') as string }
     }];
 
     const sanitized = sanitizeArray();

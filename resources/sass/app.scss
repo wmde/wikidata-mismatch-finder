@@ -4,6 +4,7 @@
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../custom-variables.css';
 @import './link.scss';
 @import './_typography.scss';
 
@@ -21,49 +22,49 @@ body {
 */
 main {
     max-width: 1090px;
-    padding: 0 1rem;
+    padding: 0 var(--dimension-layout-xsmall);
     margin: 0 auto;
 
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: 1.500rem 0;
+        margin: var(--dimension-layout-small) 0;
     }
 
     @media(min-width: $min-width-breakpoint-tablet){
-        padding: 0 1.500rem;
+        padding: 0 var(--dimension-layout-small);
     }
 }
 
 section {
-    margin-bottom: 2.500rem;
+    margin-bottom: var(--dimension-layout-large);
 }
 
 h1, .h1 {
     @include heading-1;
 
-    margin: 1rem 0;
+    margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
-        margin: 1rem 0;
+        margin: var(--dimension-layout-small) 0;
     }
 }
 
 h4, .h4 {
-    margin: 0.500rem 0;
+    margin: var(--dimension-layout-xxsmall) 0;
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: 1rem 0;
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
 h5, .h5 {
-    margin: 0.500rem 0;
+    margin: var(--dimension-layout-xxsmall) 0;
     @include heading-5;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: 1rem 0;
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
@@ -100,7 +101,7 @@ li {
 
 // this ensures that there will be a space if there is more than one message
 #message-section .cdx-message:not(:nth-child(1)) {
-    margin-top: 1rem;
+    margin-top: var(--dimension-layout-xsmall);
 }
 
 /**
@@ -121,16 +122,16 @@ li {
         display: flex;
 
         .username {
-            margin-inline-end: 1.500em;
+            margin-inline-end: var(--dimension-spacing-xlarge);
         }
 
         .icon-user {
-            margin-inline-end: 0.500em;
+            margin-inline-end: var(--dimension-spacing-small);
             vertical-align: middle;
         }
 
         @media (max-width: $max-width-breakpoint-tablet) {
-            margin-bottom: 1rem;
+            margin-bottom: var(--dimension-layout-xsmall);
         }
     }
 }
@@ -325,7 +326,7 @@ dl.import-meta .download-csv {
     }
 
     &-icon {
-        margin-inline-end: 0.500em;
+        margin-inline-end: var(--dimension-spacing-small);
         vertical-align: middle;
     }
 }
@@ -385,7 +386,7 @@ dl.import-meta .download-csv {
     }
 
     .button-group {
-        margin-block-end: 1em;
+        margin-block-end: var(--dimension-spacing-large);
     }
 
     .button {

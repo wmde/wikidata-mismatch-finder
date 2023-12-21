@@ -155,6 +155,7 @@ function showRandom(): void{
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../../css/custom-variables.css';
 
 #querying-section .heading {
     display: flex;
@@ -184,14 +185,14 @@ function showRandom(): void{
     /**
     * Layout
     */
-    padding: $dimension-spacing-large;
-    margin: $dimension-layout-xsmall 0;
+    padding: var(--dimension-spacing-large);
+    margin: var(--dimension-layout-xsmall) 0;
 
     // Any direct decendent of this form that has a predecessor element will
     // get a top margin, this creates the even gutter between elements or "stack"
     // See https://every-layout.dev/layouts/stack/#the-solution
     & > * + * {
-        margin-top: $dimension-spacing-large;
+        margin-top: var(--dimension-spacing-large);
     }
 
     .form-buttons {

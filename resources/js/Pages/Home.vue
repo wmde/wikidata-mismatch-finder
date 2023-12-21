@@ -102,6 +102,7 @@
     import { Head as InertiaHead, usePage } from '@inertiajs/inertia-vue3';
     import { useStore } from '../store';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
+    import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
     import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
     import { ref, computed } from 'vue';
     import type { Ref } from 'vue';

@@ -25,6 +25,7 @@
 	"review-status-missing": "Feelend Donnéeën op Wikidata",
 	"review-status-external": "Falsch Donnéeën an externer Quell",
 	"review-status-both": "Béid si falsch",
+	"results-instructions-button": "Instruktiounen",
 	"confirmation-dialog-title": "Nächst Schrëtt",
 	"results-full-description-button": "liest déi komplett Beschreiwung",
 	"confirmation-dialog-button": "Virufueren",
@@ -32,5 +33,12 @@
 	"confirm-dialog-button": "Confirméieren",
 	"faq-button": "Méi Informatiounen",
 	"faq-dialog-question-more-info": "Wou fannen ech weider Informatiounen?",
-	"wikidata-tool-footer-wmde": "Wikimedia Deutschland"
+	"wikidata-tool-footer-issues": "E Probleem mellen",
+	"wikidata-tool-footer-about-us": "Iwwer eis",
+	"wikidata-tool-footer-privacy": "Dateschutzrichtlinnen",
+	"wikidata-tool-footer-wmde": "Wikimedia Deutschland",
+	"wikidata-tool-footer-team": "Mat ♥ gemaach vum [$1 Wikidata-Team]",
+	"mismatch-finder-license": "BSD-3-Klausel-Lizenz",
+	"mismatch-finder-footer-more-tools": "Méi Datequalitéitsgeschier",
+	"tool-curious-facts": "Kuriéis Fakten"
 }

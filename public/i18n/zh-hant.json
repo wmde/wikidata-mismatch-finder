@@ -9,6 +9,7 @@
 	"about-mismatch-finder-description": "不相符查找器會向您顯示在維基數據中的資料與來自另一個資料庫、目錄、或是網站資料的差異（例如：維基數據中某個人物的出生日期與德國國家圖書館目錄中的相應條目不相符）。這樣的不相符內容會需要修復，而不相符查找器可幫助您做到這一點。",
 	"find-more": "尋找更多",
 	"item-form-title": "應該檢查哪些項目？",
+	"item-form-progress-bar-aria-label": "提交檢查項目時指示出載入狀態的進度列",
 	"item-form-id-input-label": "請在每ㄧ行添加一個項目識別碼",
 	"item-form-id-input-placeholder": "例如：\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "檢查項目",

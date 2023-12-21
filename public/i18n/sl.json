@@ -8,6 +8,7 @@
 	"about-mismatch-finder-description": "Iskalnik neujemanj vam pokaže podatke v Wikipodatkih, ki se razlikujejo od podatkov v drugi podatkovni zbirki, katalogu ali spletnem mestu (na primer datum rojstva nekoga v Wikipodatkih se ne ujema z ustreznim vnosom v katalogu Nemške nacionalne knjižnice). Takšna neujemanja je treba odpraviti, pri čemer vam pomaga Iskalnik neujemanj.",
 	"find-more": "Izvedi več",
 	"item-form-title": "Katere predmete je treba preveriti?",
+	"item-form-progress-bar-aria-label": "Vrstica napredka, ki označuje stanje nalaganja ob oddaji kontrolnih elementov",
 	"item-form-id-input-label": "Dodajte en identifikator predmeta na vrstico",
 	"item-form-id-input-placeholder": "Na primer:\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "Preveri predmete",

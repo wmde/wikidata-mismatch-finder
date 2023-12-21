@@ -78,13 +78,9 @@
                 </cdx-button>
             </div>
             <form id="items-form" @submit.prevent="send">
-                <text-area
-                    :label="$i18n('item-form-id-input-label')"
-                    :placeholder="$i18n('item-form-id-input-placeholder')"
-                    :rows="8"
+                <item-id-search-textarea 
                     :loading="loading"
-                    :error="validationError"
-                    v-model="form.itemsInput"
+                    ref="textarea"
                 />
                 <div class="form-buttons">
                     <cdx-button
@@ -106,20 +102,15 @@
     import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
-    import { TextArea } from '@wmde/wikit-vue-components';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
+    import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
-    import { defineComponent } from 'vue';
+    import { defineComponent, ref } from 'vue';
+    import ValidationError from '../types/ValidationError';
 
     interface HomeState {
-        form: {
-            itemsInput: string
-        },
-        validationError: null|{
-            type: string,
-            message: string
-        },
-      faqDialog: boolean
+        validationError: null|ValidationError,
+        faqDialog: boolean
     }
 
     interface ErrorMessages {
@@ -130,72 +121,37 @@
         errors : { [ key : string ] : string }
     }
 
-    export const MAX_NUM_IDS = 600;
-
     export default defineComponent({
         components: {
           CdxDialog,
           CdxButton,
           CdxIcon,
           CdxMessage,
-          InertiaHead,
-          TextArea,
+          ItemIdSearchTextarea,
+          InertiaHead
         },
         setup() {
+            const store = useStore();
+            const textareaInputValue = ref(store.lastSearchedIds);
+            
             return {
                 cdxIconDie,
-                cdxIconInfo
+                cdxIconInfo,
+                textareaInputValue
             };
         },
         methods: {
-            splitInput: function(): Array<string> {
-                return this.form.itemsInput.split( '\n' );
-            },
-            sanitizeArray: function(): Array<string> {
-                // this filter function removes all falsy values
-                // see: https://stackoverflow.com/a/281335/1619792
-                return this.splitInput().filter(x => x);
-            },
-            serializeInput: function(): string {
-                return this.sanitizeArray().join('|');
-            },
-            validate(): void {
-                this.validationError = null;
-
-                const rules = [{
-                    check: (ids: Array<string>) => ids.length < 1,
-                    type: 'warning',
-                    message: this.$i18n('item-form-error-message-empty')
-                },
-                {
-                    check: (ids: Array<string>) => ids.length > MAX_NUM_IDS,
-                    type: 'error',
-                    message: this.$i18n('item-form-error-message-max', MAX_NUM_IDS)
-                },
-                {
-                    check: (ids: Array<string>) => !ids.every(value => /^[Qq]\d+$/.test( value.trim() )),
-                    type: 'error',
-                    message: this.$i18n('item-form-error-message-invalid')
-                }];
-
-                const sanitized = this.sanitizeArray();
-
-                for(const {check, type, message} of rules){
-                    if(check(sanitized)){
-                        this.validationError = { type, message };
-                        return;
-                    }
-                }
-            },
             send(): void {
-                this.validate();
+                (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validate();
 
-                if(this.validationError) {
+                if((this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validationError) {
                     return;
                 }
                 const store = useStore();
-                store.saveSearchedIds( this.form.itemsInput );
-                this.$inertia.get( '/results', { ids: this.serializeInput() } );
+                store.saveSearchedIds( this.textareaInputValue );
+                this.$inertia.get( '/results', 
+                    { ids: (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).serializeInput() }
+                );
             },
             showRandom(): void {
                 this.$inertia.get( '/random' );
@@ -216,11 +172,7 @@
             ...mapState(useStore, ['loading']),
         },
         data(): HomeState {
-            const store = useStore();
             return {
-                form: {
-                    itemsInput: store.lastSearchedIds
-                },
                 validationError: null,
                 faqDialog: false
             }
@@ -271,6 +223,22 @@
 
     .form-buttons {
         text-align: end;
+    }
+
+    .cdx-field__control {
+        position: relative;
+        width: 100%;
+
+        .progress-bar-wrapper {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+
+            .cdx-progress-bar {
+                width: 50%;
+                margin: auto;
+            }
+        }
     }
 }
 </style>

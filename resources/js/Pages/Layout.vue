@@ -40,24 +40,24 @@
             <section>
                 <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
                 <p>
-                    <wikit-link href="https://query.wikidata.org/querybuilder/">
+                    <a href="https://query.wikidata.org/querybuilder/">
                         {{ $i18n('tool-query-builder') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p>
-                    <wikit-link href="https://item-quality-evaluator.toolforge.org/">
+                    <a href="https://item-quality-evaluator.toolforge.org/">
                         {{ $i18n('tool-item-quality-evaluator') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p>
-                    <wikit-link href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
+                    <a href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
                         {{ $i18n('tool-curious-facts') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p>
-                    <wikit-link href="https://github.com/wmde/wikidata-constraints-violation-checker">
+                    <a href="https://github.com/wmde/wikidata-constraints-violation-checker">
                         {{ $i18n('tool-constraints-violation-checker') }}
-                    </wikit-link>
+                    </a>
                 </p>
             </section>
         </wikidata-tool-footer>
@@ -67,7 +67,6 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import { Link as InertiaLink } from '@inertiajs/inertia-vue3';
-import { Link as WikitLink } from '@wmde/wikit-vue-components';
 import { CdxButton as LanguageSelectorButton, CdxIcon } from "@wikimedia/codex";
 import { cdxIconLanguage } from '@wikimedia/codex-icons';
 import AuthWidget from '../Components/AuthWidget.vue';
@@ -87,8 +86,7 @@ export default defineComponent({
         CdxIcon,
         InertiaLink,
         LanguageSelector,
-        WikidataToolFooter,
-        WikitLink
+        WikidataToolFooter
     },
     setup() {
         return {

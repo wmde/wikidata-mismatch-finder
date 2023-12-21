@@ -41,7 +41,7 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_empty_item_list_yields_warning()
+    public function test_empty_item_list_yields_error()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
@@ -49,7 +49,7 @@ class ItemsFormTest extends DuskTestCase
                     ->assertSee('Please provide the Item identifiers that should be checked.');
 
             $this->assertStringContainsString(
-                '--warning',
+                '--error',
                 $browser->attribute('@items-input-validation-message', 'class')
             );
         });

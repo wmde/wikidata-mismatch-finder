@@ -142,7 +142,6 @@
         if((textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validationError) {
             return;
         }
-        const store = useStore();
         store.saveSearchedIds( textareaInputValue.value );
         Inertia.get( '/results', 
             { ids: (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.serializeInput() }

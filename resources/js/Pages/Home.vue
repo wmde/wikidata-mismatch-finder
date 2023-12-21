@@ -120,7 +120,21 @@
     const store = useStore();
     const page = usePage();
     const textareaInputValue: Ref<string> = ref(store.lastSearchedIds);
+
     const faqDialog = ref(false);
+        const serversideValidationError = computed<boolean>(() => {
+        const errors = page.props.value.errors as ErrorMessages;
+        return errors && Object.keys(errors).length > 0;
+    });
+
+    const unexpectedError = computed<string>(() => {
+        const flashMessages = page.props.value.flash as FlashMessages;
+        return (flashMessages.errors && flashMessages.errors.unexpected);
+    });
+
+    const loading = computed<boolean>(() => {
+        return (store.loading);
+    });
 
     function send(): void{
         (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validate();
@@ -138,20 +152,6 @@
     function showRandom(): void{
         Inertia.get( '/random' );
     }
-
-    const serversideValidationError = computed<boolean>(() => {
-        const errors = page.props.value.errors as ErrorMessages;
-        return errors && Object.keys(errors).length > 0;
-    });
-
-    const unexpectedError = computed<string>(() => {
-        const flashMessages = page.props.value.flash as FlashMessages;
-        return (flashMessages.errors && flashMessages.errors.unexpected);
-    });
-
-    const loading = computed<boolean>(() => {
-        return (store.loading);
-    });
 </script>
 
 <style lang="scss">

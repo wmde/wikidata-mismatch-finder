@@ -24,16 +24,17 @@ export default defineComponent({
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../../css/custom-variables.css';
 
 .auth-widget {
     display: flex;
     color: $color-base-50;
     justify-content: space-between;
-    gap: $dimension-spacing-xlarge;
+    gap: var(--dimension-spacing-xlarge);
     align-items: center;
 
     .icon-user {
-        margin-inline-end: $dimension-spacing-small;
+        margin-inline-end: var(--dimension-spacing-small);
         vertical-align: middle;
     }
 

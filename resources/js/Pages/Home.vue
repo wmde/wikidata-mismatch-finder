@@ -139,17 +139,17 @@
         Inertia.get( '/random' );
     }
 
-    const serversideValidationError = computed<void>(() => {
+    const serversideValidationError = computed<boolean>(() => {
         const errors = page.props.value.errors as ErrorMessages;
         return errors && Object.keys(errors).length > 0;
     });
 
-    const unexpectedError = computed<void>(() => {
+    const unexpectedError = computed<string>(() => {
         const flashMessages = page.props.value.flash as FlashMessages;
         return (flashMessages.errors && flashMessages.errors.unexpected);
     });
 
-    const loading = computed<void>(() => {
+    const loading = computed<boolean>(() => {
         return (store.loading);
     });
 </script>

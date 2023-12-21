@@ -53,18 +53,19 @@ withDefaults(defineProps<{
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../../css/custom-variables.css';
 
 .footer-container {
     background-color: $color-base-90;
 
     & > footer {
         margin: auto;
-        padding: $dimension-layout-xsmall;
+        padding: var(--dimension-layout-xsmall);
         display: flex;
         flex-direction: column;
 
         .h5 {
-            margin: 0 0 $dimension-layout-xsmall 0;
+            margin: 0 0 var(--dimension-layout-xsmall) 0;
             font-size: $font-size-style-body-s;
         }
 
@@ -73,7 +74,7 @@ withDefaults(defineProps<{
         }
 
         section + section {
-            margin-block-start: $dimension-layout-medium;
+            margin-block-start: var(--dimension-layout-medium);
         }
 
         p {
@@ -82,15 +83,15 @@ withDefaults(defineProps<{
         }
 
         p + p {
-            margin-block-start: $dimension-layout-xxsmall;
+            margin-block-start: var(--dimension-layout-xxsmall);
         }
 
         @media (min-width: $width-breakpoint-tablet) {
             flex-direction: row;
-            padding: $dimension-layout-small;
+            padding: var(--dimension-layout-small);
 
             section {
-                margin-inline-end: $dimension-layout-large;
+                margin-inline-end: var(--dimension-layout-large);
             }
 
             section + section {

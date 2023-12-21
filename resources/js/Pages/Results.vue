@@ -340,12 +340,13 @@ function _handleConfirmation(){
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../../css/custom-variables.css';
 
 .back-button {
     // to match the first heading on the home page
-    margin-top: $dimension-layout-xsmall;
+    margin-top: var(--dimension-layout-xsmall);
     // to avoid visual grouping with .description-section
-    margin-bottom: $dimension-layout-xsmall;
+    margin-bottom: var(--dimension-layout-xsmall);
 }
 
 h2 {
@@ -375,15 +376,15 @@ h2 {
 	}
 }
 .mismatches-form-footer {
-    margin-top: $dimension-layout-xsmall;
+    margin-top: var(--dimension-layout-xsmall);
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: flex-start;
-    gap: $dimension-layout-xsmall;
+    gap: var(--dimension-layout-xsmall);
     // calculate the footer height to reserve space for
     // messages with two lines (1.5 line height plus padding)
-    min-height: calc(2*1.5em + 2*$dimension-spacing-large);
+    min-height: calc(2*1.5em + 2*var(--dimension-spacing-large));
 
     .form-success-message {
         max-width: 705px;

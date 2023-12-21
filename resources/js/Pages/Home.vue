@@ -98,20 +98,16 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
+<script setup lang="ts">
+    import { Head as InertiaHead, usePage } from '@inertiajs/inertia-vue3';
     import { mapState } from 'pinia';
     import { useStore } from '../store';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
     import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
-    import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
-    import { defineComponent, ref } from 'vue';
+    import { defineComponent, ref, computed } from 'vue';
+    import type { Ref } from 'vue';
+    import { Inertia } from '@inertiajs/inertia';
     import ValidationError from '../types/ValidationError';
-
-    interface HomeState {
-        validationError: null|ValidationError,
-        faqDialog: boolean
-    }
 
     interface ErrorMessages {
         [ key : string ] : string
@@ -121,62 +117,42 @@
         errors : { [ key : string ] : string }
     }
 
-    export default defineComponent({
-        components: {
-          CdxDialog,
-          CdxButton,
-          CdxIcon,
-          CdxMessage,
-          ItemIdSearchTextarea,
-          InertiaHead
-        },
-        setup() {
-            const store = useStore();
-            const textareaInputValue = ref(store.lastSearchedIds);
-            
-            return {
-                cdxIconDie,
-                cdxIconInfo,
-                textareaInputValue
-            };
-        },
-        methods: {
-            send(): void {
-                (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validate();
+    const textarea = ref<InstanceType<typeof ItemIdSearchTextarea> | null>(null);
+    const store = useStore();
+    const page = usePage();
+    const textareaInputValue: Ref<string> = ref(store.lastSearchedIds);
+    const validationError = ref(null);
+    const faqDialog = ref(false);
 
-                if((this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validationError) {
-                    return;
-                }
-                const store = useStore();
-                store.saveSearchedIds( this.textareaInputValue );
-                this.$inertia.get( '/results', 
-                    { ids: (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).serializeInput() }
-                );
-            },
-            showRandom(): void {
-                this.$inertia.get( '/random' );
-            },
-        },
-        computed: {
-            serversideValidationError() {
-                const errors = this.$page.props.errors as ErrorMessages;
-                return errors && Object.keys(errors).length > 0;
-            },
-            unexpectedError() {
-                const flashMessages = this.$page.props.flash as FlashMessages;
-                return (flashMessages.errors && flashMessages.errors.unexpected);
-            },
-            // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed
-            //properties are not available when data is processed in vue's lifecycle
-            ...mapState(useStore, ['loading']),
-        },
-        data(): HomeState {
-            return {
-                validationError: null,
-                faqDialog: false
-            }
+    function send(): void{
+        (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validate();
+
+        if((textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validationError) {
+            return;
         }
+        const store = useStore();
+        store.saveSearchedIds( textareaInputValue.value );
+        Inertia.get( '/results', 
+            { ids: (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.serializeInput() }
+        );
+    }
+
+    function showRandom(): void{
+        Inertia.get( '/random' );
+    }
+
+    const serversideValidationError = computed<void>(() => {
+        const errors = page.props.value.errors as ErrorMessages;
+        return errors && Object.keys(errors).length > 0;
+    });
+
+    const unexpectedError = computed<void>(() => {
+        const flashMessages = page.props.value.flash as FlashMessages;
+        return (flashMessages.errors && flashMessages.errors.unexpected);
+    });
+
+    const loading = computed<void>(() => {
+        return (store.loading);
     });
 </script>
 

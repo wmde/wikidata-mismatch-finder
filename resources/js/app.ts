@@ -2,8 +2,8 @@ import './bootstrap';
 import {createApp, h} from 'vue';
 import {createPinia} from 'pinia';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
-import getI18nMessages, { I18nMessages } from './lib/i18n';
-import {createI18n} from 'vue-banana-i18n'
+import getI18nMessages from './lib/i18n';
+import {createI18n} from 'vue-banana-i18n';
 import bubble from './lib/bubble';
 import Error from './Pages/Error.vue';
 import Layout from './Pages/Layout.vue';
@@ -36,6 +36,7 @@ import Layout from './Pages/Layout.vue';
                     .use(i18nPlugin)
                     .use(pinia)
                     .use(plugin)
+                    .provide('MAX_NUM_IDS', 600)
                     .mount(el)
             }
         });

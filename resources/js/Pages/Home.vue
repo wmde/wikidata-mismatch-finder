@@ -100,14 +100,12 @@
 
 <script setup lang="ts">
     import { Head as InertiaHead, usePage } from '@inertiajs/inertia-vue3';
-    import { mapState } from 'pinia';
     import { useStore } from '../store';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
     import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
-    import { defineComponent, ref, computed } from 'vue';
+    import { ref, computed } from 'vue';
     import type { Ref } from 'vue';
     import { Inertia } from '@inertiajs/inertia';
-    import ValidationError from '../types/ValidationError';
 
     interface ErrorMessages {
         [ key : string ] : string
@@ -121,7 +119,6 @@
     const store = useStore();
     const page = usePage();
     const textareaInputValue: Ref<string> = ref(store.lastSearchedIds);
-    const validationError = ref(null);
     const faqDialog = ref(false);
 
     function send(): void{

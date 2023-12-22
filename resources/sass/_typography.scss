@@ -1,3 +1,5 @@
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+
 @mixin link {
     color: $font-color-progressive;
     text-decoration: none;
@@ -11,6 +13,14 @@
     &:hover {
         text-decoration: underline;
     }
+}
+
+@mixin body-M {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-medium;
+    color: $color-base;
 }
 
 @mixin body-text {

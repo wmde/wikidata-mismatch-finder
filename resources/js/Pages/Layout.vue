@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
 .website {
     box-sizing: border-box;
@@ -187,7 +187,7 @@ onBeforeUnmount(() => {
         width: 268px;
         height: 24px;
 
-        @media (min-width: $width-breakpoint-tablet) {
+        @media (min-width: $min-width-breakpoint-tablet) {
             background-image: url('/images/mismatch-finder-logo.svg');
             width: 384px;
             height: 24px;
@@ -209,8 +209,7 @@ onBeforeUnmount(() => {
         gap: 1.5rem;
 
         .logo-link {
-            outline: none;
-            @media (min-width: $width-breakpoint-tablet) {
+            @media (min-width: $min-width-breakpoint-tablet) {
                 width: auto;
             }
         }
@@ -226,7 +225,7 @@ onBeforeUnmount(() => {
         }
     }
 
-    @media (min-width: $width-breakpoint-tablet) {
+    @media (min-width: $min-width-breakpoint-tablet) {
         main>header {
             flex-direction: row;
             flex-wrap: wrap;

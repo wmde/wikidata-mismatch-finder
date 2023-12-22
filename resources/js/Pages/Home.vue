@@ -182,7 +182,11 @@
 
 <style lang="scss">
 @import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import '../../css/custom-variables.css';
+@import '../../sass/_typography.scss';
+
+#about-description {
+    @include body-M
+}
 
 #querying-section .heading {
     display: flex;
@@ -199,14 +203,14 @@
     /**
     * Colors
     */
-    background-color: $background-color-neutral-default;
+    background-color: $background-color-interactive-subtle;
 
     /**
     * Border
     */
     border-style: $border-style-base;
-    border-width: $border-width-thin;
-    border-color: $border-color-base-subtle;
+    border-width: $border-width-base;
+    border-color: $border-color-subtle;
     border-radius: $border-radius-base;
 
     /**

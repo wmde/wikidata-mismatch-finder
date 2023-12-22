@@ -38,7 +38,7 @@
             }"
         >
             <section>
-                <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
+                <h2 class="h5 footer-title">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
                 <p>
                     <a href="https://query.wikidata.org/querybuilder/">
                         {{ $i18n('tool-query-builder') }}
@@ -185,6 +185,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../../sass/_typography.scss';
 
 .website {
     box-sizing: border-box;
@@ -252,6 +253,11 @@ export default defineComponent({
                 }
             }
         }
+    }
+
+    .footer-title {
+        @include body-S;
+        font-weight: $font-weight-bold;
     }
 }
 </style>

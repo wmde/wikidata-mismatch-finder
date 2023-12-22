@@ -181,7 +181,6 @@
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import '../../sass/_typography.scss';
 
 #about-description {

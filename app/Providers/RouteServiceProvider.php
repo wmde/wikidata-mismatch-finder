@@ -7,7 +7,6 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -48,13 +47,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/auth.php'));
-
-            if (App::environment('local')) {
-                Route::prefix('dev')
-                    ->middleware('web')
-                    ->namespace($this->namespace)
-                    ->group(base_path('routes/dev.php'));
-            }
 
             Route::middleware('web')
                 ->namespace($this->namespace)

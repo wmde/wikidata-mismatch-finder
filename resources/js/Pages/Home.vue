@@ -98,20 +98,15 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
-    import { mapState } from 'pinia';
+<script setup lang="ts">
+    import { Head as InertiaHead, usePage } from '@inertiajs/inertia-vue3';
     import { useStore } from '../store';
     import { CdxDialog, CdxButton, CdxIcon, CdxMessage } from "@wikimedia/codex";
-    import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
     import { cdxIconDie, cdxIconInfo } from '@wikimedia/codex-icons';
-    import { defineComponent, ref } from 'vue';
-    import ValidationError from '../types/ValidationError';
-
-    interface HomeState {
-        validationError: null|ValidationError,
-        faqDialog: boolean
-    }
+    import ItemIdSearchTextarea from '../Components/ItemIdSearchTextarea.vue';
+    import { ref, computed } from 'vue';
+    import type { Ref } from 'vue';
+    import { Inertia } from '@inertiajs/inertia';
 
     interface ErrorMessages {
         [ key : string ] : string
@@ -121,63 +116,41 @@
         errors : { [ key : string ] : string }
     }
 
-    export default defineComponent({
-        components: {
-          CdxDialog,
-          CdxButton,
-          CdxIcon,
-          CdxMessage,
-          ItemIdSearchTextarea,
-          InertiaHead
-        },
-        setup() {
-            const store = useStore();
-            const textareaInputValue = ref(store.lastSearchedIds);
-            
-            return {
-                cdxIconDie,
-                cdxIconInfo,
-                textareaInputValue
-            };
-        },
-        methods: {
-            send(): void {
-                (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validate();
+    const textarea = ref<InstanceType<typeof ItemIdSearchTextarea> | null>(null);
+    const store = useStore();
+    const page = usePage();
+    const textareaInputValue: Ref<string> = ref(store.lastSearchedIds);
 
-                if((this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).validationError) {
-                    return;
-                }
-                const store = useStore();
-                store.saveSearchedIds( this.textareaInputValue );
-                this.$inertia.get( '/results', 
-                    { ids: (this.$refs.textarea as InstanceType<typeof ItemIdSearchTextarea>).serializeInput() }
-                );
-            },
-            showRandom(): void {
-                this.$inertia.get( '/random' );
-            },
-        },
-        computed: {
-            serversideValidationError() {
-                const errors = this.$page.props.errors as ErrorMessages;
-                return errors && Object.keys(errors).length > 0;
-            },
-            unexpectedError() {
-                const flashMessages = this.$page.props.flash as FlashMessages;
-                return (flashMessages.errors && flashMessages.errors.unexpected);
-            },
-            // spread to combine with local computed props
-            // only mapping 'loading' and not 'lastSearchedIds' because computed
-            //properties are not available when data is processed in vue's lifecycle
-            ...mapState(useStore, ['loading']),
-        },
-        data(): HomeState {
-            return {
-                validationError: null,
-                faqDialog: false
-            }
-        }
+    const faqDialog = ref(false);
+        const serversideValidationError = computed<boolean>(() => {
+        const errors = page.props.value.errors as ErrorMessages;
+        return errors && Object.keys(errors).length > 0;
     });
+
+    const unexpectedError = computed<string>(() => {
+        const flashMessages = page.props.value.flash as FlashMessages;
+        return (flashMessages.errors && flashMessages.errors.unexpected);
+    });
+
+    const loading = computed<boolean>(() => {
+        return (store.loading);
+    });
+
+    function send(): void{
+        (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validate();
+
+        if((textarea as InstanceType<typeof ItemIdSearchTextarea>).value.validationError) {
+            return;
+        }
+        store.saveSearchedIds( textareaInputValue.value );
+        Inertia.get( '/results', 
+            { ids: (textarea as InstanceType<typeof ItemIdSearchTextarea>).value.serializeInput() }
+        );
+    }
+
+    function showRandom(): void{
+        Inertia.get( '/random' );
+    }
 </script>
 
 <style lang="scss">

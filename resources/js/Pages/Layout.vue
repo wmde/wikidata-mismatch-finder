@@ -184,7 +184,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
 .website {
     box-sizing: border-box;
@@ -203,7 +203,7 @@ export default defineComponent({
         width: 268px;
         height: 24px;
 
-        @media (min-width: $width-breakpoint-tablet) {
+        @media (min-width: $min-width-breakpoint-tablet) {
             background-image: url('/images/mismatch-finder-logo.svg');
             width: 384px;
             height: 24px;
@@ -225,7 +225,7 @@ export default defineComponent({
         gap: 1.5rem;
 
         .logo-link {
-            @media (min-width: $width-breakpoint-tablet) {
+            @media (min-width: $min-width-breakpoint-tablet) {
                 width: auto;
             }
         }
@@ -241,7 +241,7 @@ export default defineComponent({
         }
     }
 
-    @media (min-width: $width-breakpoint-tablet) {
+    @media (min-width: $min-width-breakpoint-tablet) {
         main>header {
             flex-direction: row;
             flex-wrap: wrap;

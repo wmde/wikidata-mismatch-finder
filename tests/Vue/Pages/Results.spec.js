@@ -5,14 +5,29 @@ import MismatchesTable from '@/Components/MismatchesTable.vue';
 
 import { ReviewDecision } from '@/types/Mismatch.ts';
 import axios from 'axios';
+import { createI18n } from 'vue-banana-i18n';
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
-jest.mock('@inertiajs/inertia-vue3', () => ({}));
+jest.mock('@inertiajs/inertia-vue3', () => ({
+    usePage: () => ({
+        props: {
+          value: {
+
+          },
+        },
+      })
+}));
 
 jest.mock("axios", () => ({
     put: jest.fn()
 }));
+
+const i18n = createI18n({
+    messages: {},
+    locale: 'en',
+    wikilinks: true
+});
 
 describe('Results.vue', () => {
     function mountWithMocks({
@@ -22,7 +37,6 @@ describe('Results.vue', () => {
         mocks = {}
     } = {}){
         const globalMocks = {
-            $i18n: key => key,
             $page: {
                 props: { flash: {} }
             },
@@ -38,7 +52,7 @@ describe('Results.vue', () => {
                     ...globalMocks,
                     mocks
                 },
-                plugins: [createTestingPinia({ initialState })],
+                plugins: [createTestingPinia({ initialState }),i18n],
                 stubs: {
                     teleport: true,
                     transition: true

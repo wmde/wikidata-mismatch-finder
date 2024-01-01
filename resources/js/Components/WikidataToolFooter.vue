@@ -6,20 +6,20 @@
                     {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
                 </h2>
                 <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]"/>
-                <p><wikit-link :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</wikit-link></p>
-                <p><wikit-link :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</wikit-link></p>
+                <p><a :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+                <p><a :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
             </section>
             <section>
                 <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
                 <p>
-                    <wikit-link href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
+                    <a href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
                         {{ $i18n('wikidata-tool-footer-privacy') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p>
-                    <wikit-link href="https://www.wikimedia.de/">
+                    <a href="https://www.wikimedia.de/">
                         {{ $i18n('wikidata-tool-footer-wmde') }}
-                    </wikit-link>
+                    </a>
                 </p>
                 <p v-i18n-html:wikidata-tool-footer-team="[
                     'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team'
@@ -31,8 +31,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
-import { Link as WikitLink } from '@wmde/wikit-vue-components';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
 
 interface FooterLabels {
     tool: string;
@@ -45,11 +45,8 @@ interface FooterUrls {
     issues: string;
 }
 
-export default Vue.extend({
+export default defineComponent({
     name: 'WikidataToolFooter',
-    components: {
-        WikitLink,
-    },
     props: {
         contentClass: {
             type: String,

@@ -9,15 +9,7 @@ import { createI18n } from 'vue-banana-i18n';
 
 // Stub the inertia vue components module entirely so that we don't run into
 // issues with the Head component.
-jest.mock('@inertiajs/inertia-vue3', () => ({
-    usePage: () => ({
-        props: {
-          value: {
-
-          },
-        },
-      })
-}));
+jest.mock('@inertiajs/inertia-vue3', () => ({}));
 
 jest.mock("axios", () => ({
     put: jest.fn()
@@ -32,7 +24,6 @@ const i18n = createI18n({
 describe('Results.vue', () => {
     function mountWithMocks({
         props = {},
-        data = {},
         initialState = {},
         mocks = {}
     } = {}){
@@ -44,9 +35,6 @@ describe('Results.vue', () => {
 
         return mount(Results, {
             props,
-            data(){
-                return data;
-            },
             global: {
                 mocks: {
                     ...globalMocks,
@@ -62,7 +50,7 @@ describe('Results.vue', () => {
     }
 
     beforeEach(async () => {
-        axios.put = jest.fn();
+        axios.put = jest.fn()
     });
 
     it('displays intro text and instructions button', () => {
@@ -322,9 +310,9 @@ describe('Results.vue', () => {
     it('Sends an axios put request with the selected decisions on click of "Save reviews" button', async () => {
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id, review_status: ReviewDecision.Wikidata}} };
-        const wrapper = mountWithMocks({
-            data: { decisions }
-        });
+        const wrapper = mountWithMocks({});
+
+        wrapper.vm.decisions = decisions;
 
         const decisionsBeforeDelete = decisions[item_id];
         await wrapper.vm.send( item_id );
@@ -353,9 +341,9 @@ describe('Results.vue', () => {
                 }
             }
         };
-        const wrapper = mountWithMocks({
-            data: { decisions }
-        });
+        const wrapper = mountWithMocks({});
+
+        wrapper.vm.decisions = decisions;
 
         await wrapper.vm.send( item_id );
 
@@ -364,24 +352,23 @@ describe('Results.vue', () => {
     });
 
     it('Shows error message on failed axios PUT request', async () => {
-        const wrapper = mountWithMocks({
-            data: { 'requestError' : true }
-        });
+        const wrapper = mountWithMocks({});
+        wrapper.vm.requestError = true;
 
-        const errorMessage = wrapper.find('#error-section .cdx-message--error');
-        expect(errorMessage.isVisible()).toBe(true);
+        return wrapper.vm.$nextTick().then(() => {
+            const errorMessage = wrapper.find('#error-section .cdx-message--error');
+            expect(errorMessage.isVisible()).toBe(true);
+        });
     });
 
     it('Clears error message on successful axios PUT request', async () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mountWithMocks({
-            data: {
-                decisions,
-                'requestError' : true
-            }
-        });
+        const wrapper = mountWithMocks({});
+
+        wrapper.vm.decisions = decisions;
+        wrapper.vm.requestError = true;
 
         await wrapper.vm.send( item_id );
 
@@ -395,9 +382,8 @@ describe('Results.vue', () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mountWithMocks({
-            data: { decisions }
-        });
+        const wrapper = mountWithMocks({});
+        wrapper.vm.decisions = decisions;
         wrapper.vm.send( 'Q42' );
         expect( axios.put ).not.toHaveBeenCalled();
 
@@ -420,9 +406,8 @@ describe('Results.vue', () => {
                 }
             }
         };
-        const wrapper = mountWithMocks({
-            data: { decisions }
-        });
+        const wrapper = mountWithMocks({});
+        wrapper.vm.decisions = decisions;
         wrapper.vm.send( 'Q42' );
         expect( axios.put ).not.toHaveBeenCalled();
     });
@@ -433,10 +418,8 @@ describe('Results.vue', () => {
 
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
-        const wrapper = mountWithMocks({
-            data: { decisions }
-        });
-
+        const wrapper = mountWithMocks({});
+        wrapper.vm.decisions = decisions;
         await wrapper.vm.send(item_id);
         const dialog = wrapper.find('.confirmation-dialog .cdx-dialog');
 
@@ -463,9 +446,10 @@ describe('Results.vue', () => {
         const item_id = 'Q321';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
         const wrapper = mountWithMocks({
-            props: { results },
-            data: { decisions }
+            props: { results }
         });
+
+        wrapper.vm.decisions = decisions;
 
         await wrapper.vm.send( item_id );
 
@@ -509,17 +493,23 @@ describe('Results.vue', () => {
         const item_id = 'Q987';
         const decisions = { [item_id]:{1:{id:1, item_id ,review_status: ReviewDecision.Wikidata}}};
         const wrapper = mountWithMocks({
-            props: { results },
-            data: { decisions, lastSubmitted}
+            props: { results }
         });
-
-        expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').isVisible()).toBe(true);
-
-        await wrapper.vm.send( item_id );
-
-        expect(wrapper.vm.lastSubmitted).toEqual('Q987');
-        expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').exists()).toBe(false);
-        expect(wrapper.find('#item-mismatches-Q987 .cdx-message--success').isVisible()).toBe(true);
+        wrapper.vm.lastSubmitted = lastSubmitted;
+        wrapper.vm.decisions = decisions;
+        
+        return wrapper.vm.$nextTick()
+            .then(() => {
+                expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').isVisible()).toBe(true);
+            })
+            .then(async () => {
+                await wrapper.vm.send( item_id );
+            })
+            .then(async () => {
+                expect(wrapper.vm.lastSubmitted).toEqual('Q987');
+                expect(wrapper.find('#item-mismatches-Q321 .cdx-message--success').exists()).toBe(false);
+                expect(wrapper.find('#item-mismatches-Q987 .cdx-message--success').isVisible()).toBe(true);
+            });
     });
 
 })

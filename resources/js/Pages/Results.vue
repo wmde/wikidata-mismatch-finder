@@ -76,7 +76,7 @@
                         {{labels[item]}} ({{item}})
                     </a>
                 </h2>
-                <form @submit.prevent="send(item)">
+                <form @submit.prevent="send(String(item))">
                     <mismatches-table :mismatches="addLabels(mismatches)"
                         :disabled="!user"
                         @decision="recordDecision"

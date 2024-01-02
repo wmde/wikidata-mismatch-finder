@@ -327,8 +327,9 @@ function _handleConfirmation(){
         return;
     }
 
-    if(disableConfirmation.value){
-        const storageData = JSON.stringify({ disableConfirmation });
+    const disableConfirmationValue = disableConfirmation.value;
+    if(disableConfirmationValue){
+        const storageData = JSON.stringify({ disableConfirmation: disableConfirmationValue });
         window.localStorage.setItem(`mismatch-finder_user-settings_${props.user.id}`, storageData);
     }
 

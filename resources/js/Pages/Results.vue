@@ -272,15 +272,7 @@ async function send( item: string ): Promise<void> {
         return;
     }
 
-    // Casting to `any` since TS cannot understand $refs as
-    // component instances and complains about the usage of `show`
-    // See: https://github.com/vuejs/vue-class-component/issues/94
-    // Defaulting to any, as the alternative presents us with
-    // convoluted and unnecessary syntax.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const overlay = overlayRef.value;
-
     overlay.show();
 
     // use axios in order to preserve saved mismatches
@@ -327,12 +319,8 @@ function storePreviousDecisions(item: string) {
         decision.previous_status = decision.review_status;
     }
 }
-// Anotating dialog as `any` since typescript doesn't fully
-// understand component instances and complains about usage of the
-// hide method otherwise.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 function _handleConfirmation(){
-    // const { disableConfirmation, user } = this;
 
     // Do nothing if there is no user
     if ( !props.user ){

@@ -31,9 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
-import { defineComponent } from 'vue';
-
 interface FooterLabels {
     tool: string;
     license: string;

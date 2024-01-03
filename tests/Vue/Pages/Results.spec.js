@@ -50,7 +50,7 @@ describe('Results.vue', () => {
     }
 
     beforeEach(async () => {
-        axios.put = jest.fn()
+        axios.put = jest.fn();
     });
 
     it('displays intro text and instructions button', () => {

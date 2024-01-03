@@ -52,10 +52,11 @@ withDefaults(defineProps<{
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../../css/custom-variables.css';
 
 .footer-container {
-    background-color: $color-base-90;
+    background-color: $background-color-interactive-subtle;
 
     & > footer {
         margin: auto;
@@ -64,8 +65,8 @@ withDefaults(defineProps<{
         flex-direction: column;
 
         .h5 {
-            margin: 0 0 $dimension-layout-xsmall 0;
-            font-size: $font-size-style-body-s;
+            margin: 0 0 var(--dimension-layout-xsmall) 0;
+            font-size: $font-size-small;
         }
 
         section {
@@ -78,7 +79,7 @@ withDefaults(defineProps<{
 
         p {
             margin-block-end: 0;
-            font-size: $font-size-style-body-s;
+            font-size: $font-size-small;
         }
 
         p + p {

@@ -30,7 +30,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { PropType } from 'vue';
 import { defineComponent } from 'vue';
 
@@ -45,22 +45,12 @@ interface FooterUrls {
     issues: string;
 }
 
-export default defineComponent({
-    name: 'WikidataToolFooter',
-    props: {
-        contentClass: {
-            type: String,
-            default: '',
-        },
-        labels: {
-            type: Object as PropType<FooterLabels>,
-            required: true,
-        },
-        urls: {
-            type: Object as PropType<FooterUrls>,
-            required: true,
-        },
-    }
+withDefaults(defineProps<{
+	contentClass: string,
+	labels: { type: FooterLabels, required: true },
+    urls: { type: FooterUrls, required: true }
+}>(), {
+	contentClass: ''
 });
 </script>
 

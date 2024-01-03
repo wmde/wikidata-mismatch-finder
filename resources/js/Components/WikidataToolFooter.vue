@@ -65,11 +65,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '../../css/custom-variables.css';
 
 .footer-container {
-    background-color: $color-base-90;
+    background-color: $background-color-interactive-subtle;
 
     & > footer {
         margin: auto;
@@ -79,7 +79,7 @@ export default defineComponent({
 
         .h5 {
             margin: 0 0 var(--dimension-layout-xsmall) 0;
-            font-size: $font-size-style-body-s;
+            font-size: $font-size-small;
         }
 
         section {
@@ -92,7 +92,7 @@ export default defineComponent({
 
         p {
             margin-block-end: 0;
-            font-size: $font-size-style-body-s;
+            font-size: $font-size-small;
         }
 
         p + p {

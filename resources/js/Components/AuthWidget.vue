@@ -23,12 +23,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import '../../css/custom-variables.css';
 
 .auth-widget {
     display: flex;
-    color: $color-base-50;
     justify-content: space-between;
     gap: var(--dimension-spacing-xlarge);
     align-items: center;

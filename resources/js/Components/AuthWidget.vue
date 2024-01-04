@@ -1,5 +1,5 @@
 <template>
-    <div class="auth-widget"> 
+    <div class="auth-widget_wrapper"> 
         <div class="auth-widget" v-if="user">
         <a :href="`https://www.wikidata.org/wiki/User:${user.name}`">
             <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>

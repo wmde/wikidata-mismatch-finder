@@ -106,15 +106,15 @@
     </tr>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { formatISO } from 'date-fns';
 
 import type { PropType } from 'vue';
-import { defineComponent } from 'vue';
+import { computed, ref } from 'vue';
 import { CdxButton, CdxDialog, CdxSelect } from "@wikimedia/codex";
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
-
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
+import { useI18n } from 'vue-banana-i18n';
 
 const truncateLength = 100;
 
@@ -126,72 +126,55 @@ type ReviewOptionMap = {
   [key: string]: ReviewMenuItem;
 };
 
-interface MismatchRowState {
-  statusOptions: ReviewOptionMap;
-  decision: ReviewMenuItem;
-  reviewStatus: string;
-  fullDescriptionDialog: boolean;
-}
-
-export default defineComponent({
-    components: {
-    CdxButton,
-    CdxDialog,
-    CdxSelect
-    },
-    props: {
-        mismatch: Object as PropType<LabelledMismatch>,
-        disabled: {
-            type: Boolean,
-            default: false
-        }
-    },
-    computed: {
-      uploadDate(): string {
-        return formatISO(new Date(this.mismatch.import_meta.created_at), {
-            representation: 'date'
-        });
-      },
-      statementUrl(): string {
-        return `https://www.wikidata.org/wiki/${this.mismatch.item_id}#${this.mismatch.statement_guid}`;
-      },
-      shouldTruncate(): boolean {
-        const text = this.mismatch.import_meta.description;
-        return text ? text.length > truncateLength : false;
-      },
-      uploadInfoDescription(): string {
-        const text = this.mismatch.import_meta.description;
-        return this.shouldTruncate ?
-          text.substring(0, truncateLength) + '...' : text;
-      }
-  },
-  data(): MismatchRowState {
-    // The following reducer generates the list of dropdown options based on a list of allowed status values
-    const statusOptions: ReviewOptionMap = Object.values(ReviewDecision).reduce(
-      (options: ReviewOptionMap, decision: ReviewDecision) => ({
-        ...options,
-        [decision]: {
-          value: decision,
-          label: this.$i18n(`review-status-${decision}`),
-          description: "",
-        },
-      }),
-      {}
-    );
-    return {
-      statusOptions,
-      decision: statusOptions[this.mismatch.review_status],
-      reviewStatus: String(this.mismatch.review_status),
-      fullDescriptionDialog: false
-    };
-  },
-  methods: {
-    showDialog(e: Event) {
-      e.preventDefault();
-      this.fullDescriptionDialog = true;
-    }
-  }
+const props = withDefaults(defineProps<{
+  mismatch: LabelledMismatch
+  disabled: boolean
+}>(), {
+  disabled: false
 });
+
+const messages = useI18n();
+
+const statusOptions: ReviewOptionMap = Object.values(ReviewDecision).reduce(
+  (options: ReviewOptionMap, decision: ReviewDecision) => ({
+    ...options,
+    [decision]: {
+      value: decision,
+      label: messages.i18n(`review-status-${decision}`),
+      description: "",
+    },
+  }),
+  {}
+);
+
+const uploadDate = computed<string>(() => {
+	return formatISO(new Date(props.mismatch.import_meta.created_at), {
+    representation: 'date'
+  });
+});
+
+const statementUrl = computed<string>(() => {
+	return `https://www.wikidata.org/wiki/${props.mismatch.item_id}#${props.mismatch.statement_guid}`;
+});
+
+const shouldTruncate = computed<boolean>(() => {
+	const text = props.mismatch.import_meta.description;
+  return text ? text.length > truncateLength : false;
+});
+
+const uploadInfoDescription = computed<string>(() => {
+	const text = props.mismatch.import_meta.description;
+  return shouldTruncate.value ? text.substring(0, truncateLength) + '...' : text;
+});
+
+const decision = statusOptions[props.mismatch.review_status];
+const reviewStatus = String(props.mismatch.review_status);
+const fullDescriptionDialog = ref(false);
+
+function showDialog(e: Event) {
+  e.preventDefault();
+  fullDescriptionDialog.value = true;
+}
 </script>
 
 <style lang="scss">

@@ -40,10 +40,12 @@ export default defineComponent({
         vertical-align: middle;
     }
 
-    a {
-        white-space: nowrap;
-        &:visited {
-            color: $color-progressive;
+&_wrapper {
+        a {
+            white-space: nowrap;
+            &:visited {
+                color: $color-progressive;
+            }
         }
     }
 }

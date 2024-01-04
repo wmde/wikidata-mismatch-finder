@@ -1,10 +1,10 @@
 <template>
     <div class="auth-widget_wrapper"> 
         <div class="auth-widget" v-if="user">
-        <a :href="`https://www.wikidata.org/wiki/User:${user.name}`">
-            <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
-        </a>
-        <a  href="/auth/logout">{{ $i18n('log-out') }}</a>
+            <a :href="`https://www.wikidata.org/wiki/User:${user.name}`">
+                <img src="images/user.svg" class="icon-user" /><span class="username">{{ user.name }}</span>
+            </a>
+            <a  href="/auth/logout">{{ $i18n('log-out') }}</a>
         </div>
         <a class="auth-widget" v-else href="/auth/login">{{ $i18n('log-in') }}</a>
     </div>

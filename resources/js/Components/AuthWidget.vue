@@ -6,7 +6,7 @@
             </a>
             <a  href="/auth/logout">{{ $i18n('log-out') }}</a>
         </div>
-        <a class="auth-widget" v-else href="/auth/login">{{ $i18n('log-in') }}</a>
+        <a v-else href="/auth/login">{{ $i18n('log-in') }}</a>
     </div>
 
 </template>

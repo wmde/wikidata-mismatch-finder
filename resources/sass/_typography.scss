@@ -21,6 +21,14 @@
     color: $font-color-base;
 }
 
+@mixin ui-text-M {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-xx-small;
+    color: $color-base;
+}
+
 @mixin heading-1 {
     font-family: $font-family-style-heading-serif;
     font-size: $font-size-style-h1;

@@ -146,7 +146,8 @@ import LoadingOverlay from '../Components/LoadingOverlay.vue';
 import MismatchesTable from '../Components/MismatchesTable.vue';
 import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
 import User from '../types/User';
-import { Ref, computed, onMounted, ref } from 'vue';
+import type { Ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import axios from 'axios';
 
 // Run it with compat mode

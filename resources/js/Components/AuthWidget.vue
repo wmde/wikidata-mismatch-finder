@@ -11,17 +11,12 @@
 
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 
-import type { PropType } from 'vue';
-import { defineComponent } from 'vue';
 import User from '../types/User';
 
-export default defineComponent({
-    props: {
-        user: Object as PropType<User>
-    }
-});
+defineProps<{ user: User }>();
+
 </script>
 
 <style lang="scss">

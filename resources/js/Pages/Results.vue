@@ -192,7 +192,7 @@ const confirmationDialog = ref(false);
 const overlayRef = ref(null);
 
 const props = withDefaults(defineProps<{
-    user: User
+    user: User | null
     item_ids: Array<string>
     results: Result
     labels: LabelMap

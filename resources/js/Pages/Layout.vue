@@ -86,7 +86,7 @@ const header: Ref<HTMLElement> = ref(null);
 const userSection: Ref<HTMLElement> = ref(null);
 const contentWrap: Ref<Element> = ref(null);
 
-defineProps<{user: User}>();
+defineProps<{user: User | null}>();
 
 const currentLanguageAutonym = computed<string>(() => {
     return languagedata.getAutonym(document.documentElement.lang);

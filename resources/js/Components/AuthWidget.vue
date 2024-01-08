@@ -15,7 +15,7 @@
 
 import User from '../types/User';
 
-defineProps<{ user: User }>();
+defineProps<{ user: User | null}>();
 
 </script>
 

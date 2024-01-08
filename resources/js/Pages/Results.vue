@@ -1,6 +1,6 @@
 <template>
     <div class="page-container results-page">
-        <loading-overlay ref="overlay" />
+        <loading-overlay ref="overlayRef" />
         <inertia-head title="Mismatch Finder - Results" />
         <cdx-button class="back-button" @click="() => $inertia.get('/', {})">
             <cdx-icon :icon="cdxIconArrowPrevious" />
@@ -76,7 +76,7 @@
                         {{labels[item]}} ({{item}})
                     </a>
                 </h2>
-                <form @submit.prevent="send(item)">
+                <form @submit.prevent="send(String(item))">
                     <mismatches-table :mismatches="addLabels(mismatches)"
                         :disabled="!user"
                         @decision="recordDecision"
@@ -136,251 +136,206 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { PropType } from 'vue';
-    import { useStore } from '../store';
-    import isEmpty from 'lodash/isEmpty';
-    import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
-    import { CdxButton, CdxIcon, CdxDialog, CdxMessage, CdxCheckbox } from "@wikimedia/codex";
-    import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
-    import LoadingOverlay from '../Components/LoadingOverlay.vue';
-    import MismatchesTable from '../Components/MismatchesTable.vue';
-    import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
-    import User from '../types/User';
-    import { defineComponent } from 'vue';
-    import axios from 'axios';
+<script setup lang="ts">
+import { useStore } from '../store';
+import isEmpty from 'lodash/isEmpty';
+import { Head as InertiaHead } from '@inertiajs/inertia-vue3';
+import { CdxButton, CdxIcon, CdxDialog, CdxMessage, CdxCheckbox } from "@wikimedia/codex";
+import { cdxIconInfo, cdxIconArrowPrevious } from '@wikimedia/codex-icons';
+import LoadingOverlay from '../Components/LoadingOverlay.vue';
+import MismatchesTable from '../Components/MismatchesTable.vue';
+import Mismatch, {ReviewDecision, LabelledMismatch} from '../types/Mismatch';
+import User from '../types/User';
+import type { Ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import axios from 'axios';
 
-    // Run it with compat mode
-    // https://v3-migration.vuejs.org/breaking-changes/v-model.html
-    CdxCheckbox.compatConfig = {
-      ...CdxCheckbox.compatConfig,
-      COMPONENT_V_MODEL: false,
-    };
-    interface MismatchDecision {
-        id: number,
-        item_id: string,
-        review_status: ReviewDecision,
-        previous_status: ReviewDecision
+// Run it with compat mode
+// https://v3-migration.vuejs.org/breaking-changes/v-model.html
+CdxCheckbox.compatConfig = {
+    ...CdxCheckbox.compatConfig,
+    COMPONENT_V_MODEL: false,
+};
+interface MismatchDecision {
+    id: number,
+    item_id: string,
+    review_status: ReviewDecision,
+    previous_status: ReviewDecision
+}
+
+interface Result {
+    [qid: string]: Mismatch[]
+}
+
+interface LabelMap {
+    [entityId: string]: string
+}
+
+interface FormattedValueMap {
+    [propertyId: string]: { [value: string]: string };
+}
+
+interface DecisionMap {
+    [entityId: string]: {
+        [id: number]: MismatchDecision
+    }
+}
+
+const decisions: Ref<DecisionMap> = ref({});
+const disableConfirmation = ref(false);
+const pageDirection = ref('ltr');
+const requestError = ref(false);
+const lastSubmitted = ref('');
+const instructionsDialog = ref(false);
+const confirmationDialog = ref(false);
+
+const overlayRef = ref(null);
+
+const props = withDefaults(defineProps<{
+    user: User
+    item_ids: Array<string>
+    results: Result
+    labels: LabelMap
+    formatted_values: FormattedValueMap 
+}>(), {
+    user: null,
+    item_ids: () => [],
+    results: () => ({}),
+    labels: () => ({}),
+    formatted_values: () => ({})
+});
+
+const notFoundItemIds = computed<string[]>(() => {
+    return props.item_ids.filter( id => !props.results[id as keyof typeof props.results] )
+});
+
+onMounted(() => {
+    const store = useStore();
+    if(!store.lastSearchedIds) {
+        store.saveSearchedIds( props.item_ids.join('\n') );
     }
 
-    interface Result {
-        [qid: string]: Mismatch[]
+    pageDirection.value = window.getComputedStyle(document.body).direction;
+    const storageData = props.user
+        ? window.localStorage.getItem(`mismatch-finder_user-settings_${props.user.id}`)
+        : null;
+
+    if (!storageData) {
+        return;
     }
 
-    interface LabelMap {
-        [entityId: string]: string
+    try {
+        const userSettings = JSON.parse(storageData);
+        disableConfirmation.value = userSettings.disableConfirmation;
+    } catch (e) {
+        console.error("failed to parse saved user settings", e);
     }
+});
 
-    interface FormattedValueMap {
-        [propertyId: string]: { [value: string]: string };
-    }
-
-    interface DecisionMap {
-        [entityId: string]: {
-            [id: number]: MismatchDecision
-        }
-    }
-
-    interface ResultsState {
-        decisions: DecisionMap,
-        disableConfirmation: boolean,
-        pageDirection: string,
-        requestError: boolean,
-        lastSubmitted: string,
-        instructionsDialog: boolean,
-        confirmationDialog: boolean
-    }
-
-    export default defineComponent({
-        components: {
-            InertiaHead,
-            LoadingOverlay,
-            MismatchesTable,
-            CdxCheckbox,
-            CdxDialog,
-            CdxButton,
-            CdxIcon,
-            CdxMessage
-        },
-        setup() {
-            return {
-                cdxIconInfo,
-                cdxIconArrowPrevious
-            };
-        },
-        props: {
-            user: {
-                type: Object as PropType<User|null>,
-                default: null
-            },
-            item_ids: {
-                type: Array as PropType<string[]>,
-                default: () => []
-            },
-            results: {
-                type: Object as PropType<Result>,
-                default: () => ({})
-            },
-            labels: {
-                type: Object as PropType<LabelMap>,
-                default: () => ({})
-            },
-            formatted_values: {
-                type: Object as PropType<FormattedValueMap>,
-                default: () => ({}),
-            },
-        },
-        computed: {
-            notFoundItemIds() {
-                return this.item_ids.filter( id => !this.results[id as keyof typeof this.results] )
-            },
-        },
-        mounted(){
-            const store = useStore();
-            if(!store.lastSearchedIds) {
-                store.saveSearchedIds( this.item_ids.join('\n') );
-            }
-
-            this.pageDirection = window.getComputedStyle(document.body).direction;
-            const storageData = this.user
-                ? window.localStorage.getItem(`mismatch-finder_user-settings_${this.user.id}`)
-                : null;
-
-            if (!storageData) {
-                return;
-            }
-
-            try {
-                const userSettings = JSON.parse(storageData);
-
-                this.disableConfirmation = userSettings.disableConfirmation;
-            } catch (e) {
-                console.error("failed to parse saved user settings", e);
-            }
-        },
-        data(): ResultsState {
-            return {
-                decisions: {},
-                disableConfirmation: false,
-                pageDirection: 'ltr',
-                requestError: false,
-                lastSubmitted: '',
-                instructionsDialog: false,
-                confirmationDialog: false
-            }
-        },
-        methods: {
-            addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
-                // The following callback maps existing mismatches to extended
-                // mismatch objects which include labels, by looking up any
-                // potential entity ids within the labels object.
-                return mismatches.map(mismatch => {
-                    const labelled = {
-                        property_label: this.labels[mismatch.property_id as keyof typeof this.labels],
-                        value_label: this.labels[mismatch.wikidata_value as keyof typeof this.labels] || null,
-                        ...mismatch
-                    };
-                    if (mismatch.property_id in this.formatted_values) {
-                        // eslint-disable-next-line max-len
-                        const formattedValues = this.formatted_values[mismatch.property_id as keyof typeof this.formatted_values];
-                        const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
-                        if (key in formattedValues) {
-                            labelled.value_label = formattedValues[key];
-                        }
-                    }
-                    return labelled;
-                });
-            },
-            recordDecision( decision: MismatchDecision): void {
-                const itemDecisions = this.decisions[decision.item_id];
-                decision.previous_status = itemDecisions && itemDecisions[decision.id]
-                    ? itemDecisions[decision.id].previous_status // keep previous status if we have one
-                    : ReviewDecision.Pending;                    // assign 'pending' otherwise
-
-                this.decisions[decision.item_id] = {
-                    ...itemDecisions,
-                    [decision.id]: decision
-                };
-            },
-            async send( item: string ): Promise<void> {
-                this.clearSubmitConfirmation();
-
-                if( !this.decisions[item] || isEmpty(this.decisions[item]) || !this.hasChanged(item) ){
-                    return;
-                }
-
-                // Casting to `any` since TS cannot understand $refs as
-                // component instances and complains about the usage of `show`
-                // See: https://github.com/vuejs/vue-class-component/issues/94
-                // Defaulting to any, as the alternative presents us with
-                // convoluted and unnecessary syntax.
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const overlay = this.$refs.overlay as any;
-
-                overlay.show();
-
-                // use axios in order to preserve saved mismatches
-                try {
-                    await axios.put('/mismatch-review', this.decisions[item]);
-
-                    this.requestError = false;
-                    await overlay.hide();
-                    this.storePreviousDecisions(item);
-                    this.showSubmitConfirmation(item);
-
-                    if(!this.disableConfirmation){
-                      this.confirmationDialog = true;
-                    }
-                } catch(e) {
-                    this.requestError = true;
-                    console.error("saving review decisions has failed", e);
-                    await overlay.hide();
-                }
-            },
-            clearSubmitConfirmation() {
-                this.lastSubmitted = '';
-            },
-            showSubmitConfirmation( item: string ) {
-                this.lastSubmitted = item;
-            },
-            hasChanged(entityId: string) {
-                for (const decisionId in this.decisions[entityId]) {
-                    const decision = this.decisions[entityId][decisionId];
-                    if(decision.review_status !== decision.previous_status) {
-                        return true;
-                    }
-                }
-
-                return false;
-            },
-            storePreviousDecisions(item: string) {
-                for (const decisionId in this.decisions[item]) {
-                    const decision = this.decisions[item][decisionId];
-                    decision.previous_status = decision.review_status;
-                }
-            },
-            // Anotating dialog as `any` since typescript doesn't fully
-            // understand component instances and complains about usage of the
-            // hide method otherwise.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            _handleConfirmation(){
-                const { disableConfirmation, user } = this;
-
-                // Do nothing if there is no user
-                if ( !user ){
-                    return;
-                }
-
-                if(disableConfirmation){
-                    const storageData = JSON.stringify({ disableConfirmation });
-                    window.localStorage.setItem(`mismatch-finder_user-settings_${user.id}`, storageData);
-                }
-
-              this.confirmationDialog = false;
+function addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
+    // The following callback maps existing mismatches to extended
+    // mismatch objects which include labels, by looking up any
+    // potential entity ids within the labels object.
+    return mismatches.map(mismatch => {
+        const labelled = {
+            property_label: props.labels[mismatch.property_id as keyof typeof props.labels],
+            value_label: props.labels[mismatch.wikidata_value as keyof typeof props.labels] || null,
+            ...mismatch
+        };
+        if (mismatch.property_id in props.formatted_values) {
+            // eslint-disable-next-line max-len
+            const formattedValues = props.formatted_values[mismatch.property_id as keyof typeof props.formatted_values];
+            const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
+            if (key in formattedValues) {
+                labelled.value_label = formattedValues[key];
             }
         }
+        return labelled;
     });
+}
+
+function recordDecision( decision: MismatchDecision): void {
+    const itemDecisions = decisions.value[decision.item_id];
+    decision.previous_status = itemDecisions && itemDecisions[decision.id]
+        ? itemDecisions[decision.id].previous_status // keep previous status if we have one
+        : ReviewDecision.Pending;                    // assign 'pending' otherwise
+
+    decisions.value[decision.item_id] = {
+        ...itemDecisions,
+        [decision.id]: decision
+    };
+}
+    
+async function send( item: string ): Promise<void> {
+    clearSubmitConfirmation();
+
+    if( !decisions.value[item] || isEmpty(decisions.value[item]) || !hasChanged(item) ){
+        return;
+    }
+
+    const overlay = overlayRef.value;
+    overlay.show();
+
+    // use axios in order to preserve saved mismatches
+    try {
+        await axios.put('/mismatch-review', decisions.value[item]);
+
+        requestError.value = false;
+        await overlay.hide();
+        storePreviousDecisions(item);
+        showSubmitConfirmation(item);
+
+        if(!disableConfirmation.value){
+            confirmationDialog.value = true;
+        }
+    } catch(e) {
+        requestError.value = true;
+        console.error("saving review decisions has failed", e);
+        await overlay.hide();
+    }
+}
+
+function clearSubmitConfirmation() {
+    lastSubmitted.value = '';
+}
+
+function showSubmitConfirmation( item: string ) {
+    lastSubmitted.value = item;
+}
+
+function hasChanged(entityId: string) {
+    for (const decisionId in decisions.value[entityId]) {
+        const decision = decisions.value[entityId][decisionId];
+        if(decision.review_status !== decision.previous_status) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function storePreviousDecisions(item: string) {
+    for (const decisionId in decisions.value[item]) {
+        const decision = decisions.value[item][decisionId];
+        decision.previous_status = decision.review_status;
+    }
+}
+
+function _handleConfirmation(){
+
+    // Do nothing if there is no user
+    if ( !props.user ){
+        return;
+    }
+
+    const disableConfirmationValue = disableConfirmation.value;
+    if(disableConfirmationValue){
+        const storageData = JSON.stringify({ disableConfirmation: disableConfirmationValue });
+        window.localStorage.setItem(`mismatch-finder_user-settings_${props.user.id}`, storageData);
+    }
+
+    confirmationDialog.value = false;
+}
 </script>
 
 <style lang="scss">

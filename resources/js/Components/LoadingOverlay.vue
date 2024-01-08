@@ -6,58 +6,46 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import { CdxProgressBar } from "@wikimedia/codex";
 
-export default defineComponent({
-    name: 'LoadingOverlay',
-    props: {
-        delay: {
-            type: Number,
-            default: 250,
-        },
-        visible: {
-            type: Boolean,
-            default: false,
-        }
-    },
-    components: {
-        CdxProgressBar
-    },
-    data() {
-        return {
-            shown: this.visible,
-            cachedStyles: {
-                overflow: 'auto'
-            }
-        };
-    },
-    methods: {
-        show(): void {
-            if (this.shown) {
-                return;
-            }
-
-            // Determine the current styles for body, in order to cache the overflow
-            const bodyStyles = window.getComputedStyle(document.body);
-            this.shown = true;
-
-            this.cachedStyles.overflow = bodyStyles.overflow;
-            document.body.style.overflow = 'hidden';
-        },
-        hide(): Promise<void> {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    this.shown = false;
-                    // Restore previous overflow value
-                    document.body.style.overflow = this.cachedStyles.overflow;
-                    resolve();
-                }, this.delay);
-            });
-        },
-    },
+const props = withDefaults(defineProps<{
+	delay: number
+	visible: boolean
+}>(), {
+	delay: 250,
+	visible: false
 });
+
+const shown = ref(props.visible);
+const cachedStyles = ref({ overflow: 'auto' });
+
+function show(){
+    if (shown.value) {
+        return;
+    }
+
+    // Determine the current styles for body, in order to cache the overflow
+    const bodyStyles = window.getComputedStyle(document.body);
+    shown.value = true;
+
+    cachedStyles.value.overflow = bodyStyles.overflow;
+    document.body.style.overflow = 'hidden';
+}
+
+function hide(): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            shown.value = false;
+            // Restore previous overflow value
+            document.body.style.overflow = cachedStyles.value.overflow;
+            resolve();
+        }, props.delay);
+    });
+}
+
+defineExpose({show, hide});
 </script>
 
 <style lang="scss">

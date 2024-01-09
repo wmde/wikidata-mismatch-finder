@@ -108,8 +108,6 @@
 
 <script setup lang="ts">
 import { formatISO } from 'date-fns';
-
-import type { PropType } from 'vue';
 import { computed, ref } from 'vue';
 import { CdxButton, CdxDialog, CdxSelect } from "@wikimedia/codex";
 import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
@@ -167,7 +165,6 @@ const uploadInfoDescription = computed<string>(() => {
   return shouldTruncate.value ? text.substring(0, truncateLength) + '...' : text;
 });
 
-const decision = statusOptions[props.mismatch.review_status];
 const reviewStatus = String(props.mismatch.review_status);
 const fullDescriptionDialog = ref(false);
 

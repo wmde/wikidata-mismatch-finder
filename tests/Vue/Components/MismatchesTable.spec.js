@@ -1,6 +1,13 @@
 import { mount } from '@vue/test-utils';
 import MismatchesTable from '@/Components/MismatchesTable.vue';
 import MismatchRow from '@/Components/MismatchRow.vue';
+import { createI18n } from 'vue-banana-i18n';
+
+const i18n = createI18n({
+    messages: {},
+    locale: 'en',
+    wikilinks: true
+});
 
 describe('MismatchesTable.vue', () => {
     it('accepts a mismatches property', () => {
@@ -22,10 +29,7 @@ describe('MismatchesTable.vue', () => {
         const wrapper = mount(MismatchesTable, {
             props: { mismatches },
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n]
             }
         });
 
@@ -59,10 +63,7 @@ describe('MismatchesTable.vue', () => {
         const wrapper = mount(MismatchesTable, {
             props: { disabled, mismatches },
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n]
             }
         });
 

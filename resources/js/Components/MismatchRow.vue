@@ -165,7 +165,7 @@ const uploadInfoDescription = computed<string>(() => {
   return shouldTruncate.value ? text.substring(0, truncateLength) + '...' : text;
 });
 
-const reviewStatus = String(props.mismatch.review_status);
+const reviewStatus = ref(String(props.mismatch.review_status));
 const fullDescriptionDialog = ref(false);
 
 function showDialog(e: Event) {

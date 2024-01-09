@@ -5,6 +5,13 @@ import {CdxSelect} from "@wikimedia/codex";
 import {ReviewDecision} from '@/types/Mismatch.ts';
 
 import MismatchRow from '@/Components/MismatchRow.vue';
+import { createI18n } from 'vue-banana-i18n';
+
+const i18n = createI18n({
+    messages: {},
+    locale: 'en',
+    wikilinks: true
+});
 
 describe('MismatchesRow.vue', () => {
     it('accepts a disabled property', () => {
@@ -25,10 +32,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch, disabled},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -57,10 +61,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
         const rowText = wrapper.find('tr').text();
@@ -97,10 +98,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -129,10 +127,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -161,10 +156,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -198,10 +190,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -241,10 +230,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -279,10 +265,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                },
+                plugins: [i18n],
                 stubs: {
                     teleport: true,
                     transition: true
@@ -312,10 +295,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -339,10 +319,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => key
-                }
+                plugins: [i18n],
             }
         });
 
@@ -371,10 +348,7 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
-                mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => `${key}`
-                }
+                plugins: [i18n],
             }
         });
 
@@ -404,9 +378,8 @@ describe('MismatchesRow.vue', () => {
         const wrapper = mount(MismatchRow, {
             props: {mismatch},
             global: {
+                plugins: [i18n],
                 mocks: {
-                    // Mock the banana-i18n plugin dependency
-                    $i18n: key => `${key}`,
                     $bubble: bubbleStub
                 }
             }

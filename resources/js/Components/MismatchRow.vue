@@ -12,12 +12,12 @@
               {{mismatch.type}}
             </span>
             <span v-else>
-              {{ this.$i18n('statement') }}
+              {{ $i18n('statement') }}
             </span>
         </td>
         <td :data-header="$i18n('column-wikidata-value')">
             <span class="empty-value" v-if="mismatch.wikidata_value === ''">
-              {{ this.$i18n('empty-value') }}
+              {{ $i18n('empty-value') }}
             </span> 
             <a
               v-else class="break-line-link" :href="statementUrl" target="_blank">
@@ -99,7 +99,7 @@
             </a>
             <span class="upload-date">{{uploadDate}}</span>
             <div class="description">
-              {{this.mismatch.import_meta.description}}
+              {{mismatch.import_meta.description}}
             </div>
           </cdx-dialog>
         </td>

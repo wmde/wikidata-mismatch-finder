@@ -219,6 +219,7 @@ onBeforeUnmount(() => {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
+            align-items: center;
         }
 
         .languageSelector {

@@ -75,7 +75,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/wmde/laravel-socialite-mediawiki/tree/main"
+            "url": "https://github.com/wmde/laravel-socialite-mediawiki"
         }
     ],
     "minimum-stability": "dev",

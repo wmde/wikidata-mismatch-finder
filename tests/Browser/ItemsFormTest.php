@@ -41,14 +41,17 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_empty_item_list_yields_warning()
+    public function test_empty_item_list_yields_error()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->press('.submit-ids')
                     ->assertSee('Please provide the Item identifiers that should be checked.');
 
-            $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
+            $this->assertStringContainsString(
+                '--error',
+                $browser->attribute('@items-input-validation-message', 'class')
+            );
         });
     }
 
@@ -72,7 +75,10 @@ class ItemsFormTest extends DuskTestCase
                     ->press('.submit-ids')
                     ->assertSee('One or more Item identifiers couldn\'t be processed.');
 
-            $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
+            $this->assertStringContainsString(
+                '--error',
+                $browser->attribute('@items-input-validation-message', 'class')
+            );
         });
     }
 
@@ -122,7 +128,7 @@ class ItemsFormTest extends DuskTestCase
 
             $browser->visit('/results?ids=Q42|L123')
                 ->waitFor('.home-page')
-                ->assertVisible('#message-section .wikit-Message--error.wikit');
+                ->assertVisible('#message-section .cdx-message--error');
         });
     }
 }

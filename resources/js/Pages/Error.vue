@@ -5,13 +5,6 @@
   </div>
 </template>
 
-<script>
-import Vue from 'vue';
-
-export default Vue.extend({
-  props: {
-    title: String,
-    description: String
-  }
-});
+<script setup lang="ts">
+defineProps<{title: string, description: string}>();
 </script>

@@ -22,26 +22,18 @@
     </wikit-table>
 </template>
 
-<script lang="ts">
-import Vue, { PropType } from 'vue';
+<script setup lang="ts">
 import { Table as WikitTable } from '@wmde/wikit-vue-components';
 
 import MismatchRow from './MismatchRow.vue';
 
-import { LabelledMismatch } from '../types/Mismatch';
+import type { LabelledMismatch } from '../types/Mismatch';
 
-export default Vue.extend({
-    components: {
-        MismatchRow,
-        WikitTable,
-    },
-    props: {
-        mismatches: Array as PropType<LabelledMismatch[]>,
-        disabled: {
-            type: Boolean,
-            default: false
-        }
-    }
+withDefaults(defineProps<{
+	mismatches: LabelledMismatch[],
+    disabled: boolean
+}>(), {
+	disabled: false
 });
 </script>
 

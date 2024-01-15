@@ -1,139 +1,188 @@
 <template>
-    <div class="page-container results-page">
-        <loading-overlay ref="overlayRef" />
-        <inertia-head title="Mismatch Finder - Results" />
-        <cdx-button class="back-button" @click="() => $inertia.get('/', {})">
-            <cdx-icon :icon="cdxIconArrowPrevious" />
-            <span class="text-with-icon-button">{{ $i18n('results-back-button') }}</span>
-        </cdx-button>
-        <section id="description-section">
-            <header class="description-header">
-                <h2 class="h4">{{ $i18n('results-page-title') }}</h2>
-                <cdx-button
-                    id="instructions-button"
-                    weight="quiet"
-                    action="progressive"
-                    @click="instructionsDialog = true"
-                >
-                    <cdx-icon :icon="cdxIconInfo" />
-                    <span class="text-with-icon-button">{{$i18n('results-instructions-button')}}</span>
-                </cdx-button>
-            </header>
-
-            <cdx-dialog id="instructions-dialog"
-                :title="$i18n('instructions-dialog-title')"
-                v-model:open="instructionsDialog"
-                :primary-action="{
-                    label: $i18n('confirm-dialog-button'),
-                    namespace: 'instructions-confirm',
-                    actionType: 'progressive'
-                }"
-                @primary="() => instructionsDialog = false"
-                close-button-label="X"
-            >
-                <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
-                <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
-                <ul>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-missing') }}</li>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
-                    <li>{{ $i18n('instructions-dialog-message-instruction-pending') }}</li>
-                </ul>
-            </cdx-dialog>
-            <p id="about-description" >
-                {{ $i18n('results-page-description') }}
-            </p>
-        </section>
-        <section id="error-section" v-if="requestError">
-            <cdx-message type="error" class="generic-error">{{ $i18n('server-error') }}</cdx-message>
-        </section>
-        <section id="message-section">
-            <cdx-message type="notice" v-if="notFoundItemIds.length">
-                <span>{{ $i18n('no-mismatches-found-message') }}</span>
-                <span class="message-link" v-for="item_id in notFoundItemIds" :key="item_id">
-                    <a :href="`https://www.wikidata.org/wiki/${String(item_id)}`" target="_blank">
-                        {{labels[item_id]}} ({{item_id}})
-                    </a>
-                </span>
-            </cdx-message>
-            <!-- The Results page without item_ids is used by RandomizeController. -->
-            <cdx-message type="notice" v-if="item_ids.length === 0">
-                <span>{{ $i18n('no-mismatches-available-for-review') }}</span>
-            </cdx-message>
-            <cdx-message type="warning" v-if="!user">
-                <span v-i18n-html:log-in-message="['/auth/login']"></span>
-            </cdx-message>
-        </section>
-        <section id="results" v-if="Object.keys(results).length">
-            <section class="item-mismatches"
-                v-for="(mismatches, item, idx) in results"
-                :id="`item-mismatches-${String(item)}`"
-                :key="idx">
-                <h2 class="h4">
-                    <a :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
-                        {{labels[item]}} ({{item}})
-                    </a>
-                </h2>
-                <form @submit.prevent="send(String(item))">
-                    <mismatches-table :mismatches="addLabels(mismatches)"
-                        :disabled="!user"
-                        @decision="recordDecision"
-                    />
-                    <footer class="mismatches-form-footer">
-                        <cdx-message class="form-success-message" type="success" v-if="lastSubmitted === item">
-                            <span>{{ $i18n('changes-submitted-message') }}</span>
-                            <span class="message-link">
-                                <a :href="`https://www.wikidata.org/wiki/${String(item)}`" target="_blank">
-                                    {{labels[item]}} ({{item}})
-                                </a>
-                            </span>
-                        </cdx-message>
-                        <div class="form-buttons">
-                            <cdx-button
-                                :disabled="!user"
-                                weight="primary"
-                                action="progressive"
-                            >
-                                {{ $i18n('result-form-submit') }}
-                            </cdx-button>
-                        </div>
-                    </footer>
-                </form>
-            </section>
-        </section>
-        <cdx-dialog id="results-confirmation-dialog"
-            :title="$i18n('confirmation-dialog-title')"
-            v-model:open="confirmationDialog"
-            @update:open="disableConfirmation = false"
-            close-button-label="X"
+  <div class="page-container results-page">
+    <loading-overlay ref="overlayRef" />
+    <inertia-head title="Mismatch Finder - Results" />
+    <cdx-button
+      class="back-button"
+      @click="() => $inertia.get('/', {})"
+    >
+      <cdx-icon :icon="cdxIconArrowPrevious" />
+      {{ $i18n('results-back-button') }}
+    </cdx-button>
+    <section id="description-section">
+      <header class="description-header">
+        <h2 class="h4">
+          {{ $i18n('results-page-title') }}
+        </h2>
+        <cdx-button
+          id="instructions-button"
+          weight="quiet"
+          action="progressive"
+          @click="instructionsDialog = true"
         >
-            <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
-            <ul>
-                <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
-                <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
-                <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
-            </ul>
+          <cdx-icon :icon="cdxIconInfo" />
+          {{ $i18n('results-instructions-button') }}
+        </cdx-button>
+      </header>
 
-			<template #footer>
-				<cdx-checkbox class="disable-confirmation" v-model="disableConfirmation" inline
-				>
-					{{ $i18n('confirmation-dialog-option-label') }}
-				</cdx-checkbox>
+      <cdx-dialog
+        id="instructions-dialog"
+        :title="$i18n('instructions-dialog-title')"
+        v-model:open="instructionsDialog"
+        :primary-action="{
+          label: $i18n('confirm-dialog-button'),
+          namespace: 'instructions-confirm',
+          actionType: 'progressive'
+        }"
+        @primary="() => instructionsDialog = false"
+        close-button-label="X"
+      >
+        <p>{{ $i18n('instructions-dialog-message-upload-info-description') }}</p>
+        <p>{{ $i18n('instructions-dialog-message-intro') }}</p>
+        <ul>
+          <li>{{ $i18n('instructions-dialog-message-instruction-wikidata') }}</li>
+          <li>{{ $i18n('instructions-dialog-message-instruction-missing') }}</li>
+          <li>{{ $i18n('instructions-dialog-message-instruction-external') }}</li>
+          <li>{{ $i18n('instructions-dialog-message-instruction-both') }}</li>
+          <li>{{ $i18n('instructions-dialog-message-instruction-none') }}</li>
+          <li>{{ $i18n('instructions-dialog-message-instruction-pending') }}</li>
+        </ul>
+      </cdx-dialog>
+      <p id="about-description">
+        {{ $i18n('results-page-description') }}
+      </p>
+    </section>
+    <section
+      id="error-section"
+      v-if="requestError"
+    >
+      <cdx-message
+        type="error"
+        class="generic-error"
+      >
+        {{ $i18n('server-error') }}
+      </cdx-message>
+    </section>
+    <section id="message-section">
+      <cdx-message
+        type="notice"
+        v-if="notFoundItemIds.length"
+      >
+        <span>{{ $i18n('no-mismatches-found-message') }}</span>
+        <span
+          class="message-link"
+          v-for="item_id in notFoundItemIds"
+          :key="item_id"
+        >
+          <a
+            :href="`https://www.wikidata.org/wiki/${String(item_id)}`"
+            target="_blank"
+          >
+            {{ labels[item_id] }} ({{ item_id }})
+          </a>
+        </span>
+      </cdx-message>
+      <!-- The Results page without itemIds is used by RandomizeController. -->
+      <cdx-message
+        type="notice"
+        v-if="itemIds.length === 0"
+      >
+        <span>{{ $i18n('no-mismatches-available-for-review') }}</span>
+      </cdx-message>
+      <cdx-message
+        type="warning"
+        v-if="!user"
+      >
+        <span v-i18n-html:log-in-message="['/auth/login']" />
+      </cdx-message>
+    </section>
+    <section
+      id="results"
+      v-if="Object.keys(results).length"
+    >
+      <section
+        class="item-mismatches"
+        v-for="(mismatches, item, idx) in results"
+        :id="`item-mismatches-${String(item)}`"
+        :key="idx"
+      >
+        <h2 class="h4">
+          <a
+            :href="`https://www.wikidata.org/wiki/${String(item)}`"
+            target="_blank"
+          >
+            {{ labels[item] }} ({{ item }})
+          </a>
+        </h2>
+        <form @submit.prevent="send(String(item))">
+          <mismatches-table
+            :mismatches="addLabels(mismatches)"
+            :disabled="!user"
+            @decision="recordDecision"
+          />
+          <footer class="mismatches-form-footer">
+            <cdx-message
+              class="form-success-message"
+              type="success"
+              v-if="lastSubmitted === item"
+            >
+              <span>{{ $i18n('changes-submitted-message') }}</span>
+              <span class="message-link">
+                <a
+                  :href="`https://www.wikidata.org/wiki/${String(item)}`"
+                  target="_blank"
+                >
+                  {{ labels[item] }} ({{ item }})
+                </a>
+              </span>
+            </cdx-message>
+            <div class="form-buttons">
+              <cdx-button
+                :disabled="!user"
+                weight="primary"
+                action="progressive"
+              >
+                {{ $i18n('result-form-submit') }}
+              </cdx-button>
+            </div>
+          </footer>
+        </form>
+      </section>
+    </section>
+    <cdx-dialog
+      id="results-confirmation-dialog"
+      :title="$i18n('confirmation-dialog-title')"
+      v-model:open="confirmationDialog"
+      @update:open="disableConfirmation = false"
+      close-button-label="X"
+    >
+      <p>{{ $i18n('confirmation-dialog-message-intro') }}</p>
+      <ul>
+        <li>{{ $i18n('confirmation-dialog-message-tip-1') }}</li>
+        <li>{{ $i18n('confirmation-dialog-message-tip-2') }}</li>
+        <li>{{ $i18n('confirmation-dialog-message-tip-3') }}</li>
+      </ul>
 
-				<cdx-button
-					weight="primary"
-					action="progressive"
-					:aria-label="$i18n('confirmation-dialog-button')"
-					@click="_handleConfirmation"
-				>
-					{{ $i18n('confirmation-dialog-button') }}
-				</cdx-button>
-			</template>
+      <template #footer>
+        <cdx-checkbox
+          class="disable-confirmation"
+          v-model="disableConfirmation"
+          inline
+        >
+          {{ $i18n('confirmation-dialog-option-label') }}
+        </cdx-checkbox>
 
-		</cdx-dialog>
-    </div>
+        <cdx-button
+          weight="primary"
+          action="progressive"
+          :aria-label="$i18n('confirmation-dialog-button')"
+          @click="_handleConfirmation"
+        >
+          {{ $i18n('confirmation-dialog-button') }}
+        </cdx-button>
+      </template>
+    </cdx-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -193,26 +242,26 @@ const overlayRef = ref(null);
 
 const props = withDefaults(defineProps<{
     user: User | null
-    item_ids: Array<string>
+    itemIds: Array<string>
     results: Result
     labels: LabelMap
-    formatted_values: FormattedValueMap 
+    formattedValues: FormattedValueMap 
 }>(), {
     user: null,
-    item_ids: () => [],
+    itemIds: () => [],
     results: () => ({}),
     labels: () => ({}),
-    formatted_values: () => ({})
+    formattedValues: () => ({})
 });
 
 const notFoundItemIds = computed<string[]>(() => {
-    return props.item_ids.filter( id => !props.results[id as keyof typeof props.results] )
+    return props.itemIds.filter( id => !props.results[id as keyof typeof props.results] )
 });
 
 onMounted(() => {
     const store = useStore();
     if(!store.lastSearchedIds) {
-        store.saveSearchedIds( props.item_ids.join('\n') );
+        store.saveSearchedIds( props.itemIds.join('\n') );
     }
 
     pageDirection.value = window.getComputedStyle(document.body).direction;
@@ -242,12 +291,12 @@ function addLabels(mismatches: Mismatch[]): LabelledMismatch[]{
             value_label: props.labels[mismatch.wikidata_value as keyof typeof props.labels] || null,
             ...mismatch
         };
-        if (mismatch.property_id in props.formatted_values) {
+        if (mismatch.property_id in props.formattedValues) {
             // eslint-disable-next-line max-len
-            const formattedValues = props.formatted_values[mismatch.property_id as keyof typeof props.formatted_values];
+            const formatted_values = props.formattedValues[mismatch.property_id as keyof typeof props.formattedValues];
             const key = mismatch.meta_wikidata_value + '|' + mismatch.wikidata_value;
-            if (key in formattedValues) {
-                labelled.value_label = formattedValues[key];
+            if (key in formatted_values) {
+                labelled.value_label = formatted_values[key];
             }
         }
         return labelled;

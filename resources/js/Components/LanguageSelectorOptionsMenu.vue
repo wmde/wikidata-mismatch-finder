@@ -1,36 +1,38 @@
 <template>
-	<div
-		ref="container"
-		class="languageSelector__options-menu"
-		role="listbox"
-		:aria-label="$i18n( 'language-selector-options-menu-aria-label' )"
-	>
-		<div
-			ref="languagesList"
-			class="languageSelector__options-menu__languages-list"
-			tabindex="-1">
-			<div
-				v-for="( language, index ) in languages"
-				:key="language.code"
-				:aria-selected="language.code === selectedLanguageCode || null"
-				class="languageSelector__options-menu__languages-list__item"
-				:class="{
-					'language--selected': language.code === selectedLanguageCode,
-					highlight: highlightedIndex === index
-				}"
-				role="option"
-				@click="onSelect( language.code )"
-			>
-				{{ language.autonym }}
-			</div>
-		</div>
-		<div
-			v-if="languages.length === 0"
-			class="languageSelector__options-menu__no-results"
-			role="option">
-			<slot name="no-results"/>
-		</div>
-	</div>
+  <div
+    ref="container"
+    class="languageSelector__options-menu"
+    role="listbox"
+    :aria-label="$i18n( 'language-selector-options-menu-aria-label' )"
+  >
+    <div
+      ref="languagesList"
+      class="languageSelector__options-menu__languages-list"
+      tabindex="-1"
+    >
+      <div
+        v-for="( language, index ) in languages"
+        :key="language.code"
+        :aria-selected="language.code === selectedLanguageCode || null"
+        class="languageSelector__options-menu__languages-list__item"
+        :class="{
+          'language--selected': language.code === selectedLanguageCode,
+          highlight: highlightedIndex === index
+        }"
+        role="option"
+        @click="onSelect( language.code )"
+      >
+        {{ language.autonym }}
+      </div>
+    </div>
+    <div
+      v-if="languages.length === 0"
+      class="languageSelector__options-menu__no-results"
+      role="option"
+    >
+      <slot name="no-results" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

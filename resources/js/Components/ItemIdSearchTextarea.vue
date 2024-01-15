@@ -1,21 +1,24 @@
 <template>
   <cdx-field 
-      :status="validationError ? validationError.type : 'default'" 
-      :messages="validationError ? validationError.message : null"
+    :status="validationError ? validationError.type : 'default'" 
+    :messages="validationError ? validationError.message : null"
   >
-      <div class="progress-bar-wrapper">
-          <cdx-progress-bar v-if="loading" :aria-label="$i18n('item-form-progress-bar-aria-label')" />
-      </div>
-      <cdx-text-area
-          :label="$i18n('item-form-id-input-label')"
-          :placeholder="$i18n('item-form-id-input-placeholder')"
-          :rows="8"
-          :status="validationError ? validationError.type : 'default'"
-          v-model="textareaInputValue"
+    <div class="progress-bar-wrapper">
+      <cdx-progress-bar
+        v-if="loading"
+        :aria-label="$i18n('item-form-progress-bar-aria-label')"
       />
       <template #label>
 			{{$i18n('item-form-id-input-label')}}
 		</template>
+    </div>
+    <cdx-text-area
+      :label="$i18n('item-form-id-input-label')"
+      :placeholder="$i18n('item-form-id-input-placeholder')"
+      :rows="8"
+      :status="validationError ? validationError.type : 'default'"
+      v-model="textareaInputValue"
+    />
   </cdx-field>
 </template>
 

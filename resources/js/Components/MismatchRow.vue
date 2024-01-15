@@ -1,109 +1,125 @@
 <template>
-    <tr>
-        <td :data-header="$i18n('column-mismatch')">
-            <a class="break-line-link"
-              target="_blank"
-              :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`">
-                {{mismatch.property_label}}
-            </a>
-        </td>
-        <td :data-header="$i18n('column-type')">
-            <span v-if="mismatch.type !== ''">
-              {{mismatch.type}}
-            </span>
-            <span v-else>
-              {{ $i18n('statement') }}
-            </span>
-        </td>
-        <td :data-header="$i18n('column-wikidata-value')">
-            <span class="empty-value" v-if="mismatch.wikidata_value === ''">
-              {{ $i18n('empty-value') }}
-            </span> 
-            <a
-              v-else class="break-line-link" :href="statementUrl" target="_blank">
-                {{mismatch.value_label || mismatch.wikidata_value}}
-          </a>
-        </td>
-        <td :data-header="$i18n('column-external-value')">
-           <a class="break-line-link" v-if="mismatch.external_url"
-              :href="`${mismatch.external_url}`" target="_blank"
-            >
-              {{mismatch.external_value}}
-            </a>
-            <span v-else>
-              {{mismatch.external_value}}
-            </span>
-        </td>
-        <td :data-header="$i18n('column-external-source')">
-            <a class="break-line-link" v-if="mismatch.import_meta.external_source_url"
-              :href="`${mismatch.import_meta.external_source_url}`" target="_blank"
-            >
-              {{mismatch.import_meta.external_source}}
-            </a>
-            <span v-else>
-              {{mismatch.import_meta.external_source}}
-            </span>
-        </td>
-        <td :data-header="$i18n('column-review-status')">
-            <cdx-select
-                :menu-items="Object.values(statusOptions)"
-                :disabled="disabled"
-                v-model:selected="reviewStatus"
-                @update:selected="$bubble('decision', {
-                    id: mismatch.id,
-                    item_id: mismatch.item_id,
-                    review_status: $event
-                })"
-            />
-        </td>
-        <td :data-header="$i18n('column-upload-info')">
-            <div class="upload-details">
-              <a
-                class="uploader"
-                :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
-                target="_blank"
-              >
-                    {{mismatch.import_meta.user.username}}
-              </a>
-                <span class="upload-date">{{uploadDate}}</span>
-                <div class="description">
-                  {{uploadInfoDescription}}
-                  <cdx-button
-                      v-if="shouldTruncate"
-                      class="full-description-button"
-                      weight="quiet"
-                      action="progressive"
-                      @click="showDialog"
-                  >
-                      {{$i18n('results-full-description-button')}}
-                  </cdx-button>
-                </div>
-            </div>
-            <cdx-dialog class="full-description-dialog"
-              :title="$i18n('column-upload-info')"
-              :open="fullDescriptionDialog"
-              :primary-action="{
-                  label: $i18n('confirm-dialog-button'),
-                  namespace: 'next-steps-confirm',
-                  actionType: 'progressive'
-              }"
-              @primary="() => fullDescriptionDialog = false"
-              close-button-label="X"
-            >
-            <a
-              class="uploader"
-              :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`" 
-              target="_blank"
-            >
-                {{mismatch.import_meta.user.username}}
-            </a>
-            <span class="upload-date">{{uploadDate}}</span>
-            <div class="description">
-              {{mismatch.import_meta.description}}
-            </div>
-          </cdx-dialog>
-        </td>
-    </tr>
+  <tr>
+    <td :data-header="$i18n('column-mismatch')">
+      <a
+        class="break-line-link"
+        target="_blank"
+        :href="`https://www.wikidata.org/wiki/Property:${mismatch.property_id}`"
+      >
+        {{ mismatch.property_label }}
+      </a>
+    </td>
+    <td :data-header="$i18n('column-type')">
+      <span v-if="mismatch.type !== ''">
+        {{ mismatch.type }}
+      </span>
+      <span v-else>
+        {{ $i18n('statement') }}
+      </span>
+    </td>
+    <td :data-header="$i18n('column-wikidata-value')">
+      <span
+        class="empty-value"
+        v-if="mismatch.wikidata_value === ''"
+      >
+        {{ $i18n('empty-value') }}
+      </span> 
+      <a
+        v-else
+        class="break-line-link"
+        :href="statementUrl"
+        target="_blank"
+      >
+        {{ mismatch.value_label || mismatch.wikidata_value }}
+      </a>
+    </td>
+    <td :data-header="$i18n('column-external-value')">
+      <a
+        class="break-line-link"
+        v-if="mismatch.external_url"
+        :href="`${mismatch.external_url}`"
+        target="_blank"
+      >
+        {{ mismatch.external_value }}
+      </a>
+      <span v-else>
+        {{ mismatch.external_value }}
+      </span>
+    </td>
+    <td :data-header="$i18n('column-external-source')">
+      <a
+        class="break-line-link"
+        v-if="mismatch.import_meta.external_source_url"
+        :href="`${mismatch.import_meta.external_source_url}`"
+        target="_blank"
+      >
+        {{ mismatch.import_meta.external_source }}
+      </a>
+      <span v-else>
+        {{ mismatch.import_meta.external_source }}
+      </span>
+    </td>
+    <td :data-header="$i18n('column-review-status')">
+      <cdx-select
+        :menu-items="Object.values(statusOptions)"
+        :disabled="disabled"
+        v-model:selected="reviewStatus"
+        @update:selected="$bubble('decision', {
+          id: mismatch.id,
+          item_id: mismatch.item_id,
+          review_status: $event
+        })"
+      />
+    </td>
+    <td :data-header="$i18n('column-upload-info')">
+      <div class="upload-details">
+        <a
+          class="uploader"
+          :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
+          target="_blank"
+        >
+          {{ mismatch.import_meta.user.username }}
+        </a>
+        <span class="upload-date">{{ uploadDate }}</span>
+        <div class="description">
+          {{ uploadInfoDescription }}
+          <cdx-button
+            v-if="shouldTruncate"
+            class="full-description-button"
+            weight="quiet"
+            action="progressive"
+            @click="showDialog"
+          >
+            {{ $i18n('results-full-description-button') }}
+          </cdx-button>
+        </div>
+      </div>
+      <cdx-dialog
+        class="full-description-dialog"
+        :title="$i18n('column-upload-info')"
+        :open="fullDescriptionDialog"
+        :primary-action="{
+          label: $i18n('confirm-dialog-button'),
+          namespace: 'next-steps-confirm',
+          actionType: 'progressive'
+        }"
+        @primary="() => fullDescriptionDialog = false"
+        close-button-label="X"
+      >
+        <a
+          class="uploader"
+          :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`" 
+          target="_blank"
+        >
+          {{ mismatch.import_meta.user.username }}
+        </a>
+        <span class="upload-date">{{ uploadDate }}</span>
+        <div class="description">
+          {{ mismatch.import_meta.description }}
+        </div>
+      </cdx-dialog>
+    </td>
+  </tr>
 </template>
 
 <script setup lang="ts">

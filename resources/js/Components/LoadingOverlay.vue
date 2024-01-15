@@ -1,9 +1,12 @@
 <template>
-    <div class="loading-indicator" v-if="shown">
-        <div class="overlay" >
-            <cdx-progress-bar aria-label="Indeterminate progress bar"/>
-        </div>
+  <div
+    class="loading-indicator"
+    v-if="shown"
+  >
+    <div class="overlay">
+      <cdx-progress-bar aria-label="Indeterminate progress bar" />
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

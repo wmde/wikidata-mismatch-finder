@@ -1,101 +1,124 @@
 <template>
-    <div class="page-container home-page">
-        <inertia-head title="Mismatch Finder" />
-        <section id="description-section">
-            <header class="description-header">
-                <h2 class="h4">{{ $i18n('about-mismatch-finder-title') }}</h2>
-                <cdx-button
-                    id="faq-button"
-                    weight="quiet"
-                    action="progressive"
-                    @click="faqDialog = true"
-                >
-                    <cdx-icon :icon="cdxIconInfo" />
-                    <span class="text-with-icon-button">{{ $i18n('faq-button') }}</span>
-                </cdx-button>
-            </header>
-            <cdx-dialog id="faq-dialog"
-                        v-model:open="faqDialog"
-                        :title="$i18n('faq-dialog-title')"
-                        :primary-action="{
-                            label: $i18n('confirm-dialog-button'),
-                            namespace: 'faq-confirm',
-                            actionType: 'progressive'
-                        }"
-                        @primary="() => faqDialog = false"
-                        close-button-label="X"
-            >
-                <section>
-                    <h3 class="h5">{{ $i18n('faq-dialog-question-finding-mismatches' )}}</h3>
-                    <p>{{ $i18n('faq-dialog-answer-finding-mismatches') }}</p>
-                    <ul>
-                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-1') }}</li>
-                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-2') }}</li>
-                        <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-3') }}</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3 class="h5">{{ $i18n('faq-dialog-question-relevance') }}</h3>
-                    <p>{{ $i18n('faq-dialog-answer-relevance') }}</p>
-                </section>
-                <section>
-                    <h3 class="h5">{{ $i18n('faq-dialog-question-contributing') }}</h3>
-                    <p v-i18n-html:faq-dialog-answer-contributing="[
-                        'https://phabricator.wikimedia.org/'
-                    ]"></p>
-                </section>
-                <section>
-                    <h3 class="h5">{{ $i18n('faq-dialog-question-more-info') }}</h3>
-                    <p v-i18n-html:faq-dialog-answer-more-info="[
-                        'https://github.com/wmde/wikidata-mismatch-finder',
-                        'https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder',
-                        'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
-                    ]"></p>
-                </section>
-            </cdx-dialog>
-            <p id="about-description" >
-                {{ $i18n('about-mismatch-finder-description') }}
-            </p>
+  <div class="page-container home-page">
+    <inertia-head title="Mismatch Finder" />
+    <section id="description-section">
+      <header class="description-header">
+        <h2 class="h4">
+          {{ $i18n('about-mismatch-finder-title') }}
+        </h2>
+        <cdx-button
+          id="faq-button"
+          weight="quiet"
+          action="progressive"
+          @click="faqDialog = true"
+        >
+          <cdx-icon :icon="cdxIconInfo" />
+          {{ $i18n('faq-button') }}
+        </cdx-button>
+      </header>
+      <cdx-dialog
+        id="faq-dialog"
+        v-model:open="faqDialog"
+        :title="$i18n('faq-dialog-title')"
+        :primary-action="{
+          label: $i18n('confirm-dialog-button'),
+          namespace: 'faq-confirm',
+          actionType: 'progressive'
+        }"
+        @primary="() => faqDialog = false"
+        close-button-label="X"
+      >
+        <section>
+          <h3 class="h5">
+            {{ $i18n('faq-dialog-question-finding-mismatches' ) }}
+          </h3>
+          <p>{{ $i18n('faq-dialog-answer-finding-mismatches') }}</p>
+          <ul>
+            <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-1') }}</li>
+            <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-2') }}</li>
+            <li>{{ $i18n('faq-dialog-answer-finding-mismatches-sources-3') }}</li>
+          </ul>
         </section>
+        <section>
+          <h3 class="h5">
+            {{ $i18n('faq-dialog-question-relevance') }}
+          </h3>
+          <p>{{ $i18n('faq-dialog-answer-relevance') }}</p>
+        </section>
+        <section>
+          <h3 class="h5">
+            {{ $i18n('faq-dialog-question-contributing') }}
+          </h3>
+          <p
+            v-i18n-html:faq-dialog-answer-contributing="[
+              'https://phabricator.wikimedia.org/'
+            ]"
+          />
+        </section>
+        <section>
+          <h3 class="h5">
+            {{ $i18n('faq-dialog-question-more-info') }}
+          </h3>
+          <p
+            v-i18n-html:faq-dialog-answer-more-info="[
+              'https://github.com/wmde/wikidata-mismatch-finder',
+              'https://www.wikidata.org/wiki/Wikidata:Mismatch_Finder',
+              'https://www.wikidata.org/wiki/Wikidata_talk:Mismatch_Finder'
+            ]"
+          />
+        </section>
+      </cdx-dialog>
+      <p id="about-description">
+        {{ $i18n('about-mismatch-finder-description') }}
+      </p>
+    </section>
 
-        <section id="message-section">
-            <cdx-message v-if="unexpectedError || serversideValidationError" type="error">
-                <span>{{ $i18n('server-error') }}</span>
-            </cdx-message>
-        </section>
+    <section id="message-section">
+      <cdx-message
+        v-if="unexpectedError || serversideValidationError"
+        type="error"
+      >
+        <span>{{ $i18n('server-error') }}</span>
+      </cdx-message>
+    </section>
 
-        <section id="querying-section">
-            <div class="heading">
-                <h2 class="h5">{{ $i18n('item-form-title') }}</h2>
-                <cdx-button
-                    class="random-mismatches"
-                    weight="normal"
-                    @click="showRandom()"
-                    :disabled="loading"
-                >
-                    <cdx-icon :icon="cdxIconDie" />
-                    <span class="text-with-icon-button">{{ $i18n('random-mismatches') }}</span>
-                </cdx-button>
-            </div>
-            <form id="items-form" @submit.prevent="send">
-                <item-id-search-textarea 
-                    :loading="loading"
-                    ref="textarea"
-                />
-                <div class="form-buttons">
-                    <cdx-button
-                        class="submit-ids"
-                        weight="primary"
-                        action="progressive"
-                        native-type="submit"
-                        :disabled="loading"
-                    >
-                        {{ $i18n('item-form-submit') }}
-                    </cdx-button>
-                </div>
-            </form>
-        </section>
-    </div>
+    <section id="querying-section">
+      <div class="heading">
+        <h2 class="h5">
+          {{ $i18n('item-form-title') }}
+        </h2>
+        <cdx-button
+          class="random-mismatches"
+          weight="normal"
+          @click="showRandom()"
+          :disabled="loading"
+        >
+          <cdx-icon :icon="cdxIconDie" />
+          {{ $i18n('random-mismatches') }}
+        </cdx-button>
+      </div>
+      <form
+        id="items-form"
+        @submit.prevent="send"
+      >
+        <item-id-search-textarea 
+          :loading="loading"
+          ref="textarea"
+        />
+        <div class="form-buttons">
+          <cdx-button
+            class="submit-ids"
+            weight="primary"
+            action="progressive"
+            native-type="submit"
+            :disabled="loading"
+          >
+            {{ $i18n('item-form-submit') }}
+          </cdx-button>
+        </div>
+      </form>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">

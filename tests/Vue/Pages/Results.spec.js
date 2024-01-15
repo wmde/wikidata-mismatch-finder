@@ -75,10 +75,10 @@ describe('Results.vue', () => {
     it('accepts and renders item ids', () => {
         const item_ids =  ['Q1', 'Q2']
         const wrapper = mountWithMocks({
-            props: { item_ids }
+            props: { itemIds: item_ids }
         });
 
-        expect(wrapper.props().item_ids).toStrictEqual(item_ids);
+        expect(wrapper.props().itemIds).toStrictEqual(item_ids);
         item_ids.forEach(id => expect(wrapper.text()).toContain(id));
     });
 
@@ -190,10 +190,10 @@ describe('Results.vue', () => {
         };
 
         const wrapper = mountWithMocks({
-            props: { results, formatted_values }
+            props: { results, formattedValues: formatted_values }
         });
 
-        expect(wrapper.props().formatted_values).toStrictEqual(formatted_values);
+        expect(wrapper.props().formattedValues).toStrictEqual(formatted_values);
         expect(wrapper.text()).toContain('21. Jahrhundert');
     });
 
@@ -222,10 +222,10 @@ describe('Results.vue', () => {
         };
 
         const wrapper = mountWithMocks({
-            props: { results, formatted_values }
+            props: { results, formattedValues: formatted_values }
         });
 
-        expect(wrapper.props().formatted_values).toStrictEqual(formatted_values);
+        expect(wrapper.props().formattedValues).toStrictEqual(formatted_values);
         expect(wrapper.text()).toContain('21. Jahrhundert');
     });
 

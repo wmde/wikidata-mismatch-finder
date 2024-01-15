@@ -21,6 +21,7 @@ module.exports = {
 		'vue/no-deprecated-slot-scope-attribute': 'off',
 		'vue/no-v-for-template-key-on-child': 'off',
 		'vue/no-deprecated-destroyed-lifecycle': 'off',
-		'vue/no-v-model-argument': 'off'
+		'vue/no-v-model-argument': 'off',
+		'vue/no-multiple-template-root': 'off' // TODO: remove this rule in T351644
 		},
 };

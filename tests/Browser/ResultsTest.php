@@ -28,7 +28,7 @@ class ResultsTest extends DuskTestCase
         }
     }
 
-    public function test_shows_item_ids()
+    public function test_shows_itemIds()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new ResultsPage('Q1|Q2'))
@@ -47,7 +47,7 @@ class ResultsTest extends DuskTestCase
         });
     }
 
-    public function test_shows_message_for_non_existing_item_ids()
+    public function test_shows_message_for_non_existing_itemIds()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new ResultsPage('Q1|Q2'))

@@ -18,7 +18,7 @@ class ItemsFormTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_can_enter_list_of_item_ids()
+    public function test_can_enter_list_of_itemIds()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
@@ -27,7 +27,7 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_can_submit_list_of_item_ids()
+    public function test_can_submit_list_of_itemIds()
     {
         $this->browse(function (Browser $browser) {
 

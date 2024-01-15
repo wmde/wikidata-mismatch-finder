@@ -38,7 +38,7 @@ class WebRandomRouteTest extends TestCase
         $response->assertViewIs('app')
             ->assertInertia(function (Assert $page) {
                 $page->component('Results')
-                    ->missing('item_ids')
+                    ->missing('itemIds')
                     ->missing('results');
             });
     }
@@ -69,7 +69,7 @@ class WebRandomRouteTest extends TestCase
         $this->get($redirect->headers->get('Location'))
             ->assertInertia(function (Assert $page) {
                 $page->component('Results')
-                ->has('item_ids')
+                ->has('itemIds')
                 ->has('results');
             });
     }

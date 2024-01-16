@@ -60,7 +60,7 @@ withDefaults(defineProps<{
 
     & > footer {
         margin: auto;
-        padding: $dimension-layout-xsmall;
+        padding: var(--dimension-layout-xsmall);
         display: flex;
         flex-direction: column;
 
@@ -74,7 +74,7 @@ withDefaults(defineProps<{
         }
 
         section + section {
-            margin-block-start: $dimension-layout-medium;
+            margin-block-start: var(--dimension-layout-medium);
         }
 
         p {
@@ -83,15 +83,15 @@ withDefaults(defineProps<{
         }
 
         p + p {
-            margin-block-start: $dimension-layout-xxsmall;
+            margin-block-start: var(--dimension-layout-xxsmall);
         }
 
         @media (min-width: $width-breakpoint-tablet) {
             flex-direction: row;
-            padding: $dimension-layout-small;
+            padding: var(--dimension-layout-small);
 
             section {
-                margin-inline-end: $dimension-layout-large;
+                margin-inline-end: var(--dimension-layout-large);
             }
 
             section + section {

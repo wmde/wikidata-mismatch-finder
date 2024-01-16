@@ -38,7 +38,7 @@
             }"
         >
             <section>
-                <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
+                <h2 class="h5 footer-title">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
                 <p>
                     <a href="https://query.wikidata.org/querybuilder/">
                         {{ $i18n('tool-query-builder') }}
@@ -168,7 +168,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../../sass/_typography.scss';
 
 .website {
     box-sizing: border-box;
@@ -187,7 +188,7 @@ onBeforeUnmount(() => {
         width: 268px;
         height: 24px;
 
-        @media (min-width: $width-breakpoint-tablet) {
+        @media (min-width: $min-width-breakpoint-tablet) {
             background-image: url('/images/mismatch-finder-logo.svg');
             width: 384px;
             height: 24px;
@@ -209,8 +210,7 @@ onBeforeUnmount(() => {
         gap: 1.5rem;
 
         .logo-link {
-            outline: none;
-            @media (min-width: $width-breakpoint-tablet) {
+            @media (min-width: $min-width-breakpoint-tablet) {
                 width: auto;
             }
         }
@@ -226,7 +226,7 @@ onBeforeUnmount(() => {
         }
     }
 
-    @media (min-width: $width-breakpoint-tablet) {
+    @media (min-width: $min-width-breakpoint-tablet) {
         main>header {
             flex-direction: row;
             flex-wrap: wrap;
@@ -237,6 +237,11 @@ onBeforeUnmount(() => {
                 }
             }
         }
+    }
+
+    .footer-title {
+        @include body-S;
+        font-weight: $font-weight-bold;
     }
 }
 </style>

@@ -1,3 +1,6 @@
+
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+
 @mixin link {
     color: $font-color-progressive;
     text-decoration: none;
@@ -13,26 +16,42 @@
     }
 }
 
+@mixin body-M {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-medium;
+    color: $color-base;
+}
+
+@mixin body-S {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-small;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-medium;
+    color: $color-base;
+}
+
 @mixin heading-1 {
-    font-family: $font-family-style-heading-serif;
-    font-size: $font-size-style-h1;
-    font-weight: $font-weight-style-h1;
-    line-height: $font-line-height-style-heading;
-    color: $font-color-emphasized;
+    font-family: $font-family-serif;
+    font-size: $font-size-xxx-large;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
 }
 
 @mixin heading-4 {
-    font-family: $font-family-style-heading-sans;
-    font-size: $font-size-style-h4;
-    font-weight: $font-weight-style-h4;
-    line-height: $font-line-height-style-heading;
-    color: $font-color-emphasized;
+    font-family: $font-family-system-sans;
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
 }
 
 @mixin heading-5 {
-    font-family: $font-family-style-heading-sans;
-    font-size: $font-size-style-h5;
-    font-weight: $font-weight-style-h5;
-    line-height: $font-line-height-style-heading;
-    color: $font-color-emphasized;
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
 }

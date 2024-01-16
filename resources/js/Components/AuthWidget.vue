@@ -26,11 +26,11 @@ defineProps<{ user: User | null}>();
 .auth-widget {
     display: flex;
     justify-content: space-between;
-    gap: $dimension-spacing-xlarge;
+    gap: var(--dimension-spacing-xlarge);
     align-items: center;
 
     .icon-user {
-        margin-inline-end: $dimension-spacing-small;
+        margin-inline-end: var(--dimension-spacing-small);
         vertical-align: middle;
     }
 

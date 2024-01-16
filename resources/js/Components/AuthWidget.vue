@@ -28,14 +28,13 @@ defineProps<{ user: User }>();
     color: $color-base-50;
     justify-content: space-between;
     gap: $dimension-spacing-xlarge;
-    align-items: center;
 
     .icon-user {
         margin-inline-end: $dimension-spacing-small;
         vertical-align: middle;
     }
 
-&_wrapper {
+    &_wrapper {
         a {
             white-space: nowrap;
             &:visited {

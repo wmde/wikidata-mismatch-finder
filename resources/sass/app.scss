@@ -42,7 +42,6 @@ section {
 
 h1, .h1 {
     @include heading-1;
-
     margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
@@ -51,11 +50,12 @@ h1, .h1 {
 }
 
 h4, .h4 {
+
     margin: var(--dimension-layout-xxsmall) 0;
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: var(--dimension-layout-xsmall) 0;
+        margin: var(--dimension-layout-xsmall) 0;     
     }
 }
 
@@ -110,7 +110,7 @@ li {
 .store > header {
     flex-direction: row;
 
-    @media (max-width: $max-width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
         flex-direction: column-reverse;
     }
 
@@ -130,7 +130,7 @@ li {
             vertical-align: middle;
         }
 
-        @media (max-width: $max-width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             margin-bottom: var(--dimension-layout-xsmall);
         }
     }
@@ -229,7 +229,7 @@ dl.import-meta dd:not(:last-child) {
 
 dl.import-meta .download-csv {
     float: right;
-    @media(max-width: $max-width-breakpoint-tablet){
+    @media(max-width: $max-width-breakpoint-mobile){
         float: none;
         padding-block-end: 0;
         margin-block-end: 1em;
@@ -282,7 +282,7 @@ dl.import-meta .download-csv {
         }
 
         &:focus {
-            box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus $box-shadow-inset-medium $box-shadow-color-inverted;
+            box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus, $box-shadow-inset-medium $box-shadow-color-inverted;
             border-color: $border-color-progressive--focus;
             background-color: $background-color-progressive;
         }
@@ -336,12 +336,12 @@ dl.import-meta .download-csv {
 
     &.right {
         justify-content: flex-end;
-        @media (max-width: $max-width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             justify-content: flex-start;
          }
     }
 
-    @media (max-width: $max-width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
        justify-content: flex-start;
     }
 }
@@ -390,7 +390,7 @@ dl.import-meta .download-csv {
     }
 
     .button {
-        @media (max-width: $max-width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             width: 100%;
             text-align: center;
         }

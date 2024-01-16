@@ -9,7 +9,7 @@ main {
     font-family: $font-family-system-sans;
     font-weight: $font-weight-normal;
     color: $color-base;
-    padding: 10vw var(----dimension-layout-small) var(----dimension-layout-small) var(----dimension-layout-small) var(----dimension-layout-small);
+    padding: 10vw var(----dimension-layout-small) var(----dimension-layout-small) var(----dimension-layout-small);
     max-width: 680px;
 
     @media (min-width: $min-width-breakpoint-tablet) {

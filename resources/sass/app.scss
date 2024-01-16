@@ -46,7 +46,7 @@ h1, .h1 {
     margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
-        margin: var(--dimension-layout-small) 0;
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 

@@ -4,7 +4,7 @@
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../css/custom-variables.css';
 @import './link.scss';
 @import './_typography.scss';
 
@@ -13,7 +13,7 @@ html {
 }
 
 body {
-    @include body-text;
+    @include body-M;
     height: 100%;
 }
 
@@ -22,49 +22,49 @@ body {
 */
 main {
     max-width: 1090px;
-    padding: 0 $dimension-layout-xsmall;
+    padding: 0 var(--dimension-layout-xsmall);
     margin: 0 auto;
 
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: $dimension-layout-small 0;
+        margin: var(--dimension-layout-small) 0;
     }
 
-    @media(min-width: $width-breakpoint-tablet){
-        padding: 0 $dimension-layout-small;
+    @media(min-width: $min-width-breakpoint-tablet){
+        padding: 0 var(--dimension-layout-small);
     }
 }
 
 section {
-    margin-bottom: $dimension-layout-large;
+    margin-bottom: var(--dimension-layout-large);
 }
 
 h1, .h1 {
     @include heading-1;
+    margin: var(--dimension-layout-xsmall) 0;
 
-    margin: $dimension-layout-xsmall 0;
-
-    @media (min-width: $width-breakpoint-tablet) {
-        margin: $dimension-layout-small 0;
+    @media (min-width: $min-width-breakpoint-tablet) {
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
 h4, .h4 {
-    margin: $dimension-layout-xxsmall 0;
+
+    margin: var(--dimension-layout-xxsmall) 0;
     @include heading-4;
 
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+    @media(min-width: $min-width-breakpoint-tablet){
+        margin: var(--dimension-layout-xsmall) 0;     
     }
 }
 
 h5, .h5 {
-    margin: $dimension-layout-xxsmall 0;
+    margin: var(--dimension-layout-xxsmall) 0;
     @include heading-5;
 
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+    @media(min-width: $min-width-breakpoint-tablet){
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
@@ -101,7 +101,7 @@ li {
 
 // this ensures that there will be a space if there is more than one message
 #message-section .cdx-message:not(:nth-child(1)) {
-    margin-top: $dimension-layout-xsmall;
+    margin-top: var(--dimension-layout-xsmall);
 }
 
 /**
@@ -110,7 +110,7 @@ li {
 .store > header {
     flex-direction: row;
 
-    @media (max-width: $width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
         flex-direction: column-reverse;
     }
 
@@ -120,19 +120,18 @@ li {
 
     .auth-widget {
         display: flex;
-        color: $color-base-50;
 
         .username {
-            margin-inline-end: $dimension-spacing-xlarge;
+            margin-inline-end: var(--dimension-spacing-xlarge);
         }
 
         .icon-user {
-            margin-inline-end: $dimension-spacing-small;
+            margin-inline-end: var(--dimension-spacing-small);
             vertical-align: middle;
         }
 
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-xsmall;
+        @media (max-width: $max-width-breakpoint-mobile) {
+            margin-bottom: var(--dimension-layout-xsmall);
         }
     }
 }
@@ -169,25 +168,25 @@ nav.tabs {
                 }
                 &:hover {
                     text-decoration: none;
-                    border-bottom-color: $color-modifier-lighten-accent-50;
-                    color: $color-modifier-lighten-accent-50;
+                    border-bottom-color: $color-progressive--hover;
+                    color: $color-progressive--hover;
                 }
 
             }
 
             &:focus a {
-                border: 2px solid $color-accent-50;
+                border: 2px solid $border-color-progressive--focus;
             }
 
             &.selected a {
-                border-bottom-color: $color-accent-50;
-                color: $color-accent-50;
+                border-bottom-color: $border-color-progressive;
+                color: $color-progressive;
             }
 
             &.selected:active, &:active {
                 a {
-                    border-color: white white $color-accent-30 white;
-                    color: $color-accent-30;
+                    border-color: white white $color-progressive--active white;
+                    color: $color-progressive--active;
                 }
             }
         }
@@ -230,7 +229,7 @@ dl.import-meta dd:not(:last-child) {
 
 dl.import-meta .download-csv {
     float: right;
-    @media(max-width: $width-breakpoint-tablet){
+    @media(max-width: $max-width-breakpoint-mobile){
         float: none;
         padding-block-end: 0;
         margin-block-end: 1em;
@@ -239,86 +238,86 @@ dl.import-meta .download-csv {
 }
 
 .button {
-    padding: $wikit-Button-medium-padding-vertical $wikit-Button-medium-padding-horizontal;
-    font-weight: $wikit-Button-font-weight;
-    line-height: $wikit-Button-line-height;
+    padding: $spacing-30 $spacing-75;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-xx-small;
     display: inline-block;
-    color: $wikit-Button-normal-neutral-color;
-    border-width: $wikit-Button-border-width;
-    border-style: $wikit-Button-border-style;
-    border-color: $wikit-Button-normal-neutral-border-color;
-    border-radius: $wikit-Button-border-radius;
-    background-color: $wikit-Button-normal-neutral-background-color;
-    transition-duration: $wikit-Button-transition-duration;
-    transition-property: $wikit-Button-transition-property;
+    color: $color-base;
+    border-width: $border-width-base;
+    border-style: $border-style-base;
+    border-color: $border-color-base;
+    border-radius: $border-radius-base;
+    background-color: $background-color-interactive-subtle;
+    transition-duration: $transition-duration-base;
+    transition-property: $transition-property-base;
 
     &:focus {
-        color: $wikit-Button-normal-neutral-focus-color;
-        background-color: $wikit-Button-normal-neutral-focus-background-color;
-        border-color: $wikit-Button-normal-neutral-focus-border-color;
-        box-shadow: $wikit-Button-normal-neutral-focus-box-shadow;
+        color: $color-base;
+        background-color: $background-color-interactive-subtle;
+        border-color: $border-color-progressive--focus;
+        box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus;
     }
 
     &:hover {
         text-decoration: none;
-        color: $wikit-Button-normal-neutral-hover-color;
-        border-color: $wikit-Button-normal-neutral-hover-border-color;
-        background-color: $wikit-Button-normal-neutral-hover-background-color;
+        color: $color-base--hover;
+        border-color: $border-color-base;
+        background-color: $background-color-base;
     }
 
     &:active {
-        color: $wikit-Button-normal-neutral-active-color;
-        border-color: $wikit-Button-normal-neutral-active-border-color;
-        background-color: $wikit-Button-normal-neutral-active-background-color;
+        color: $color-emphasized;
+        border-color: $border-color-interactive;
+        background-color: $background-color-interactive;
         box-shadow: none;
     }
 
     &.progressive {
-        color: $wikit-Button-primary-color;
-        background-color: $wikit-Button-primary-progressive-background-color;
-        border-color: $wikit-Button-primary-progressive-border-color;
+        color: $color-inverted;
+        background-color: $background-color-progressive;
+        border-color: $border-color-progressive;
 
         &:visited {
             color: white;
         }
 
         &:focus {
-            box-shadow: $wikit-Button-primary-progressive-focus-box-shadow;
-            border-color: $wikit-Button-primary-progressive-focus-border-color;
-            background-color: $wikit-Button-primary-progressive-focus-background-color;
+            box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus, $box-shadow-inset-medium $box-shadow-color-inverted;
+            border-color: $border-color-progressive--focus;
+            background-color: $background-color-progressive;
         }
         &:hover {
-            background-color: $wikit-Button-primary-progressive-hover-background-color;
-            border-color: $wikit-Button-primary-progressive-hover-border-color;
+            background-color: $background-color-progressive--hover;
+            border-color: $border-color-progressive--hover;
         }
         &:active {
-            background-color: $wikit-Button-primary-progressive-active-background-color;
-            border-color: $wikit-Button-primary-progressive-active-border-color;
+            background-color: $background-color-progressive--active;
+            border-color: $border-color-progressive--active;
             box-shadow: none;
         }
     }
 
     &.destructive {
-        color: $wikit-Button-primary-color;
-        background-color: $wikit-Button-primary-destructive-background-color;
-        border-color: $wikit-Button-primary-destructive-border-color;
+        color: $color-inverted;
+        background-color: $background-color-destructive;
+        border-color: $border-color-destructive;
 
         &:visited {
             color: white;
         }
 
         &:focus {
-            box-shadow: $wikit-Button-primary-destructive-focus-box-shadow;
-            border-color: $wikit-Button-primary-destructive-focus-border-color;
-            background-color: $wikit-Button-primary-destructive-focus-background-color;
+            box-shadow: $box-shadow-inset-small $box-shadow-color-destructive--focus $box-shadow-inset-medium $box-shadow-color-inverted;
+            border-color: $border-color-destructive--focus;
+            background-color: $background-color-destructive;
         }
         &:hover {
-            background-color: $color-modifier-lighten-utility-red-50;
-            border-color: $color-modifier-lighten-utility-red-50;
+            background-color: $color-destructive--hover;
+            border-color: $color-destructive--hover;
         }
         &:active {
-            background-color: $wikit-Button-primary-destructive-active-background-color;
-            border-color: $wikit-Button-primary-destructive-active-border-color;
+            background-color: $background-color-destructive--active;
+            border-color: $border-color-destructive--active;
             box-shadow: none;
         }
     }
@@ -327,7 +326,7 @@ dl.import-meta .download-csv {
     }
 
     &-icon {
-        margin-inline-end: $dimension-spacing-small;
+        margin-inline-end: var(--dimension-spacing-small);
         vertical-align: middle;
     }
 }
@@ -337,12 +336,12 @@ dl.import-meta .download-csv {
 
     &.right {
         justify-content: flex-end;
-        @media (max-width: $width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             justify-content: flex-start;
          }
     }
 
-    @media (max-width: $width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
        justify-content: flex-start;
     }
 }
@@ -387,11 +386,11 @@ dl.import-meta .download-csv {
     }
 
     .button-group {
-        margin-block-end: $dimension-spacing-large;
+        margin-block-end: var(--dimension-spacing-large);
     }
 
     .button {
-        @media (max-width: $width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             width: 100%;
             text-align: center;
         }

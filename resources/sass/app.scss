@@ -237,15 +237,14 @@ dl.import-meta .download-csv {
 }
 
 .button {
+    @include ui-text-M($font-weight-bold);
     padding: $spacing-30 $spacing-75;
-    font-weight: $font-weight-bold;
-    line-height: $line-height-xx-small;
     display: inline-block;
-    color: $color-base;
     border-width: $border-width-base;
     border-style: $border-style-base;
     border-color: $border-color-base;
     border-radius: $border-radius-base;
+    outline: none;
     background-color: $background-color-interactive-subtle;
     transition-duration: $transition-duration-base;
     transition-property: $transition-property-base;

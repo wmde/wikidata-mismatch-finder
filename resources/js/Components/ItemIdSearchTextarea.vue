@@ -4,14 +4,14 @@
     :messages="validationError ? validationError.message : null"
   >
     <div class="progress-bar-wrapper">
-      <cdx-progress-bar
-        v-if="loading"
-        :aria-label="$i18n('item-form-progress-bar-aria-label')"
-      />
-      <template #label>
-			{{$i18n('item-form-id-input-label')}}
-		</template>
+        <cdx-progress-bar
+            v-if="loading"
+            :aria-label="$i18n('item-form-progress-bar-aria-label')"
+        />
     </div>
+    <template #label>
+		{{$i18n('item-form-id-input-label')}}
+	</template>
     <cdx-text-area
       :label="$i18n('item-form-id-input-label')"
       :placeholder="$i18n('item-form-id-input-placeholder')"

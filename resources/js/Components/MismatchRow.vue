@@ -183,7 +183,7 @@ function showDialog(e: Event) {
     }
   }
 
-    .wikit-Button.full-description-button {
+ .full-description-button {
       padding: 0px 2px;
       font-weight: 400;
     }

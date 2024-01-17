@@ -34,7 +34,7 @@ defineProps<{ user: User | null}>();
         vertical-align: middle;
     }
 
-&_wrapper {
+    &_wrapper {
         a {
             white-space: nowrap;
             &:visited {

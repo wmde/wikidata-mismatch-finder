@@ -1,67 +1,65 @@
 <template>
-    <div class="website">
-        <main class="content-wrap" ref="contentWrap">
-            <header ref="header">
-                <InertiaLink class="logo-link" href="/">
-                    <div class="mismatch-finder-logo" />
-                    <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
-                </InertiaLink>
-                <div class="userSection" ref="userSection">
-                    <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
-                        <LanguageSelectorButton :aria-label="$i18n('toggle-language-selector-button')"
-                            @click="onToggleLanguageSelector">
-                            <cdx-icon :icon="cdxIconLanguage" />
-                            {{ currentLanguageAutonym }}
-                        </LanguageSelectorButton>
-                        <LanguageSelector v-show="showLanguageSelector" ref="languageSelector"
-                            @close="onCloseLanguageSelector" @select="onChangeLanguage">
-                            <template #no-results>
-                                {{ $i18n('language-selector-no-results') }}
-                            </template>
-                        </LanguageSelector>
-                    </div>
-                    <auth-widget :user="user" />
+    <main class="content-wrap" ref="contentWrap">
+        <header ref="header">
+            <InertiaLink class="logo-link" href="/">
+                <div class="mismatch-finder-logo" />
+                <h1 class="visually-hidden">{{ $i18n('mismatch-finder-title') }}</h1>
+            </InertiaLink>
+            <div class="userSection" ref="userSection">
+                <div v-detect-click-outside="onClickOutsideLanguageSelector" class="languageSelector">
+                    <LanguageSelectorButton :aria-label="$i18n('toggle-language-selector-button')"
+                        @click="onToggleLanguageSelector">
+                        <cdx-icon :icon="cdxIconLanguage" />
+                        {{ currentLanguageAutonym }}
+                    </LanguageSelectorButton>
+                    <LanguageSelector v-show="showLanguageSelector" ref="languageSelector"
+                        @close="onCloseLanguageSelector" @select="onChangeLanguage">
+                        <template #no-results>
+                            {{ $i18n('language-selector-no-results') }}
+                        </template>
+                    </LanguageSelector>
                 </div>
-            </header>
-            <slot />
-        </main>
-        <wikidata-tool-footer
-            content-class="content-wrap"
-            :labels="{
-                tool: $i18n('mismatch-finder-title'),
-                license: $i18n('mismatch-finder-license'),
-            }"
-            :urls="{
-                license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/license/bsd-3-clause/LICENSE',
-                source: 'https://github.com/wmde/wikidata-mismatch-finder',
-                issues: 'https://phabricator.wikimedia.org/project/board/5385/'
-            }"
-        >
-            <section>
-                <h2 class="h5 footer-title">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
-                <p>
-                    <a href="https://query.wikidata.org/querybuilder/">
-                        {{ $i18n('tool-query-builder') }}
-                    </a>
-                </p>
-                <p>
-                    <a href="https://item-quality-evaluator.toolforge.org/">
-                        {{ $i18n('tool-item-quality-evaluator') }}
-                    </a>
-                </p>
-                <p>
-                    <a href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
-                        {{ $i18n('tool-curious-facts') }}
-                    </a>
-                </p>
-                <p>
-                    <a href="https://github.com/wmde/wikidata-constraints-violation-checker">
-                        {{ $i18n('tool-constraints-violation-checker') }}
-                    </a>
-                </p>
-            </section>
-        </wikidata-tool-footer>
-    </div>
+                <auth-widget :user="user" />
+            </div>
+        </header>
+        <slot />
+    </main>
+    <wikidata-tool-footer
+        content-class="content-wrap"
+        :labels="{
+            tool: $i18n('mismatch-finder-title'),
+            license: $i18n('mismatch-finder-license'),
+        }"
+        :urls="{
+            license: 'https://github.com/wmde/wikidata-mismatch-finder/blob/license/bsd-3-clause/LICENSE',
+            source: 'https://github.com/wmde/wikidata-mismatch-finder',
+            issues: 'https://phabricator.wikimedia.org/project/board/5385/'
+        }"
+    >
+        <section>
+            <h2 class="h5">{{ $i18n('mismatch-finder-footer-more-tools') }}</h2>
+            <p>
+                <a href="https://query.wikidata.org/querybuilder/">
+                    {{ $i18n('tool-query-builder') }}
+                </a>
+            </p>
+            <p>
+                <a href="https://item-quality-evaluator.toolforge.org/">
+                    {{ $i18n('tool-item-quality-evaluator') }}
+                </a>
+            </p>
+            <p>
+                <a href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
+                    {{ $i18n('tool-curious-facts') }}
+                </a>
+            </p>
+            <p>
+                <a href="https://github.com/wmde/wikidata-constraints-violation-checker">
+                    {{ $i18n('tool-constraints-violation-checker') }}
+                </a>
+            </p>
+        </section>
+    </wikidata-tool-footer>
 </template>
 
 <script setup lang="ts">
@@ -171,7 +169,7 @@ onBeforeUnmount(() => {
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '../../sass/_typography.scss';
 
-.website {
+#app {
     box-sizing: border-box;
     min-height: 100%;
     display: flex;
@@ -219,6 +217,7 @@ onBeforeUnmount(() => {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
+            align-items: center;
         }
 
         .languageSelector {

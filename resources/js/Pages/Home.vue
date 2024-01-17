@@ -154,7 +154,6 @@ function showRandom(): void{
 </script>
 
 <style lang="scss">
-
 @import '../../sass/_typography.scss';
 @import '../../css/custom-variables.css';
 
@@ -202,22 +201,6 @@ function showRandom(): void{
 
     .form-buttons {
         text-align: end;
-    }
-
-    .cdx-field__control {
-        position: relative;
-        width: 100%;
-
-        .progress-bar-wrapper {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-
-            .cdx-progress-bar {
-                width: 50%;
-                margin: auto;
-            }
-        }
     }
 }
 </style>

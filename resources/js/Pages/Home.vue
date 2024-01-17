@@ -154,8 +154,12 @@ function showRandom(): void{
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '../../sass/_typography.scss';
 @import '../../css/custom-variables.css';
+
+#about-description {
+    @include body-M
+}
 
 #querying-section .heading {
     display: flex;
@@ -172,14 +176,14 @@ function showRandom(): void{
     /**
     * Colors
     */
-    background-color: $background-color-neutral-default;
+    background-color: $background-color-interactive-subtle;
 
     /**
     * Border
     */
     border-style: $border-style-base;
-    border-width: $border-width-thin;
-    border-color: $border-color-base-subtle;
+    border-width: $border-width-base;
+    border-color: $border-color-subtle;
     border-radius: $border-radius-base;
 
     /**

@@ -1,3 +1,17 @@
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+
+@mixin link {
+    color: $font-color-progressive;
+    text-decoration: none;
+
+    &:focus-visible { // for chrome
+        outline: dotted;
+        outline-width: 1px;
+        outline-color: gray;
+    }
+
+}
+
 @mixin body-M {
     font-family: $font-family-system-sans;
     font-size: $font-size-medium;
@@ -11,7 +25,6 @@
     font-size: $font-size-small;
     font-weight: $font-weight-normal;
     line-height: $line-height-medium;
-    color: $color-base;
 }
 
 @mixin ui-text-M ($font-weight: $font-weight-normal){

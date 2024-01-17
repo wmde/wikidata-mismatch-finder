@@ -42,7 +42,6 @@ section {
 
 h1, .h1 {
     @include heading-1;
-
     margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {

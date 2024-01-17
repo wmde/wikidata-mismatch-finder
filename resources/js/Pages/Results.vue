@@ -339,7 +339,6 @@ function _handleConfirmation(){
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import '../../css/custom-variables.css';
 
 .back-button {

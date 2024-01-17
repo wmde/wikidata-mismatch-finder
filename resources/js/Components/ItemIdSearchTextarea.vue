@@ -13,6 +13,9 @@
           :status="validationError ? validationError.type : 'default'"
           v-model="textareaInputValue"
       />
+      <template #label>
+			{{$i18n('item-form-id-input-label')}}
+		</template>
   </cdx-field>
 </template>
 
@@ -92,6 +95,7 @@ defineExpose({validate, serializeInput, validationError});
 </script>
 
 <style lang="scss">
+@import '~@wmde/wikit-tokens/dist/_variables.scss';
 
 .cdx-field__control {
     position: relative;
@@ -105,6 +109,10 @@ defineExpose({validate, serializeInput, validationError});
         .cdx-progress-bar {
             width: 50%;
             margin: auto;
+
+            @media (max-width: $width-breakpoint-tablet) {
+                width: 80%;
+            }
         }
     }
 }

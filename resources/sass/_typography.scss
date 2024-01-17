@@ -1,4 +1,3 @@
-
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
 @mixin link {
@@ -10,11 +9,6 @@
         outline-width: 1px;
         outline-color: gray;
     }
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
 
 @mixin body-M {
     font-family: $font-family-system-sans;
@@ -29,6 +23,12 @@
     font-size: $font-size-small;
     font-weight: $font-weight-normal;
     line-height: $line-height-medium;
+
+@mixin ui-text-M ($font-weight: $font-weight-normal){
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight;
+    line-height: $line-height-xx-small;
     color: $color-base;
 }
 

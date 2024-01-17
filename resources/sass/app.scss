@@ -17,13 +17,6 @@ body {
     height: 100%;
 }
 
-// TODO: This is a temporary fix until issue https://phabricator.wikimedia.org/T326900
-// is marked as resolved.
-.cdx-button .cdx-icon, .cdx-button {
-    @include ui-text-M;
-    font-weight: bold;
-}
-
 /**
 * Layout
 */
@@ -349,6 +342,12 @@ dl.import-meta .download-csv {
     @media (max-width: $max-width-breakpoint-mobile) {
        justify-content: flex-start;
     }
+}
+
+// TODO: This is a temporary fix until issue https://phabricator.wikimedia.org/T326900
+// is marked as resolved.
+.cdx-button {
+    @include ui-text-M($font-weight-bold);
 }
 
 .svg {

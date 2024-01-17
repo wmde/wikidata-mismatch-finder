@@ -10,6 +10,8 @@
         outline-color: gray;
     }
 
+}
+
 @mixin body-M {
     font-family: $font-family-system-sans;
     font-size: $font-size-medium;
@@ -23,6 +25,7 @@
     font-size: $font-size-small;
     font-weight: $font-weight-normal;
     line-height: $line-height-medium;
+}
 
 @mixin ui-text-M ($font-weight: $font-weight-normal){
     font-family: $font-family-system-sans;

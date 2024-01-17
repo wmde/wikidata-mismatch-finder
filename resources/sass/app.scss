@@ -54,7 +54,7 @@ h4, .h4 {
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
-        margin: var(--dimension-layout-xsmall) 0;     
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
@@ -419,4 +419,3 @@ dl.import-meta .download-csv {
 		max-width: 256px;
 	}
 }
-

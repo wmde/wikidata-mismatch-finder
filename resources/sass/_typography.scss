@@ -9,7 +9,6 @@
         outline-width: 1px;
         outline-color: gray;
     }
-
 }
 
 @mixin body-M {
@@ -35,7 +34,7 @@
     line-height: $line-height-xx-small;
    color: $color-base;
 }
- 
+
 @mixin heading-1 {
     font-family: $font-family-serif;
     font-size: $font-size-xxx-large;

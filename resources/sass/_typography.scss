@@ -9,7 +9,6 @@
         outline-width: 1px;
         outline-color: gray;
     }
-
 }
 
 @mixin body-M {
@@ -25,6 +24,7 @@
     font-size: $font-size-small;
     font-weight: $font-weight-normal;
     line-height: $line-height-medium;
+    color: $color-base;
 }
 
 @mixin ui-text-M ($font-weight: $font-weight-normal){

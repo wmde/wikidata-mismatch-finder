@@ -175,7 +175,7 @@ function showDialog(e: Event) {
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
   a {
     break-line-link {
@@ -183,11 +183,11 @@ function showDialog(e: Event) {
     }
   }
 
-    .wikit-Button.full-description-button {
+ .full-description-button {
       padding: 0px 2px;
       font-weight: 400;
     }
     .empty-value {
-      color: $font-color-disabled;
+      color: $color-disabled;
     }
 </style>

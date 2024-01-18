@@ -20,13 +20,11 @@ defineProps<{ user: User | null}>();
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
 @import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
 @import '../../css/custom-variables.css';
 
 .auth-widget {
     display: flex;
-    color: $color-base-50;
     justify-content: space-between;
     gap: var(--dimension-spacing-xlarge);
     align-items: center;

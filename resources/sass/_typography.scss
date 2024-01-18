@@ -24,7 +24,7 @@
     font-size: $font-size-small;
     font-weight: $font-weight-normal;
     line-height: $line-height-medium;
-   color: $color-base;
+    color: $color-base;
 }
 
 @mixin ui-text-M ($font-weight: $font-weight-normal){
@@ -32,7 +32,7 @@
     font-size: $font-size-medium;
     font-weight: $font-weight;
     line-height: $line-height-xx-small;
-   color: $color-base;
+    color: $color-base;
 }
 
 @mixin heading-1 {

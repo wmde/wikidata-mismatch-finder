@@ -348,6 +348,13 @@ dl.import-meta .download-csv {
 // is marked as resolved.
 .cdx-button {
     @include ui-text-M($font-weight-bold);
+
+    padding-top: 4px;
+
+    .text-with-icon-button {
+        vertical-align: text-top;
+        padding-left: 5px;
+    }
 }
 
 .svg {

@@ -5,14 +5,14 @@
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '../css/custom-variables.css';
 @import './link';
-@import './_typography';
+@import './typography';
 
 html {
     height: 100%;
 }
 
 body {
-    @include body-M;
+    @include body-m;
 
     height: 100%;
 }
@@ -77,12 +77,12 @@ p, ul, ol {
     margin-block-end: 1rem;
 }
 
-li + li {
-    margin-block-start: 1rem;
-}
-
 li {
     margin-inline-start: 1rem;
+}
+
+li + li {
+    margin-block-start: 1rem;
 }
 
 #error-section,
@@ -185,7 +185,7 @@ nav.tabs {
                 color: $color-progressive;
             }
 
-            &.selected:active, &:active {
+            &:active, &.selected:active {
                 a {
                     border-color: white white $color-progressive--active white;
                     color: $color-progressive--active;
@@ -241,7 +241,7 @@ dl.import-meta .download-csv {
 }
 
 .button {
-    @include ui-text-M($font-weight-bold);
+    @include ui-text-m($font-weight-bold);
 
     padding: $spacing-30 $spacing-75;
     display: inline-block;
@@ -396,6 +396,7 @@ dl.import-meta .download-csv {
 
 /* Styles that differ in the tabs */
 // escaping the dot of the name of the class
+/* stylelint-disable-next-line selector-class-pattern */
 .store\.api-settings {
     nav.tabs {
         padding-bottom: 24px;
@@ -406,6 +407,7 @@ dl.import-meta .download-csv {
     }
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .store\.import-status {
     nav.tabs {
         padding-bottom: 16px;

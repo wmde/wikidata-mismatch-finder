@@ -254,6 +254,7 @@ dl.import-meta .download-csv {
         background-color: $background-color-interactive-subtle;
         border-color: $border-color-progressive--focus;
         box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus;
+        outline: $outline-base--focus;
     }
 
     &:hover {

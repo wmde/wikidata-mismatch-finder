@@ -4,7 +4,7 @@
         <inertia-head title="Mismatch Finder - Results" />
         <cdx-button class="back-button" @click="() => $inertia.get('/', {})">
             <cdx-icon :icon="cdxIconArrowPrevious" />
-            {{ $i18n('results-back-button') }}
+            <span class="text-with-icon-button">{{ $i18n('results-back-button') }}</span>
         </cdx-button>
         <section id="description-section">
             <header class="description-header">
@@ -16,7 +16,7 @@
                     @click="instructionsDialog = true"
                 >
                     <cdx-icon :icon="cdxIconInfo" />
-                    {{$i18n('results-instructions-button')}}
+                    <span class="text-with-icon-button">{{$i18n('results-instructions-button')}}</span>
                 </cdx-button>
             </header>
 

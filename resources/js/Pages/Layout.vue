@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
-@import '../../sass/_typography.scss';
+@import '../../sass/_typography';
 
 #app {
     box-sizing: border-box;
@@ -215,7 +215,7 @@ onBeforeUnmount(() => {
         }
     }
 
-    .visually-hidden:not(:focus):not(:active) {
+    .visually-hidden:not(:focus, :active) {
         clip: rect(0 0 0 0);
         clip-path: inset(100%);
         height: 1px;
@@ -249,8 +249,7 @@ onBeforeUnmount(() => {
 
     @media (min-width: $min-width-breakpoint-tablet) {
         main>header {
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-flow: row wrap;
 
             .languageSelector {
                 >button {
@@ -262,6 +261,7 @@ onBeforeUnmount(() => {
 
     .footer-title {
         @include body-S;
+
         font-weight: $font-weight-bold;
     }
 }

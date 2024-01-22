@@ -98,7 +98,7 @@ defineExpose({validate, serializeInput, validationError});
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import '~@wmde/wikit-tokens/dist/_variables';
 
 .cdx-field__control {
     position: relative;

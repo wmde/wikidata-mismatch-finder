@@ -79,7 +79,7 @@ defineExpose({focus});
 	font-weight: 400;
 	box-sizing: border-box;
 	flex-grow: 1;
-	border-color: #3366cc;
+	border-color: #36c;
 	height: 20px;
 
 	&:focus {
@@ -91,18 +91,17 @@ defineExpose({focus});
 	}
 
 	&__wrapper {
-		background-color: #ffffff;
-		border-color: #a2a9b1;
+		background-color: #fff;
 		border-style: solid;
 		border-width: 1px;
-		border-radius: 2px 2px 0px 0px;
+		border-radius: 2px 2px 0 0;
 		padding-inline: 16px;
 		padding-block: 16px;
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		box-shadow: 0 1px 2px #00000040, inset 0 0 0 1px #36c;
-		border-color: #3366cc;
+		border-color: #36c;
 		align-items: center;
 	}
 
@@ -118,7 +117,6 @@ defineExpose({focus});
 	}
 
 	&__clear-button {
-
 		visibility: hidden;
 		display: flex;
 

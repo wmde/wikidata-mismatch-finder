@@ -57,7 +57,6 @@ defineExpose({show, hide});
 $base: '.loading-indicator';
 
 #{$base} {
-
     .overlay {
         /**
         * Layout
@@ -72,11 +71,13 @@ $base: '.loading-indicator';
         min-height: $size-full;
         width: $size-viewport-width-full;
         height: $size-viewport-height-full;
+
         // Support Safari/iOS: Make `100vh` work with Safari's address bar.
         // See https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
         /* stylelint-disable-next-line plugin/no-unsupported-browser-features,
             scale-unlimited/declaration-strict-value */
-        height: -webkit-fill-available;
+        height: fill-available;
+
         /**
         * Colors
         */

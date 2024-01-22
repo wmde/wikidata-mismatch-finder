@@ -1,12 +1,11 @@
-@import url('https://tools-static.wmflabs.org/fontcdn/css2?family=Lato&family=Source+Serif+Pro&display=swap');
-
+@import 'https://tools-static.wmflabs.org/fontcdn/css2?family=Lato&family=Source+Serif+Pro&display=swap';
 @import '~ress';
 @import '~wikit-dist/wikit-vue-components-vue3compat.css';
 @import "@wikimedia/codex/dist/codex.style.css";
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '../css/custom-variables.css';
-@import './link.scss';
-@import './_typography.scss';
+@import './link';
+@import './_typography';
 
 html {
     height: 100%;
@@ -14,6 +13,7 @@ html {
 
 body {
     @include body-M;
+
     height: 100%;
 }
 
@@ -51,6 +51,7 @@ h1, .h1 {
 
 h4, .h4 {
     margin: var(--dimension-layout-xxsmall) 0;
+
     @include heading-4;
 
     @media(min-width: $min-width-breakpoint-tablet){
@@ -60,6 +61,7 @@ h4, .h4 {
 
 h5, .h5 {
     margin: var(--dimension-layout-xxsmall) 0;
+
     @include heading-5;
 
     @media(min-width: $min-width-breakpoint-tablet){
@@ -165,6 +167,7 @@ nav.tabs {
                 &:focus {
                     outline: 0;
                 }
+
                 &:hover {
                     text-decoration: none;
                     border-bottom-color: $color-progressive--hover;
@@ -193,7 +196,7 @@ nav.tabs {
 }
 
 dl.import-meta {
-    margin: 0 0 24px 0;
+    margin: 0 0 24px;
     border-radius: 2px;
     padding: 16px;
 }
@@ -204,13 +207,13 @@ dl.import-meta-pending {
 }
 
 dl.import-meta-failed {
-    border: 1px solid #dd3333;
+    border: 1px solid #d33;
     background-color: #fee7e6;
 }
 
 dl.import-meta-completed {
     border: 1px solid #c8ccd1;
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 dl.import-meta dt {
@@ -228,6 +231,7 @@ dl.import-meta dd:not(:last-child) {
 
 dl.import-meta .download-csv {
     float: right;
+
     @media(max-width: $max-width-breakpoint-mobile){
         float: none;
         padding-block-end: 0;
@@ -238,6 +242,7 @@ dl.import-meta .download-csv {
 
 .button {
     @include ui-text-M($font-weight-bold);
+
     padding: $spacing-30 $spacing-75;
     display: inline-block;
     border-width: $border-width-base;
@@ -285,10 +290,12 @@ dl.import-meta .download-csv {
             border-color: $border-color-progressive--focus;
             background-color: $background-color-progressive;
         }
+
         &:hover {
             background-color: $background-color-progressive--hover;
             border-color: $border-color-progressive--hover;
         }
+
         &:active {
             background-color: $background-color-progressive--active;
             border-color: $border-color-progressive--active;
@@ -310,16 +317,19 @@ dl.import-meta .download-csv {
             border-color: $border-color-destructive--focus;
             background-color: $background-color-destructive;
         }
+
         &:hover {
             background-color: $color-destructive--hover;
             border-color: $color-destructive--hover;
         }
+
         &:active {
             background-color: $background-color-destructive--active;
             border-color: $border-color-destructive--active;
             box-shadow: none;
         }
     }
+
     &:not(:last-child) {
         margin-right: 8px;
     }
@@ -335,6 +345,7 @@ dl.import-meta .download-csv {
 
     &.right {
         justify-content: flex-end;
+
         @media (max-width: $max-width-breakpoint-mobile) {
             justify-content: flex-start;
          }
@@ -363,6 +374,7 @@ dl.import-meta .download-csv {
     &-white-fill {
         filter: invert(1);
     }
+
     &-black-fill {
         filter: invert(0);
     }
@@ -388,6 +400,7 @@ dl.import-meta .download-csv {
     nav.tabs {
         padding-bottom: 24px;
     }
+
     .button-group {
         margin-top: 16px;
     }
@@ -414,6 +427,7 @@ dl.import-meta .download-csv {
 	header {
 		color: $color-emphasized;
 	}
+
 	&__body {
 		line-height: $line-height-medium;
 	}
@@ -421,6 +435,7 @@ dl.import-meta .download-csv {
 
 .cdx-select-vue {
 	width: 100%;
+
 	&__handle {
 		min-width: unset;
 		max-width: 256px;

@@ -1,4 +1,4 @@
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 
 @mixin cdx-mixin-link-base(){
 	color: $color-progressive;
@@ -72,15 +72,15 @@
 }
 
 @mixin cdx-mixin-link(){
-	@include cdx-mixin-link-base();
+	@include cdx-mixin-link-base;
 
 	// stylelint-disable-next-line selector-class-pattern
 	&.is-underlined {
-		@include cdx-mixin-link-underlined();
+		@include cdx-mixin-link-underlined;
 	}
 
 	// stylelint-disable-next-line selector-class-pattern
 	&.is-red-link {
-		@include cdx-mixin-link-red();
+		@include cdx-mixin-link-red;
 	}
 }

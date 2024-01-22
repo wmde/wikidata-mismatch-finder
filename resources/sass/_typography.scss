@@ -27,7 +27,7 @@
     color: $color-base;
 }
 
-@mixin ui-text-M ($font-weight: $font-weight-normal){
+@mixin ui-text-M($font-weight: $font-weight-normal){
     font-family: $font-family-system-sans;
     font-size: $font-size-medium;
     font-weight: $font-weight;

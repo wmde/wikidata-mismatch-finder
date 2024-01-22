@@ -42,6 +42,7 @@ section {
 
 h1, .h1 {
     @include heading-1;
+    
     margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
@@ -359,11 +360,12 @@ dl.import-meta .download-csv {
 // TODO: This is a temporary fix until issue https://phabricator.wikimedia.org/T326900
 // is marked as resolved.
 .cdx-button {
-    @include ui-text-M($font-weight-bold);
+    @include ui-text-m($font-weight-bold);
 
     .text-with-icon-button {
         vertical-align: text-top;
         padding-left: 5px;
+
     .cdx-icon {
         vertical-align: text-top;
     }

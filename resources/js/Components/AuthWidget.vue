@@ -39,6 +39,9 @@ defineProps<{ user: User | null}>();
             white-space: nowrap;
             &:visited {
                 color: $color-progressive;
+                &:hover {
+                    color: $color-progressive--hover;
+                }
             }
         }
     }

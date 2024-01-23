@@ -9,20 +9,20 @@ main {
     font-family: $font-family-system-sans;
     font-weight: $font-weight-normal;
     color: $color-base;
-    padding: 10vw var(----dimension-layout-small) var(----dimension-layout-small) var(----dimension-layout-small);
+    padding: 10vw var(--dimension-layout-small) var(--dimension-layout-small) var(--dimension-layout-small);
     max-width: 680px;
 
     @media (min-width: $min-width-breakpoint-tablet) {
         padding: 10vw var(--dimension-layout-medium) var(--dimension-layout-medium) var(--dimension-layout-medium);
     }
     @media (min-width: $min-width-breakpoint-desktop) {
-        padding: 9rem 0 var(----dimension-layout-small) 0;
+        padding: 9rem 0 var(--dimension-layout-small) 0;
     }
     p {
         margin-block-end: 0;
     }
     .h5 {
-        margin: var(----dimension-layout-small) 0;
+        margin: var(--dimension-layout-small) 0;
         font-size: $font-size-medium;
         line-height: $line-height-xxx-small;
         font-family: $font-family-system-sans;
@@ -32,11 +32,11 @@ main {
     .message-wrapper {
         padding: var(--dimension-layout-xxsmall) 0;
         @media (min-width: $min-width-breakpoint-tablet) {
-            padding: var(----dimension-layout-xsmall) 0;
+            padding: var(--dimension-layout-xsmall) 0;
         }
     }
     .description {
-        padding-block-end: var(----dimension-layout-small);
+        padding-block-end: var(--dimension-layout-small);
     }
     header {
         .logo-link {

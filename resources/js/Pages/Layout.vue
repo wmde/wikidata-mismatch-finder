@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
     }
 
     .footer-title {
-        @include body-S;
+        @include body-s;
 
         font-weight: $font-weight-bold;
     }

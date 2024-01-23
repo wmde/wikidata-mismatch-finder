@@ -89,7 +89,7 @@ watch(() => props.highlightedIndex,
 @import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 
 $base: '.languageSelector__options-menu';
-$tinyViewportWidth: 38em;
+$tiny-viewport-width: 38em;
 
 #{$base} {
 	background-color: #fff;
@@ -103,7 +103,7 @@ $tinyViewportWidth: 38em;
 	height: 15.25rem;
 	overflow-y: scroll;
 
-	@media (max-width: $tinyViewportWidth) {
+	@media (max-width: $tiny-viewport-width) {
 		flex-grow: 1;
 	}
 

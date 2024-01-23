@@ -177,7 +177,7 @@ function showRandom(): void{
 </script>
 
 <style lang="scss">
-@import '../../sass/_typography';
+@import '../../sass/typography';
 @import '../../css/custom-variables.css';
 
 #about-description {

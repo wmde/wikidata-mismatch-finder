@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
-@import '../../sass/_typography';
+@import '../../sass/typography';
 
 #app {
     box-sizing: border-box;

@@ -21,7 +21,6 @@ body {
 * Layout
 */
 main {
-    max-width: 1090px;
     padding: 0 var(--dimension-layout-xsmall);
     margin: 0 auto;
 
@@ -31,8 +30,16 @@ main {
         margin: var(--dimension-layout-small) 0;
     }
 
+    @media(min-width: $min-width-breakpoint-mobile){
+        padding: 0 var(--dimension-layout-xsmall);
+    }
+
     @media(min-width: $min-width-breakpoint-tablet){
         padding: 0 var(--dimension-layout-small);
+    }
+
+    @media (min-width: $min-width-breakpoint-desktop) {
+        padding: 0 var(--dimension-layout-medium);    
     }
 }
 
@@ -89,7 +96,7 @@ li + li {
 #error-section,
 #message-section,
 #description-section {
-    max-width: 705px;
+    max-width: 676px;
 }
 
 #description-section {

@@ -98,7 +98,8 @@ defineExpose({validate, serializeInput, validationError});
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+/* stylelint-disable-next-line scss/load-no-partial-leading-underscore */
+@import '~@wmde/wikit-tokens/dist/_variables';
 
 .cdx-field__control {
     position: relative;

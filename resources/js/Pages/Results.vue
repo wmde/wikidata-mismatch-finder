@@ -393,6 +393,7 @@ function _handleConfirmation(){
 .back-button {
     // to match the first heading on the home page
     margin-top: var(--dimension-layout-xsmall);
+
     // to avoid visual grouping with .description-section
     margin-bottom: var(--dimension-layout-xsmall);
 }
@@ -408,6 +409,7 @@ h2 {
     a {
         display: inline-block;
     }
+
     &::after {
         content: ", ";
     }
@@ -416,6 +418,7 @@ h2 {
         content: "";
     }
 }
+
 #results-confirmation-dialog {
 	footer {
 		display: flex;
@@ -423,6 +426,7 @@ h2 {
 		justify-content: space-between;
 	}
 }
+
 .mismatches-form-footer {
     margin-top: var(--dimension-layout-xsmall);
     display: flex;
@@ -430,9 +434,10 @@ h2 {
     justify-content: space-between;
     align-items: flex-start;
     gap: var(--dimension-layout-xsmall);
+
     // calculate the footer height to reserve space for
     // messages with two lines (1.5 line height plus padding)
-    min-height: calc(2*var(--dimension-spacing-xlarge) + 2*var(--dimension-spacing-large));
+    min-height: calc(2 * var(--dimension-spacing-xlarge) + 2 * var(--dimension-spacing-large));
 
     .form-success-message {
         max-width: 705px;

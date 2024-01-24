@@ -28,7 +28,7 @@ defineProps<{ user: User | null}>();
 </script>
 
 <style lang="scss">
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 @import '../../css/custom-variables.css';
 
 .auth-widget {
@@ -45,8 +45,10 @@ defineProps<{ user: User | null}>();
     &_wrapper {
         a {
             white-space: nowrap;
+
             &:visited {
                 color: $color-progressive;
+
                 &:hover {
                     color: $color-progressive--hover;
                 }

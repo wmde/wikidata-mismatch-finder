@@ -177,11 +177,12 @@ function showRandom(): void{
 </script>
 
 <style lang="scss">
-@import '../../sass/_typography.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../../sass/typography';
 @import '../../css/custom-variables.css';
 
 #about-description {
-    @include body-M
+    @include body-m;
 }
 
 #querying-section .heading {

@@ -109,7 +109,7 @@ defineExpose({focus})
 </script>
 
 <style lang="scss">
-$tinyViewportWidth: 38em;
+$tiny-viewport-width: 38em;
 
 .mismatchfinder__language-selector {
 	position: absolute;
@@ -117,7 +117,7 @@ $tinyViewportWidth: 38em;
 	width: 384px;
 	z-index: 1;
 
-	@media (max-width: $tinyViewportWidth) {
+	@media (max-width: $tiny-viewport-width) {
 		width: 100%;
 		position: fixed;
 		top: 0;
@@ -140,7 +140,7 @@ $tinyViewportWidth: 38em;
 			font-weight: bold;
 		}
 
-		@media (max-width: $tinyViewportWidth) {
+		@media (max-width: $tiny-viewport-width) {
 			display: flex;
 		}
 	}

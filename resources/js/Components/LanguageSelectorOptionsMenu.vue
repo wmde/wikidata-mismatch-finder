@@ -86,14 +86,14 @@ watch(() => props.highlightedIndex,
 </script>
 
 <style lang="scss">
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 
 $base: '.languageSelector__options-menu';
-$tinyViewportWidth: 38em;
+$tiny-viewport-width: 38em;
 
 #{$base} {
-	background-color: #ffffff;
-	border-radius: 0px 0px 1px 1px;
+	background-color: #fff;
+	border-radius: 0 0 1px 1px;
 	border: 1px solid #a2a9b1;
 	box-shadow: $box-shadow-drop-medium;
 	box-sizing: border-box;
@@ -103,12 +103,11 @@ $tinyViewportWidth: 38em;
 	height: 15.25rem;
 	overflow-y: scroll;
 
-	@media (max-width: $tinyViewportWidth) {
+	@media (max-width: $tiny-viewport-width) {
 		flex-grow: 1;
 	}
 
 	&__languages-list {
-
 		&__item {
 			position: relative;
 			padding-block: 8px;

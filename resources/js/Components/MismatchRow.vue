@@ -200,9 +200,10 @@ function showDialog(e: Event) {
   }
 
  .full-description-button {
-      padding: 0px 2px;
+      padding: 0 2px;
       font-weight: 400;
     }
+
     .empty-value {
       color: $color-disabled;
     }

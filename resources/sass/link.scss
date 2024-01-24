@@ -1,17 +1,9 @@
-@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui.scss';
+@import '~@wikimedia/codex-design-tokens/theme-wikimedia-ui';
 
 @mixin cdx-mixin-link-base(){
 	color: $color-progressive;
 	border-radius: $border-radius-base;
 	text-decoration: $text-decoration-none;
-
-	&:visited {
-		color: $color-visited;
-
-		&:hover {
-			color: $color-visited;
-		}
-	}
 
 	&:hover {
 		color: $color-progressive--hover;
@@ -25,6 +17,14 @@
 
 	&:focus {
 		outline: $border-style-base $border-width-thick $outline-color-progressive--focus;
+	}
+
+	&:visited {
+		color: $color-visited;
+
+		&:hover {
+			color: $color-visited;
+		}
 	}
 
 	.cdx-icon:last-child {
@@ -48,14 +48,6 @@
 @mixin cdx-mixin-link-red(){
 	color: $color-link-red;
 
-	&:visited {
-		color: $color-link-red--visited;
-
-		&:hover {
-			color: $color-link-red--visited;
-		}
-	}
-
 	&:hover {
 		color: $color-link-red--hover;
 		text-decoration: $text-decoration-underline;
@@ -69,18 +61,26 @@
 	&:focus {
 		outline-color: $outline-color-progressive--focus;
 	}
+
+	&:visited {
+		color: $color-link-red--visited;
+
+		&:hover {
+			color: $color-link-red--visited;
+		}
+	}
 }
 
 @mixin cdx-mixin-link(){
-	@include cdx-mixin-link-base();
+	@include cdx-mixin-link-base;
 
 	// stylelint-disable-next-line selector-class-pattern
 	&.is-underlined {
-		@include cdx-mixin-link-underlined();
+		@include cdx-mixin-link-underlined;
 	}
 
 	// stylelint-disable-next-line selector-class-pattern
 	&.is-red-link {
-		@include cdx-mixin-link-red();
+		@include cdx-mixin-link-red;
 	}
 }

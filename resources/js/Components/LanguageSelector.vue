@@ -1,34 +1,37 @@
 <template>
-	<div class="mismatchfinder__language-selector">
-		<div class="languageSelector__mobile-header">
-			<span>{{ $i18n('language-selector-mobile-header') }}</span>
-			<button @click="onCloseMenu">
-				<img :src="closeUrl" :alt="$i18n( 'language-selector-close-button-label' )">
-			</button>
-		</div>
-		<LanguageSelectorInput
-			ref="input"
-			:value="searchInput"
-			:placeholder="$i18n( 'language-selector-input-placeholder' )"
-			@input="onInput"
-			@clear="onClearInputValue"
-			@tab="onCloseMenu"
-			@arrowDown="onArrowDown"
-			@arrowUp="onArrowUp"
-			@enter="onEnter"
-			@escape="onCloseMenu"
-		/>
-		<LanguageSelectorOptionsMenu
-			tabindex="-1"
-			:languages="shownLanguages"
-			:highlighted-index="highlightedIndex"
-			@select="onSelect"
-		>
-			<template #no-results>
-				<slot name="no-results"/>
-			</template>
-		</LanguageSelectorOptionsMenu>
-	</div>
+  <div class="mismatchfinder__language-selector">
+    <div class="languageSelector__mobile-header">
+      <span>{{ $i18n('language-selector-mobile-header') }}</span>
+      <button @click="onCloseMenu">
+        <img
+          :src="closeUrl"
+          :alt="$i18n( 'language-selector-close-button-label' )"
+        >
+      </button>
+    </div>
+    <LanguageSelectorInput
+      ref="input"
+      :value="searchInput"
+      :placeholder="$i18n( 'language-selector-input-placeholder' )"
+      @input="onInput"
+      @clear="onClearInputValue"
+      @tab="onCloseMenu"
+      @arrow-down="onArrowDown"
+      @arrow-up="onArrowUp"
+      @enter="onEnter"
+      @escape="onCloseMenu"
+    />
+    <LanguageSelectorOptionsMenu
+      tabindex="-1"
+      :languages="shownLanguages"
+      :highlighted-index="highlightedIndex"
+      @select="onSelect"
+    >
+      <template #no-results>
+        <slot name="no-results" />
+      </template>
+    </LanguageSelectorOptionsMenu>
+  </div>
 </template>
 
 <script setup lang="ts">

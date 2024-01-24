@@ -1,31 +1,37 @@
 <template>
-	<div class="languageSelector__input__wrapper">
-		<div class="languageSelector__input-left-side">
-			<div class="languageSelector__input__search-icon">
-				<img :src="searchUrl" alt="">
-			</div>
-			<input
-				ref="input"
-				type="text"
-				class="languageSelector__input"
-				:value="value"
-				:placeholder="placeholder"
-				@input="onInput"
-				@keydown.tab="$emit('tab')"
-				@keydown.down.prevent="$emit('arrowDown')"
-				@keydown.up.prevent="$emit('arrowUp')"
-				@keydown.enter="$emit('enter')"
-				@keydown.esc.prevent="$emit('escape')"
-			>
-		</div>
-		<button
-			class="languageSelector__input__clear-button"
-			:class="clearBtnVisible ? 'languageSelector__input__clear-button--visible' : ''"
-			@click="onClearInputValue"
-		>
-			<img :src="clearUrl" :alt="$i18n( 'language-selector-clear-button-label' )">
-		</button>
-	</div>
+  <div class="languageSelector__input__wrapper">
+    <div class="languageSelector__input-left-side">
+      <div class="languageSelector__input__search-icon">
+        <img
+          :src="searchUrl"
+          alt=""
+        >
+      </div>
+      <input
+        ref="input"
+        type="text"
+        class="languageSelector__input"
+        :value="value"
+        :placeholder="placeholder"
+        @input="onInput"
+        @keydown.tab="$emit('tab')"
+        @keydown.down.prevent="$emit('arrowDown')"
+        @keydown.up.prevent="$emit('arrowUp')"
+        @keydown.enter="$emit('enter')"
+        @keydown.esc.prevent="$emit('escape')"
+      >
+    </div>
+    <button
+      class="languageSelector__input__clear-button"
+      :class="clearBtnVisible ? 'languageSelector__input__clear-button--visible' : ''"
+      @click="onClearInputValue"
+    >
+      <img
+        :src="clearUrl"
+        :alt="$i18n( 'language-selector-clear-button-label' )"
+      >
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -65,10 +65,10 @@ class ResultsController extends Controller
         $props = array_merge(
             [
                 'user' => $user,
-                'item_ids' => $requestedItemIds,
+                'itemIds' => $requestedItemIds,
                 // Use wikidata to fetch labels for found entity ids
                 'labels' => $wikidata->getLabels($entityIds, $lang),
-                'formatted_values' => $formattedTimeValues,
+                'formattedValues' => $formattedTimeValues,
             ],
             // only add 'results' prop if mismatches have been found
             $mismatches->isNotEmpty() ? [ 'results' => $mismatches->groupBy('item_id') ] : []

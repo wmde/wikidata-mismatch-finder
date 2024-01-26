@@ -98,8 +98,7 @@ defineExpose({validate, serializeInput, validationError});
 </script>
 
 <style lang="scss">
-/* stylelint-disable-next-line scss/load-no-partial-leading-underscore */
-@import '~@wmde/wikit-tokens/dist/_variables';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
 .cdx-field__control {
     position: relative;
@@ -114,7 +113,7 @@ defineExpose({validate, serializeInput, validationError});
             width: 50%;
             margin: auto;
 
-            @media (max-width: $width-breakpoint-tablet) {
+            @media (max-width: $max-width-breakpoint-tablet) {
                 width: 80%;
             }
         }

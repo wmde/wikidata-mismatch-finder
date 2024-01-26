@@ -190,15 +190,16 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 @import '../../sass/typography';
+@import '../../css/custom-variables.css';
 
 #app {
     box-sizing: border-box;
     min-height: 100%;
     display: flex;
     flex-direction: column;
-
+    
     .content-wrap {
-        max-width: 1168px;
+        max-width: 1142px;
         width: 100%;
         flex-grow: 1;
     }

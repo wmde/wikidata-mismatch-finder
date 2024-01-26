@@ -189,6 +189,7 @@ function showRandom(): void{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--dimension-spacing-small);
 
     h2 {
         // the previous section already has enough margin-bottom

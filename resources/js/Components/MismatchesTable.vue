@@ -1,5 +1,5 @@
 <template>
-  <wikit-table>
+  <Table>
     <thead>
       <tr>
         <th class="column-mismatch">
@@ -34,12 +34,11 @@
         :id="`mismatch-${mismatch.id}`"
       />
     </tbody>
-  </wikit-table>
+  </Table>
 </template>
 
 <script setup lang="ts">
-import { Table as WikitTable } from '@wmde/wikit-vue-components';
-
+import Table from './Table.vue';
 import MismatchRow from './MismatchRow.vue';
 
 import type { LabelledMismatch } from '../types/Mismatch';

@@ -48,7 +48,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		return validateBreakpoint( props.linearize ) ? props.linearize : 'tablet';
 	});
 
-	defineExpose(Table);
+	defineExpose({Table});
 
 </script>
 

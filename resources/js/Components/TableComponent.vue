@@ -98,7 +98,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		td[data-header]::before {
 			content: attr(data-header);
 			display: block;
-			font-weight: 700;
+			font-weight: $font-weight-bold;
 			flex-basis: 40%;
 
 			// Ensure headers stay exactly 40%
@@ -107,7 +107,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		}
 
 		th:not([data-header]) {
-			font-weight: 700;
+			font-weight: $font-weight-bold;
 		}
 
 		// Hide empty cells

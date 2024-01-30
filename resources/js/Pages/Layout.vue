@@ -26,7 +26,7 @@
             @click="onToggleLanguageSelector"
           >
             <cdx-icon :icon="cdxIconLanguage" />
-            {{ currentLanguageAutonym }}
+            <span class="text-with-icon-button">{{ currentLanguageAutonym }}</span>
           </LanguageSelectorButton>
           <LanguageSelector
             v-show="showLanguageSelector"

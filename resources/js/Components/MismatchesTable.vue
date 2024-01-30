@@ -1,5 +1,5 @@
 <template>
-  <Table>
+  <TableComponent>
     <thead>
       <tr>
         <th class="column-mismatch">
@@ -34,11 +34,11 @@
         :id="`mismatch-${mismatch.id}`"
       />
     </tbody>
-  </Table>
+  </TableComponent>
 </template>
 
 <script setup lang="ts">
-import Table from './Table.vue';
+import TableComponent from './TableComponent.vue';
 import MismatchRow from './MismatchRow.vue';
 
 import type { LabelledMismatch } from '../types/Mismatch';

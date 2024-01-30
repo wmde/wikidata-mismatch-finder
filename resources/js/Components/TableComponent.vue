@@ -1,6 +1,6 @@
 <template>
   <table
-    ref="Table"
+    ref="TableComponent"
     :class="[
       'wikit',
       'wikit-Table',
@@ -19,7 +19,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
  * Tables display categorical information organized across rows and columns in
  * order to facilitate the comparative analysis of data.
  *
- * The WiKit table component provides a wrapper around the common HTML table
+ * The table component provides a wrapper around the common HTML table
  * elements such as `<thead>`, `<tbody>`, `<tr>`, `<th>` and `<td>`, to apply
  * design system styles to tabular data.
  *
@@ -33,7 +33,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
  * <td data-header="Column Header">Content Here</td>
  * ```
  */
-	const Table = ref('Table');
+	const TableComponent = ref('TableComponent');
 	const props = defineProps({
 		linearize: {
 			type: String as PropType<Breakpoint>,
@@ -48,7 +48,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		return validateBreakpoint( props.linearize ) ? props.linearize : 'tablet';
 	});
 
-	defineExpose({Table});
+	defineExpose({TableComponent});
 
 </script>
 
@@ -137,15 +137,15 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		/**
 		* Colors
 		*/
-		background-color: #fff;
-		color: #202122;
+		background-color: $background-color-base;
+		color: $color-base;
 
 		/**
 		* Typography
 		*/
-		font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Lato,Helvetica,Arial,sans-serif;
-		font-size: 1em;
-		font-weight: 400;
+		font-family: $font-family-system-sans;
+		font-size: $font-size-medium;
+		font-weight: $font-weight-normal;
 
 		tr {
 			/**
@@ -155,7 +155,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 			/**
 			* Borders
 			*/
-			border-bottom:1px #c8ccd1 solid;
+			border-bottom: $border-width-base $border-color-subtle solid;
 			border-radius: 0;
 		}
 

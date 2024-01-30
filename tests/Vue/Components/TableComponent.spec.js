@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils';
-import Table from '@/Components/Table.vue';
+import TableComponent from '@/Components/TableComponent.vue';
 import {Breakpoint} from '@/types/Breakpoint.ts';
 
 describe('Table.vue', () => {
     it('accepts a linearize property', () => {
-        const wrapper = mount(Table, {
+        const wrapper = mount(TableComponent, {
             propsData: {
                 linearize: Breakpoint.Desktop
             }
@@ -15,7 +15,7 @@ describe('Table.vue', () => {
     });
 
     it('ignores invalid breakpoint values', () => {
-        const wrapper = mount(Table, {
+        const wrapper = mount(TableComponent, {
             propsData: { linearize: 'nonsense' }
         });
 

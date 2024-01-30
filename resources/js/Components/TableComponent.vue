@@ -116,7 +116,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		}
 	}
 
-	.Table {
+	.TableComponent {
 		/**
 		* Layout
 		*/

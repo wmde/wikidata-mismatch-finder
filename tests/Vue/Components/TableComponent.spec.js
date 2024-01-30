@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import TableComponent from '@/Components/TableComponent.vue';
 import {Breakpoint} from '@/types/Breakpoint.ts';
 
-describe('Table.vue', () => {
+describe('TableComponent.vue', () => {
     it('accepts a linearize property', () => {
         const wrapper = mount(TableComponent, {
             propsData: {

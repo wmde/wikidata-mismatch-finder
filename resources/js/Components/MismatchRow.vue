@@ -23,7 +23,7 @@
         v-if="mismatch.wikidata_value === ''"
       >
         {{ $i18n('empty-value') }}
-      </span> 
+      </span>
       <a
         v-else
         class="break-line-link"
@@ -108,7 +108,7 @@
       >
         <a
           class="uploader"
-          :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`" 
+          :href="`https://www.wikidata.org/wiki/User:${mismatch.import_meta.user.username}`"
           target="_blank"
         >
           {{ mismatch.import_meta.user.username }}
@@ -126,11 +126,16 @@
 import { formatISO } from 'date-fns';
 import { computed, ref } from 'vue';
 import { CdxButton, CdxDialog, CdxSelect } from "@wikimedia/codex";
-import { MenuItem } from '@wmde/wikit-vue-components/dist/components/MenuItem';
 import { LabelledMismatch, ReviewDecision } from "../types/Mismatch";
 import { useI18n } from 'vue-banana-i18n';
 
 const truncateLength = 100;
+
+type MenuItem = {
+    label: string;
+    description: string;
+    tag?: string;
+}
 
 interface ReviewMenuItem extends MenuItem {
   value: ReviewDecision;
@@ -193,18 +198,22 @@ function showDialog(e: Event) {
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
-  a {
-    break-line-link {
-      width: 100%
-    }
-  }
+a {
+break-line-link {
+    width: 100%
+}
+}
 
- .full-description-button {
-      padding: 0 2px;
-      font-weight: 400;
-    }
+.full-description-button {
+    padding: 0 2px;
+    font-weight: 400;
+}
 
-    .empty-value {
-      color: $color-disabled;
-    }
+.empty-value {
+    color: $color-disabled;
+}
+
+.cdx-menu-item {
+    margin: 0;
+}
 </style>

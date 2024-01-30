@@ -2,9 +2,8 @@
   <table
     ref="TableComponent"
     :class="[
-      'wikit',
-      'wikit-Table',
-      `wikit-Table--linear-${breakpoint}`
+      'table-component',
+      `table-component--linear-${breakpoint}`
     ]"
   >
     <slot />
@@ -116,7 +115,7 @@ import { Breakpoint, validateBreakpoint } from '../types/Breakpoint';
 		}
 	}
 
-	.TableComponent {
+	.table-component {
 		/**
 		* Layout
 		*/

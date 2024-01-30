@@ -11,7 +11,7 @@ describe('TableComponent.vue', () => {
         });
 
         expect( wrapper.props().linearize ).toBe( Breakpoint.Desktop );
-		expect( wrapper.find( 'table' ).classes() ).toContain( 'wikit-Table--linear-desktop' );
+		expect( wrapper.find( 'table' ).classes() ).toContain( 'table-component--linear-desktop' );
     });
 
     it('ignores invalid breakpoint values', () => {
@@ -19,6 +19,6 @@ describe('TableComponent.vue', () => {
             propsData: { linearize: 'nonsense' }
         });
 
-        expect(wrapper.find('table').classes()).toContain('wikit-Table--linear-tablet');
+        expect(wrapper.find('table').classes()).toContain('table-component--linear-tablet');
     });
 })

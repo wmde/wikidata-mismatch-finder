@@ -1,5 +1,5 @@
 <template>
-  <TableComponent>
+  <table-component>
     <thead>
       <tr>
         <th class="column-mismatch">
@@ -34,7 +34,7 @@
         :id="`mismatch-${mismatch.id}`"
       />
     </tbody>
-  </TableComponent>
+  </table-component>
 </template>
 
 <script setup lang="ts">

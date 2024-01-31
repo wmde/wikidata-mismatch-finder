@@ -23,6 +23,7 @@ body {
 main {
     padding: 0 var(--dimension-layout-xsmall);
     margin: 0 auto;
+    max-width: 1090px; // width for the store page
 
     & > header {
         display: flex;

@@ -198,12 +198,6 @@ function showDialog(e: Event) {
 <style lang="scss">
 @import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
 
-a {
-break-line-link {
-    width: 100%
-}
-}
-
 .full-description-button {
     padding: 0 2px;
     font-weight: 400;

@@ -13,7 +13,7 @@
           @click="faqDialog = true"
         >
           <cdx-icon :icon="cdxIconInfo" />
-          {{ $i18n('faq-button') }}
+          <span class="text-with-icon-button">{{ $i18n('faq-button') }}</span>
         </cdx-button>
       </header>
       <cdx-dialog
@@ -94,7 +94,7 @@
           :disabled="loading"
         >
           <cdx-icon :icon="cdxIconDie" />
-          {{ $i18n('random-mismatches') }}
+          <span class="text-with-icon-button">{{ $i18n('random-mismatches') }}</span>
         </cdx-button>
       </div>
       <form

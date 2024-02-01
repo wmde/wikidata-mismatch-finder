@@ -30,6 +30,7 @@
 	"no-mismatches-found-message": "Nie znaleziono niezgodności dla:",
 	"random-mismatches": "Losowe niezgodności",
 	"empty-value": "Brak",
+	"statement": "deklaracja",
 	"no-mismatches-available-for-review": "Obecnie nie ma żadnych niezgodności dostępnych do sprawdzenia.",
 	"review-status-wikidata": "Błędne dane w Wikidanych",
 	"review-status-missing": "Brakujące dane w Wikidanych",

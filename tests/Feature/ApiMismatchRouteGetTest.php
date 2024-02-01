@@ -229,7 +229,7 @@ class ApiMismatchRouteGetTest extends TestCase
             );
     }
 
-    public function test_missing_item_ids_returns_validation_error()
+    public function test_missing_itemIds_returns_validation_error()
     {
         $response = $this->json('GET', self::MISMATCH_ROUTE);  // ids missing
         $response->assertJsonValidationErrors([
@@ -239,7 +239,7 @@ class ApiMismatchRouteGetTest extends TestCase
         ]);
     }
 
-    public function test_too_many_item_ids_returns_validation_error()
+    public function test_too_many_itemIds_returns_validation_error()
     {
         $maxItemIds = config('mismatches.validation.ids.max');
 

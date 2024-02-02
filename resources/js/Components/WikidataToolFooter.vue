@@ -90,7 +90,11 @@ withDefaults(defineProps<{
             margin-block-start: var(--dimension-layout-xxsmall);
         }
 
-        @media (min-width: $width-breakpoint-tablet) {
+        @media(min-width: $min-width-breakpoint-mobile) {
+            padding: var(--dimension-layout-xsmall);
+        }
+
+        @media (min-width: $min-width-breakpoint-tablet) {
             flex-direction: row;
             padding: var(--dimension-layout-small);
 
@@ -98,9 +102,13 @@ withDefaults(defineProps<{
                 margin-inline-end: var(--dimension-layout-large);
             }
 
-            section + section {
+            section+section {
                 margin-block-start: 0;
             }
+        }
+
+        @media(min-width: $min-width-breakpoint-desktop) {
+            padding: var(--dimension-layout-medium);
         }
     }
 }

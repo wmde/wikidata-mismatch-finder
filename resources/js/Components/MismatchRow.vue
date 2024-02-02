@@ -201,6 +201,7 @@ function showDialog(e: Event) {
 
   .cdx-menu-item {
     margin-inline-start: 0; // overwrite <li> styles from app.scss
+    margin-block-start: 0; // overwrite <li>+<li> styles from app.scss
   }
 
  .full-description-button {

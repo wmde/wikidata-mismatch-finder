@@ -199,6 +199,10 @@ function showDialog(e: Event) {
     }
   }
 
+  .cdx-menu-item {
+    margin-inline-start: 0; // overwrite <li> styles from app.scss
+  }
+
  .full-description-button {
       padding: 0 2px;
       font-weight: 400;

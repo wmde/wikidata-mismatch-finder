@@ -398,6 +398,10 @@ function _handleConfirmation(){
     margin-bottom: var(--dimension-layout-xsmall);
 }
 
+#instructions-button {
+    flex-shrink: 0;
+}
+
 h2 {
     a {
         font-weight: bold;

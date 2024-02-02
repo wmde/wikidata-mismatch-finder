@@ -185,6 +185,10 @@ function showRandom(): void{
     @include body-m;
 }
 
+.cdx-button {
+    flex-shrink: 0;
+}
+
 #querying-section .heading {
     display: flex;
     justify-content: space-between;

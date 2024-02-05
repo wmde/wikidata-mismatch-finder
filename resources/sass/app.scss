@@ -381,6 +381,10 @@ dl.import-meta .download-csv {
     }
 }
 
+.heading-button, .random-mismatches {
+    flex-shrink: 0; // don't show ellipsis as long as the text fits
+}
+
 .svg {
     &-white-fill {
         filter: invert(1);

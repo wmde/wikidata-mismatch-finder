@@ -15,6 +15,7 @@
           {{ $i18n('results-page-title') }}
         </h2>
         <cdx-button
+          class="heading-button"
           id="instructions-button"
           weight="quiet"
           action="progressive"
@@ -396,10 +397,6 @@ function _handleConfirmation(){
 
     // to avoid visual grouping with .description-section
     margin-bottom: var(--dimension-layout-xsmall);
-}
-
-#instructions-button {
-    flex-shrink: 0;
 }
 
 h2 {

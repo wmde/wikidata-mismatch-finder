@@ -7,6 +7,7 @@
           {{ $i18n('about-mismatch-finder-title') }}
         </h2>
         <cdx-button
+          class="heading-button"
           id="faq-button"
           weight="quiet"
           action="progressive"
@@ -183,10 +184,6 @@ function showRandom(): void{
 
 #about-description {
     @include body-m;
-}
-
-.cdx-button {
-    flex-shrink: 0;
 }
 
 #querying-section .heading {

@@ -381,7 +381,7 @@ dl.import-meta .download-csv {
     }
 }
 
-.heading-button, .random-mismatches {
+.heading-button {
     flex-shrink: 0; // don't show ellipsis as long as the text fits
 }
 

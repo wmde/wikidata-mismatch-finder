@@ -89,7 +89,7 @@
           {{ $i18n('item-form-title') }}
         </h2>
         <cdx-button
-          class="random-mismatches"
+          class="random-mismatches heading-button"
           weight="normal"
           @click="showRandom()"
           :disabled="loading"

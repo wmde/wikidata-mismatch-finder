@@ -199,12 +199,6 @@ import type { Ref } from 'vue';
 import { computed, onMounted, ref } from 'vue';
 import axios from 'axios';
 
-// Run it with compat mode
-// https://v3-migration.vuejs.org/breaking-changes/v-model.html
-CdxCheckbox.compatConfig = {
-    ...CdxCheckbox.compatConfig,
-    COMPONENT_V_MODEL: false,
-};
 interface MismatchDecision {
     id: number,
     item_id: string,

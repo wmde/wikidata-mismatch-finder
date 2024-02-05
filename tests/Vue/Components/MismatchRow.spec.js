@@ -275,7 +275,7 @@ describe('MismatchesRow.vue', () => {
 
         await wrapper.find('.full-description-button').trigger('click');
 
-        const dialog = wrapper.find('.full-description-dialog .cdx-dialog');
+        const dialog = wrapper.find('.full-description-dialog.cdx-dialog');
 
         expect(dialog.isVisible()).toBe(true);
     });

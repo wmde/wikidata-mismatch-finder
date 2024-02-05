@@ -22,8 +22,6 @@ module.exports = {
     // "import Counter from '@/Counter.vue'"
     // (no need for a full path)
     "moduleNameMapper": {
-        "^vue$": "@vue/compat",
-        '^@vue/composition-api$': '@vue/compat',
         '^@wmde/wikit-vue-components$':
             '@wmde/wikit-vue-components/dist/wikit-vue-components-vue3compat.common.js',
         '^wikit-dist(.*)$': "<rootDir>/node_modules/@wmde/wikit-vue-components/dist$1",
@@ -33,18 +31,5 @@ module.exports = {
     // Further info: https://test-utils.vuejs.org/migration/#-vue-vue3-jest-jest-28
     "testEnvironmentOptions": {
         "customExportConditions": ["node", "node-addons"],
-    },
-    // For Vue migration build
-    // Add compat config to test as well
-    "globals": {
-        "vue-jest": {
-            "compilerOptions": {
-                compatConfig: {
-                    MODE: 3,
-                    COMPILER_V_ON_NATIVE: true,
-                    COMPILER_V_BIND_SYNC: true
-                }
-            }
-        }
     }
 }

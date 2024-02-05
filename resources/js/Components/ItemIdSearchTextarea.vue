@@ -30,13 +30,6 @@ import { useStore } from '../store';
 import { CdxTextArea, CdxField, CdxProgressBar } from "@wikimedia/codex";
 import ValidationError from '../types/ValidationError';
 
-// Run it with compat mode
-// https://v3-migration.vuejs.org/breaking-changes/v-model.html
-CdxTextArea.compatConfig = {
-    ...CdxTextArea.compatConfig,
-    COMPONENT_V_MODEL: false,
-};
-
 const validationError: Ref<ValidationError> = ref(null);
 
 const messages = useI18n();

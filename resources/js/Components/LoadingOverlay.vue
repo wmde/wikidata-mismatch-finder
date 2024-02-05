@@ -14,8 +14,8 @@ import { ref } from 'vue';
 import { CdxProgressBar } from "@wikimedia/codex";
 
 const props = withDefaults(defineProps<{
-	delay: number
-	visible: boolean
+	delay?: number
+	visible?: boolean
 }>(), {
 	delay: 250,
 	visible: false

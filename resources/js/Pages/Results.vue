@@ -15,6 +15,7 @@
           {{ $i18n('results-page-title') }}
         </h2>
         <cdx-button
+          class="heading-button"
           id="instructions-button"
           weight="quiet"
           action="progressive"

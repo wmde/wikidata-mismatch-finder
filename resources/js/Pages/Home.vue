@@ -7,6 +7,7 @@
           {{ $i18n('about-mismatch-finder-title') }}
         </h2>
         <cdx-button
+          class="heading-button"
           id="faq-button"
           weight="quiet"
           action="progressive"
@@ -88,7 +89,7 @@
           {{ $i18n('item-form-title') }}
         </h2>
         <cdx-button
-          class="random-mismatches"
+          class="random-mismatches heading-button"
           weight="normal"
           @click="showRandom()"
           :disabled="loading"

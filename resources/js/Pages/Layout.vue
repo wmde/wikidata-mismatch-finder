@@ -232,6 +232,7 @@ onBeforeUnmount(() => {
 
         .logo-link {
             outline: none;
+
             @media (min-width: $min-width-breakpoint-tablet) {
                 width: auto;
             }

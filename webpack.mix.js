@@ -12,9 +12,7 @@ const path = require('path');
  */
 
 mix.ts('resources/js/app.ts', 'public/js')
-    .webpackConfig({
-
-    })
+    .webpackConfig({})
     .vue({ version: 3})
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/noscript.scss', 'public/css')

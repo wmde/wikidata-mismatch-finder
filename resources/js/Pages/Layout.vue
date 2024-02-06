@@ -231,6 +231,8 @@ onBeforeUnmount(() => {
         gap: 1.5rem;
 
         .logo-link {
+            outline: none;
+
             @media (min-width: $min-width-breakpoint-tablet) {
                 width: auto;
             }

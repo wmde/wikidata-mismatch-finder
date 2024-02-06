@@ -14,6 +14,7 @@ use App\Services\CSVImportReader;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use App\Models\ImportFailure;
+use Illuminate\Support\Facades\Log;
 
 class ImportCSV implements ShouldQueue
 {
@@ -47,13 +48,52 @@ class ImportCSV implements ShouldQueue
             ->path('mismatch-files/' . $this->meta->filename);
 
         DB::transaction(function () use ($reader, $filepath) {
+
             $reader->lines($filepath)->each(function ($mismatchLine) {
-                $mismatch = Mismatch::make($mismatchLine);
-                if ($mismatch->type == null) {
-                    $mismatch->type = 'statement';
+
+                // TODO: question, should we list all columns one by one or try to do something like
+                // Schema::getColumnListing('mismatches'); // where is mismatches is the table name
+                // and then we remove the column names we dont need... id, username, mw_userid, created at, etc.
+                // too many.
+                // or this is the best option but it needs to be instantiated already to be able to get the attributes
+                // or not?
+                // get attributes from model instance
+                // $column_names = $new_mismatch->getAttributes();
+                // remove column because we dont want to compare with review_status
+                // unset($column_names['review_status']);
+
+                $db_mismatches_by_current_user = DB::select(
+                    'select * from users JOIN mismatches ON mismatches.user_id = users.id
+                        WHERE mw_userid = :mw_userid',
+                        ['mw_userid' =>$this->meta->user->mw_userid]
+                );
+
+                // compare column by column
+                foreach ($db_mismatches_by_current_user as $db_mismatch) {
+                    $new_mismatch = Mismatch::make($mismatchLine);
+                    $mismatch_column_names = $new_mismatch->getAttributes(); // or should we use getFillable?
+                    unset($column_names['review_status']); // remove review status from the columns we want to check
+                    Log::info("mismatch attributes " . $mismatch_column_names);
+
+                    foreach ($mismatch_column_names as $column) {
+                        if ($db_mismatch[$column] == $new_mismatch[$column]) {
+                            continue;
+                        } else {
+                            // break;
+                        }
+                    }
+                    // we keep the mismatches that are pending
+                    if ($db_mismatch->review_status == 'pending') {
+                        // and check that not all fields are equal
+                    }
                 }
-                $mismatch->importMeta()->associate($this->meta);
-                $mismatch->save();
+
+                // $new_mismatch = Mismatch::make($mismatchLine);
+                // if ($new_mismatch->type == null) {
+                //     $new_mismatch->type = 'statement';
+                // }
+                // $new_mismatch->importMeta()->associate($this->meta);
+                // $new_mismatch->save();
             });
 
             $this->meta->status = 'completed';

@@ -32,7 +32,7 @@
         "@wikimedia/codex": "^1.0.1",
         "@wikimedia/codex-design-tokens": "^1.0.1",
         "@wikimedia/codex-icons": "^1.0.1",
-        "@wikimedia/language-data": "^1.1.4",
+        "@wikimedia/language-data": "^1.1.6",
         "axios": "^1.6.7",
         "axios-mock-adapter": "^1.22.0",
         "babel-core": "^7.0.0-bridge.0",

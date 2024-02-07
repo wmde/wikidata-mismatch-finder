@@ -16,7 +16,7 @@ class ImportCSVTest extends TestCase
     /**
      * Ensure import persists mismatches to database
      */
-    public function test_creates_mismatches(): void
+    public function test_creates_mismatches_in_empty_db(): void
     {
         $filename = 'creates-mismatches.csv';
         $user = User::factory()->uploader()->create();

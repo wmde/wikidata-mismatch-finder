@@ -47,9 +47,16 @@ class ImportCSV implements ShouldQueue
         $filepath = Storage::disk('local')
             ->path('mismatch-files/' . $this->meta->filename);
 
-        DB::transaction(function () use ($reader, $filepath) {
+        $db_mismatches_by_current_user = DB::select(
+            'select * from users JOIN mismatches ON mismatches.user_id = users.id
+            WHERE mw_userid = :mw_userid',
+            ['mw_userid' =>$this->meta->user->mw_userid]
+        );
 
-            $reader->lines($filepath)->each(function ($mismatchLine) {
+        DB::transaction(function () use ($reader, $filepath, $db_mismatches_by_current_user) {
+
+
+            $reader->lines($filepath)->each(function ($mismatchLine) use ($db_mismatches_by_current_user) {
 
                 // TODO: question, should we list all columns one by one or try to do something like
                 // Schema::getColumnListing('mismatches'); // where is mismatches is the table name
@@ -62,32 +69,49 @@ class ImportCSV implements ShouldQueue
                 // remove column because we dont want to compare with review_status
                 // unset($column_names['review_status']);
 
-                $db_mismatches_by_current_user = DB::select(
-                    'select * from users JOIN mismatches ON mismatches.user_id = users.id
-                        WHERE mw_userid = :mw_userid',
-                        ['mw_userid' =>$this->meta->user->mw_userid]
-                );
+                $new_mismatch = Mismatch::make($mismatchLine);
 
-                // compare column by column
-                foreach ($db_mismatches_by_current_user as $db_mismatch) {
-                    $new_mismatch = Mismatch::make($mismatchLine);
-                    $mismatch_column_names = $new_mismatch->getAttributes(); // or should we use getFillable?
-                    unset($column_names['review_status']); // remove review status from the columns we want to check
-                    Log::info("mismatch attributes " . $mismatch_column_names);
-
-                    foreach ($mismatch_column_names as $column) {
-                        if ($db_mismatch[$column] == $new_mismatch[$column]) {
-                            continue;
-                        } else {
-                            // break;
-                        }
+                $collection = collect($new_mismatch->getAttributes());
+                $collection->forget('review_status');
+                $newArray = [];
+                $collection->map(function ($item, $key) use (&$newArray) {
+                    if ($key != 'type') { // key can be empty in the file but in the db always has statement by default
+                        $newArray[] = [$key, $item];
                     }
-                    // we keep the mismatches that are pending
+                });
+
+                if (!DB::table('mismatches')->where($newArray)->exists() // checks all fields at the same time
+                   // || count($db_mismatches_by_current_user) == 0 //take this out of the lines check. if there are not imports by the current user we import
+                    ) {
+                    if ($new_mismatch->type == null) {
+                        $new_mismatch->type = 'statement';
+                    }
+                    $new_mismatch->importMeta()->associate($this->meta);
+                    $new_mismatch->save();
+                    var_dump('we imported row that doesnt exist');
+                }
+
+                // case 1. there are not mismatches from user in the DB
+                if (count($db_mismatches_by_current_user) == 0) {
+                    if ($new_mismatch->type == null) {
+                        $new_mismatch->type = 'statement';
+                    }
+                    $new_mismatch->importMeta()->associate($this->meta);
+                    $new_mismatch->save();
+                    var_dump('we imported all rows because the user hasnt uploaded any mismatches');
+                }
+                // else {
+                foreach ($db_mismatches_by_current_user as $db_mismatch) {
+                    // we keep all the mismatches that are pending regardless of values in other columns
+                    // and stop checking this line
                     if ($db_mismatch->review_status == 'pending') {
-                        // and check that not all fields are equal
+                        $new_mismatch->importMeta()->associate($this->meta);
+                        $new_mismatch->save();
+                        var_dump('we reimported any mismatches still marked as pending in the DB');
                     }
                 }
 
+                // original
                 // $new_mismatch = Mismatch::make($mismatchLine);
                 // if ($new_mismatch->type == null) {
                 //     $new_mismatch->type = 'statement';

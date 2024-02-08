@@ -77,10 +77,10 @@ class ImportCSV implements ShouldQueue
 
         // Log::info('$newArray', $newArray);
 
-        DB::transaction(function () use ($reader, $filepath, $mismatches_per_upload_user, $mismatch_attrs) {
+        DB::transaction(function () use ($reader, $filepath, $mismatch_attrs) {
 
-            $reader->lines($filepath)->each(function ($mismatchLine) use ($mismatches_per_upload_user, $mismatch_attrs) {
-
+            $reader->lines($filepath)->each(function ($mismatchLine) use ($mismatch_attrs) {
+                $mismatches_per_upload_user = DB::table('mismatches');
                 $new_mismatch = Mismatch::make($mismatchLine);
 
                 $collection = collect($new_mismatch->getAttributes());
@@ -92,9 +92,13 @@ class ImportCSV implements ShouldQueue
                     }
                 });
 
+
                 // we add first because there might be duplicates already, so this might return more than 1 result
                 $row_in_db = $mismatches_per_upload_user->select($mismatch_attrs)->where($newArray);
                 $row_in_db_get = $row_in_db->get();
+//                dump($newArray);
+//                dump($row_in_db->toSql());
+//                dump($row_in_db_get->count());
                 Log::info("row_in_db: " . json_encode($row_in_db_get));
 
                 // var_dump($mismatches_per_upload_user->get()->count());

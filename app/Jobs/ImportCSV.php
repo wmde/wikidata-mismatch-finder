@@ -64,8 +64,8 @@ class ImportCSV implements ShouldQueue
 
             $reader->lines($filepath)->each(function ($mismatchLine) use ($mismatch_attrs) {
                 $mismatches_per_upload_user = DB::table('mismatches')
-                    ->join('users', 'mismatches.user_id', '=', 'users.id')
-                    ->where('mw_userid', '=', $this->meta->user->mw_userid)
+                    ->join('import_meta', 'mismatches.import_id', '=', 'import_meta.id')
+                    ->where('import_meta.user_id', '=', $this->meta->user->id)
                     ->select($mismatch_attrs);
                 // $mismatches_per_upload_user_get =  $mismatches_per_upload_user->get();
                 // Log::info('$mismatches_per_upload_user:' . json_encode($mismatches_per_upload_user_get));
@@ -92,8 +92,7 @@ class ImportCSV implements ShouldQueue
                 if ($mismatches_per_upload_user->count() == 0) {
                     $this->saveMismatch($new_mismatch);
                     var_dump('imported 1 row because the user hasnt uploaded any mismatches');
-                } elseif ($row_in_db->doesntExist()
-                    || ( $row_in_db->exists() && $row_in_db->first()->review_status == 'pending')) {
+                } elseif ($row_in_db->doesntExist()) {
                     $this->saveMismatch($new_mismatch);
                     var_dump('imported 1 row that doesnt exist');
                 }

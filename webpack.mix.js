@@ -12,15 +12,7 @@ const path = require('path');
  */
 
 mix.ts('resources/js/app.ts', 'public/js')
-    .webpackConfig({
-        resolve: {
-            alias: {
-                '@wmde/wikit-vue-components':
-                    '@wmde/wikit-vue-components/dist/wikit-vue-components-vue3compat.common.js',
-                'wikit-dist': path.resolve(__dirname, './node_modules/@wmde/wikit-vue-components/dist'),
-            }
-        }
-    })
+    .webpackConfig({})
     .vue({ version: 3})
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/noscript.scss', 'public/css')

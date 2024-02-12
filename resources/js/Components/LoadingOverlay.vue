@@ -87,8 +87,8 @@ $base: '.loading-indicator';
 
     .cdx-progress-bar {
         min-width: 432px;
-        
-        @media (max-width: $width-breakpoint-tablet) {
+
+        @media (max-width: $max-width-breakpoint-tablet) {
             min-width: 90vw;
         }
     }

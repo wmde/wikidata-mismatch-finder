@@ -22,9 +22,6 @@ module.exports = {
     // "import Counter from '@/Counter.vue'"
     // (no need for a full path)
     "moduleNameMapper": {
-        '^@wmde/wikit-vue-components$':
-            '@wmde/wikit-vue-components/dist/wikit-vue-components-vue3compat.common.js',
-        '^wikit-dist(.*)$': "<rootDir>/node_modules/@wmde/wikit-vue-components/dist$1",
         "^@/(.*)$": "<rootDir>/resources/js/$1",
     },
     // For Vue migration build

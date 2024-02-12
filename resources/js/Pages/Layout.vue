@@ -71,11 +71,6 @@
         </a>
       </p>
       <p>
-        <a href="https://wikidata-analytics.wmcloud.org/app/CuriousFacts">
-          {{ $i18n('tool-curious-facts') }}
-        </a>
-      </p>
-      <p>
         <a href="https://github.com/wmde/wikidata-constraints-violation-checker">
           {{ $i18n('tool-constraints-violation-checker') }}
         </a>

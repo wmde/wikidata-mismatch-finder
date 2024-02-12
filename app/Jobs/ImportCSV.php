@@ -81,15 +81,16 @@ class ImportCSV implements ShouldQueue
                     }
                 });
 
-
+                $count = $mismatches_per_upload_user->count();
                 // we add first because there might be duplicates already, so this might return more than 1 result
-                $row_in_db = $mismatches_per_upload_user->select($mismatch_attrs)->where($newArray);
+                $row_in_db = $mismatches_per_upload_user->where($newArray)
+                    ->where('review_status', '!=', 'pending');
                 $row_in_db_get = $row_in_db->get();
                 Log::info("row_in_db: " . json_encode($row_in_db_get));
 
                 // var_dump($mismatches_per_upload_user->get()->count());
 
-                if ($mismatches_per_upload_user->count() == 0) {
+                if ($count == 0) {
                     $this->saveMismatch($new_mismatch);
                     var_dump('imported 1 row because the user hasnt uploaded any mismatches');
                 } elseif ($row_in_db->doesntExist()) {

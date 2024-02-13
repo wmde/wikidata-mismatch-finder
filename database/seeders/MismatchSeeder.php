@@ -27,20 +27,20 @@ class MismatchSeeder extends Seeder
                 'status' => 'completed'
             ]);
 
-        Mismatch::factory(10)
+        Mismatch::factory(25000)
             ->for($import)
             ->create();
 
-        Mismatch::factory(11)
+        Mismatch::factory(27500)
             ->for($expiredImport)
             ->create();
 
-        Mismatch::factory(10)
+        Mismatch::factory(25000)
             ->for($import)
             ->reviewed()
             ->create();
 
-        Mismatch::factory(11)
+        Mismatch::factory(27500)
             ->for($expiredImport)
             ->reviewed()
             ->create();

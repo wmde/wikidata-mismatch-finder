@@ -27,14 +27,20 @@ class ImportCSV implements ShouldQueue
      */
     protected $meta;
 
+    protected $iterationCount;
+
+    protected $useOldApproach;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(ImportMeta $meta)
+    public function __construct(ImportMeta $meta, bool $useOldApproach = false, int $iterationCount = 10)
     {
         $this->meta = $meta;
+        $this->useOldApproach = $useOldApproach;
+        $this->iterationCount = $iterationCount;
     }
 
     /**
@@ -45,15 +51,23 @@ class ImportCSV implements ShouldQueue
     public function handle(CSVImportReader $reader)
     {
         Log::info("======= Start import CSV =======");
+        $filepath = Storage::disk('local')
+            ->path('mismatch-files/' . $this->meta->filename);
+        $lineCount = $reader->lines($filepath)->count();
+
         $start = hrtime(true);
         $maxTimespan = 0.0;
         $minTimespan = 999999999.0;
 
         $totalTimespan = 0.0;
-        $iterationCount = 10;
+        $iterationCount = $this->iterationCount;
         for ($i = 0; $i < $iterationCount; $i++) {
             $startIteration = hrtime(true);
-            $this->handleOld($reader);
+            if (!$this->useOldApproach) {
+                $this->handleNew($reader);
+            } else {
+                $this->handleOld($reader);
+            }
             $endIteration = (hrtime(true) - $startIteration) / 1000000;
             if ($endIteration > $maxTimespan) {
                 $maxTimespan = $endIteration;
@@ -65,14 +79,17 @@ class ImportCSV implements ShouldQueue
         }
         $meanTimespan = $totalTimespan / $iterationCount;
         $timespan = (hrtime(true) - $start) / 1000000;
-        Log::info("Iteration count:\t {$iterationCount}");
+        $approach = $this->useOldApproach ? 'Old' : 'New';
+        Log::info("Approach:\t\t $approach");
+        Log::info("Mismatch count:\t $lineCount");
+        Log::info("Iteration count:\t $iterationCount");
         Log::info("Shortest timespan:\t {$minTimespan}ms");
         Log::info("Longest timespan:\t {$maxTimespan}ms");
         Log::info("Average timespan:\t {$meanTimespan}ms");
         Log::info("======= End import CSV in {$timespan}ms =======");
     }
 
-    private function handleOld(CSVImportReader $reader)
+    private function handleNew(CSVImportReader $reader)
     {
         $filepath = Storage::disk('local')
             ->path('mismatch-files/' . $this->meta->filename);
@@ -104,6 +121,27 @@ class ImportCSV implements ShouldQueue
                 if ($row_in_db->doesntExist()) {
                     $this->saveMismatch($new_mismatch);
                 }
+            });
+
+            $this->meta->status = 'completed';
+            $this->meta->save();
+        });
+    }
+
+
+    private function handleOld(CSVImportReader $reader)
+    {
+        $filepath = Storage::disk('local')
+            ->path('mismatch-files/' . $this->meta->filename);
+
+        DB::transaction(function () use ($reader, $filepath) {
+            $reader->lines($filepath)->each(function ($mismatchLine) {
+                $mismatch = Mismatch::make($mismatchLine);
+                if ($mismatch->type == null) {
+                    $mismatch->type = 'statement';
+                }
+                $mismatch->importMeta()->associate($this->meta);
+                $mismatch->save();
             });
 
             $this->meta->status = 'completed';

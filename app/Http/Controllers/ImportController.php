@@ -87,11 +87,14 @@ class ImportController extends Controller
             'expires' => $expires
         ])->user()->associate($request->user());
 
+        $iterationCount = $request->iteration_count ?? 10;
+
+        $useOldApproach = $request->boolean('old_approach') ?? false;
         $meta->save();
 
         Bus::chain([
             new ValidateCSV($meta),
-            new ImportCSV($meta)
+            new ImportCSV($meta, $useOldApproach, $iterationCount)
         ])->dispatch();
 
         $this->trackImportStats();

@@ -95,33 +95,94 @@ class ImportCSV implements ShouldQueue
             ->path('mismatch-files/' . $this->meta->filename);
 
         $mismatch_attrs = (new Mismatch())->getFillable();
-
-        DB::transaction(function () use ($reader, $filepath, $mismatch_attrs) {
-            $reader->lines($filepath)->each(function ($mismatchLine) use ($mismatch_attrs) {
-                $mismatches_per_upload_user = DB::table('mismatches')
-                    ->join('import_meta', 'mismatches.import_id', '=', 'import_meta.id')
-                    ->where('import_meta.user_id', '=', $this->meta->user->id)
-                    ->select($mismatch_attrs);
+        $fileLines = [];
+        $whereClause = [];
+//
+        DB::transaction(function () use ($reader, $filepath, $mismatch_attrs, &$fileLines, &$whereClause) {
+            $mismatches_per_upload_user = DB::table('mismatches')
+                ->select($mismatch_attrs)
+                ->join('import_meta', 'mismatches.import_id', '=', 'import_meta.id')
+                ->where('import_meta.user_id', '=', $this->meta->user->id);
+            $reader->lines($filepath)->each(function ($mismatchLine) use (
+                $mismatch_attrs,
+                &$fileLines,
+                $mismatches_per_upload_user,
+                &$whereClause
+            ) {
 
                 $new_mismatch = Mismatch::make($mismatchLine);
-
+                $fileLines[] = $new_mismatch;
                 $collection = collect($new_mismatch->getAttributes());
                 $collection->forget('review_status');
-                $newArray = [];
+                $newArray = [['review_status', '!=', 'pending']];
+//                dd($mismatch_attrs, $collection, $new_mismatch->getAttributes());
                 $collection->map(function ($item, $key) use (&$newArray) {
                     if ($key != 'type') { // key can be empty in the file but in the db always has statement by default
                         $newArray[] = [$key, $item];
                     }
                 });
 
-//                $count = $mismatches_per_upload_user->count();
-                $row_in_db = $mismatches_per_upload_user->where($newArray)
-                    ->where('review_status', '!=', 'pending');
 
-                if ($row_in_db->doesntExist()) {
-                    $this->saveMismatch($new_mismatch);
+                $whereClause[] = $newArray;
+
+//                $count = $mismatches_per_upload_user->count();
+//                $row_in_db = $mismatches_per_upload_user->orWhere(function ($query) use ($newArray) {
+//                    $query->orWhere($newArray);
+//                });
+//
+//                $start = hrtime(true);
+//                if ($row_in_db->doesntExist()) {
+//                    $timespan = (hrtime(true) - $start) / 1000000;
+//                    Log::info("DB check timespan:\t {$timespan}ms");
+//                    $start = hrtime(true);
+////                    $this->saveMismatch($new_mismatch);
+//                    $timespan = (hrtime(true) - $start) / 1000000;
+//                    Log::info("DB save timespan:\t {$timespan}ms");
+//                }
+            });
+
+//            dd($whereClause);
+
+            $mismatches_per_upload_user->where(function ($query) use ($whereClause) {
+                foreach ($whereClause as $where) {
+                    $query->orWhere(function ($query) use ($where) {
+                        $query->where($where);
+                    });
                 }
             });
+
+            $start = hrtime(true);
+            $result = $mismatches_per_upload_user->get();
+            $timespan = (hrtime(true) - $start) / 1000000;
+            Log::info("DB check timespan:\t {$timespan}ms");
+
+            foreach ($fileLines as $fileLine) {
+                if ($result->contains(function ($value, $key) use ($fileLine) {
+                    $metaAttrs = $fileLine->getAttributes();
+                    foreach ($metaAttrs as $attrKey => $attr) {
+                        $value = (array)$value;
+                        if ($attrKey != 'review_status' && $value[$attrKey] != $attr) {
+                            return false;
+                        }
+                    }
+//                    dd($value, $key, $fileLine);
+                    return true;
+                })) {
+                    $this->saveMismatch($fileLine);
+//                    dd($fileLine);
+                }
+            }
+
+//            if ($mismatches_per_upload_user->get()) {
+//                $timespan = (hrtime(true) - $start) / 1000000;
+//                Log::info("DB check timespan:\t {$timespan}ms");
+//                $start = hrtime(true);
+////                    $this->saveMismatch($new_mismatch);
+//                $timespan = (hrtime(true) - $start) / 1000000;
+//                Log::info("DB save timespan:\t {$timespan}ms");
+//            }
+
+//            dd($mismatches_per_upload_user->toSql());
 
             $this->meta->status = 'completed';
             $this->meta->save();

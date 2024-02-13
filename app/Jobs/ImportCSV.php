@@ -49,32 +49,57 @@ class ImportCSV implements ShouldQueue
         $mismatch_attrs = (new Mismatch())->getFillable();
 
         DB::transaction(function () use ($reader, $filepath, $mismatch_attrs) {
+            $new_mismatches = [];
+            $where_clauses = [];
 
-            $reader->lines($filepath)->each(function ($mismatchLine) use ($mismatch_attrs) {
-                $mismatches_per_upload_user = DB::table('mismatches')
-                    ->join('import_meta', 'mismatches.import_id', '=', 'import_meta.id')
-                    ->where('import_meta.user_id', '=', $this->meta->user->id)
-                    ->select($mismatch_attrs);
+            $mismatches_per_upload_user = DB::table('mismatches')
+                ->select($mismatch_attrs)
+                ->join('import_meta', 'mismatches.import_id', '=', 'import_meta.id')
+                ->where('import_meta.user_id', '=', $this->meta->user->id);
+
+            $reader->lines($filepath)->each(function ($mismatchLine) use (
+                $mismatches_per_upload_user,
+                &$new_mismatches,
+                &$where_clauses
+            ) {
 
                 $new_mismatch = Mismatch::make($mismatchLine);
-
+                $new_mismatches[] = $new_mismatch;
                 $collection = collect($new_mismatch->getAttributes());
                 $collection->forget('review_status');
-                $newArray = [];
+                $newArray = [['review_status', '!=', 'pending']];
                 $collection->map(function ($item, $key) use (&$newArray) {
                     if ($key != 'type') { // key can be empty in the file but in the db always has statement by default
                         $newArray[] = [$key, $item];
                     }
                 });
 
-                $count = $mismatches_per_upload_user->count();
-                $row_in_db = $mismatches_per_upload_user->where($newArray)
-                    ->where('review_status', '!=', 'pending');
+                $where_clauses[] = $newArray;
+            });
 
-                if ($count == 0 || $row_in_db->doesntExist()) {
-                    $this->saveMismatch($new_mismatch);
+            $mismatches_per_upload_user->where(function ($query) use ($where_clauses) {
+                foreach ($where_clauses as $where_clause) {
+                    $query->orWhere(function ($query) use ($where_clause) {
+                        $query->where($where_clause);
+                    });
                 }
             });
+
+            $existing_mismatches = $mismatches_per_upload_user->get();
+            foreach ($new_mismatches as $new_mismatch) {
+                if (!$existing_mismatches->contains(function ($value) use ($new_mismatch) {
+                    $metaAttrs = $new_mismatch->getAttributes();
+                    foreach ($metaAttrs as $attrKey => $attr) {
+                        $value = (array)$value;
+                        if ($attrKey != 'review_status' && $value[$attrKey] != $attr) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })) {
+                    $this->saveMismatch($new_mismatch);
+                }
+            }
 
             $this->meta->status = 'completed';
             $this->meta->save();
@@ -84,7 +109,7 @@ class ImportCSV implements ShouldQueue
     /**
      * Handle a job failure.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
      * @return void
      */
     public function failed(Throwable $exception)
@@ -102,7 +127,7 @@ class ImportCSV implements ShouldQueue
     /**
      * Save mismatch to database
      *
-     * @param  \Mismatch  $new_mismatch
+     * @param \Mismatch $new_mismatch
      * @return void
      */
     private function saveMismatch($new_mismatch)

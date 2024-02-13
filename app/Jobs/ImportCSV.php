@@ -94,13 +94,11 @@ class ImportCSV implements ShouldQueue
         $filepath = Storage::disk('local')
             ->path('mismatch-files/' . $this->meta->filename);
 
-
-
         DB::transaction(function () use ($filepath, $reader) {
             $mismatch_attrs = (new Mismatch())->getFillable();
 
             $fileLines = [];
-            $whereClause = [];
+            $whereClauses = [];
 
             $mismatches_per_upload_user = DB::table('mismatches')
                 ->select($mismatch_attrs)
@@ -110,7 +108,7 @@ class ImportCSV implements ShouldQueue
                 $mismatch_attrs,
                 &$fileLines,
                 $mismatches_per_upload_user,
-                &$whereClause
+                &$whereClauses
             ) {
 
                 $new_mismatch = Mismatch::make($mismatchLine);
@@ -118,7 +116,6 @@ class ImportCSV implements ShouldQueue
                 $collection = collect($new_mismatch->getAttributes());
                 $collection->forget('review_status');
                 $newArray = [['review_status', '!=', 'pending']];
-//                dd($mismatch_attrs, $collection, $new_mismatch->getAttributes());
                 $collection->map(function ($item, $key) use (&$newArray) {
                     if ($key != 'type') { // key can be empty in the file but in the db always has statement by default
                         $newArray[] = [$key, $item];
@@ -126,26 +123,11 @@ class ImportCSV implements ShouldQueue
                 });
 
 
-                $whereClause[] = $newArray;
-
-//                $count = $mismatches_per_upload_user->count();
-//                $row_in_db = $mismatches_per_upload_user->orWhere(function ($query) use ($newArray) {
-//                    $query->orWhere($newArray);
-//                });
-//
-//                $start = hrtime(true);
-//                if ($row_in_db->doesntExist()) {
-//                    $timespan = (hrtime(true) - $start) / 1000000;
-//                    Log::info("DB check timespan:\t {$timespan}ms");
-//                    $start = hrtime(true);
-////                    $this->saveMismatch($new_mismatch);
-//                    $timespan = (hrtime(true) - $start) / 1000000;
-//                    Log::info("DB save timespan:\t {$timespan}ms");
-//                }
+                $whereClauses[] = $newArray;
             });
 
-            $mismatches_per_upload_user->where(function ($query) use ($whereClause) {
-                foreach ($whereClause as $where) {
+            $mismatches_per_upload_user->where(function ($query) use ($whereClauses) {
+                foreach ($whereClauses as $where) {
                     $query->orWhere(function ($query) use ($where) {
                         $query->where($where);
                     });
@@ -154,7 +136,7 @@ class ImportCSV implements ShouldQueue
             $result = $mismatches_per_upload_user->get();
 
             foreach ($fileLines as $fileLine) {
-                if ($result->contains(function ($value, $key) use ($fileLine) {
+                if ($result->contains(function ($value) use ($fileLine) {
                     $metaAttrs = $fileLine->getAttributes();
                     foreach ($metaAttrs as $attrKey => $attr) {
                         $value = (array)$value;

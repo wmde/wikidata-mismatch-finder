@@ -86,17 +86,19 @@ class ImportCSV implements ShouldQueue
             });
 
             $existing_mismatches = $mismatches_per_upload_user->get();
+
             foreach ($new_mismatches as $new_mismatch) {
-                if (!$existing_mismatches->contains(function ($value) use ($new_mismatch) {
+                $isDuplicate = function ($value) use ($new_mismatch) {
                     $metaAttrs = $new_mismatch->getAttributes();
                     foreach ($metaAttrs as $attrKey => $attr) {
-                        $value = (array)$value;
-                        if ($attrKey != 'review_status' && $value[$attrKey] != $attr) {
+                        if ($attrKey != 'review_status' && $value->{$attrKey} != $attr) {
                             return false;
                         }
                     }
                     return true;
-                })) {
+                };
+
+                if (!$existing_mismatches->contains($isDuplicate)) {
                     $this->saveMismatch($new_mismatch);
                 }
             }

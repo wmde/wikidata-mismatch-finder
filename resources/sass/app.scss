@@ -1,16 +1,18 @@
-@import url('https://tools-static.wmflabs.org/fontcdn/css2?family=Lato&family=Source+Serif+Pro&display=swap');
-
+@import 'https://tools-static.wmflabs.org/fontcdn/css2?family=Lato&family=Source+Serif+Pro&display=swap';
 @import '~ress';
-@import '~@wmde/wikit-vue-components/dist/wikit-vue-components.css';
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
-@import './_typography.scss';
+@import "@wikimedia/codex/dist/codex.style.css";
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../css/custom-variables.css';
+@import './link';
+@import './typography';
 
 html {
     height: 100%;
 }
 
 body {
-    @include body-text;
+    @include body-m;
+
     height: 100%;
 }
 
@@ -18,101 +20,83 @@ body {
 * Layout
 */
 main {
-    max-width: 1090px;
-    padding: 0 $dimension-layout-xsmall;
+    padding: 0 var(--dimension-layout-xsmall);
     margin: 0 auto;
+    max-width: 1090px; // width for the store page
 
     & > header {
         display: flex;
         justify-content: space-between;
-        margin: $dimension-layout-small 0;
+        margin: var(--dimension-layout-small) 0;
     }
 
-    @media(min-width: $width-breakpoint-tablet){
-        padding: 0 $dimension-layout-small;
+    @media(min-width: $min-width-breakpoint-mobile){
+        padding: 0 var(--dimension-layout-xsmall);
+    }
+
+    @media(min-width: $min-width-breakpoint-tablet){
+        padding: 0 var(--dimension-layout-small);
+    }
+
+    @media (min-width: $min-width-breakpoint-desktop) {
+        padding: 0 var(--dimension-layout-medium);    
     }
 }
 
 section {
-    margin-bottom: $dimension-layout-large;
+    margin-bottom: var(--dimension-layout-large);
 }
 
 h1, .h1 {
     @include heading-1;
+    
+    margin: var(--dimension-layout-xsmall) 0;
 
-    margin: $dimension-layout-xsmall 0;
-
-    @media (min-width: $width-breakpoint-tablet) {
-        margin: $dimension-layout-small 0;
+    @media (min-width: $min-width-breakpoint-tablet) {
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
 h4, .h4 {
-    margin: $dimension-layout-xxsmall 0;
+    margin: var(--dimension-layout-xxsmall) 0;
+
     @include heading-4;
 
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+    @media(min-width: $min-width-breakpoint-tablet){
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
 h5, .h5 {
-    margin: $dimension-layout-xxsmall 0;
+    margin: var(--dimension-layout-xxsmall) 0;
+
     @include heading-5;
 
-    @media(min-width: $width-breakpoint-tablet){
-        margin: $dimension-layout-xsmall 0;
+    @media(min-width: $min-width-breakpoint-tablet){
+        margin: var(--dimension-layout-xsmall) 0;
     }
 }
 
 a {
-    @include link;
+    @include cdx-mixin-link;
 }
 
 p, ul, ol {
     margin-block-end: 1rem;
-
-    .wikit-Dialog & {
-        margin-block-end: 1rem;
-    }
-}
-
-li + li {
-    margin-block-start: 1rem;
-
-    .wikit-Dialog & {
-        margin-block-start: 1rem;
-    }
 }
 
 li {
     margin-inline-start: 1rem;
-
-    .wikit-Dialog & {
-        margin-inline-start: 1rem;
-    }
 }
 
-.wikit.wikit-Dialog {
-    // Override global styles from media query below
-    header {
-        flex-direction: row;
-    }
-
-    // Ensure dialog is wider than 75% default
-    .wikit-Dialog__modal {
-        max-width: 90%;
-    }
-}
-
-.wikit.wikit-Message {
-    border-radius: $border-radius-base;
+li + li {
+    margin-block-start: 1rem;
 }
 
 #error-section,
 #message-section,
 #description-section {
-    max-width: 705px;
+    max-width: 676px;
 }
 
 #description-section {
@@ -121,12 +105,13 @@ li {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        gap: var(--dimension-spacing-small);
     }
 }
 
 // this ensures that there will be a space if there is more than one message
-#message-section .wikit-Message:not(:nth-child(1)) {
-    margin-top: $dimension-layout-xsmall;
+#message-section .cdx-message:not(:nth-child(1)) {
+    margin-top: var(--dimension-layout-xsmall);
 }
 
 /**
@@ -135,7 +120,7 @@ li {
 .store > header {
     flex-direction: row;
 
-    @media (max-width: $width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
         flex-direction: column-reverse;
     }
 
@@ -145,19 +130,18 @@ li {
 
     .auth-widget {
         display: flex;
-        color: $color-base-50;
 
         .username {
-            margin-inline-end: $dimension-spacing-xlarge;
+            margin-inline-end: var(--dimension-spacing-xlarge);
         }
 
         .icon-user {
-            margin-inline-end: $dimension-spacing-small;
+            margin-inline-end: var(--dimension-spacing-small);
             vertical-align: middle;
         }
 
-        @media (max-width: $width-breakpoint-tablet) {
-            margin-bottom: $dimension-layout-xsmall;
+        @media (max-width: $max-width-breakpoint-mobile) {
+            margin-bottom: var(--dimension-layout-xsmall);
         }
     }
 }
@@ -192,27 +176,28 @@ nav.tabs {
                 &:focus {
                     outline: 0;
                 }
+
                 &:hover {
                     text-decoration: none;
-                    border-bottom-color: $color-modifier-lighten-accent-50;
-                    color: $color-modifier-lighten-accent-50;
+                    border-bottom-color: $color-progressive--hover;
+                    color: $color-progressive--hover;
                 }
 
             }
 
             &:focus a {
-                border: 2px solid $color-accent-50;
+                border: 2px solid $border-color-progressive--focus;
             }
 
             &.selected a {
-                border-bottom-color: $color-accent-50;
-                color: $color-accent-50;
+                border-bottom-color: $border-color-progressive;
+                color: $color-progressive;
             }
 
-            &.selected:active, &:active {
+            &:active, &.selected:active {
                 a {
-                    border-color: white white $color-accent-30 white;
-                    color: $color-accent-30;
+                    border-color: white white $color-progressive--active white;
+                    color: $color-progressive--active;
                 }
             }
         }
@@ -220,7 +205,7 @@ nav.tabs {
 }
 
 dl.import-meta {
-    margin: 0 0 24px 0;
+    margin: 0 0 24px;
     border-radius: 2px;
     padding: 16px;
 }
@@ -231,13 +216,13 @@ dl.import-meta-pending {
 }
 
 dl.import-meta-failed {
-    border: 1px solid #dd3333;
+    border: 1px solid #d33;
     background-color: #fee7e6;
 }
 
 dl.import-meta-completed {
     border: 1px solid #c8ccd1;
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 dl.import-meta dt {
@@ -255,7 +240,8 @@ dl.import-meta dd:not(:last-child) {
 
 dl.import-meta .download-csv {
     float: right;
-    @media(max-width: $width-breakpoint-tablet){
+
+    @media(max-width: $max-width-breakpoint-mobile){
         float: none;
         padding-block-end: 0;
         margin-block-end: 1em;
@@ -264,95 +250,101 @@ dl.import-meta .download-csv {
 }
 
 .button {
-    padding: $wikit-Button-medium-padding-vertical $wikit-Button-medium-padding-horizontal;
-    font-weight: $wikit-Button-font-weight;
-    line-height: $wikit-Button-line-height;
+    @include ui-text-m($font-weight-bold);
+
+    padding: $spacing-30 $spacing-75;
     display: inline-block;
-    color: $wikit-Button-normal-neutral-color;
-    border-width: $wikit-Button-border-width;
-    border-style: $wikit-Button-border-style;
-    border-color: $wikit-Button-normal-neutral-border-color;
-    border-radius: $wikit-Button-border-radius;
-    background-color: $wikit-Button-normal-neutral-background-color;
-    transition-duration: $wikit-Button-transition-duration;
-    transition-property: $wikit-Button-transition-property;
+    border-width: $border-width-base;
+    border-style: $border-style-base;
+    border-color: $border-color-base;
+    border-radius: $border-radius-base;
+    outline: none;
+    background-color: $background-color-interactive-subtle;
+    transition-duration: $transition-duration-base;
+    transition-property: $transition-property-base;
 
     &:focus {
-        color: $wikit-Button-normal-neutral-focus-color;
-        background-color: $wikit-Button-normal-neutral-focus-background-color;
-        border-color: $wikit-Button-normal-neutral-focus-border-color;
-        box-shadow: $wikit-Button-normal-neutral-focus-box-shadow;
+        color: $color-base;
+        background-color: $background-color-interactive-subtle;
+        border-color: $border-color-progressive--focus;
+        box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus;
+        outline: $outline-base--focus;
     }
 
     &:hover {
         text-decoration: none;
-        color: $wikit-Button-normal-neutral-hover-color;
-        border-color: $wikit-Button-normal-neutral-hover-border-color;
-        background-color: $wikit-Button-normal-neutral-hover-background-color;
+        color: $color-base--hover;
+        border-color: $border-color-base;
+        background-color: $background-color-base;
     }
 
     &:active {
-        color: $wikit-Button-normal-neutral-active-color;
-        border-color: $wikit-Button-normal-neutral-active-border-color;
-        background-color: $wikit-Button-normal-neutral-active-background-color;
+        color: $color-emphasized;
+        border-color: $border-color-interactive;
+        background-color: $background-color-interactive;
         box-shadow: none;
     }
 
     &.progressive {
-        color: $wikit-Button-primary-color;
-        background-color: $wikit-Button-primary-progressive-background-color;
-        border-color: $wikit-Button-primary-progressive-border-color;
+        color: $color-inverted;
+        background-color: $background-color-progressive;
+        border-color: $border-color-progressive;
 
         &:visited {
             color: white;
         }
 
         &:focus {
-            box-shadow: $wikit-Button-primary-progressive-focus-box-shadow;
-            border-color: $wikit-Button-primary-progressive-focus-border-color;
-            background-color: $wikit-Button-primary-progressive-focus-background-color;
+            box-shadow: $box-shadow-inset-small $box-shadow-color-progressive--focus, $box-shadow-inset-medium $box-shadow-color-inverted;
+            border-color: $border-color-progressive--focus;
+            background-color: $background-color-progressive;
         }
+
         &:hover {
-            background-color: $wikit-Button-primary-progressive-hover-background-color;
-            border-color: $wikit-Button-primary-progressive-hover-border-color;
+            background-color: $background-color-progressive--hover;
+            border-color: $border-color-progressive--hover;
         }
+
         &:active {
-            background-color: $wikit-Button-primary-progressive-active-background-color;
-            border-color: $wikit-Button-primary-progressive-active-border-color;
+            background-color: $background-color-progressive--active;
+            border-color: $border-color-progressive--active;
             box-shadow: none;
         }
     }
 
     &.destructive {
-        color: $wikit-Button-primary-color;
-        background-color: $wikit-Button-primary-destructive-background-color;
-        border-color: $wikit-Button-primary-destructive-border-color;
+        color: $color-inverted;
+        background-color: $background-color-destructive;
+        border-color: $border-color-destructive;
 
         &:visited {
             color: white;
         }
 
         &:focus {
-            box-shadow: $wikit-Button-primary-destructive-focus-box-shadow;
-            border-color: $wikit-Button-primary-destructive-focus-border-color;
-            background-color: $wikit-Button-primary-destructive-focus-background-color;
+            box-shadow: $box-shadow-inset-small $box-shadow-color-destructive--focus $box-shadow-inset-medium $box-shadow-color-inverted;
+            border-color: $border-color-destructive--focus;
+            background-color: $background-color-destructive;
         }
+
         &:hover {
-            background-color: $color-modifier-lighten-utility-red-50;
-            border-color: $color-modifier-lighten-utility-red-50;
+            background-color: $color-destructive--hover;
+            border-color: $color-destructive--hover;
         }
+
         &:active {
-            background-color: $wikit-Button-primary-destructive-active-background-color;
-            border-color: $wikit-Button-primary-destructive-active-border-color;
+            background-color: $background-color-destructive--active;
+            border-color: $border-color-destructive--active;
             box-shadow: none;
         }
     }
+
     &:not(:last-child) {
         margin-right: 8px;
     }
 
     &-icon {
-        margin-inline-end: $dimension-spacing-small;
+        margin-inline-end: var(--dimension-spacing-small);
         vertical-align: middle;
     }
 }
@@ -362,20 +354,41 @@ dl.import-meta .download-csv {
 
     &.right {
         justify-content: flex-end;
-        @media (max-width: $width-breakpoint-tablet) {
+
+        @media (max-width: $max-width-breakpoint-mobile) {
             justify-content: flex-start;
          }
     }
 
-    @media (max-width: $width-breakpoint-tablet) {
+    @media (max-width: $max-width-breakpoint-mobile) {
        justify-content: flex-start;
     }
+}
+
+// TODO: This is a temporary fix until issue https://phabricator.wikimedia.org/T326900
+// is marked as resolved.
+.cdx-button {
+    @include ui-text-m($font-weight-bold);
+
+    .text-with-icon-button {
+        vertical-align: text-top;
+        padding-left: 5px;
+    }
+
+    .cdx-icon {
+        vertical-align: text-top;
+    }
+}
+
+.heading-button {
+    flex-shrink: 0; // don't show ellipsis as long as the text fits
 }
 
 .svg {
     &-white-fill {
         filter: invert(1);
     }
+
     &-black-fill {
         filter: invert(0);
     }
@@ -397,28 +410,50 @@ dl.import-meta .download-csv {
 
 /* Styles that differ in the tabs */
 // escaping the dot of the name of the class
+/* stylelint-disable-next-line selector-class-pattern */
 .store\.api-settings {
     nav.tabs {
         padding-bottom: 24px;
     }
-    .button-group { 
+
+    .button-group {
         margin-top: 16px;
     }
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .store\.import-status {
     nav.tabs {
         padding-bottom: 16px;
     }
 
     .button-group {
-        margin-block-end: $dimension-spacing-large;
+        margin-block-end: var(--dimension-spacing-large);
     }
 
     .button {
-        @media (max-width: $width-breakpoint-tablet) {
+        @media (max-width: $max-width-breakpoint-mobile) {
             width: 100%;
             text-align: center;
         }
     }
+}
+
+.cdx-dialog {
+	header {
+		color: $color-emphasized;
+	}
+
+	&__body {
+		line-height: $line-height-medium;
+	}
+}
+
+.cdx-select-vue {
+	width: 100%;
+
+	&__handle {
+		min-width: unset;
+		max-width: 256px;
+	}
 }

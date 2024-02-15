@@ -1,41 +1,44 @@
-import Vue from 'vue';
-import Vuex, {Store} from 'vuex';
+import { defineStore } from 'pinia';
 import RootState from './RootState';
 import { Inertia } from '@inertiajs/inertia';
-import mutations from './mutations';
 
-export function getInitialState(): RootState {
-    return {
-        loading: false,
-        lastSearchedIds: ''
-    }
-}
-
-export function createStore(): Store<RootState>{
-    Vue.use(Vuex);
-
-    const store = new Store({
-        state: getInitialState(),
-        mutations
-    });
-
-    let timer: ReturnType<typeof setTimeout>;
-
-    Inertia.on('start', () => {
-        // Only instantiate loading state after 250ms. This is done to
-        // prevent a flash of the loader in case loading is nearly
-        // immediate, which can be visually distracting.
-        timer = setTimeout(() => store.commit('startLoader'), 250);
-    });
-
-    Inertia.on('finish', (event) => {
-        clearTimeout(timer);
-        const status = event.detail.visit;
-
-        if (status.completed || status.cancelled) {
-            store.commit('stopLoader');
+export const useStore = defineStore('storeId', {
+    state: () : RootState => {
+        return {
+            loading: false,
+            lastSearchedIds: ''
         }
-    });
+    },
+    actions: {
+        startLoader () {
+            this.loading = true;
+        },
+        stopLoader () {
+            this.loading = false;
+        },
+        saveSearchedIds (searchedIds: string) {
+            this.lastSearchedIds = searchedIds;
+        }
+    },
 
-    return store;
-}
+});
+
+let timer: ReturnType<typeof setTimeout>;
+
+Inertia.on('start', () => {
+    // Only instantiate loading state after 250ms. This is done to
+    // prevent a flash of the loader in case loading is nearly
+    // immediate, which can be visually distracting.
+    const store = useStore();
+    timer = setTimeout(() => store.startLoader(), 250);
+});
+
+Inertia.on('finish', (event) => {
+    clearTimeout(timer);
+    const status = event.detail.visit;
+
+    if (status.completed || status.cancelled) {
+        const store = useStore();
+        store.stopLoader();
+    }
+});

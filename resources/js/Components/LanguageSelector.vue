@@ -39,7 +39,7 @@ import LanguageSelectorOptionsMenu from "./LanguageSelectorOptionsMenu.vue";
 import LanguageSelectorInput from "./LanguageSelectorInput.vue";
 import Language from '../types/Language';
 import closeUrlSvg from '../../img/close.svg';
-
+import axios from 'axios';
 import {ref, computed} from "vue";
 import type {Ref} from 'vue';
 import languageData from "@wikimedia/language-data";
@@ -47,6 +47,7 @@ import languageData from "@wikimedia/language-data";
 const searchInput: Ref<string> = ref('');
 const highlightedIndex: Ref<number> = ref(-1);
 const closeUrl = ref(closeUrlSvg);
+const apiSearchInput: Ref<string> = ref('');
 
 const input = ref<InstanceType<typeof LanguageSelectorInput> | null>(null);
 
@@ -64,14 +65,33 @@ const languages = computed<Language[]>(() => {
 
 const shownLanguages = computed<Language[]>(() => {
 	return languages.value.filter((language) =>
-		language.code.startsWith(searchInput.value.toLowerCase()) ||
-		language.autonym.toLowerCase().includes(searchInput.value.toLowerCase()),
+		language.code.startsWith(
+            searchInput.value.toLowerCase() ||
+            apiSearchInput.value.toLocaleLowerCase() ) ||
+		language.autonym.toLowerCase().includes(
+            searchInput.value.toLowerCase() ||
+            apiSearchInput.value.toLowerCase()
+        ),
 	);
 });
 
 function onInput(searchedLanguage: string): void {
 	searchInput.value = searchedLanguage;
+    getApiLanguageCodes(searchInput.value);
 	highlightedIndex.value = 0;
+}
+
+async function getApiLanguageCodes(inputValue: string) {
+    return await axios.get(
+        'https://www.wikidata.org/w/api.php?action=languagesearch&format=json&formatversion=2',
+        {
+            params: {
+                search: inputValue,
+                origin:'*'
+            }
+        }).then((response) => {
+            apiSearchInput.value = response.data.languagesearch;
+      }) ;
 }
 
 function onSelect(languageCode: string): void {

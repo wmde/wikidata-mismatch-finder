@@ -58,23 +58,23 @@ class ImportCSV implements ShouldQueue
                 ->where('import_meta.user_id', '=', $this->meta->user->id);
 
             $reader->lines($filepath)->each(function ($mismatchLine) use (
-                $mismatches_per_upload_user,
                 &$new_mismatches,
                 &$where_clauses
             ) {
 
                 $new_mismatch = Mismatch::make($mismatchLine);
                 $new_mismatches[] = $new_mismatch;
-                $collection = collect($new_mismatch->getAttributes());
-                $collection->forget('review_status');
-                $newArray = [['review_status', '!=', 'pending']];
-                $collection->map(function ($item, $key) use (&$newArray) {
-                    if ($key != 'type') { // key can be empty in the file but in the db always has statement by default
-                        $newArray[] = [$key, $item];
+                $mismatch_attributes = collect($new_mismatch->getAttributes());
+                $mismatch_attributes->forget('review_status');
+                $where_clause = [['review_status', '!=', 'pending']];
+                $mismatch_attributes->map(function ($attribute, $key) use (&$where_clause) {
+                    // key can be empty in the file but in the db always has statement by default
+                    if ($key != 'type' || $attribute != null) {
+                        $where_clause[] = [$key, $attribute];
                     }
                 });
 
-                $where_clauses[] = $newArray;
+                $where_clauses[] = $where_clause;
             });
 
             $mismatches_per_upload_user->where(function ($query) use ($where_clauses) {

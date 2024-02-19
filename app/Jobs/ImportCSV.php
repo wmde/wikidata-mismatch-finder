@@ -62,18 +62,15 @@ class ImportCSV implements ShouldQueue
                 &$where_clauses
             ) {
 
-                $new_mismatch = Mismatch::make($mismatchLine);
+                $new_mismatch = $this->createMismatch($mismatchLine);
                 $new_mismatches[] = $new_mismatch;
-                $mismatch_attributes = collect($new_mismatch->getAttributes());
-                $mismatch_attributes->forget('review_status');
                 $where_clause = [['review_status', '!=', 'pending']];
-                $mismatch_attributes->map(function ($attribute, $key) use (&$where_clause) {
-                    // key can be empty in the file but in the db always has statement by default
-                    if ($key != 'type' || $attribute != null) {
-                        $where_clause[] = [$key, $attribute];
+                foreach ($new_mismatch->getAttributes() as $key => $attribute) {
+                    if ($key == 'review_status') {
+                        continue;
                     }
-                });
-
+                    $where_clause[] = [$key, $attribute];
+                }
                 $where_clauses[] = $where_clause;
             });
 
@@ -88,7 +85,7 @@ class ImportCSV implements ShouldQueue
             $existing_mismatches = $mismatches_per_upload_user->get();
 
             foreach ($new_mismatches as $new_mismatch) {
-                $isDuplicate = function ($value) use ($new_mismatch) {
+                if ($existing_mismatches->doesntContain(function ($value) use ($new_mismatch) {
                     $metaAttrs = $new_mismatch->getAttributes();
                     foreach ($metaAttrs as $attrKey => $attr) {
                         if ($attrKey != 'review_status' && $value->{$attrKey} != $attr) {
@@ -96,9 +93,7 @@ class ImportCSV implements ShouldQueue
                         }
                     }
                     return true;
-                };
-
-                if (!$existing_mismatches->contains($isDuplicate)) {
+                })) {
                     $this->saveMismatch($new_mismatch);
                 }
             }
@@ -126,6 +121,18 @@ class ImportCSV implements ShouldQueue
         $this->meta->save();
     }
 
+
+    private function createMismatch($mismatch_data)
+    {
+        $new_mismatch = Mismatch::make($mismatch_data);
+
+        if ($new_mismatch->type == null) {
+            $new_mismatch->type = 'statement';
+        }
+
+        return $new_mismatch;
+    }
+
     /**
      * Save mismatch to database
      *
@@ -134,9 +141,6 @@ class ImportCSV implements ShouldQueue
      */
     private function saveMismatch($new_mismatch)
     {
-        if ($new_mismatch->type == null) {
-            $new_mismatch->type = 'statement';
-        }
         // if review_status == pending -> save
         $new_mismatch->importMeta()->associate($this->meta);
         $new_mismatch->save();

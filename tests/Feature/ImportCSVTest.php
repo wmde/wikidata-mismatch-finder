@@ -341,7 +341,9 @@ class ImportCSVTest extends TestCase
         );
 
         $expected = array_map(function ($row) use ($header) {
-            return array_combine($header, $row);
+            $expected_line = array_combine($header, $row);
+            $expected_line['type'] = 'statement';
+            return $expected_line;
         }, $lines);
 
         ImportCSV::dispatch($reupload_import1);

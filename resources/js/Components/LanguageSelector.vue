@@ -47,7 +47,7 @@ import languageData from "@wikimedia/language-data";
 const searchInput: Ref<string> = ref('');
 const highlightedIndex: Ref<number> = ref(-1);
 const closeUrl = ref(closeUrlSvg);
-const apiSearchInput = ref(['']);
+const apiLanguageCodes = ref(['']);
 
 const input = ref<InstanceType<typeof LanguageSelectorInput> | null>(null);
 
@@ -64,11 +64,11 @@ const languages = computed<Language[]>(() => {
 });
 
 const shownLanguages = computed<Language[]>(() => {
-	return languages.value.filter((language) =>
-		language.code.startsWith(
-            searchInput.value.toLowerCase() ) ||
-		language.autonym.toLowerCase().includes(
-            searchInput.value.toLowerCase()) || apiSearchInput.value.includes(language.code))
+    return languages.value.filter((language) =>
+        language.code.startsWith(searchInput.value.toLowerCase()) ||
+        language.autonym.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+        apiLanguageCodes.value.includes(language.code)
+    )
 });
 
 function onInput(searchedLanguage: string): void {
@@ -83,14 +83,11 @@ async function getApiLanguageCodes(inputValue: string) {
         {
             params: {
                 search: inputValue,
-                origin:'*' // avoid CORS console errors
+                origin: '*' // avoid CORS console errors
             }
         }).then((response) => {
-          const languageCodes = Object.keys(response.data.languagesearch);
-          languageCodes.forEach(languageCode => {
-            apiSearchInput.value.push(languageCode);
-          });
-      }) ;
+            apiLanguageCodes.value = Object.keys(response.data.languagesearch);
+        });
 }
 
 function onSelect(languageCode: string): void {

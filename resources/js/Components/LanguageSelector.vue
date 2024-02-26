@@ -74,7 +74,10 @@ const shownLanguages = computed<Language[]>(() => {
 
 function onInput(searchedLanguage: string): void {
 	searchInput.value = searchedLanguage;
-    debouncedApiLanguageSearch(searchInput.value);
+    if (searchInput.value) {
+        debouncedApiLanguageSearch(searchInput.value);
+    }
+
 	highlightedIndex.value = 0;
 }
 

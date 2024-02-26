@@ -43,6 +43,7 @@ import axios from 'axios';
 import {ref, computed} from "vue";
 import type {Ref} from 'vue';
 import languageData from "@wikimedia/language-data";
+import debounce from "lodash.debounce";
 
 const searchInput: Ref<string> = ref('');
 const highlightedIndex: Ref<number> = ref(-1);
@@ -73,22 +74,22 @@ const shownLanguages = computed<Language[]>(() => {
 
 function onInput(searchedLanguage: string): void {
 	searchInput.value = searchedLanguage;
-    getApiLanguageCodes(searchInput.value);
+    debouncedApiLanguageSearch(searchInput.value);
 	highlightedIndex.value = 0;
 }
 
-async function getApiLanguageCodes(inputValue: string) {
-    return await axios.get(
+const debouncedApiLanguageSearch = debounce(async (debouncedInputValue: string) => {
+    await axios.get(
         'https://www.wikidata.org/w/api.php?action=languagesearch&format=json&formatversion=2',
         {
             params: {
-                search: inputValue,
+                search: debouncedInputValue,
                 origin: '*' // avoid CORS console errors
             }
         }).then((response) => {
             apiLanguageCodes.value = Object.keys(response.data.languagesearch);
         });
-}
+}, 200);
 
 function onSelect(languageCode: string): void {
 	emit('select', languageCode);

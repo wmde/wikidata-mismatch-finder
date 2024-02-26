@@ -61,6 +61,7 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "date-fns": "^3.3.1",
         "lodash": "^4.17.21",
+        "lodash.debounce": "^4.0.8",
         "pinia": "^2.1.7",
         "ress": "^5.0.2",
         "vue": "^3.3.8",

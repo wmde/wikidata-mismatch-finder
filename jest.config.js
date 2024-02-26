@@ -12,7 +12,8 @@ module.exports = {
     "transform": {
         ".*\\.(vue)$": "<rootDir>/node_modules/@vue/vue3-jest",
         "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
+        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest",
+        '.+\\.svg$': '<rootDir>/tests/Vue/helpers/jest-svg-component-transformer.js'
     },
     // (Optional) This file helps you later for global settings
     "setupFilesAfterEnv": [

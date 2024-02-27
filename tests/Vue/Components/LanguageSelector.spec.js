@@ -9,12 +9,20 @@ const i18n = createI18n({
 });
 
 describe('LanguageSelector.vue', () => {
-    it('renders', () => {
+    it('renders', async () => {
         const wrapper = mount(LanguageSelector, {
             global: {
                 plugins: [i18n],
         }});
 
-        expect(wrapper.find('.mismatchfinder__language-selector').exists()).toBe(true);
+        const input = wrapper.find('input');
+
+        expect(input.exists()).toBe(true);
+
+        input.setValue('ger');
+        expect(input.element.value).toBe('ger');
+        const listItem = await wrapper.find('.languageSelector__options-menu__languages-list__item');
+
+        console.debug(listItem.html({ raw: true }));
     });
 });

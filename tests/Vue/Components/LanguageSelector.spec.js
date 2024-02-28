@@ -9,7 +9,7 @@ const i18n = createI18n({
 });
 
 describe('LanguageSelector.vue', () => {
-    it('renders', async () => {
+    it('suggests the relevant language upon input', async () => {
         const wrapper = mount(LanguageSelector, {
             global: {
                 plugins: [i18n],
@@ -19,10 +19,26 @@ describe('LanguageSelector.vue', () => {
 
         expect(input.exists()).toBe(true);
 
-        input.setValue('ger');
-        expect(input.element.value).toBe('ger');
-        const listItem = await wrapper.find('.languageSelector__options-menu__languages-list__item');
+        await input.setValue('deu');
+        const listItems = await wrapper.findAll('.languageSelector__options-menu__languages-list__item');
 
-        console.debug(listItem.html({ raw: true }));
+        expect(listItems.at(0).text()).toContain('Deutsch');
     });
+
+    it('suggests the relevant language upon RTL input', async () => {
+        const wrapper = mount(LanguageSelector, {
+            global: {
+                plugins: [i18n],
+        }});
+
+        const input = wrapper.find('input');
+
+        expect(input.exists()).toBe(true);
+
+        await input.setValue('עב');
+        const listItems = await wrapper.findAll('.languageSelector__options-menu__languages-list__item');
+
+        expect(listItems.at(0).text()).toContain('עברית');
+    });
+
 });

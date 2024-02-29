@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"YaronSh"
 		]
 	},
 	"about-mismatch-finder-title": "על הכלי הזה",
 	"about-mismatch-finder-description": "מאתר אי־התאמות (Mismatch Finder) מראה לך נתונים בוויקינתונים ששונים מהנתונים במסד נתונים, קטלוג או אתר אחר (למשל, תאריך הלידה של מישהו בוויקינתונים אינו תואם את הערך המקביל בקטלוג של הספרייה הלאומית הגרמנית). אי־התאמה כזאת זקוקות לתיקון, ומאתר האי־התאמות עוזר לך לעשות בדיוק את זה.",
 	"find-more": "מידע נוסף",
 	"item-form-title": "אילו פריטים יש לבדוק?",
+	"item-form-progress-bar-aria-label": "סרגל התקדמות שמציין את מצב הטעינה בעת הגשת פריטי בדיקה",
 	"item-form-id-input-label": "נא להוסיף מזהה פריט אחד בכל שורה",
 	"item-form-id-input-placeholder": "למשל:\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "לבדוק פריטים",

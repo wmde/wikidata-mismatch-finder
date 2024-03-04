@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dj"
+		]
+	},
+	"about-mismatch-finder-title": "Erről az eszközről",
+	"find-more": "Tudj meg többet",
+	"item-form-title": "Mely elemeket kell ellenőrizni?",
+	"item-form-id-input-placeholder": "Például:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Bejelentkezés",
+	"log-out": "Kijelentkezés",
+	"language-selector-options-menu-aria-label": "Nyelvek",
+	"language-selector-mobile-header": "Nyelv kijelölése",
+	"language-selector-clear-button-label": "Beviteli mező törlése",
+	"language-selector-close-button-label": "Nyelvválasztó bezárása",
+	"language-selector-input-placeholder": "Nyelvek keresése",
+	"language-selector-no-results": "A nyelv nem elérhető",
+	"column-mismatch": "Eltérés",
+	"column-type": "Típus",
+	"column-wikidata-value": "Érték a Wikidatán",
+	"column-external-value": "Érték a külső forráson",
+	"column-review-status": "Állapot",
+	"column-upload-info": "Információk feltöltése",
+	"column-external-source": "Külső forrás",
+	"no-mismatches-found-message": "Nem találtunk eltérést a következőhöz:",
+	"random-mismatches": "Véletlenszerű eltérések",
+	"empty-value": "Nincs",
+	"statement": "nyilatkozat",
+	"confirm-dialog-button": "Megerősítés",
+	"instructions-dialog-title": "Útmutató az eltérések ellenőrzéséhez",
+	"results-back-button": "Keressen további eltérést",
+	"faq-button": "További információk",
+	"wikidata-tool-footer-team": "Készítette a [$1 Wikidata-csapat]",
+	"mismatch-finder-license": "BSD 3-clause licenc",
+	"tool-query-builder": "Lekérdezéskészítő",
+	"tool-curious-facts": "Érdekes tények"
+}

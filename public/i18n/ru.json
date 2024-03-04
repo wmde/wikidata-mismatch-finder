@@ -3,6 +3,7 @@
 		"authors": [
 			"Fenixs-ru",
 			"Kareyac",
+			"Mitte27",
 			"Okras"
 		]
 	},
@@ -18,6 +19,7 @@
 	"language-selector-clear-button-label": "Очистить поле ввода",
 	"language-selector-input-placeholder": "Поиск языков",
 	"language-selector-no-results": "Язык недоступен",
+	"column-type": "Тип",
 	"column-wikidata-value": "Значение в Викиданных",
 	"column-external-value": "Значение во внешнем источнике",
 	"column-review-status": "Состояние",
@@ -41,13 +43,13 @@
 	"faq-dialog-question-relevance": "Насколько актуальны эти несоответствия?",
 	"faq-dialog-question-more-info": "Где я могу найти дополнительную информацию?",
 	"wikidata-tool-footer-about-tool": "О $1",
-	"wikidata-tool-footer-license": "Под лицензией <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-license": "Под лицензией [$1 $2]",
 	"wikidata-tool-footer-source": "Получить исходный код",
 	"wikidata-tool-footer-issues": "Сообщить о проблеме",
 	"wikidata-tool-footer-about-us": "О нас",
 	"wikidata-tool-footer-privacy": "Политика конфиденциальности",
 	"wikidata-tool-footer-wmde": "Викимедиа Германия",
-	"wikidata-tool-footer-team": "Сделано с ♥ <a href=\"$1\">командой Викиданных</a>",
+	"wikidata-tool-footer-team": "Сделано с ♥ [$1 командой Викиданных]",
 	"mismatch-finder-footer-more-tools": "Ещё инструменты по работе с качеством данных",
 	"tool-query-builder": "Конструктор запросов",
 	"tool-item-quality-evaluator": "Оценка качества элементов",

@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"EdoAug"
+			"EdoAug",
+			"Jon Harald Søby"
 		]
 	},
 	"about-mismatch-finder-title": "Om dette verktøyet",
 	"about-mismatch-finder-description": "Mismatch Finder viser deg data på Wikidata som ikke samsvarer med data i andre databaser, kataloger eller nettsider (for eksempel, noens fødselsdato i Wikidata samsvarer ikke med det samme subjektets oppføring i Tysklands nasjonalbiblioteks katalog). Differanser som dette må fikses, og Mismatch Finder hjelper deg å finne dem.",
 	"find-more": "Lær mer",
 	"item-form-title": "Hvilke elementer skal sjekkes?",
+	"item-form-progress-bar-aria-label": "Fremdriftslinje som viser lastestatus ved innsending av sjekkelementer",
 	"item-form-id-input-label": "Legg til én elementidentifikator per linje",
 	"item-form-id-input-placeholder": "For eksempel:\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "Sjekk elementer",
@@ -44,7 +46,7 @@
 	"review-status-none": "Ingen av ovenstående",
 	"result-form-submit": "Lagre gjennomganger",
 	"changes-submitted-message": "Gjennomgang lagret for:",
-	"log-in-message": "<a href=\"$1\">Logg inn</a> for å gjøre endringer.",
+	"log-in-message": "[$1 Logg inn] for å gjøre endringer.",
 	"results-page-description": "Du kan fikse dem! Tabellene nedenfor viser deg lenker til utsagn på Wikidata og til oppføringer i den eksterne kilden. Du kan sammenligne verdiene og manuelt fikse differansene ved å redigere Wikidata eller den eksterne kilden. Etter gjennomgang og differansefiks, kan du indikere statusen ved å bruke alternativene i rullegardinmenyen. Dette verktøyet utfører ikke endringene dine automatisk.",
 	"results-page-title": "Hva gjør jeg med differansene?",
 	"results-instructions-button": "Instruksjoner",
@@ -77,17 +79,17 @@
 	"faq-dialog-question-relevance": "Hvor oppdaterte er differansene?",
 	"faq-dialog-answer-relevance": "Det kommer an på! Inspisering av eksterne databaser, kataloger og nettsteder tar lang tid og mange ressurser. Sjekkene er gjort periodevis i bolker. Vi prøver å fjerne utdaterte differanser, men det kan fortsatt forekomme.",
 	"faq-dialog-question-contributing": "Hvordan kan jeg bidra med nye differanser?",
-	"faq-dialog-answer-contributing": "Om du har sammenlignet Wikidatas data med en ekstern kilde og har funnet differanser, kan du opprette en sak på <a href=\"$1\">Phabricator</a> for å forespørre en opplasting av dine differanser.",
+	"faq-dialog-answer-contributing": "Om du har sammenlignet Wikidatas data med en ekstern kilde og har funnet differanser, kan du opprette en sak på [$1 Phabricator] for å forespørre en opplasting av dine differanser.",
 	"faq-dialog-question-more-info": "Hvor kan jeg finne mer informasjon?",
-	"faq-dialog-answer-more-info": "Dette verktøyets dokumentasjon og kildekode er tilgjengelig på <a href=\"$1\">GitHub</a>. Du kan lese mer om Mismatch Finder på <a href=\"$2\">Wikidata</a>, eller du kan gi oss <a href=\"$3\">tilbakemeldinger</a>.",
+	"faq-dialog-answer-more-info": "Dette verktøyets dokumentasjon og kildekode er tilgjengelig på [$1 GitHub]. Du kan lese mer om Mismatch Finder på [$2 Wikidata], eller du kan gi oss [$3 tilbakemeldinger].",
 	"wikidata-tool-footer-about-tool": "Om $1",
-	"wikidata-tool-footer-license": "Lisensiert under <a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-license": "Lisensiert under [$1 $2]",
 	"wikidata-tool-footer-source": "Få kildekoden",
 	"wikidata-tool-footer-issues": "Rapporter et problem",
 	"wikidata-tool-footer-about-us": "Om oss",
 	"wikidata-tool-footer-privacy": "Personvernspolitikk",
 	"wikidata-tool-footer-wmde": "Wikimedia Deutschland",
-	"wikidata-tool-footer-team": "Lagd med ♥ av <a href=\"$1\">Wikidata Team</a>",
+	"wikidata-tool-footer-team": "Lagd med ♥ av [$1 Wikidata-teamet]",
 	"mismatch-finder-license": "BSD 3-Clause License",
 	"mismatch-finder-footer-more-tools": "Flere datakvalitetsverktøy",
 	"tool-query-builder": "Spørringsbygger",

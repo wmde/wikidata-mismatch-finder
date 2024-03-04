@@ -2,17 +2,18 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"ItamarWMDE"
+			"ItamarWMDE",
+			"McDutchie"
 		]
 	},
 	"about-mismatch-finder-title": "The title of the tool's \"about\" text",
 	"about-mismatch-finder-description": "A short text to describe the Mismatch Finder tool",
 	"find-more": "A call to action for more information",
 	"item-form-title": "The title of the form that filters Mismatches by Item id",
-	"item-form-progress-bar-aria-label": "The aria label for screen reader for the Progress Bar indicating loading state when submittion Check Items",
+	"item-form-progress-bar-aria-label": "The area label for screen reader for the Progress Bar indicating loading state when submitting Check Items.\n\n\"Check Items\" is the button on the Mismatch Finder that allows users to check a list of Items on Wikidata for mismatches. See this screenshot: [[File:Wikidata-mismatch-finder-item-form-progress-bar-aria-label.png|thumb|left]]",
 	"item-form-id-input-label": "The label for the Item id input",
 	"item-form-id-input-placeholder": "The placeholder for the Item id input",
-	"item-form-submit": "The call to action on the Item id form's submit button",
+	"item-form-submit": "The call to action on the Item id form's submit button.\n\n\"Check Items\" is the button on the Mismatch Finder that allows users to check a list of Items on Wikidata for mismatches. See this screenshot: [[File:Wikidata-mismatch-finder-item-form-progress-bar-aria-label.png|thumb|left]]",
 	"log-in": "The call to action for user log in",
 	"log-out": "The call to action for user log out",
 	"mismatch-finder-title": "The main title of the website",

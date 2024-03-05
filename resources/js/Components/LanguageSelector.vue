@@ -39,14 +39,16 @@ import LanguageSelectorOptionsMenu from "./LanguageSelectorOptionsMenu.vue";
 import LanguageSelectorInput from "./LanguageSelectorInput.vue";
 import Language from '../types/Language';
 import closeUrlSvg from '../../img/close.svg';
-
+import axios from 'axios';
 import {ref, computed} from "vue";
 import type {Ref} from 'vue';
 import languageData from "@wikimedia/language-data";
+import debounce from "lodash.debounce";
 
 const searchInput: Ref<string> = ref('');
 const highlightedIndex: Ref<number> = ref(-1);
 const closeUrl = ref(closeUrlSvg);
+const apiLanguageCodes = ref(['']);
 
 const input = ref<InstanceType<typeof LanguageSelectorInput> | null>(null);
 
@@ -63,16 +65,34 @@ const languages = computed<Language[]>(() => {
 });
 
 const shownLanguages = computed<Language[]>(() => {
-	return languages.value.filter((language) =>
-		language.code.startsWith(searchInput.value.toLowerCase()) ||
-		language.autonym.toLowerCase().includes(searchInput.value.toLowerCase()),
-	);
+    return languages.value.filter((language) =>
+        language.code.startsWith(searchInput.value.toLowerCase()) ||
+        language.autonym.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+        apiLanguageCodes.value.includes(language.code)
+    )
 });
 
 function onInput(searchedLanguage: string): void {
 	searchInput.value = searchedLanguage;
+    if (searchInput.value) {
+        debouncedApiLanguageSearch(searchInput.value);
+    }
+
 	highlightedIndex.value = 0;
 }
+
+const debouncedApiLanguageSearch = debounce(async (debouncedInputValue: string) => {
+    await axios.get(
+        'https://www.wikidata.org/w/api.php?action=languagesearch&format=json&formatversion=2',
+        {
+            params: {
+                search: debouncedInputValue,
+                origin: '*' // avoid CORS console errors
+            }
+        }).then((response) => {
+            apiLanguageCodes.value = Object.keys(response.data.languagesearch);
+        });
+}, 200);
 
 function onSelect(languageCode: string): void {
 	emit('select', languageCode);

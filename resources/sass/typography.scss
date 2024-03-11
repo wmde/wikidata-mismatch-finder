@@ -1,0 +1,47 @@
+@mixin body-m {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-medium;
+    color: $color-base;
+}
+
+@mixin body-s {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-small;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-medium;
+    color: $color-base;
+}
+
+@mixin ui-text-m($font-weight: $font-weight-normal){
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight;
+    line-height: $line-height-xx-small;
+    color: $color-base;
+}
+
+@mixin heading-1 {
+    font-family: $font-family-serif;
+    font-size: $font-size-xxx-large;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
+}
+
+@mixin heading-4 {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
+}
+
+@mixin heading-5 {
+    font-family: $font-family-system-sans;
+    font-size: $font-size-medium;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-xxx-small;
+    color: $color-emphasized;
+}

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Adriendelucca",
 			"Gomoko",
 			"Valmontin",
 			"Verdy p"
@@ -46,7 +47,7 @@
 	"review-status-none": "Aucun de ces choix",
 	"result-form-submit": "Enregistrer les vérifications",
 	"changes-submitted-message": "Vérification bien enregistrée pour :",
-	"log-in-message": "Veuillez <a href=\"$1\">vous connecter</a> pour effectuer des modifications.",
+	"log-in-message": "Veuillez vous [$1 connecter] pour effectuer des modifications.",
 	"results-page-description": "Vous pouvez les corriger ! Le tableau ci-dessous vous montre les liens vers les déclarations sur Wikidata et les entrées dans la source externe. Vous pouvez comparer les valeurs et corriger manuellement les incohérences en modifiant Wikidata ou la source externe. Après investigation et correction des incohérences, vous pouvez indiquer leur état en utilisant les options de la liste déroulante. Cet outil n’effectuera pas automatiquement pour vous ces modifications lors de la soumission.",
 	"results-page-title": "Que dois-je faire avec les incohérences ?",
 	"results-instructions-button": "Instructions",

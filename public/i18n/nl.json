@@ -10,7 +10,7 @@
 	"about-mismatch-finder-description": "De Verschillenzoeker toont u gegevens in Wikidata die verschillen van de gegevens in een andere database, catalogus of website (iemands geboortedatum in Wikidata komt bijvoorbeeld niet overeen met de overeenkomstige vermelding in de catalogus van de Duitse Nationale Bibliotheek). Dit soort tegenstrijdigheden moet worden verholpen en de Verschillenzoeker helpt u daarbij.",
 	"find-more": "Meer informatie",
 	"item-form-title": "Welke items moeten worden gecontroleerd?",
-	"item-form-progress-bar-aria-label": "Voortgangsbalk die de laadstatus aangeeft bij het indienen van controle-items",
+	"item-form-progress-bar-aria-label": "Voortgangsbalk die de laadstatus aangeeft bij het indienen van de te controleren items",
 	"item-form-id-input-label": "Voeg één item-ID per regel toe",
 	"item-form-id-input-placeholder": "Bijvoorbeeld:\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "Items controleren",

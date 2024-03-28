@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = {
     // Where are your vue tests located?
     "roots": [
@@ -9,9 +10,10 @@ module.exports = {
     // js: transform js files with babel, we can now use import statements in tests
     // ts: transform ts files with babel, to import ts files into js specs
     "transform": {
-        ".*\\.(vue)$": "<rootDir>/node_modules/@vue/vue2-jest",
+        ".*\\.(vue)$": "<rootDir>/node_modules/@vue/vue3-jest",
         "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
+        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest",
+        '.+\\.svg$': '<rootDir>/tests/Vue/helpers/jest-svg-component-transformer.js'
     },
     // (Optional) This file helps you later for global settings
     "setupFilesAfterEnv": [
@@ -21,6 +23,11 @@ module.exports = {
     // "import Counter from '@/Counter.vue'"
     // (no need for a full path)
     "moduleNameMapper": {
-        "^@/(.*)$": "<rootDir>/resources/js/$1"
+        "^@/(.*)$": "<rootDir>/resources/js/$1",
     },
+    // For Vue migration build
+    // Further info: https://test-utils.vuejs.org/migration/#-vue-vue3-jest-jest-28
+    "testEnvironmentOptions": {
+        "customExportConditions": ["node", "node-addons"],
+    }
 }

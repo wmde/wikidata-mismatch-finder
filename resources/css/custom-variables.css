@@ -1,0 +1,18 @@
+:root {
+    /* spacing */
+    --dimension-spacing-none: 0em;
+    --dimension-spacing-xxsmall: 0.125em;
+    --dimension-spacing-xsmall: 0.25em;
+    --dimension-spacing-small: 0.5em;
+    --dimension-spacing-medium: 0.75em;
+    --dimension-spacing-large: 1em;
+    --dimension-spacing-xlarge: 1.5em;
+    --dimension-spacing-xxlarge: 2em;
+
+    /*layout */
+     --dimension-layout-xxsmall: 0.5rem;
+     --dimension-layout-xsmall: 1rem;
+     --dimension-layout-small: 1.5rem;
+     --dimension-layout-medium: 2rem;
+     --dimension-layout-large: 2.5rem;
+}

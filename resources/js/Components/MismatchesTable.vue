@@ -1,47 +1,53 @@
 <template>
-    <wikit-table>
-        <thead>
-            <tr>
-                <th class="column-mismatch">{{$i18n('column-mismatch')}}</th>
-                <th class="column-type">{{$i18n('column-type')}}</th>
-                <th class="column-wikidata-value">{{$i18n('column-wikidata-value')}}</th>
-                <th class="column-external-value">{{$i18n('column-external-value')}}</th>
-                <th class="column-external-source">{{$i18n('column-external-source')}}</th>
-                <th class="column-review-status">{{$i18n('column-review-status')}}</th>
-                <th class="column-upload-info">{{$i18n('column-upload-info')}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <mismatch-row v-for="mismatch in mismatches"
-                :disabled="disabled"
-                :key="mismatch.id"
-                :mismatch="mismatch"
-                :id="`mismatch-${mismatch.id}`"
-            />
-        </tbody>
-    </wikit-table>
+  <table-component>
+    <thead>
+      <tr>
+        <th class="column-mismatch">
+          {{ $i18n('column-mismatch') }}
+        </th>
+        <th class="column-type">
+          {{ $i18n('column-type') }}
+        </th>
+        <th class="column-wikidata-value">
+          {{ $i18n('column-wikidata-value') }}
+        </th>
+        <th class="column-external-value">
+          {{ $i18n('column-external-value') }}
+        </th>
+        <th class="column-external-source">
+          {{ $i18n('column-external-source') }}
+        </th>
+        <th class="column-review-status">
+          {{ $i18n('column-review-status') }}
+        </th>
+        <th class="column-upload-info">
+          {{ $i18n('column-upload-info') }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <mismatch-row
+        v-for="mismatch in mismatches"
+        :disabled="disabled"
+        :key="mismatch.id"
+        :mismatch="mismatch"
+        :id="`mismatch-${mismatch.id}`"
+      />
+    </tbody>
+  </table-component>
 </template>
 
-<script lang="ts">
-import Vue, { PropType } from 'vue';
-import { Table as WikitTable } from '@wmde/wikit-vue-components';
-
+<script setup lang="ts">
+import TableComponent from './TableComponent.vue';
 import MismatchRow from './MismatchRow.vue';
 
-import { LabelledMismatch } from '../types/Mismatch';
+import type { LabelledMismatch } from '../types/Mismatch';
 
-export default Vue.extend({
-    components: {
-        MismatchRow,
-        WikitTable,
-    },
-    props: {
-        mismatches: Array as PropType<LabelledMismatch[]>,
-        disabled: {
-            type: Boolean,
-            default: false
-        }
-    }
+withDefaults(defineProps<{
+	mismatches: LabelledMismatch[],
+    disabled: boolean
+}>(), {
+	disabled: false
 });
 </script>
 

@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"LowensteinYang"
 		]
 	},
 	"about-mismatch-finder-title": "關於本工具",
 	"about-mismatch-finder-description": "不相符查找器會向您顯示在維基數據中的資料與來自另一個資料庫、目錄、或是網站資料的差異（例如：維基數據中某個人物的出生日期與德國國家圖書館目錄中的相應條目不相符）。這樣的不相符內容會需要修復，而不相符查找器可幫助您做到這一點。",
 	"find-more": "尋找更多",
 	"item-form-title": "應該檢查哪些項目？",
+	"item-form-progress-bar-aria-label": "提交檢查項目時指示出載入狀態的進度列",
 	"item-form-id-input-label": "請在每ㄧ行添加一個項目識別碼",
 	"item-form-id-input-placeholder": "例如：\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "檢查項目",
@@ -44,7 +46,7 @@
 	"review-status-none": "兩邊都沒有",
 	"result-form-submit": "儲存檢閱",
 	"changes-submitted-message": "成功儲存檢閱：",
-	"log-in-message": "請<a href=\"$1\">登入</a>來進行更改。",
+	"log-in-message": "請[$1 登入]以進行更改。",
 	"results-page-description": "您可以修復它們！以下表格為您提供了指向到維基數據陳述內容和外部來源項目的連結。您可以比較這些值的內容，並透過編輯維基數據或外部來源來手動修復不相符的地方。在調查並修復不相符內容後，您可以使用下拉選單裡的選項指示它們的狀態。此工具並不會在您提交後，自動為您做出這些編輯。",
 	"results-page-title": "我應該如何處理不相符內容？",
 	"results-instructions-button": "説明",
@@ -77,17 +79,17 @@
 	"faq-dialog-question-relevance": "不相符內容的最新狀況如何？",
 	"faq-dialog-answer-relevance": "這取決於—檢查外部資料庫、目錄和網站會需要花費的大量時間和資源。檢查會分批定期執行，我們也盡力移除掉過過時的不相符內容，但可能仍會被您發現到一些。",
 	"faq-dialog-question-contributing": "我要如何貢獻新的不相符內容？",
-	"faq-dialog-answer-contributing": "如果您已將維基數據的資料與外部來源進行比較，並發現到不相符內容，您可以在 <a href=\"$1\">Phabricator</a> 上開放一份任務，來請求上傳您找到的不相符內容。",
+	"faq-dialog-answer-contributing": "如果您已比較過維基數據的資料與外部來源，並找到不相符，您可以在[$1Phabricator]上開啟一個任務，來請求將您找到的不相符內容上傳。",
 	"faq-dialog-question-more-info": "我在哪裡可以找到更多資訊？",
-	"faq-dialog-answer-more-info": "工具的文件和原始碼可在 <a href=\"$1\">GitHub</a> 上找到。您可以<a href=\"$2\">維基數據</a>上閱讀關於不相符查找器的更多內容，或者是您可以<a href=\"$3\">給予我們意見回饋</a>。",
+	"faq-dialog-answer-more-info": "工具的文件和原始碼可在[$1 GitHub]上找到。您可以在[$2 維基數據]上閱讀關於不相符查找器的更多內容，或者是您可以[$3 給予我們意見回饋]。",
 	"wikidata-tool-footer-about-tool": "關於$1",
-	"wikidata-tool-footer-license": "授權條款依據<a href=\"$1\">$2</a>",
+	"wikidata-tool-footer-license": "依據[$1 $2]授權條款",
 	"wikidata-tool-footer-source": "取得原始碼",
 	"wikidata-tool-footer-issues": "問題回報",
 	"wikidata-tool-footer-about-us": "關於我們",
 	"wikidata-tool-footer-privacy": "隱私政策",
 	"wikidata-tool-footer-wmde": "德國維基媒體協會",
-	"wikidata-tool-footer-team": "由<a href=\"$1\">維基數據團隊</a>以 ♥ 製作",
+	"wikidata-tool-footer-team": "由[$1 維基數據團隊]以 ❤️ 製作",
 	"mismatch-finder-license": "三句版 BSD 授權條款",
 	"mismatch-finder-footer-more-tools": "更多資料品質工具",
 	"tool-query-builder": "查詢建置器",

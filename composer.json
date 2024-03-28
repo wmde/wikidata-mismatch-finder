@@ -10,13 +10,13 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.2.0",
         "guzzlehttp/guzzle": "^7.8",
-        "inertiajs/inertia-laravel": "^0.6.10",
-        "kevinrob/guzzle-cache-middleware": "^4.1.2",
+        "inertiajs/inertia-laravel": "^0.6.11",
+        "kevinrob/guzzle-cache-middleware": "^5.1.0",
         "laravel/framework": "^8.83.26",
         "laravel/sanctum": "^2.15.1",
         "laravel/socialite": "^5.9",
         "laravel/tinker": "^2.8",
-        "taavi/laravel-socialite-mediawiki": "^1.4"
+        "taavi/laravel-socialite-mediawiki": "dev-main"
     },
     "require-dev": {
         "facade/ignition": "^2.17.7",
@@ -72,6 +72,12 @@
             "php": "7.3"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/wmde/laravel-socialite-mediawiki"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

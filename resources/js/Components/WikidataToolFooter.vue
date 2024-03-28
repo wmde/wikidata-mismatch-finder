@@ -1,39 +1,40 @@
 <template>
-    <div class="footer-container">
-        <footer :class="contentClass">
-            <section>
-                <h2 class="h5">
-                    {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
-                </h2>
-                <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]"/>
-                <p><wikit-link :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</wikit-link></p>
-                <p><wikit-link :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</wikit-link></p>
-            </section>
-            <section>
-                <h2 class="h5">{{ $i18n('wikidata-tool-footer-about-us') }}</h2>
-                <p>
-                    <wikit-link href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
-                        {{ $i18n('wikidata-tool-footer-privacy') }}
-                    </wikit-link>
-                </p>
-                <p>
-                    <wikit-link href="https://www.wikimedia.de/">
-                        {{ $i18n('wikidata-tool-footer-wmde') }}
-                    </wikit-link>
-                </p>
-                <p v-i18n-html:wikidata-tool-footer-team="[
-                    'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team'
-                ]" />
-            </section>
-            <slot />
-        </footer>
-    </div>
+  <div class="footer-container">
+    <footer :class="contentClass">
+      <section>
+        <h2 class="h5">
+          {{ $i18n('wikidata-tool-footer-about-tool', labels.tool) }}
+        </h2>
+        <p v-i18n-html:wikidata-tool-footer-license="[urls.license, labels.license ]" />
+        <p><a :href="urls.source">{{ $i18n('wikidata-tool-footer-source') }}</a></p>
+        <p><a :href="urls.issues">{{ $i18n('wikidata-tool-footer-issues') }}</a></p>
+      </section>
+      <section>
+        <h2 class="h5">
+          {{ $i18n('wikidata-tool-footer-about-us') }}
+        </h2>
+        <p>
+          <a href="https://foundation.wikimedia.org/wiki/Non-wiki_privacy_policy">
+            {{ $i18n('wikidata-tool-footer-privacy') }}
+          </a>
+        </p>
+        <p>
+          <a href="https://www.wikimedia.de/">
+            {{ $i18n('wikidata-tool-footer-wmde') }}
+          </a>
+        </p>
+        <p
+          v-i18n-html:wikidata-tool-footer-team="[
+            'https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team'
+          ]"
+        />
+      </section>
+      <slot />
+    </footer>
+  </div>
 </template>
 
-<script lang="ts">
-import Vue, { PropType } from 'vue';
-import { Link as WikitLink } from '@wmde/wikit-vue-components';
-
+<script setup lang="ts">
 interface FooterLabels {
     tool: string;
     license: string;
@@ -45,43 +46,31 @@ interface FooterUrls {
     issues: string;
 }
 
-export default Vue.extend({
-    name: 'WikidataToolFooter',
-    components: {
-        WikitLink,
-    },
-    props: {
-        contentClass: {
-            type: String,
-            default: '',
-        },
-        labels: {
-            type: Object as PropType<FooterLabels>,
-            required: true,
-        },
-        urls: {
-            type: Object as PropType<FooterUrls>,
-            required: true,
-        },
-    }
+withDefaults(defineProps<{
+	contentClass: string,
+	labels: { type: FooterLabels, required: true },
+    urls: { type: FooterUrls, required: true }
+}>(), {
+	contentClass: ''
 });
 </script>
 
 <style lang="scss">
-@import '~@wmde/wikit-tokens/dist/_variables.scss';
+@import "@wikimedia/codex-design-tokens/theme-wikimedia-ui";
+@import '../../css/custom-variables.css';
 
 .footer-container {
-    background-color: $color-base-90;
+    background-color: $background-color-interactive-subtle;
 
     & > footer {
         margin: auto;
-        padding: $dimension-layout-xsmall;
+        padding: var(--dimension-layout-xsmall);
         display: flex;
         flex-direction: column;
 
         .h5 {
-            margin: 0 0 $dimension-layout-xsmall 0;
-            font-size: $font-size-style-body-s;
+            margin: 0 0 var(--dimension-layout-xsmall) 0;
+            font-size: $font-size-small;
         }
 
         section {
@@ -89,29 +78,37 @@ export default Vue.extend({
         }
 
         section + section {
-            margin-block-start: $dimension-layout-medium;
+            margin-block-start: var(--dimension-layout-medium);
         }
 
         p {
             margin-block-end: 0;
-            font-size: $font-size-style-body-s;
+            font-size: $font-size-small;
         }
 
         p + p {
-            margin-block-start: $dimension-layout-xxsmall;
+            margin-block-start: var(--dimension-layout-xxsmall);
         }
 
-        @media (min-width: $width-breakpoint-tablet) {
+        @media(min-width: $min-width-breakpoint-mobile) {
+            padding: var(--dimension-layout-xsmall);
+        }
+
+        @media (min-width: $min-width-breakpoint-tablet) {
             flex-direction: row;
-            padding: $dimension-layout-small;
+            padding: var(--dimension-layout-small);
 
             section {
-                margin-inline-end: $dimension-layout-large;
+                margin-inline-end: var(--dimension-layout-large);
             }
 
-            section + section {
+            section+section {
                 margin-block-start: 0;
             }
+        }
+
+        @media(min-width: $min-width-breakpoint-desktop) {
+            padding: var(--dimension-layout-medium);
         }
     }
 }

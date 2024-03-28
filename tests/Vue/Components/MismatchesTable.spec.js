@@ -1,13 +1,6 @@
 import { mount } from '@vue/test-utils';
 import MismatchesTable from '@/Components/MismatchesTable.vue';
 import MismatchRow from '@/Components/MismatchRow.vue';
-import { createI18n } from 'vue-banana-i18n';
-
-const i18n = createI18n({
-    messages: {},
-    locale: 'en',
-    wikilinks: true
-});
 
 describe('MismatchesTable.vue', () => {
     it('accepts a mismatches property', () => {
@@ -27,19 +20,20 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            props: { mismatches },
-            global: {
-                plugins: [i18n]
+            propsData: { mismatches },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
         const rows = wrapper.findAllComponents(MismatchRow);
 
-        expect( wrapper.props().mismatches ).toStrictEqual( mismatches );
+        expect( wrapper.props().mismatches ).toBe( mismatches );
         expect(rows.length).toBe(mismatches.length);
 
-        rows.forEach(row => {
-            expect(mismatches).toContainEqual(row.props().mismatch);
+        rows.wrappers.forEach(row => {
+            expect(mismatches).toContain(row.props().mismatch);
         });
     });
 
@@ -61,16 +55,17 @@ describe('MismatchesTable.vue', () => {
         ];
 
         const wrapper = mount(MismatchesTable, {
-            props: { disabled, mismatches },
-            global: {
-                plugins: [i18n]
+            propsData: { disabled, mismatches },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
         const rows = wrapper.findAllComponents(MismatchRow);
 
         expect( wrapper.props().disabled ).toBe( disabled );
-        rows.forEach(row => {
+        rows.wrappers.forEach(row => {
             expect(row.props().disabled).toBe( disabled )
         });
     });

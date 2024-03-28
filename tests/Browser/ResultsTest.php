@@ -28,7 +28,7 @@ class ResultsTest extends DuskTestCase
         }
     }
 
-    public function test_shows_itemIds()
+    public function test_shows_item_ids()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new ResultsPage('Q1|Q2'))
@@ -47,7 +47,7 @@ class ResultsTest extends DuskTestCase
         });
     }
 
-    public function test_shows_message_for_non_existing_itemIds()
+    public function test_shows_message_for_non_existing_item_ids()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new ResultsPage('Q1|Q2'))
@@ -70,7 +70,7 @@ class ResultsTest extends DuskTestCase
             $browser->visit(new ResultsPage('Q1|Q2'));
 
             $browser->assertSeeIn('#results', 'Q1');
-            $browser->assertSeeIn('.cdx-message--notice', 'Q2');
+            $browser->assertSeeIn('.wikit-Message--notice', 'Q2');
         });
     }
 
@@ -202,11 +202,9 @@ class ResultsTest extends DuskTestCase
             $browser->visit(new ResultsPage($mismatch->item_id))
                 ->assertGuest()
                 ->assertSee('Please log in to make any changes.')
-                // The following assertion uses the assertVue which has some
-                // issues see assertDropdownDisabled method for details
-                // ->within($dropdownComponent, function ($dropdown) {
-                //     $dropdown->assertDropdownDisabled();
-                // })
+                ->within($dropdownComponent, function ($dropdown) {
+                    $dropdown->assertDropdownDisabled();
+                })
                 ->within("#item-mismatches-$mismatch->item_id", function ($section) {
                     $section->assertButtonDisabled('Save reviews');
                 });
@@ -294,7 +292,7 @@ class ResultsTest extends DuskTestCase
                 ])
                 ->waitFor('@confirmation-dialog')
                 ->pause(250)
-                ->assertPresent("#item-mismatches-{$mismatch->item_id} .cdx-message--success")
+                ->assertPresent("#item-mismatches-{$mismatch->item_id} .wikit-Message--success")
                 ->assertSee('Review successfully saved for');
         });
     }
@@ -345,14 +343,12 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on external source'
                 ])
                 ->waitFor('@confirmation-dialog')
-                ->pause(self::ANIMATION_WAIT_MS)
+                ->pause(250)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
-                        // Assert Vue has some issues working with our current
-                        // setup, let's try this again after we  remove the migration build
-                        // ->assertVue('checked', false, '@disable-confirmation')
+                        ->assertVue('checked', false, '@disable-confirmation')
                         ->click('@disable-confirmation-label')
-                        // ->assertVue('checked', false, '@disable-confirmation')
+                        ->assertVue('checked', true, '@disable-confirmation')
                         ->press('Proceed');
                 })
                 ->waitUntilMissing('@confirmation-dialog')
@@ -394,11 +390,9 @@ class ResultsTest extends DuskTestCase
                 ->pause(250)
                 ->within('@confirmation-dialog', function ($dialog) {
                     $dialog->assertSee('Do not show again')
-                        // Assert Vue has some issues working with our current
-                        // setup, let's try this again after we  remove the migration build
-                        // ->assertVue('checked', false, '@disable-confirmation')
+                        ->assertVue('checked', false, '@disable-confirmation')
                         ->click('@disable-confirmation-label')
-                        ->click('.cdx-dialog__header__close-button');
+                        ->click('.wikit-Dialog__close');
                 })
                 ->waitUntilMissing('@confirmation-dialog')
                 ->decideAndApply($mismatch, [
@@ -406,10 +400,8 @@ class ResultsTest extends DuskTestCase
                     'label' => 'Wrong data on Wikidata'
                 ])
                 ->pause(self::ANIMATION_WAIT_MS)
-                ->assertVisible('@confirmation-dialog');
-                // Assert Vue has some issues working with our current
-                // setup, let's try this again after we  remove the migration build
-                // ->assertVue('checked', false, '@disable-confirmation');
+                ->assertVisible('@confirmation-dialog')
+                ->assertVue('checked', false, '@disable-confirmation');
         });
     }
 

@@ -2,21 +2,19 @@ import bubble from '@/lib/bubble.ts';
 
 describe('bubble plugin', () => {
     it('mutates passed constructor to add the `$bubble` property', () => {
-        class MockVue {}
-        MockVue.config = {globalProperties:{}};
+        class MockVue {};
+
         bubble(MockVue);
 
-        expect(MockVue.config.globalProperties.$bubble).toBeTruthy();
+        expect(MockVue.prototype.$bubble).toBeTruthy();
     });
 
     describe('$bubble()', () => {
         it('calls $emit on instance of passed constructor', () => {
             class MockVue {};
-            MockVue.config = {globalProperties:{}};
             MockVue.prototype.$emit = jest.fn();
 
             bubble(MockVue);
-            MockVue.prototype.$bubble = MockVue.config.globalProperties.$bubble;
 
             const instance = new MockVue();
             const args = ['test', [1,2,3]]
@@ -32,11 +30,9 @@ describe('bubble plugin', () => {
                 constructor(emit, parent){
                     this.$parent = parent;
                     this.$emit = emit;
-                    this.$bubble = MockVue.config.globalProperties.$bubble;
                 }
             };
 
-            MockVue.config = {globalProperties:{}};
             bubble(MockVue);
 
             const grandparent = new MockVue(jest.fn());

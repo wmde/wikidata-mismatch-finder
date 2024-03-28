@@ -19,7 +19,7 @@ class DecisionDropdown extends BaseComponent
      */
     public function selector()
     {
-        return "#mismatch-$this->mismatchId .cdx-select-vue";
+        return "#mismatch-$this->mismatchId .wikit-Dropdown";
     }
 
     /**
@@ -41,9 +41,9 @@ class DecisionDropdown extends BaseComponent
     public function elements()
     {
         return [
-            '@select-menu' => '.cdx-select-vue__handle',
-            '@selected' => '.cdx-select-vue__handle',
-            '@menu-items' => '.cdx-menu__listbox'
+            '@select-menu' => '.wikit-Dropdown__select',
+            '@selected' => '.wikit-Dropdown__selectedOption',
+            '@menu-items' => '.wikit-Dropdown__menu'
         ];
     }
 
@@ -51,7 +51,7 @@ class DecisionDropdown extends BaseComponent
     {
         $browser->click('@select-menu')
             ->within('@menu-items', function ($menu) use ($position, $option) {
-                $positionSelector = ".cdx-menu-item:nth-child($position)";
+                $positionSelector = ".wikit-OptionsMenu__item:nth-child($position)";
                 $menu->assertSeeIn($positionSelector, $option)
                     ->click($positionSelector);
             })
@@ -65,8 +65,6 @@ class DecisionDropdown extends BaseComponent
 
     public function assertDropdownDisabled(Browser $browser)
     {
-        // Assert Vue has some issues working with our current
-        // setup, let's try this again after we  remove the migration build
-        // $browser->assertVue('disabled', true);
+        $browser->assertVue('disabled', true);
     }
 }

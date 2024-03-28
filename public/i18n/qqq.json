@@ -9,7 +9,6 @@
 	"about-mismatch-finder-description": "A short text to describe the Mismatch Finder tool",
 	"find-more": "A call to action for more information",
 	"item-form-title": "The title of the form that filters Mismatches by Item id",
-	"item-form-progress-bar-aria-label": "The aria label for screen reader for the Progress Bar indicating loading state when submittion Check Items",
 	"item-form-id-input-label": "The label for the Item id input",
 	"item-form-id-input-placeholder": "The placeholder for the Item id input",
 	"item-form-submit": "The call to action on the Item id form's submit button",

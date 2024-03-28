@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export interface I18nMessages {
+interface I18nMessages {
     [lang: string]: {
         [key: string]: string
     }

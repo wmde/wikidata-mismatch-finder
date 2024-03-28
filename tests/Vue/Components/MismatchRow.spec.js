@@ -1,17 +1,9 @@
-import {mount} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import { Dropdown } from '@wmde/wikit-vue-components';
 
-import {CdxSelect} from "@wikimedia/codex";
-
-import {ReviewDecision} from '@/types/Mismatch.ts';
+import { ReviewDecision } from '@/types/Mismatch.ts';
 
 import MismatchRow from '@/Components/MismatchRow.vue';
-import { createI18n } from 'vue-banana-i18n';
-
-const i18n = createI18n({
-    messages: {},
-    locale: 'en',
-    wikilinks: true
-});
 
 describe('MismatchesRow.vue', () => {
     it('accepts a disabled property', () => {
@@ -30,16 +22,17 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch, disabled},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch, disabled },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const dropdown = wrapper.findComponent(CdxSelect);
+        const dropdown = wrapper.findComponent(Dropdown);
 
-        expect(wrapper.props().disabled).toBe(disabled);
-        expect(dropdown.props().disabled).toBe(disabled);
+        expect( wrapper.props().disabled ).toBe( disabled );
+        expect( dropdown.props().disabled ).toBe( disabled );
     });
 
     it('accepts a mismatch property', () => {
@@ -59,14 +52,15 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
-        const rowText = wrapper.find('tr').text();
+        const rowText = wrapper.find( 'tr' ).text();
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
 
         [
             mismatch.property_label,
@@ -96,17 +90,18 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-external-value')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-value' ).at(0);
         const linkUrl = td.find('a').attributes('href');
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(linkUrl).toEqual(mismatch.external_url);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( linkUrl ).toEqual( mismatch.external_url );
     });
 
     it('does not display a link in the External Value column when external_url is not provided', () => {
@@ -125,16 +120,17 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-external-value')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-value' ).at(0);
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(td.find('a').exists()).toBe(false);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( td.contains('a')).toBe(false);
     });
 
     it('displays a link in the External Source column with external_source_url is provided', () => {
@@ -154,17 +150,18 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-external-source')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-external-source' ).at(0);
         const linkUrl = td.find('a').attributes('href');
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(linkUrl).toEqual(mismatch.import_meta.external_source_url);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( linkUrl ).toEqual( mismatch.import_meta.external_source_url );
     });
 
     it('truncates the upload info description and adds "see full description" link when longer than 100 chars ', () => {
@@ -180,17 +177,18 @@ describe('MismatchesRow.vue', () => {
                 external_source: 'some external source',
                 external_source_url: 'http://www.whatever.com',
                 created_at: '2021-09-23',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend.
-                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
                 sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
             },
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
@@ -198,16 +196,16 @@ describe('MismatchesRow.vue', () => {
 
         const truncateSuffixLength = '...'.length;
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-upload-info')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-upload-info' ).at(0);
         const descriptionElementText = td.find('.description').text();
 
         // workaround pseudo selector :not(.full-description-link) not working
         const descriptionLinkText = td.find('.full-description-button').text();
         const renderedDescriptionText = descriptionElementText.replace(descriptionLinkText, '').trim();
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(renderedDescriptionText.length - truncateSuffixLength).toEqual(desiredTruncateLength);
-        expect(descriptionElementText).toContain(descriptionLinkText);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( renderedDescriptionText.length - truncateSuffixLength ).toEqual( desiredTruncateLength );
+        expect( descriptionElementText ).toContain( descriptionLinkText );
     });
 
     it('does not truncate upload info description when description shorter than 100 chars ', () => {
@@ -228,17 +226,18 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-upload-info')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-upload-info' ).at(0);
         const descriptionElementText = td.find('.description').text();
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(descriptionElementText).toEqual(mismatch.import_meta.description);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( descriptionElementText ).toEqual( mismatch.import_meta.description );
     });
 
     it('Shows dialog after clicking "see full description" in Upload Info column', async () => {
@@ -255,27 +254,24 @@ describe('MismatchesRow.vue', () => {
                 external_source: 'some external source',
                 external_source_url: 'http://www.whatever.com',
                 created_at: '2021-09-23',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend.
-                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Suspendisse viverra ut quam eget congue. Nulla accumsan hendrerit eleifend. 
+                Donec eget tempor metus. Cras sit amet pellentesque eros. Pellentesque mattis 
                 sed justo ac commodo. Proin auctor lectus congue ligula lacinia dignissim.`
             },
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
-                stubs: {
-                    teleport: true,
-                    transition: true
-                }
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
         await wrapper.find('.full-description-button').trigger('click');
-
-        const dialog = wrapper.find('.full-description-dialog.cdx-dialog');
+        
+        const dialog = wrapper.find('.full-description-dialog .wikit-Dialog');
 
         expect(dialog.isVisible()).toBe(true);
     });
@@ -293,14 +289,15 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(wrapper.find('tr').text()).toContain(mismatch.value_label);
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( wrapper.find( 'tr' ).text() ).toContain(mismatch.value_label);
     });
 
     it('shows "statement" in type column when value is empty (old database imports)', () => {
@@ -317,17 +314,18 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => key
             }
         });
 
-        const td = wrapper.findAll('td').filter(td => td.attributes('data-header') === 'column-type')[0];
+        const td = wrapper.findAll( 'td' ).filter(td => td.attributes('data-header') === 'column-type' ).at(0);
         const statementText = td.find('span').text();
 
-        expect(wrapper.props().mismatch).toStrictEqual(mismatch);
-        expect(statementText).toContain('statement');
+        expect( wrapper.props().mismatch ).toBe( mismatch );
+        expect( statementText ).toContain('statement');
     });
 
     test.each(Object.values(ReviewDecision))
@@ -346,15 +344,19 @@ describe('MismatchesRow.vue', () => {
         };
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => `${key}`
             }
         });
 
-        const dropdown = wrapper.findComponent(CdxSelect);
+        const dropdown = wrapper.findComponent(Dropdown);
 
-        expect(dropdown.props().selected).toBe(currentStatus);
+        expect(dropdown.props().value).toMatchObject({
+            label: `review-status-${currentStatus}`, // Match the i18n key, as the i18n plugin is mocked
+            value: currentStatus
+        });
     });
 
     it('bubbles a decision event on dropdown input', () => {
@@ -376,18 +378,19 @@ describe('MismatchesRow.vue', () => {
         const bubbleStub = jest.fn();
 
         const wrapper = mount(MismatchRow, {
-            props: {mismatch},
-            global: {
-                plugins: [i18n],
-                mocks: {
-                    $bubble: bubbleStub
-                }
+            propsData: { mismatch },
+            mocks: {
+                // Mock the banana-i18n plugin dependency
+                $i18n: key => `${key}`,
+                $bubble: bubbleStub
             }
         });
 
-        const dropdown = wrapper.findComponent(CdxSelect);
+        const dropdown = wrapper.findComponent(Dropdown);
 
-        dropdown.vm.$emit('update:selected', ReviewDecision.Wikidata);
+        dropdown.vm.$emit('input', {
+            value: ReviewDecision.Wikidata
+        });
 
         expect(bubbleStub).toHaveBeenCalledTimes(1);
         expect(bubbleStub).toHaveBeenCalledWith('decision', {

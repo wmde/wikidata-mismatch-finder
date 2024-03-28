@@ -147,7 +147,7 @@ class WebResultsRouteTest extends TestCase
                 ->has("results.$stringMismatchQid.0", $isMismatch($stringMismatch))
                 ->where("labels", $assertLabels)
                 // phpcs:ignore
-                ->where("formattedValues.{$dateMismatch->property_id}.{$dateMismatch->meta_wikidata_value}|{$dateMismatch->wikidata_value}", $assertDate);
+                ->where("formatted_values.{$dateMismatch->property_id}.{$dateMismatch->meta_wikidata_value}|{$dateMismatch->wikidata_value}", $assertDate);
         };
 
         $response = $this->get(route('results', [

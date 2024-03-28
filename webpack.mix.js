@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const path = require('path');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,8 +12,7 @@ const path = require('path');
  */
 
 mix.ts('resources/js/app.ts', 'public/js')
-    .webpackConfig({})
-    .vue({ version: 3})
+    .vue({ version: 2 })
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/noscript.scss', 'public/css')
     .copyDirectory('resources/img', 'public/images')

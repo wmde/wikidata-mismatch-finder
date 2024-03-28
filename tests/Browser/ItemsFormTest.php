@@ -18,7 +18,7 @@ class ItemsFormTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_can_enter_list_of_itemIds()
+    public function test_can_enter_list_of_item_ids()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
@@ -27,7 +27,7 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_can_submit_list_of_itemIds()
+    public function test_can_submit_list_of_item_ids()
     {
         $this->browse(function (Browser $browser) {
 
@@ -41,17 +41,14 @@ class ItemsFormTest extends DuskTestCase
         });
     }
 
-    public function test_empty_item_list_yields_error()
+    public function test_empty_item_list_yields_warning()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)
                     ->press('.submit-ids')
                     ->assertSee('Please provide the Item identifiers that should be checked.');
 
-            $this->assertStringContainsString(
-                '--error',
-                $browser->attribute('@items-input-validation-message', 'class')
-            );
+            $this->assertStringContainsString('--warning', $browser->attribute('@items-input', 'class'));
         });
     }
 
@@ -75,10 +72,7 @@ class ItemsFormTest extends DuskTestCase
                     ->press('.submit-ids')
                     ->assertSee('One or more Item identifiers couldn\'t be processed.');
 
-            $this->assertStringContainsString(
-                '--error',
-                $browser->attribute('@items-input-validation-message', 'class')
-            );
+            $this->assertStringContainsString('--error', $browser->attribute('@items-input', 'class'));
         });
     }
 
@@ -128,7 +122,7 @@ class ItemsFormTest extends DuskTestCase
 
             $browser->visit('/results?ids=Q42|L123')
                 ->waitFor('.home-page')
-                ->assertVisible('#message-section .cdx-message--error');
+                ->assertVisible('#message-section .wikit-Message--error.wikit');
         });
     }
 }

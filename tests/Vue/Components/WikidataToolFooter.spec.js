@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { createLocalVue, mount } from "@vue/test-utils";
 import WikidataToolFooter from "@/Components/WikidataToolFooter.vue";
 
 describe("WikidataToolFooter.vue", () => {
@@ -12,24 +12,24 @@ describe("WikidataToolFooter.vue", () => {
             urls: {}
         };
 
+        const localVue = createLocalVue();
+
+        localVue.directive('i18n-html', (elem, { arg, value }) => {
+            elem.innerHTML = mockI18n(arg, ...value);
+        });
+
         return mount(WikidataToolFooter, {
-            props: {
+            propsData: {
                 ...defaultProps,
                 ...props
             },
             slots: {
                 default: slot
             },
-            global: {
-                mocks: {
-                    $i18n: mockI18n
-                },
-                directives: {
-                    'i18n-html': (elem, { arg, value }) => {
-                        elem.innerHTML = mockI18n(arg, ...value);
-                    }
-                }
-            }
+            mocks: {
+                $i18n: mockI18n
+            },
+            localVue
         });
     }
 
@@ -55,7 +55,7 @@ describe("WikidataToolFooter.vue", () => {
 
         const wrapper = mountWithMocks({ labels });
 
-        expect(wrapper.props().labels).toStrictEqual(labels);
+        expect(wrapper.props().labels).toBe(labels);
 
         Object.values(labels).forEach(label => {
             expect(wrapper.html()).toContain(label);
@@ -71,7 +71,7 @@ describe("WikidataToolFooter.vue", () => {
 
         const wrapper = mountWithMocks({ urls });
 
-        expect(wrapper.props().urls).toStrictEqual(urls);
+        expect(wrapper.props().urls).toBe(urls);
 
         Object.values(urls).forEach(url => {
             expect(wrapper.html()).toContain(url);

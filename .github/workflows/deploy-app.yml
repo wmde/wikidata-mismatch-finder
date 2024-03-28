@@ -41,7 +41,6 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         source: "./"
         target: "mismatch-finder-repo"
-        rm: true
 
     - name: Deploy code
       uses: appleboy/ssh-action@master

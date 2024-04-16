@@ -52,6 +52,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        command_timeout: 30m
         script: |
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
           become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next

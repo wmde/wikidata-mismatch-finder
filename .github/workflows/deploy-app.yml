@@ -50,6 +50,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        command_timeout: 30m
         script: |
           # Make sure ~tools.mismatch-finder/mismatch-finder-repo is group writable
           become mismatch-finder chmod -R g+rwx ~tools.mismatch-finder/mismatch-finder-repo

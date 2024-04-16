@@ -56,16 +56,16 @@ jobs:
           echo $PATH
           echo "$PWD"
           hostname
-          become mismatch-finder-staging rm -rf mismatch-finder-repo-next
-          cp -rv mismatch-finder-repo-next/ ~tools.mismatch-finder-staging/
-          become mismatch-finder-staging take mismatch-finder-repo-next
-          become mismatch-finder-staging cp .env mismatch-finder-repo-next/
-          become mismatch-finder-staging mkdir -p mismatch-finder-repo-next/storage/app/allowlist
-          become mismatch-finder-staging cp uploaders.txt mismatch-finder-repo-next/storage/app/allowlist/
+          # become mismatch-finder-staging rm -rf mismatch-finder-repo-next
+          # cp -rv mismatch-finder-repo-next/ ~tools.mismatch-finder-staging/
+          # become mismatch-finder-staging take mismatch-finder-repo-next
+          # become mismatch-finder-staging cp .env mismatch-finder-repo-next/
+          # become mismatch-finder-staging mkdir -p mismatch-finder-repo-next/storage/app/allowlist
+          # become mismatch-finder-staging cp uploaders.txt mismatch-finder-repo-next/storage/app/allowlist/
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
-          # become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
+          become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
           # Change group of ~/mismatch-finder-repo-next (including symlinks) to tools.mismatch-finder-staging
-          # chgrp --no-dereference -R tools.mismatch-finder-staging ~/mismatch-finder-repo-next
-          # rsync -rlgD --delete --delay-updates --exclude '.nfs*' --exclude .env --exclude storage/app/ ~/mismatch-finder-repo-next ~tools.mismatch-finder-staging/
+          chgrp --no-dereference -R tools.mismatch-finder-staging ~/mismatch-finder-repo-next
+          rsync -rlgD --delete --delay-updates --exclude '.nfs*' --exclude .env --exclude storage/app/ ~/mismatch-finder-repo-next ~tools.mismatch-finder-staging/
           # take aborts recursion whenever it encounters a symlink, thus we use find+xargs to make sure all folders and file ares handled.
-          # find ~tools.mismatch-finder-staging/mismatch-finder-repo-next -type d,f \! -user tools.mismatch-finder-staging -print0 | become mismatch-finder-staging xargs -r --null take 2>&1 | { grep -vF 'will not follow or touch symlinks' || true; }
+          find ~tools.mismatch-finder-staging/mismatch-finder-repo-next -type d,f \! -user tools.mismatch-finder-staging -print0 | become mismatch-finder-staging xargs -r --null take 2>&1 | { grep -vF 'will not follow or touch symlinks' || true; }

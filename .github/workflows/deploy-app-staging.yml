@@ -53,6 +53,8 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
+          echo $PATH
+          echo "$PATH"
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
           become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
           # Change group of ~/mismatch-finder-repo-next (including symlinks) to tools.mismatch-finder-staging

@@ -44,15 +44,17 @@ jobs:
         source: "./"
         target: "mismatch-finder-repo-next"
         rm: true
-
+        tar_tmp_path: "/tmp/mmfrpn/"
     - name: Deploy code
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.2
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
+          echo "$PWD"
+          echo $PWD
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
           become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
           # Change group of ~/mismatch-finder-repo-next (including symlinks) to tools.mismatch-finder-staging

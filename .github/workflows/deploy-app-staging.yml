@@ -37,7 +37,7 @@ jobs:
     - name: Syncing code to Toolforge-Staging
       uses: appleboy/scp-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
@@ -46,22 +46,13 @@ jobs:
         rm: true
 
     - name: Deploy code
-      uses: appleboy/ssh-action@v1.0.2
+      uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          echo $PATH
-          echo "$PWD"
-          hostname
-          # become mismatch-finder-staging rm -rf mismatch-finder-repo-next
-          # cp -rv mismatch-finder-repo-next/ ~tools.mismatch-finder-staging/
-          # become mismatch-finder-staging take mismatch-finder-repo-next
-          # become mismatch-finder-staging cp .env mismatch-finder-repo-next/
-          # become mismatch-finder-staging mkdir -p mismatch-finder-repo-next/storage/app/allowlist
-          # become mismatch-finder-staging cp uploaders.txt mismatch-finder-repo-next/storage/app/allowlist/
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
           become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next
           # Change group of ~/mismatch-finder-repo-next (including symlinks) to tools.mismatch-finder-staging

@@ -37,7 +37,7 @@ jobs:
     - name: Syncing code to Toolforge-Staging
       uses: appleboy/scp-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
@@ -48,10 +48,11 @@ jobs:
     - name: Deploy code
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        command_timeout: 30m
         script: |
           # Make sure ~tools.mismatch-finder-staging/mismatch-finder-repo-next is group writable
           become mismatch-finder-staging chmod -R g+rwx ~tools.mismatch-finder-staging/mismatch-finder-repo-next

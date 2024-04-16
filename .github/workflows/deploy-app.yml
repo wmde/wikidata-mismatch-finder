@@ -36,7 +36,7 @@ jobs:
     - name: Syncing code to Toolforge-Production
       uses: appleboy/scp-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
@@ -46,10 +46,11 @@ jobs:
     - name: Deploy code
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_ALT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        command_timeout: 30m
         script: |
           # Make sure ~tools.mismatch-finder/mismatch-finder-repo is group writable
           become mismatch-finder chmod -R g+rwx ~tools.mismatch-finder/mismatch-finder-repo

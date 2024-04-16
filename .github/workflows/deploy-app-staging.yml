@@ -46,7 +46,7 @@ jobs:
         rm: true
 
     - name: Deploy code
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.2
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}

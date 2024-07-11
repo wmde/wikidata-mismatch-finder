@@ -11,7 +11,7 @@
     "about-mismatch-finder-description": "The Mismatch Finder shows you data in Wikidata that differs from the data in another database, catalog or website (for example, someone's date of birth in Wikidata doesn't match the corresponding entry in the German National Library's catalog). Mismatches like this need fixing, and the Mismatch Finder helps you to do just that.",
     "find-more": "Find out more",
     "item-form-title": "Which Items should be checked?",
-    "item-form-progress-bar-aria-label": "Progress Bar indicating loading state when submittion Check Items",
+    "item-form-progress-bar-aria-label": "Progress Bar indicating loading state when submitting Check Items",
     "item-form-id-input-label": "Please add one Item identifier per line",
     "item-form-id-input-placeholder": "For example:\nQ80378\nQ33602\nQ1459\nQ4524",
     "item-form-submit": "Check Items",

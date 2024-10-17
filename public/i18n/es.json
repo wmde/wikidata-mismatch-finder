@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fitoschido"
+			"Dgstranz",
+			"Fitoschido",
+			"Qwrop"
 		]
 	},
 	"about-mismatch-finder-title": "Acerca de esta herramienta",
@@ -9,6 +11,9 @@
 	"item-form-submit": "Comprobar elementos",
 	"log-in": "Acceder",
 	"log-out": "Salir",
+	"language-selector-options-menu-aria-label": "Idiomas",
+	"language-selector-mobile-header": "Selecciona un idioma",
+	"language-selector-no-results": "Idioma no disponible",
 	"column-wikidata-value": "Valor en Wikidata",
 	"column-external-value": "Valor en la fuente externa",
 	"column-review-status": "Estado",
@@ -27,7 +32,7 @@
 	"wikidata-tool-footer-source": "Obtener el código fuente",
 	"wikidata-tool-footer-about-us": "Acerca de nosotros",
 	"wikidata-tool-footer-privacy": "Normativa de privacidad",
-	"wikidata-tool-footer-team": "Hecho con ♥ por el <a href=\"$1\">equipo de Wikidata</a>",
+	"wikidata-tool-footer-team": "Hecho con ♥ por el [$1 equipo de Wikidata]",
 	"mismatch-finder-footer-more-tools": "Más herramientas de calidad de datos",
 	"tool-query-builder": "Creador de consultas",
 	"tool-curious-facts": "Datos curiosos"

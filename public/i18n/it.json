@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
+			"LametinoWiki",
 			"Luca.favorido",
 			"Ontsed"
 		]
@@ -25,9 +26,11 @@
 	"column-wikidata-value": "Valore su Wikidata",
 	"column-external-value": "Valore sulla fonte esterna",
 	"column-review-status": "Stato",
+	"column-upload-info": "Informazioni sul caricamento",
 	"column-external-source": "Fonte esterna",
 	"empty-value": "Nessuno",
 	"statement": "dichiarazione",
+	"review-status-pending": "In attesa di revisione",
 	"review-status-wikidata": "Dati errati su Wikidata",
 	"review-status-missing": "Dati mancanti su Wikidata",
 	"review-status-external": "Dati errati sulla fonte esterna",

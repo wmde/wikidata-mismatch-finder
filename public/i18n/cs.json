@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Decamexd",
+			"Matěj Suchánek",
+			"Mormegil",
+			"Spotter"
+		]
+	},
+	"about-mismatch-finder-title": "O tomto nástroji",
+	"about-mismatch-finder-description": "Vyhledávač neshod zobrazuje data ve Wikidatech, která se liší od dat v jiné databázi, katalogu nebo webové stránce (například něčí datum narození ve Wikidatech neodpovídá odpovídajícímu záznamu v katalogu Německé národní knihovny). Neshody, jako je tato, potřebují opravu a Vyhledávač neshod vám s tím pomůže.",
+	"find-more": "Zjistěte více",
+	"item-form-title": "Které položky je třeba zkontrolovat?",
+	"item-form-progress-bar-aria-label": "Ukazatel průběhu indikující stav načítání při odesílání kontrolních položek",
+	"item-form-id-input-label": "Přidejte prosím jeden identifikátor položky na řádek",
+	"item-form-id-input-placeholder": "Například:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"item-form-submit": "Zkontrolujte položky",
+	"log-in": "Přihlásit se",
+	"log-out": "Odhlásit se",
+	"language-selector-options-menu-aria-label": "Jazyky",
+	"language-selector-mobile-header": "Vyberte jazyk",
+	"language-selector-clear-button-label": "Vymazat vstupní pole",
+	"language-selector-close-button-label": "Zavřít výběr jazyka",
+	"language-selector-input-placeholder": "Hledat jazyky",
+	"language-selector-no-results": "Jazyk není k dispozici",
+	"item-form-error-message-empty": "Uveďte prosím identifikátory položek, které je třeba zkontrolovat.",
+	"column-type": "Typ",
+	"column-wikidata-value": "Hodnota na Wikidatech",
+	"column-external-value": "Hodnota na externím zdroji",
+	"column-review-status": "Stav",
+	"column-upload-info": "Informace o nahrávce",
+	"column-external-source": "Externí zdroj",
+	"no-mismatches-found-message": "Nebyly nalezeny žádné neshody pro:",
+	"review-status-wikidata": "Chybná data na Wikidatech",
+	"review-status-missing": "Chybějící data na Wikidatech",
+	"review-status-both": "Obojí je špatně",
+	"confirmation-dialog-option-label": "Znovu nezobrazovat",
+	"confirm-dialog-button": "Potvrdit",
+	"faq-button": "Více informací",
+	"wikidata-tool-footer-about-us": "O nás",
+	"wikidata-tool-footer-privacy": "Zásady ochrany osobních údajů"
+}

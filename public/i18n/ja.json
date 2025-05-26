@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"MathXplore",
-			"バレロン"
+			"バレロン",
+			"組曲師"
 		]
 	},
 	"about-mismatch-finder-title": "このツールについて",
@@ -22,8 +23,15 @@
 	"item-form-error-message-max": "項目数は($1)個以内に収めてください。",
 	"server-error": "リクエストを完了できませんでした。一時的なサーバーエラーのため、再度お試しください。",
 	"column-mismatch": "不適合",
+	"column-type": "タイプ",
 	"column-review-status": "状態",
+	"column-upload-info": "アップロード情報",
+	"column-external-source": "外部ソース",
 	"empty-value": "なし",
+	"statement": "文",
+	"no-mismatches-available-for-review": "現在、検討可能なミスマッチは存在しません。",
+	"review-status-pending": "審査待ち",
+	"review-status-wikidata": "ウィキデータの誤ったデータ",
 	"review-status-missing": "Wikidataにないデータ",
 	"review-status-both": "両方駄目",
 	"review-status-none": "上記のどれでもない",

@@ -1,0 +1,36 @@
+{
+	"@metadata": {
+		"authors": [
+			"Rooiratel"
+		]
+	},
+	"item-form-id-input-placeholder": "Byvoorbeeld:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Meld aan",
+	"log-out": "Meld af",
+	"language-selector-options-menu-aria-label": "Tale",
+	"language-selector-mobile-header": "Kies 'n taal",
+	"language-selector-input-placeholder": "Soek tale",
+	"language-selector-no-results": "Taal nie beskikbaar nie",
+	"column-type": "Tipe",
+	"column-wikidata-value": "Waarde op Wikidata",
+	"column-external-value": "Waarde op eksterne bron",
+	"column-review-status": "Status",
+	"column-upload-info": "Laai inligting op",
+	"column-external-source": "Eksterne bron",
+	"empty-value": "Geen",
+	"statement": "verklaring",
+	"results-instructions-button": "Instruksies",
+	"results-full-description-button": "lees die volledige beskrywing",
+	"confirmation-dialog-button": "Gaan voort",
+	"confirmation-dialog-option-label": "Moenie weer wys nie",
+	"confirm-dialog-button": "Bevestig",
+	"faq-button": "Meer inligting",
+	"wikidata-tool-footer-about-tool": "Oor die $1",
+	"wikidata-tool-footer-license": "Gelisensieer onderhewig aan [$1 $2]",
+	"wikidata-tool-footer-source": "Kry die bronkode",
+	"wikidata-tool-footer-issues": "Rapporteer 'n fout",
+	"wikidata-tool-footer-about-us": "Oor ons",
+	"wikidata-tool-footer-privacy": "Privaatheidsbeleid",
+	"wikidata-tool-footer-wmde": "Wikimedia Deutschland",
+	"wikidata-tool-footer-team": "Gemaak met ♥ deur die [$1 Wikidata-span]"
+}

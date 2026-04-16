@@ -4,6 +4,7 @@ on:
   push:
    branches:
     - main
+  workflow_dispatch:
 
 concurrency:
   group: '${{ github.workflow }}'
@@ -41,7 +42,6 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         source: "./"
         target: "mismatch-finder-repo"
-        rm: true
 
     - name: Deploy code
       uses: appleboy/ssh-action@master

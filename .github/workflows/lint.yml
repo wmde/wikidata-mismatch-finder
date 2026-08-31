@@ -11,7 +11,7 @@ jobs:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
+            php-version: '8.1'
 
         - name: Install Composer Dependencies
           run: composer install --no-progress --prefer-dist --optimize-autoloader
@@ -37,4 +37,3 @@ jobs:
 
         - name: Run i18 Validation
           run: npm run i18n:validate
-

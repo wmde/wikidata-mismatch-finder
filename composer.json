@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.1",
         "ext-zip": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.2.0",
@@ -16,13 +16,13 @@
         "laravel/sanctum": "^2.15.1",
         "laravel/socialite": "^5.9",
         "laravel/tinker": "^2.8",
-        "taavi/laravel-socialite-mediawiki": "dev-main"
+        "taavi/laravel-socialite-mediawiki": "^1.7.1"
     },
     "require-dev": {
         "facade/ignition": "^2.17.7",
         "fakerphp/faker": "^1.20.0",
         "laravel/dusk": "^6.25.1",
-        "laravel/sail": "^1.19",
+        "laravel/sail": "^1.25",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^5.11",
         "phpunit/phpunit": "^9.6",
@@ -69,15 +69,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "7.3"
+            "php": "8.1"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/wmde/laravel-socialite-mediawiki"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

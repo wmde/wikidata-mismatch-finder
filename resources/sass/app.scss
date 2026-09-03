@@ -39,7 +39,7 @@ main {
     }
 
     @media (min-width: $min-width-breakpoint-desktop) {
-        padding: 0 var(--dimension-layout-medium);    
+        padding: 0 var(--dimension-layout-medium);
     }
 }
 
@@ -49,7 +49,7 @@ section {
 
 h1, .h1 {
     @include heading-1;
-    
+
     margin: var(--dimension-layout-xsmall) 0;
 
     @media (min-width: $min-width-breakpoint-tablet) {
@@ -196,7 +196,7 @@ nav.tabs {
 
             &:active, &.selected:active {
                 a {
-                    border-color: white white $color-progressive--active white;
+                    border-color: white white $color-progressive--active;
                     color: $color-progressive--active;
                 }
             }

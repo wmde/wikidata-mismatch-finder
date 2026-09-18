@@ -94,7 +94,7 @@ import languagedata from '@wikimedia/language-data';
 
 let handleOutsideClick: (event: MouseEvent | TouchEvent) => void;
 
-const showLanguageSelector = ref(false); 
+const showLanguageSelector = ref(false);
 const resizeObserver: Ref<ResizeObserver> = ref(null);
 const languageSelector: Ref<ComponentPublicInstance> = ref(null);
 const header: Ref<HTMLElement> = ref(null);
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    
+
     .content-wrap {
         max-width: 1142px;
         width: 100%;
@@ -212,7 +212,6 @@ onBeforeUnmount(() => {
     }
 
     .visually-hidden:not(:focus, :active) {
-        clip: rect(0 0 0 0);
         clip-path: inset(100%);
         height: 1px;
         overflow: hidden;

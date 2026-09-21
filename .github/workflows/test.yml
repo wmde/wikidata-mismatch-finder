@@ -80,17 +80,17 @@ jobs:
       - name: Generate Application Key
         run: |
           php artisan key:generate
-      - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver
-      # Following step is a workaround for a bug in older versions of dusk. It should be removed after dusk is updated (>=v7.x)
-      - name: Install Chrome
-        run: |
-          CHROME_VERSION=$(php artisan dusk:chrome-driver | sed 's/.* //' | awk '{ print substr( $0, 1, length($0)-1 ) }')"-1"
-          sudo wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
-          && sudo apt install -y --allow-downgrades /tmp/chrome.deb \
-          && sudo rm /tmp/chrome.deb
-      - name: Start Chrome Driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
+
+      - name: Downgrade Chrome browser to v114
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: 1134343 # Last commit number for Chrome v114
+        id: setup-chrome
+
+      - run: sudo ln -fs ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      - name: Downgrade Chrome driver to v114
+        run: php artisan dusk:chrome-driver `/usr/bin/google-chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
       - name: Run Laravel Server
         run: php artisan serve > /dev/null 2>&1 &

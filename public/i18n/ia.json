@@ -8,6 +8,7 @@
 	"about-mismatch-finder-description": "Le Recerca de incoherentias te monstra le datos in Wikidata que differe del datos de un altere base de datos, catalogo o sito web (per exemplo, le data de nascentia de qualcuno in Wikidata non concorda con le entrata correspondente in le catalogo del Bibliotheca National German). Tal incoherentias debe esser corrigite, e le Recerca de incoherentias te adjuta a facer lo.",
 	"find-more": "Saper plus",
 	"item-form-title": "Qual elementos debe esser verificate?",
+	"item-form-progress-bar-aria-label": "Barra de progresso que indica le stato de cargamento durante le invio de elementos a verificar",
 	"item-form-id-input-label": "Per favor adde un identificator de elemento per linea",
 	"item-form-id-input-placeholder": "Per exemplo:\nQ80378\nQ33602\nQ1459\nQ4524",
 	"item-form-submit": "Verificar elementos",

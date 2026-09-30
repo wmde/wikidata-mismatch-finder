@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
+use TiMacDonald\Log\LogEntry;
 use TiMacDonald\Log\LogFake;
 
 class WebReviewRouteTest extends TestCase
@@ -171,10 +172,10 @@ class WebReviewRouteTest extends TestCase
         $mismatch->refresh();
 
         Log::channel('mismatch_updates')
-            ->assertLogged('info', function ($message, $context) use ($reviewer, $mismatch) {
-                $assertMessage = ($message == __('logging.mismatch-updated'));
-                $assertContext =
-                    ($context == [
+            ->assertLogged(fn(LogEntry $log) =>
+                $log->level === 'info'
+                && $log->message == __('logging.mismatch-updated')
+                && $log->context == [
                         "username" => $reviewer->username,
                         "mw_userid" => $reviewer->mw_userid,
                         "mismatch_id" => $mismatch->id,
@@ -188,8 +189,6 @@ class WebReviewRouteTest extends TestCase
                         "review_status_new" => 'wikidata',
                         "time" => $mismatch['updated_at']
                     ]);
-                return $assertMessage && $assertContext;
-            });
     }
 
     /**

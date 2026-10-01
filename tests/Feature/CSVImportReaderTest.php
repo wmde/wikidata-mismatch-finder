@@ -14,7 +14,7 @@ class CSVImportReaderTest extends TestCase
     // cannot use Laravel specific helpers such as __() or config().
     // Therefore, we provide a closure, to be called at the appropriate time.
     // See: https://technicallyfletch.com/how-to-use-laravel-factories-inside-a-data-provider/
-    public function skippedLinesProvider(): iterable
+    public static function skippedLinesProvider(): iterable
     {
         yield 'no skipped lines' => [function () {
             return [];
@@ -60,7 +60,7 @@ class CSVImportReaderTest extends TestCase
         }, $fakeLines), $actual);
     }
 
-    public function unparsableLineProvider(): iterable
+    public static function unparsableLineProvider(): iterable
     {
         yield 'too few columns' => [
             function (array $config): array {

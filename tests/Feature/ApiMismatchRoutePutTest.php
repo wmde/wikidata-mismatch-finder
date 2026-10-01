@@ -136,7 +136,7 @@ class ApiMismatchRoutePutTest extends TestCase
             ]);
     }
 
-    public function fillablePropertyOtherThanReviewStatus()
+    public static function fillablePropertyOtherThanReviewStatus()
     {
         return [
             ['item_id', 'Q123'],

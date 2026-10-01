@@ -355,7 +355,7 @@ class WikibaseAPIClientTest extends TestCase
         $this->assertSame([], $data);
     }
 
-    public function methodProvider(): iterable
+    public static function methodProvider(): iterable
     {
         yield 'parseValuesForProperty' => ['parseValuesForProperty', ['P1234', ['fake-value']]];
         yield 'formatValueForProperty' => ['formatValueForProperty', ['P1234', ['fake-value'], 'en']];

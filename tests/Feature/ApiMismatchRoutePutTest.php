@@ -11,6 +11,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\Sanctum;
+use TiMacDonald\Log\LogEntry;
 use TiMacDonald\Log\LogFake;
 
 class ApiMismatchRoutePutTest extends TestCase
@@ -142,7 +143,7 @@ class ApiMismatchRoutePutTest extends TestCase
             ['property_id' , 'P1234'],
             ['statement_guid', 'Q111$1234'],
             ['wikidata_value', 'Potato'],
-            ['meta_wikidata_value', ''],
+            ['meta_wikidata_value', 'Potahto'],
             ['external_value', 'Tomato'],
             ['external_url', 'http://potato.com']
         ];
@@ -192,25 +193,23 @@ class ApiMismatchRoutePutTest extends TestCase
         $mismatch->refresh();
 
         Log::channel('mismatch_updates')
-            ->assertLogged('info', function ($message, $context) use ($reviewer, $mismatch) {
-                $assertMessage = ($message == __('logging.mismatch-updated'));
-                $assertContext =
-                    ($context == [
-                        "username" => $reviewer->username,
-                        "mw_userid" => $reviewer->mw_userid,
-                        "mismatch_id" => $mismatch->id,
-                        "item_id" => $mismatch->item_id,
-                        "property_id" => $mismatch->property_id,
-                        "statement_guid" => $mismatch->statement_guid,
-                        "wikidata_value" => $mismatch->wikidata_value,
-                        "meta_wikidata_value" => $mismatch->meta_wikidata_value,
-                        "external_value" => $mismatch->external_value,
-                        "review_status_old" => 'pending',
-                        "review_status_new" => 'wikidata',
-                        "time" => $mismatch->updated_at
-                    ]);
-                return $assertMessage && $assertContext;
-            });
+            ->assertLogged(fn(LogEntry $log) =>
+                $log->level === 'info'
+                && $log->message == __('logging.mismatch-updated')
+                && $log->context == [
+                    "username" => $reviewer->username,
+                    "mw_userid" => $reviewer->mw_userid,
+                    "mismatch_id" => $mismatch->id,
+                    "item_id" => $mismatch->item_id,
+                    "property_id" => $mismatch->property_id,
+                    "statement_guid" => $mismatch->statement_guid,
+                    "wikidata_value" => $mismatch->wikidata_value,
+                    "meta_wikidata_value" => $mismatch->meta_wikidata_value,
+                    "external_value" => $mismatch->external_value,
+                    "review_status_old" => 'pending',
+                    "review_status_new" => 'wikidata',
+                    "time" => $mismatch->updated_at
+                ]);
     }
 
     private function generateSingleMismatch()

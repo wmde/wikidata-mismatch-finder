@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Adriendelucca"
+			"Adriendelucca",
+			"Huñvreüs"
 		]
 	},
 	"about-mismatch-finder-title": "Diwar-benn an ostilh-mañ",
@@ -43,7 +44,7 @@
 	"wikidata-tool-footer-about-us": "Piv omp?",
 	"wikidata-tool-footer-privacy": "Politikerezh prevezded",
 	"wikidata-tool-footer-wmde": "Wikimedia Deutschland",
-	"wikidata-tool-footer-team": "Aozet gant ♥ gant [$1 skipailh Wikidata]",
+	"wikidata-tool-footer-team": "Graet gant ♥ gant [$1 skipailh Wikidata]",
 	"mismatch-finder-footer-more-tools": "Muioc'h a ostilhoù kalite ar roadennoù",
 	"tool-curious-facts": "Traoù kurius"
 }

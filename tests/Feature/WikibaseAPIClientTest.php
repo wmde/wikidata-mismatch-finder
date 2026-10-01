@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Kevinrob\GuzzleCache\Strategy\NullCacheStrategy;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 use App\Services\WikibaseAPIClient;
@@ -44,9 +45,9 @@ class WikibaseAPIClientTest extends TestCase
             }
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $parsed = $client->parseValues([
             'P1' => ['abc', 'def'],
             'P2' => ['Q1', 'Q2'],
@@ -95,12 +96,12 @@ class WikibaseAPIClientTest extends TestCase
         Http::fake(function (Request $req) use ($fakeErrorResponse) {
             return Http::response($fakeErrorResponse, 200);
         });
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
         $this->expectException(WikibaseValueParserException::class);
         $this->expectExceptionMessage($fakeErrorResponse['error']['info']);
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $client->parseValues(['P1234' => ['fake-value']]);
 
         $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
@@ -115,8 +116,8 @@ class WikibaseAPIClientTest extends TestCase
             $this->fail('should not make an HTTP request');
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $data = $client->parseValues(['P123' => []]);
 
         $this->assertSame(['P123' => []], $data);
@@ -131,9 +132,9 @@ class WikibaseAPIClientTest extends TestCase
             ]], 200);
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $parsed = $client->parseValues(['P1' => ['a|b', 'c|d']]);
 
         $this->assertActionRequest(self::FAKE_API_URL, 'wbparsevalue', [
@@ -165,9 +166,9 @@ class WikibaseAPIClientTest extends TestCase
             }
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $parsed = $client->formatValues([
             'P1' => [
                 'abc' => ['type' => 'string', 'value' => 'abc'],
@@ -213,8 +214,8 @@ class WikibaseAPIClientTest extends TestCase
             $this->fail('should not make an HTTP request');
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $data = $client->formatValues(['P123' => []], 'en');
 
         $this->assertSame(['P123' => []], $data);
@@ -233,9 +234,9 @@ class WikibaseAPIClientTest extends TestCase
             return Http::response($fakeResponseBody, 200);
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $response = $client->formatEntities($fakeIds, $fakePayload['uselang']);
 
         $this->assertActionRequest(self::FAKE_API_URL, 'wbformatentities', $fakePayload);
@@ -256,12 +257,12 @@ class WikibaseAPIClientTest extends TestCase
         Http::fake(function (Request $req) use ($fakeErrorResponse) {
             return Http::response($fakeErrorResponse, 200);
         });
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
         $this->expectException(WikibaseAPIClientException::class);
         $this->expectExceptionMessage($fakeErrorResponse['error']['info']);
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $client->formatEntities($fakeIds, $fakePayload['uselang']);
 
         $this->assertActionRequest(self::FAKE_API_URL, 'wbformatentities', $fakePayload);
@@ -289,9 +290,9 @@ class WikibaseAPIClientTest extends TestCase
             return Http::response($fakeResponseBody, 200);
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
 
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $data = $client->getLabels($fakeIds, $fakePayload['uselang']);
 
         $this->assertEquals($expectedResult, $data);
@@ -334,8 +335,8 @@ class WikibaseAPIClientTest extends TestCase
             return Http::response($fakeResponseBody, 200);
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $data = $client->getPropertyDatatypes($fakeIds);
 
         $this->assertSame($expectedResult, $data);
@@ -347,8 +348,8 @@ class WikibaseAPIClientTest extends TestCase
             $this->fail('should not make an HTTP request');
         });
 
-        $mockCache = Mockery::mock(CacheMiddleware::class)->shouldIgnoreMissing();
-        $client = new WikibaseAPIClient(self::FAKE_API_URL, $mockCache);
+        $nullCache = new CacheMiddleware(new NullCacheStrategy());
+        $client = new WikibaseAPIClient(self::FAKE_API_URL, $nullCache);
         $data = $client->getPropertyDatatypes([]);
 
         $this->assertSame([], $data);

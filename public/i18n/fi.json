@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pyscowicz",
+			"Yupik"
+		]
+	},
+	"about-mismatch-finder-title": "Tietoja tästä työkalusta",
+	"item-form-id-input-placeholder": "Esimerkiksi:\nQ80378\nQ33602\nQ1459\nQ4524",
+	"log-in": "Kirjaudu sisään",
+	"log-out": "Kirjaudu ulos",
+	"language-selector-options-menu-aria-label": "Kielet",
+	"language-selector-mobile-header": "Valitse kieli",
+	"language-selector-close-button-label": "Sulje kielenvalitsin",
+	"language-selector-input-placeholder": "Hae kieliä",
+	"language-selector-no-results": "Kieli ei ole saatavilla.",
+	"column-review-status": "Tila",
+	"column-external-source": "Ulkoinen lähde",
+	"empty-value": "Ei mitään",
+	"results-instructions-button": "Ohjeet",
+	"confirmation-dialog-title": "Seuraavat vaiheet",
+	"results-full-description-button": "lue koko kuvaus",
+	"confirmation-dialog-button": "Jatka",
+	"confirmation-dialog-option-label": "Älä näytä uudelleen",
+	"confirm-dialog-button": "Vahvista",
+	"faq-button": "Lisätietoja",
+	"faq-dialog-title": "Lisää Mismatch Finderissa",
+	"wikidata-tool-footer-about-tool": "Tietoja työkalusta $1",
+	"wikidata-tool-footer-license": "Lisensoitu lisenssillä [$1 $2]",
+	"wikidata-tool-footer-source": "Hae lähdekoodi",
+	"wikidata-tool-footer-issues": "Ilmoita ongelmasta",
+	"wikidata-tool-footer-about-us": "Tietoja meistä",
+	"wikidata-tool-footer-privacy": "Tietosuojakäytäntö",
+	"wikidata-tool-footer-team": "Tehnyt ♥ [$1 Wikidata-tiimi]"
+}

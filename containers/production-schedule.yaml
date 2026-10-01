@@ -20,7 +20,7 @@ spec:
         spec:
           containers:
           - name: artisan-schedule
-            image: docker-registry.tools.wmflabs.org/toolforge-php73-sssd-base:latest
+            image: docker-registry.tools.wmflabs.org/toolforge-php82-sssd-base:latest
             command: [ "php", "artisan", "schedule:run" ]
             workingDir: /data/project/mismatch-finder/mismatch-finder-repo
             env:

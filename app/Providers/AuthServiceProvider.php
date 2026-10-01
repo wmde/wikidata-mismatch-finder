@@ -25,8 +25,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
         Gate::define('upload-import', function (User $user) {
             if (!UploadUser::firstWhere('username', $user->username)) {
                 return false;

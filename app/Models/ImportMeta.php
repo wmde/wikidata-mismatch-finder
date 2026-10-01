@@ -46,7 +46,9 @@ class ImportMeta extends Model
         'status' => 'pending'
     ];
 
-    protected $dates = ['expires'];
+    protected $casts = [
+        'expires' => 'datetime'
+    ];
 
     public function user()
     {

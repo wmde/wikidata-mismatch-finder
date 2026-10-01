@@ -28,7 +28,7 @@ class ValidateCSVTest extends TestCase
     // cannot use Laravel specific helpers such as __() or config().
     // Therefore, we provide a closure, to be called at the appropriate time.
     // See: https://technicallyfletch.com/how-to-use-laravel-factories-inside-a-data-provider/
-    public function invalidLineProvider(): iterable
+    public static function invalidLineProvider(): iterable
     {
         yield 'missing item ID' => [
             function (array $config): array {
@@ -351,7 +351,7 @@ class ValidateCSVTest extends TestCase
         ValidateCSV::dispatch($import);
     }
 
-    public function failureProvider()
+    public static function failureProvider()
     {
         yield 'validator failure' => [
             function () {
@@ -394,7 +394,7 @@ class ValidateCSVTest extends TestCase
         }
     }
 
-    public function exceptionProvider()
+    public static function exceptionProvider()
     {
         $fakeLine = 42;
 

@@ -11,7 +11,7 @@ class AuthTokenTest extends TestCase
 
     use RefreshDatabase;
 
-    public function authRoutesProvider()
+    public static function authRoutesProvider()
     {
         return [
             ['/auth/create-token'],

@@ -198,4 +198,19 @@ return [
 
     'same_site' => 'lax',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Serialization format
+    |--------------------------------------------------------------------------
+    |
+    | Since Laravel 13, the default serialization format is 'json' to help prevent
+    | PHP deserialization gadget chain attacks. Previous versions had the default 'php',
+    | so the upgrade will invalidate any active sessions.
+    |
+    | Supported: "php", "json"
+    |
+    */
+
+    'serialization' => 'json',
+
 ];

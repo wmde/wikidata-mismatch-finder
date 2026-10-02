@@ -9,7 +9,6 @@ use App\Models\ImportMeta;
 use App\Jobs\ImportCSV;
 use App\Models\User;
 use App\Models\Mismatch;
-use Throwable;
 
 class ImportCSVTest extends TestCase
 {
@@ -277,7 +276,7 @@ class ImportCSVTest extends TestCase
 
         try {
             ImportCSV::dispatch($import);
-        } catch (Throwable $ignored) {
+        } catch (\Throwable $ignored) {
             $this->assertDatabaseHas('import_meta', [
                 'id' => $import->id,
                 'status' => 'failed'

@@ -2,10 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Throwable;
-
-class ImportParserException extends Exception
+class ImportParserException extends \Exception
 {
     /**
      * @var int
@@ -16,7 +13,7 @@ class ImportParserException extends Exception
         int $line,
         string $message = '',
         int $code = 0,
-        Throwable $previous = null
+        \Throwable $previous = null
     ) {
         parent::__construct(__('parsing.import.error', [
             'line' => $line,

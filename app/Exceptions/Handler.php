@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -50,7 +49,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $e
      * @return \Throwable
      */
-    public function render($request, Throwable $e)
+    public function render($request, \Throwable $e)
     {
         $response = parent::render($request, $e);
 

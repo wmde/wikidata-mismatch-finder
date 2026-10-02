@@ -12,7 +12,6 @@ use App\Models\Mismatch;
 use Illuminate\Support\Facades\Storage;
 use App\Services\CSVImportReader;
 use Illuminate\Support\Facades\DB;
-use Throwable;
 use App\Models\ImportFailure;
 
 class ImportCSV implements ShouldQueue
@@ -109,7 +108,7 @@ class ImportCSV implements ShouldQueue
      * @param \Throwable $exception
      * @return void
      */
-    public function failed(Throwable $exception)
+    public function failed(\Throwable $exception)
     {
         $failure = ImportFailure::make([
             'message' => __('errors.unexpected')
@@ -136,7 +135,7 @@ class ImportCSV implements ShouldQueue
     /**
      * Save mismatch to database
      *
-     * @param \Mismatch $new_mismatch
+     * @param \App\Models\Mismatch $new_mismatch
      * @return void
      */
     private function saveMismatch($new_mismatch)

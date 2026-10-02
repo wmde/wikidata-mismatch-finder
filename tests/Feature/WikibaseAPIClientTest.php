@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 use App\Exceptions\WikibaseAPIClientException;
 use App\Exceptions\WikibaseValueParserException;
 use Kevinrob\GuzzleCache\CacheMiddleware;
-use Mockery;
 
 class WikibaseAPIClientTest extends TestCase
 {
@@ -369,7 +368,7 @@ class WikibaseAPIClientTest extends TestCase
     {
         $fakeResponseBody = ['test' => 'okay'];
 
-        $mockCache = Mockery::mock(CacheMiddleware::class);
+        $mockCache = \Mockery::mock(CacheMiddleware::class);
         // The `__invoke()` magic method is utilized by guzzle middleware:
         // https://www.phptutorial.net/php-oop/php-__invoke/
         $mockCache->shouldReceive('__invoke')->andReturn(function () use ($fakeResponseBody) {

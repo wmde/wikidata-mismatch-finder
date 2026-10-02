@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Mismatch;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use InvalidArgumentException;
-use ValueError;
 
 class MismatchFactory extends Factory
 {
@@ -44,7 +42,7 @@ class MismatchFactory extends Factory
             'wikidata_value' => function (array $attributes) {
                 $propertyId = $attributes['property_id'];
                 if (!array_key_exists($propertyId, self::PROPERTIES)) {
-                    throw new ValueError("Unknown property {$propertyId}, " .
+                    throw new \ValueError("Unknown property {$propertyId}, " .
                         'you have to specify an explicit wikidata_value');
                 }
                 return $this->getRandomValueForDatatype(self::PROPERTIES[$propertyId]);
@@ -52,7 +50,7 @@ class MismatchFactory extends Factory
             'meta_wikidata_value' => function (array $attributes) {
                 $propertyId = $attributes['property_id'];
                 if (!array_key_exists($propertyId, self::PROPERTIES)) {
-                    throw new ValueError("Unknown property {$propertyId}");
+                    throw new \ValueError("Unknown property {$propertyId}");
                 }
 
                 $datatype = self::PROPERTIES[$propertyId];
@@ -139,7 +137,7 @@ class MismatchFactory extends Factory
                 $randomWordAmount = $this->faker->numberBetween(1, 5);
                 return $this->faker->words($randomWordAmount, true);
             default:
-                throw new InvalidArgumentException("Unknown datatype $datatype");
+                throw new \InvalidArgumentException("Unknown datatype $datatype");
         }
     }
 

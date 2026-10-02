@@ -6,7 +6,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 use App\Services\CSVImportReader;
-use Closure;
 use App\Exceptions\ImportParserException;
 
 class CSVImportReaderTest extends TestCase
@@ -102,7 +101,7 @@ class CSVImportReaderTest extends TestCase
     }
 
     #[DataProvider('unparsableLineProvider')]
-    public function test_throws_parsing_errors(Closure $data)
+    public function test_throws_parsing_errors(\Closure $data)
     {
         $filename = 'unparsable-import.csv';
         $config = config('imports.upload');

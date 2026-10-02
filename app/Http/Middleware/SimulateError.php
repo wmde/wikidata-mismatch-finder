@@ -2,9 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Http\Request;
-use RuntimeException;
 
 /**
  * In non-production environments, this middleware will force a RuntimeException
@@ -23,14 +21,14 @@ class SimulateError
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, \Closure $next)
     {
         if (app()->environment('production')) {
             return $next($request);
         }
 
         if ($request->header('X-Mismatch-Finder-Error') == $request->path()) {
-            throw new RuntimeException("Simulated Server Error");
+            throw new \RuntimeException("Simulated Server Error");
         } elseif ($request->header('X-Mismatch-Finder-Not-Found') == $request->path()) {
             abort(404);
         } elseif ($request->header('X-Mismatch-Finder-Invalid') == $request->path()) {

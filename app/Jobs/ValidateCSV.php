@@ -16,7 +16,6 @@ use App\Rules\WikidataValue;
 use App\Rules\MetaWikidataValue;
 use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
-use Throwable;
 use App\Models\ImportFailure;
 use Illuminate\Support\Facades\Log;
 
@@ -74,7 +73,7 @@ class ValidateCSV implements ShouldQueue
      * @param  \Throwable  $exception
      * @return void
      */
-    public function failed(Throwable $exception)
+    public function failed(\Throwable $exception)
     {
         // We re-throw the exception in order to pattern match on it's instance
         try {
@@ -87,7 +86,7 @@ class ValidateCSV implements ShouldQueue
             ])->importMeta()->associate($this->meta);
 
             $failure->save();
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             Log::error('Import #' . $this->meta->id . ' failed with error: ' . $e->getMessage());
             $failure = ImportFailure::make([
                 'message' => __('errors.unexpected')

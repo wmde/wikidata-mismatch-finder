@@ -11,12 +11,9 @@ use App\Models\ImportMeta;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\ValidateCSV;
 use App\Exceptions\ImportValidationException;
-use Closure;
 use Faker\Generator;
 use Mockery\MockInterface;
 use App\Rules\WikidataValue;
-use Exception;
-use Throwable;
 use Illuminate\Support\Facades\Validator;
 use App\Services\CSVImportReader;
 use App\Exceptions\ImportParserException;
@@ -288,7 +285,7 @@ class ValidateCSVTest extends TestCase
     }
 
     #[DataProvider('invalidLineProvider')]
-    public function test_throws_on_invalid_line(Closure $data): void
+    public function test_throws_on_invalid_line(\Closure $data): void
     {
         $config = array_merge(
             config('imports.upload'),
@@ -354,7 +351,7 @@ class ValidateCSVTest extends TestCase
     {
         yield 'validator failure' => [
             function () {
-                Validator::shouldReceive('make')->once()->andThrow(Exception::class);
+                Validator::shouldReceive('make')->once()->andThrow(\Exception::class);
             }
         ];
 
@@ -368,7 +365,7 @@ class ValidateCSVTest extends TestCase
     }
 
     #[DataProvider('failureProvider')]
-    public function test_fails_on_thrown_exceptions(Closure $failSetup): void
+    public function test_fails_on_thrown_exceptions(\Closure $failSetup): void
     {
         $failSetup($this);
 
@@ -379,7 +376,7 @@ class ValidateCSVTest extends TestCase
 
         try {
             ValidateCSV::dispatch($import);
-        } catch (Throwable $ignored) {
+        } catch (\Throwable $ignored) {
             $this->assertDatabaseHas('import_meta', [
                 'id' => $import->id,
                 'status' => 'failed'
@@ -413,13 +410,13 @@ class ValidateCSVTest extends TestCase
 
         yield 'generic exception' => [
             function () use ($fakeLine) {
-                return [new Exception(), null, __('errors.unexpected')];
+                return [new \Exception(), null, __('errors.unexpected')];
             }
         ];
     }
 
     #[DataProvider('exceptionProvider')]
-    public function test_persists_failure_messages(Closure $data): void
+    public function test_persists_failure_messages(\Closure $data): void
     {
         [$exception, $line, $message] = $data();
         $import = ImportMeta::factory()

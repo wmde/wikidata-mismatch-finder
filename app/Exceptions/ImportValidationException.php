@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use \Exception;
 use App\Models\ImportMeta;
-use Throwable;
+use \Throwable;
 
-class ImportValidationException extends Exception
+class ImportValidationException extends \Exception
 {
 
     /**
@@ -23,7 +23,7 @@ class ImportValidationException extends Exception
         int $line = 0,
         string $message = '',
         int $code = 0,
-        Throwable $previous = null
+        \Throwable $previous = null
     ) {
         parent::__construct(__('validation.import.error', [
             'line' => $line,

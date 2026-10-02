@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\ImportMeta;
@@ -286,9 +287,7 @@ class ValidateCSVTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidLineProvider
-     */
+    #[DataProvider('invalidLineProvider')]
     public function test_throws_on_invalid_line(Closure $data): void
     {
         $config = array_merge(
@@ -368,9 +367,7 @@ class ValidateCSVTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider failureProvider
-     */
+    #[DataProvider('failureProvider')]
     public function test_fails_on_thrown_exceptions(Closure $failSetup): void
     {
         $failSetup($this);
@@ -421,9 +418,7 @@ class ValidateCSVTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider exceptionProvider
-     */
+    #[DataProvider('exceptionProvider')]
     public function test_persists_failure_messages(Closure $data): void
     {
         [$exception, $line, $message] = $data();

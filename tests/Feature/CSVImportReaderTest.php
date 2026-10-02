@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 use App\Services\CSVImportReader;
@@ -29,9 +30,7 @@ class CSVImportReaderTest extends TestCase
         }];
     }
 
-    /**
-     * @dataProvider skippedLinesProvider
-     */
+    #[DataProvider('skippedLinesProvider')]
     public function test_parses_mismatch_lines($data)
     {
         $filename = 'import.csv';
@@ -102,9 +101,7 @@ class CSVImportReaderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider unparsableLineProvider
-     */
+    #[DataProvider('unparsableLineProvider')]
     public function test_throws_parsing_errors(Closure $data)
     {
         $filename = 'unparsable-import.csv';

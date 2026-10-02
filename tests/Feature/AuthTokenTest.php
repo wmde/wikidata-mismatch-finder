@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class AuthTokenTest extends TestCase
@@ -23,8 +24,8 @@ class AuthTokenTest extends TestCase
      * Test non authenticated auth routes
      *
      *  @return void
-     *  @dataProvider authRoutesProvider
      */
+    #[DataProvider('authRoutesProvider')]
     public function test_nonAuthenticated_willRedirect($authRoute)
     {
         $response = $this->get($authRoute);

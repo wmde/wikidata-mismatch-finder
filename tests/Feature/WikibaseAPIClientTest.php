@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Kevinrob\GuzzleCache\Strategy\NullCacheStrategy;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 use App\Services\WikibaseAPIClient;
@@ -363,9 +364,7 @@ class WikibaseAPIClientTest extends TestCase
         yield 'getEntities' => ['getEntities', [['P1234'], ['datatype']]];
     }
 
-    /**
-     * @dataProvider methodProvider
-     */
+    #[DataProvider('methodProvider')]
     public function test_all_methods_retrieve_cached_responses($methodName, $args): void
     {
         $fakeResponseBody = ['test' => 'okay'];

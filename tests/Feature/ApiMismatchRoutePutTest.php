@@ -7,6 +7,7 @@ use App\Models\ImportMeta;
 use App\Models\Mismatch;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
@@ -153,8 +154,8 @@ class ApiMismatchRoutePutTest extends TestCase
      *  Test parameters other than review status
      *
      *  @return void
-     *  @dataProvider fillablePropertyOtherThanReviewStatus
      */
+    #[DataProvider('fillablePropertyOtherThanReviewStatus')]
     public function test_prohibited_parameters_return_validation_error($key, $parameter)
     {
         Sanctum::actingAs(User::factory()->create());

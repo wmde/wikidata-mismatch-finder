@@ -42,7 +42,7 @@
         -u "$(id -u):$(id -g)" \
         -v $(pwd):/opt \
         -w /opt \
-        laravelsail/php80-composer:latest \
+        laravelsail/php83-composer:latest \
         composer install --ignore-platform-reqs
     ```
 
@@ -131,7 +131,7 @@ In production, this application relies on wikidata.org's OAuth capabilities in o
     - **OAuth protocol version:** Leave this field as is. This application uses OAuth1.0a.
     - **Application description:** Fill in a description for your application, to make review easier.
     - **OAuth "callback" URL:** Make sure to fill this in with a ***localhost*** address, with the port you would be running this application on (if not using the default port). This should be identical to the `APP_URL` in your `.env` file.
-    Please also make sure you tick the checkbox next to "Allow consumer to specify a callback in requests and use "callback" URL above as required prefix."
+      Please also make sure you tick the checkbox next to "Allow consumer to specify a callback in requests and use "callback" URL above as required prefix."
     - **Applicable project:** This field should be set to `wikidatawiki`.
     - **Types of grants being requested:** Make sure to check the first radio button - "User identity verification only, no ability to read pages or act on a user's behalf". This will speed up the review process.
 
@@ -164,7 +164,7 @@ Before you begin working with frontend assets, please make sure to install `npm`
 sail npm install
 ```
 
-**Important!** Please only run `npm install` using [sail](#quickstart), or make sure that your local node.js version is the similar to sail: 16 or above.
+**Important!** Please only run `npm install` using [sail](#quickstart), or make sure that your local node.js version is the similar to sail: 18.
 
 To watch for changes in your frontend files, simply run:
 
@@ -188,7 +188,7 @@ To switch to any other language than English, set the `uselang` parameter in the
 http://<your-localhost>/?uselang=de
 ```
 
-On the server side, we fully employ the default [Laravel localization system](https://laravel.com/docs/8.x/localization) and syntax, and messages in the server side should be added as or to php files in the `resources/lang/en` directory.
+On the server side, we fully employ the default [Laravel localization system](https://laravel.com/docs/13.x/localization) and syntax, and messages in the server side should be added as or to php files in the `resources/lang/en` directory.
 
 The client side localization system utilizes the [banana-i18n](https://www.npmjs.com/package/banana-i18n) library and format. Messages for the client side application are kept in the `public/i18n/` directory, and are served in order to be consumed by the vue client. Each message that is added to the `en.json` file, should be documented in the `qqq.json` file as well, to provide more context for translators.
 
@@ -212,7 +212,7 @@ By Default, the jobs will run synchronously to the requests that dispatch them. 
     sail artisan queue:listen --timeout=1200
     ```
 
-    The `--timeout=1200` flag in the command above increases the job timeout to 20 minutes thus ensuring that the queue worker doesn't abort jobs that take longer than a minute.
+   The `--timeout=1200` flag in the command above increases the job timeout to 20 minutes thus ensuring that the queue worker doesn't abort jobs that take longer than a minute.
 ## Linting
 ### PHP Linting
 
@@ -230,7 +230,7 @@ The application uses ESLint to detect code format violations in the frontend's `
 
 To run eslint: `sail npm run lint`
 
-To fix style errors automatically run: `sail npm run lint:fix` 
+To fix style errors automatically run: `sail npm run fix`
 
 ## Testing
 
@@ -249,7 +249,7 @@ Mismatch finder uses an in-memory SQLite database for testing, so that the featu
     </php>
 ```
 
-Simply run `# sail artisan test` to start both unit and integration tests:
+Simply run `sail artisan test` to start both unit and integration tests:
 
 ```
 $ sail artisan test
@@ -274,7 +274,7 @@ sail npm test
 
 ### Browser Testing
 
-The app uses [Laravel Dusk](https://laravel.com/docs/8.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/8.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup.
+The app uses [Laravel Dusk](https://laravel.com/docs/13.x/dusk) as the Browser testing framework. Dusk uses a ChromeDriver installation, since we are using [Laravel Sail](https://laravel.com/docs/13.x/sail#laravel-dusk), a standalone chrome installation is included in the docker setup.
 
 To create an enviroment variables file for local browser tests, make a copy of the `.env.dusk.example` file named `.env.dusk.local` and fill in the APP_KEY with your unique app key. Your APP KEY should be the one created when setting up the project in the [quickstart guide](#quickstart). You can find it in your `.env` file.
 
@@ -422,10 +422,10 @@ Don't update to any major version of Laravel since that would require a migratio
 
 ## See also
 
-[Laravel Sail](https://laravel.com/docs/8.x/sail)
+[Laravel Sail](https://laravel.com/docs/13.x/sail)
 
-[Laravel Installation](https://laravel.com/docs/8.x/installation)
+[Laravel Installation](https://laravel.com/docs/13.x/installation)
 
-[Laravel Configuration](https://laravel.com/docs/8.x/configuration)
+[Laravel Configuration](https://laravel.com/docs/13.x/configuration)
 
 [OAuth For Developers - MediaWiki](https://www.mediawiki.org/wiki/OAuth/For_Developers#Registration)
